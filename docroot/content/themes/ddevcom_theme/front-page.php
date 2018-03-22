@@ -1,0 +1,172 @@
+<section class="front-page-jumbotron">
+  <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6">
+          <p class="h1 text-white mb-4">
+            Modern Web Development<br>made <span class="text-secondary-light">simple</span>.
+          </p>
+          <div class="text-white mb-4">
+            <p>
+              Development can be daunting, and the team at DDEV
+              understands that. Working in DDEV means a simpler
+              development workflow, allowing you and your team
+              focus on what you do best: crafting creative, compelling
+              online experiences.
+            </p>
+          </div>
+          <a href="#" class="btn btn-outline-secondary btn-lg">
+            Start Simplifying
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<section class="front-page-drupalcon">
+  <div class="container-fluid bg-primary-light py-4">
+    <div class="row">
+      <div class="col-lg-9 mx-auto text-center">
+        <div class="drupalcon-logo-wrapper d-block d-md-inline mx-auto">
+          <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
+               alt="DrupalCon Nashville 2018"
+               class="front-page-drupalcon-logo mb-2 mb-md-0">
+        </div>
+        <p class="h3 text-white mb-4 mb-md-0 d-md-inline">
+          Hear About us at DrupalCon Nashville 2018?
+        </p>
+        <a href="#" class="btn btn-outline-secondary d-block d-md-inline-block mb-1 ml-md-3">Follow Up</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="front-page-headline">
+  <div class="container-fluid py-4">
+    <div class="row">
+      <div class="col-lg-9 mx-auto text-center text-primary">
+        <div class="py-lg-4">
+          <h3 class="h2 mb-4">Using DDEV will simplify your development workflow.</h3>
+          <div class="row">
+            <div class="col-lg-8 mx-auto">
+              <p class="text-muted">
+                Whether you are a provider, a builder, or a teacher, DDEV can
+                have a significant impact on your efficiency.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="front-page-alternating">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-9 mx-auto">
+        <div class="row">
+          <div class="col-lg-6 px-0">
+            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
+          </div>
+          <div class="col-lg-6">
+            <div class="py-lg-5 px-lg-5">
+              <h4 class="text-primary h3 my-4 mt-lg-0">Providers</h4>
+              <div class="text-muted mb-4">
+                <p>
+                  Providers are agencies or companies that provide development
+                  services to a large number of websites, and
+                  usually have larger development teams. Learn more
+                  about how utilizing DDEV can show significant boosts
+                  in production, save thousands of dollars a year, and
+                  simplify your web development workflow.
+                </p>
+              </div>
+              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
+                I Am a Provider
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-9 mx-auto">
+        <div class="row">
+          <div class="col-lg-6 order-lg-2 px-0">
+            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
+          </div>
+          <div class="col-lg-6 order-lg-1">
+            <div class="py-lg-5 px-lg-5">
+              <h4 class="text-primary h3 my-4 mt-lg-0">Builders</h4>
+              <div class="text-muted mb-4">
+                <p>
+                  Builders are individuals or small teams that spend the
+                  most of their time getting their hands dirty in code,
+                  working out bugs, and writing markup. Builders working
+                  with DDEV are able to push their business forward
+                  by spending less time configuring and more time creating
+                  for their clientele.
+                </p>
+              </div>
+              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
+                I Am a Builder
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-9 mx-auto">
+        <div class="row">
+          <div class="col-lg-6 px-0">
+            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
+          </div>
+          <div class="col-lg-6">
+            <div class="py-lg-5 px-lg-5">
+              <h4 class="text-primary h3 my-4 mt-lg-0">Teachers</h4>
+              <div class="text-muted mb-4">
+                <p>
+                  Teachers are individuals or small teams that provide
+                  instruction on web design and development. DDEV
+                  allows teachers to quickly get their students on the
+                  same page, opening up more time to focus more on
+                  their curriculum and less on troubleshooting and debugging
+                  their students’ computers.
+                </p>
+              </div>
+              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
+                I Am a Teacher
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="testimonials front-page-testimonials">
+  <div class="container-fluid bg-primary-dark py-4">
+
+    <!-- Start /templates/content-testimonial.php  -->
+    <div class="row">
+      <div class="col-lg-6 mx-auto">
+        <div class="py-5">
+          <img src="https://placehold.it/80x80" alt="" class="rounded-circle d-block mx-auto mb-4">
+          <div class="h4 text-white text-center">
+            <p>
+              “Setting up a new member of our development team now takes about
+              half the time. DDEV continues to save us money every day.”
+            </p>
+          </div>
+          <p class="text-white text-center">- Kevin Bridges, <a href="" class="text-secondary-light">MountainBikes.com</a></p>
+        </div>
+      </div>
+    </div>
+    <!-- End /templates/content-testimonial.php  -->
+
+  </div>
+</section>
