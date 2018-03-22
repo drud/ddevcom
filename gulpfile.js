@@ -1,1 +1,1 @@
-/var/www/ddevcom/current/docroot/content/themes/ddevcom_theme/gulpfile.js
+docroot/content/themes/ddevcom_theme/gulpfile.js
