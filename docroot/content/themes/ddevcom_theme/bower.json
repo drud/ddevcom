@@ -1,12 +1,20 @@
 {
   "name": "sage",
-  "homepage": "https://roots.io/sage/",
+  "description": "",
+  "main": "",
   "authors": [
     "Ben Word <ben@benword.com>"
   ],
   "license": "MIT",
-  "private": true,
+  "homepage": "https://github.com/drud/ddevcom",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
   "dependencies": {
-    "bootstrap": "git://github.com/twbs/bootstrap.git#v4.0.0-alpha.6"
+    "bootstrap": "git://github.com/twbs/bootstrap.git#v4.0.0-beta"
   }
 }

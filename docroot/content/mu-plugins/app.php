@@ -2,7 +2,9 @@
 /**
  * Load modules
  */
-// require_once(dirname(__FILE__) . '/app/post-types/testimonial.php');
+ require_once(dirname(__FILE__) . '/app/post-types/testimonial.php');
+ require_once(dirname(__FILE__) . '/app/post-types/provider.php');
+ require_once(dirname(__FILE__) . '/app/post-types/builder.php');
 
 /**
  * Place ACF JSON in field-groups directory
