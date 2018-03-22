@@ -1,0 +1,75 @@
+{
+  "name": "newmediadenver/wp",
+  "type": "project",
+  "license": "MIT",
+  "description": "RiotLabs / NewMedia's WordPress stack",
+  "homepage": "https://github.com/newmediadenver/wp",
+  "authors": [
+    {
+      "name": "Nathan Smith",
+      "email": "webalkymst@gmail.com",
+      "homepage": "https://github.com/alkymst"
+    }
+  ],
+  "keywords": [
+    "wordpress", "stack", "composer", "vagrant", "wp"
+  ],
+  "support": {
+    "issues": "https://github.com/newmediadenver/wp/issues"
+  },
+  "config": {
+    "preferred-install": "dist"
+  },
+  "repositories": [
+    {
+      "type": "composer",
+      "url": "https://wpackagist.org"
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "gravityforms",
+        "type": "wordpress-plugin",
+        "version": "2.2.5",
+        "dist": {
+          "url": "https://github.com/wp-premium/gravityforms/archive/2.2.5.zip",
+          "type": "zip"
+        }
+      }
+    },
+    {
+      "type": "package",
+      "package": {
+        "name": "advanced-custom-fields/advanced-custom-fields-pro",
+        "type": "wordpress-plugin",
+        "version": "5.6.2",
+        "dist": {
+          "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.6.2.zip",
+          "type": "zip"
+        }
+      }
+    }
+  ],
+  "require": {
+    "php": ">=5.3",
+    "johnpbloch/wordpress": "4.8.1",
+    "composer/installers": "v1.0.12",
+    "vlucas/phpdotenv": "1.0.9",
+    "gravityforms": "2.2.5",
+    "advanced-custom-fields/advanced-custom-fields-pro": "5.6.2",
+    "wpackagist-plugin/go-newrelic": "~0.3",
+    "wpackagist-plugin/stream": "~3.2.0",
+    "wpackagist-plugin/wordpress-importer": "~0.6",
+    "wpackagist-plugin/autodescription": "^2.9.1",
+    "wpackagist-plugin/google-sitemap-generator": "^4.0.8",
+    "wpackagist-plugin/wp-mail-smtp": "^0.10.1"
+  },
+  "extra": {
+    "installer-paths": {
+      "docroot/content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "docroot/content/plugins/{$name}/": ["type:wordpress-plugin"],
+      "docroot/content/themes/{$name}/": ["type:wordpress-theme"]
+    },
+    "wordpress-install-dir": "docroot/wp"
+  }
+}

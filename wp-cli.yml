@@ -1,0 +1,10 @@
+# wp-cli.yml
+# this file sets defaults for wp-cli commands.
+path: docroot/wp
+# Some plugins use JSON stores in the database, which aren't covered by the standard 
+# search-replace run. Enabling these options allow for more thorough search-replace, 
+# but it will take significantly longer.
+
+# search-replace:
+# 	precise: true
+# 	recurse-objects: true
