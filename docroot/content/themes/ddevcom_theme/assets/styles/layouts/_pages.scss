@@ -1,0 +1,15 @@
+// Front Page
+
+.drupalcon-logo-wrapper {
+  position: relative;
+}
+
+.front-page-drupalcon-logo {
+  max-width: 100px;
+
+  @include media-breakpoint-up(md) {
+    position: absolute;
+    right: 1rem;
+    bottom: -3rem;
+  }
+}
