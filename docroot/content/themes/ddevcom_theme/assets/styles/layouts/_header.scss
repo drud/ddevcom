@@ -1,3 +1,20 @@
 .admin-bar .fixed-top {
   top: 32px;
 }
+
+nav.navbar ul.nav li {
+  padding: 0 1rem;
+}
+
+nav.navbar ul.nav li ul.sub-menu {
+  display: none;
+}
+
+nav.navbar ul.nav li a {
+  color: theme-color('light');
+
+  &:hover {
+    text-decoration: none;
+    color: theme-color('secondary-light');
+  }
+}
