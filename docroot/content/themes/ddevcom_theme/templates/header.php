@@ -13,7 +13,8 @@
     endif;
    ?>
    <div class="ml-auto">
-     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Get Started with DDEV Local</a>
-     <a href="#" class="btn btn-link btn-block text-secondary-light mt-1">Learn About DDEV Live</a>
+     <?php $header_cta_1 = get_field('header_cta_1_link'); ?>
+     <?php $header_cta_2 = get_field('header_cta_2_link'); ?>
+     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Follow Us on GitHub</a>
    </div>
 </nav>

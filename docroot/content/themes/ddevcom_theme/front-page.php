@@ -2,7 +2,7 @@
   <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
+        <div class="col-lg-9 mx-auto text-center">
           <p class="h1 text-white mb-4">
             <?php the_field('front_page_jumbotron_header'); ?>
           </p>
@@ -51,13 +51,12 @@
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
         <div class="py-lg-4">
-          <h3 class="h2 mb-4">Using DDEV will simplify your development workflow.</h3>
+          <h3 class="h2 mb-4"><?php the_field('front_page_headline_header'); ?></h3>
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <p class="text-muted">
-                Whether you are a provider, a builder, or a teacher, DDEV can
-                have a significant impact on your efficiency.
-              </p>
+              <div class="text-muted">
+                <?php the_field('front_page_headline_content'); ?>
+              </div>
             </div>
           </div>
         </div>
@@ -67,87 +66,63 @@
 </section>
 <section class="front-page-alternating">
   <div class="container-fluid mb-5">
-    <div class="row">
-      <div class="col-lg-12 col-xl-10 mx-auto">
-        <div class="row">
-          <div class="col-lg-6 px-0">
-            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
-          </div>
-          <div class="col-lg-6">
-            <div class="py-5 px-lg-5">
-              <h4 class="text-primary h3 my-4 mt-lg-0">Providers</h4>
-              <div class="text-muted mb-4">
-                <p>
-                  Providers are agencies or companies that provide development
-                  services to a large number of websites, and
-                  usually have larger development teams. Learn more
-                  about how utilizing DDEV can show significant boosts
-                  in production, save thousands of dollars a year, and
-                  simplify your web development workflow.
-                </p>
-              </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
-                I'm a Provider
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-xl-10 mx-auto">
-        <div class="row">
-          <div class="col-lg-6 order-lg-2 px-0">
-            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
-          </div>
-          <div class="col-lg-6 order-lg-1">
-            <div class="py-5 px-lg-5">
-              <h4 class="text-primary h3 my-4 mt-lg-0">Builders</h4>
-              <div class="text-muted mb-4">
-                <p>
-                  Builders are individuals or small teams that spend the
-                  most of their time getting their hands dirty in code,
-                  working out bugs, and writing markup. Builders working
-                  with DDEV are able to push their business forward
-                  by spending less time configuring and more time creating
-                  for their clientele.
-                </p>
-              </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
-                I'm a Builder
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 col-xl-10 mx-auto">
-        <div class="row">
-          <div class="col-lg-6 px-0">
-            <img src="https://placehold.it/960x600" alt="" class="img-fluid">
-          </div>
-          <div class="col-lg-6">
-            <div class="py-5 px-lg-5">
-              <h4 class="text-primary h3 my-4 mt-lg-0">Teachers</h4>
-              <div class="text-muted mb-4">
-                <p>
-                  Teachers are individuals or small teams that provide
-                  instruction on web design and development. DDEV
-                  allows teachers to quickly get their students on the
-                  same page, opening up more time to focus more on
-                  their curriculum and less on troubleshooting and debugging
-                  their students’ computers.
-                </p>
-              </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
-                I'm a Teacher
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <?php
+      if( have_rows('front_page_alternating_sections') ):
+          while ( have_rows('front_page_alternating_sections') ) : the_row();
+              if( get_row_layout() == 'image_left' ): ?>
+
+                <div class="row">
+                  <div class="col-lg-12 col-xl-10 mx-auto">
+                    <div class="row">
+                      <div class="col-lg-6 px-0">
+                        <img src="<?php the_sub_field('image'); ?>" alt="" class="img-fluid">
+                        <p class="small mt-2"><?php the_sub_field('image_attribution'); ?></p>
+                      </div>
+                      <div class="col-lg-6">
+                        <div class="py-5 px-lg-5">
+                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <div class="text-muted mb-5">
+                            <?php the_sub_field('content'); ?>
+                          </div>
+                          <?php $section_left_link = get_sub_field('link'); ?>
+                          <a href="<?= $section_left_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                            <?= $section_left_link['title']; ?>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <?php elseif( get_row_layout() == 'image_right' ): ?>
+                <div class="row">
+                  <div class="col-lg-12 col-xl-10 mx-auto">
+                    <div class="row">
+                      <div class="col-lg-6 order-lg-2 px-0">
+                        <img src="<?php the_sub_field('image'); ?>" alt="" class="img-fluid">
+                        <p class="small mt-2"><?php the_sub_field('image_attribution'); ?></p>
+                      </div>
+                      <div class="col-lg-6 order-lg-1">
+                        <div class="py-5 px-lg-5">
+                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <div class="text-muted mb-5">
+                            <?php the_sub_field('content'); ?>
+                          </div>
+                          <?php $section_right_link = get_sub_field('link'); ?>
+                          <a href="<?= $section_right_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                            <?= $section_right_link['title']; ?>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+        <?php
+              endif;
+            endwhile;
+          endif;
+         ?>
   </div>
 </section>
 <section class="front-page-testimonials testimonials">
@@ -175,5 +150,14 @@
         <?php endwhile; ?>
     <?php endif; ?>
 
+  </div>
+</section>
+<section class="newsletter-cta">
+  <div class="container-fluid bg-primary py-4">
+    <div class="row">
+      <p class="h3 text-light">
+
+      </p>
+    </div>
   </div>
 </section>
