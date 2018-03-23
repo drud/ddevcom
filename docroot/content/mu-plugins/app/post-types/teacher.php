@@ -1,25 +1,25 @@
 <?php
 
-namespace App\PostTypes\Provider;
+namespace App\PostTypes\Teacher;
 
 /**
- * Provider custom post type
+ * Teacher custom post type
  */
 add_action('init', function () {
-    register_post_type('provider', [
+    register_post_type('teacher', [
         'labels'              => [
-            'name'               => 'Providers',
-            'singular_name'      => 'Provider',
+            'name'               => 'Teachers',
+            'singular_name'      => 'Teacher',
             'add_new'            => 'Add New',
-            'add_new_item'       => 'Add New Provider',
-            'edit_item'          => 'Edit Provider',
-            'new_item'           => 'New Provider',
-            'view_item'          => 'View Provider',
-            'search_items'       => 'Search Providers',
-            'not_found'          => 'No providers found',
-            'not_found_in_trash' => 'No providers found in trash',
+            'add_new_item'       => 'Add New Teacher',
+            'edit_item'          => 'Edit Teacher',
+            'new_item'           => 'New Teacher',
+            'view_item'          => 'View Teacher',
+            'search_items'       => 'Search Teachers',
+            'not_found'          => 'No teachers found',
+            'not_found_in_trash' => 'No teachers found in trash',
             'parent_item_colon'  => '',
-            'menu_name'          => 'Providers'
+            'menu_name'          => 'Teachers'
         ],
         'public'              => true,
         'exclude_from_search' => true,
@@ -28,7 +28,7 @@ add_action('init', function () {
         'show_in_menu'        => true,
         'menu_icon'           => 'dashicons-star-filled',
         'query_var'           => true,
-        'rewrite'             => ['slug' => 'providers'],
+        'rewrite'             => ['slug' => 'teachers'],
         'capability_type'     => 'post',
         'has_archive'         => false,
         'hierarchical'        => false,
@@ -41,11 +41,11 @@ add_action('init', function () {
  * Testimonial taxonomies
  */
 add_action('init', function () {
-    register_taxonomy('provider_category', 'provider', [
-        'label'         => 'Provider Category',
+    register_taxonomy('teacher_category', 'teacher', [
+        'label'         => 'Teacher Category',
         'labels'        => [
-            'name'              => 'Provider Categories',
-            'singular_name'     => 'Provider Category',
+            'name'              => 'Teacher Categories',
+            'singular_name'     => 'Teacher Category',
             'all_items'         => 'All Categories',
             'edit_item'         => 'Edit Category',
             'view_item'         => 'View Category',

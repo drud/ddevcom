@@ -1,0 +1,28 @@
+.admin-bar .fixed-top {
+  top: 32px;
+}
+
+nav.navbar {
+  transition: background-color .4s;
+}
+
+body.scrolled nav.navbar {
+  background-color: theme-color('primary-dark');
+}
+
+nav.navbar ul.nav li {
+  padding: 0 1rem;
+}
+
+nav.navbar ul.nav li a {
+  color: theme-color('light');
+
+  &:hover {
+    text-decoration: none;
+    color: theme-color('secondary-light');
+  }
+}
+
+nav.navbar ul.nav li ul.sub-menu {
+  display: none;
+}
