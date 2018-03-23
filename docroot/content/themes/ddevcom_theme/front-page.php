@@ -19,11 +19,18 @@
             Start Simplifying
           </a>
         </div>
+        <div class="col-lg-6">
+          <p class="h4 text-secondary-light">Proudly Supporting:</p>
+          <ul class="supported-list">
+            <li class="h5 text-white">Drupal 7 & 8</li>
+            <li class="h5 text-white">WordPress</li>
+            <li class="h5 text-white">TYPO3 <div class="badge badge-sm badge-secondary small">NEW!</div></li>
+            <li class="h5 text-white">Most PHP Frameworks</li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
-
-
 </section>
 <section class="front-page-drupalcon">
   <div class="container-fluid bg-primary-light py-4">
@@ -37,14 +44,13 @@
         <p class="h3 text-white mb-4 mb-md-0 d-md-inline">
           Hear About us at DrupalCon Nashville 2018?
         </p>
-        <a href="#" class="btn btn-outline-secondary d-block d-md-inline-block mb-1 ml-md-3">Follow Up</a>
+        <a href="#" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">Follow Up</a>
       </div>
     </div>
   </div>
 </section>
-
 <section class="front-page-headline">
-  <div class="container-fluid py-4">
+  <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
         <div class="py-lg-4">
@@ -62,7 +68,6 @@
     </div>
   </div>
 </section>
-
 <section class="front-page-alternating">
   <div class="container-fluid">
     <div class="row">
@@ -84,8 +89,8 @@
                   simplify your web development workflow.
                 </p>
               </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
-                I Am a Provider
+              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                I'm a Provider
               </a>
             </div>
           </div>
@@ -111,8 +116,8 @@
                   for their clientele.
                 </p>
               </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
-                I Am a Builder
+              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                I'm a Builder
               </a>
             </div>
           </div>
@@ -138,8 +143,8 @@
                   their students’ computers.
                 </p>
               </div>
-              <a href="#" class="btn btn-outline-primary-light btn-lg text-uppercase">
-                I Am a Teacher
+              <a href="#" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                I'm a Teacher
               </a>
             </div>
           </div>
@@ -148,25 +153,31 @@
     </div>
   </div>
 </section>
-<section class="testimonials front-page-testimonials">
-  <div class="container-fluid bg-primary-dark py-4">
+<section class="front-page-testimonials testimonials">
+  <div class="container-fluid bg-primary-dark py-5">
 
-    <!-- Start /templates/content-testimonial.php  -->
-    <div class="row">
-      <div class="col-lg-6 mx-auto">
-        <div class="py-5">
-          <img src="https://placehold.it/80x80" alt="" class="rounded-circle d-block mx-auto mb-4">
-          <div class="h4 text-white text-center">
-            <p>
-              “Setting up a new member of our development team now takes about
-              half the time. DDEV continues to save us money every day.”
-            </p>
+    <?php if ( have_rows('front_page_testimonials') ): ?>
+        <?php while ( have_rows('front_page_testimonials') ) : the_row(); ?>
+
+          <?php $testimonial = get_sub_field('testimonial'); ?>
+
+          <div class="row">
+            <div class="col-lg-6 mx-auto">
+              <div class="py-4">
+                <img  width="80" src="<?= get_field('testimonial_image', $testimonial->ID); ?>" alt="" class="rounded-circle d-block mx-auto mb-4">
+                <div class="h4 text-white text-center">
+                  <?= get_field('testimonial_body', $testimonial->ID); ?>
+                </div>
+                <p class="text-white text-center">
+                  - <?= get_field('testimonial_name', $testimonial->ID); ?>, <a href="<?= get_field('testimonial_company_link', $testimonial->ID); ?>" class="text-secondary-light"><?= get_field('testimonial_company', $testimonial->ID); ?></a>
+                </p>
+              </div>
+            </div>
           </div>
-          <p class="text-white text-center">- Kevin Bridges, <a href="" class="text-secondary-light">MountainBikes.com</a></p>
-        </div>
-      </div>
-    </div>
-    <!-- End /templates/content-testimonial.php  -->
+
+        <?php endwhile; ?>
+    <?php endif; ?>
+
 
   </div>
 </section>
