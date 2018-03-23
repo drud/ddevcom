@@ -1,4 +1,3 @@
-<!-- Just an image -->
 <nav class="navbar navbar-dark fixed-top">
   <?php if (is_admin_bar_showing()): ?>
     <div style="height: 32px;"></div>
@@ -17,4 +16,5 @@
      <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Get Started with DDEV Local</a>
      <a href="#" class="btn btn-link btn-block text-secondary-light mt-1">Learn About DDEV Live</a>
    </div>
+
 </nav>
