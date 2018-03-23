@@ -1,15 +1,23 @@
 // Front Page
+section.front-page-jumbotron .jumbotron {
+
+  @include media-breakpoint-up(lg) {
+    padding: 12rem 4rem 8rem;
+  }
+}
+
+section.front-page-jumbotron .jumbotron p.h1 {
+
+  @include media-breakpoint-up(lg) {
+    font-size: 3.5rem;
+  }
+}
 
 .drupalcon-logo-wrapper {
   position: relative;
 }
 
-.front-page-drupalcon-logo {
-  max-width: 100px;
-
-  @include media-breakpoint-up(md) {
-    position: absolute;
-    right: 1rem;
-    bottom: -3rem;
-  }
+.drupalcon-cta {
+  position: relative;
+  top: 0.25rem;
 }

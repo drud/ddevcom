@@ -19,6 +19,14 @@
     'common': {
       init: function() {
         // JavaScript to be fired on all pages
+
+        $(window).scroll(function(){
+          if ($(this).scrollTop() > 0 ) {
+            $('body').addClass('scrolled');
+          } else {
+            $('body').removeClass('scrolled');
+          }
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
