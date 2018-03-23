@@ -176,6 +176,9 @@
         <?php endwhile; ?>
     <?php endif; ?>
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5492c57a36469a724c8313ef783c732145546e99
   </div>
 </section>

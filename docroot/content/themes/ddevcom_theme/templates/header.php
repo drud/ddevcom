@@ -1,4 +1,3 @@
-<!-- Just an image -->
 <nav class="navbar navbar-dark fixed-top">
   <?php if (is_admin_bar_showing()): ?>
     <div style="height: 32px;"></div>
