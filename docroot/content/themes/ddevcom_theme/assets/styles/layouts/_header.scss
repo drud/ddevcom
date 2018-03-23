@@ -2,12 +2,16 @@
   top: 32px;
 }
 
-nav.navbar ul.nav li {
-  padding: 0 1rem;
+nav.navbar {
+  transition: background-color .4s;
 }
 
-nav.navbar ul.nav li ul.sub-menu {
-  display: none;
+body.scrolled nav.navbar {
+  background-color: theme-color('primary-dark');
+}
+
+nav.navbar ul.nav li {
+  padding: 0 1rem;
 }
 
 nav.navbar ul.nav li a {
@@ -17,4 +21,8 @@ nav.navbar ul.nav li a {
     text-decoration: none;
     color: theme-color('secondary-light');
   }
+}
+
+nav.navbar ul.nav li ul.sub-menu {
+  display: none;
 }

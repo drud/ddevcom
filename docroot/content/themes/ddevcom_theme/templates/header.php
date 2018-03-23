@@ -1,10 +1,10 @@
 <!-- Just an image -->
-<nav class="navbar navbar-dark bg-primary fixed-top">
+<nav class="navbar navbar-dark fixed-top">
   <?php if (is_admin_bar_showing()): ?>
     <div style="height: 32px;"></div>
   <?php endif; ?>
 
-  <a class="navbar-brand" href="#">
+  <a class="navbar-brand" href="<?= home_url('/'); ?>">
     <img src="/content/themes/ddevcom_theme/dist/images/ddev-logo.svg" width="200" alt="">
   </a>
 
@@ -13,6 +13,8 @@
       wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
     endif;
    ?>
-
-  <a href="#" class="btn btn-secondary btn-lg d-none d-md-block ml-auto">Get Started</a>
+   <div class="ml-auto">
+     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Get Started with DDEV Local</a>
+     <a href="#" class="btn btn-link btn-block text-secondary-light mt-1">Learn About DDEV Live</a>
+   </div>
 </nav>
