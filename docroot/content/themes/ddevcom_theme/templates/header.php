@@ -19,4 +19,5 @@
 
      <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Follow Us on GitHub</a>
    </div>
+
 </nav>

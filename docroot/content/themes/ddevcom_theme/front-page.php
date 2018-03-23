@@ -23,7 +23,6 @@
               <?= $button_2_link['title']; ?>
             </a>
           <?php endif; ?>
-
         </div>
       </div>
     </div>
@@ -162,6 +161,7 @@
 
       </p>
     </div>
+
   </div>
 
 
