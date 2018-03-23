@@ -66,7 +66,6 @@
 </section>
 <section class="front-page-alternating">
   <div class="container-fluid mb-5">
-
     <?php
       if( have_rows('front_page_alternating_sections') ):
           while ( have_rows('front_page_alternating_sections') ) : the_row();
@@ -153,7 +152,6 @@
 
   </div>
 </section>
-
 <section class="newsletter-cta">
   <div class="container-fluid bg-primary py-4">
     <div class="row">
@@ -161,8 +159,5 @@
 
       </p>
     </div>
-
   </div>
-
-
 </section>
