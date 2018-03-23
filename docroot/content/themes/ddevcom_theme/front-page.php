@@ -24,7 +24,7 @@
           <ul class="supported-list">
             <li class="h5 text-white">Drupal 7 & 8</li>
             <li class="h5 text-white">WordPress</li>
-            <li class="h5 text-white">TYPO3 <div class="badge badge-sm badge-secondary small">NEW!</div></li>
+            <li class="h5 text-white">TYPO3 <div class="badge badge-sm badge-success small">NEW!</div></li>
             <li class="h5 text-white">Most PHP Frameworks</li>
           </ul>
         </div>
