@@ -1,4 +1,12 @@
 // Front Page
+section.page-header-jumbotron .jumbotron {
+
+  @include media-breakpoint-up(lg) {
+    padding: 8rem 2rem;
+  }
+}
+
+section.persona-type-jumbotron .jumbotron,
 section.front-page-jumbotron .jumbotron {
 
   @include media-breakpoint-up(lg) {
@@ -6,10 +14,17 @@ section.front-page-jumbotron .jumbotron {
   }
 }
 
+
 section.front-page-jumbotron .jumbotron p.h1 {
 
   @include media-breakpoint-up(lg) {
     font-size: 3.5rem;
+  }
+}
+
+section.persona-type-jumbotron .jumbotron p.h1 {
+  @include media-breakpoint-up(lg) {
+    font-size: 3rem;
   }
 }
 

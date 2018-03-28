@@ -1,9 +1,9 @@
 {
-    "key": "group_5ab45387502ff",
-    "title": "Front Page",
+    "key": "group_5abbc86f773a4",
+    "title": "Persona Type",
     "fields": [
         {
-            "key": "field_5ab52f9219d03",
+            "key": "field_5abbc8ce79316",
             "label": "Jumbotron",
             "name": "",
             "type": "tab",
@@ -19,9 +19,9 @@
             "endpoint": 0
         },
         {
-            "key": "field_5ab52fa119d04",
-            "label": "Front Page - Jumbotron Header",
-            "name": "front_page_jumbotron_header",
+            "key": "field_5abbc8d079317",
+            "label": "Persona Type - Jumbotron Header",
+            "name": "persona_type_jumbotron_header",
             "type": "text",
             "instructions": "The main text within the jumbotron on the front page.",
             "required": 0,
@@ -38,9 +38,9 @@
             "maxlength": ""
         },
         {
-            "key": "field_5ab52fc719d05",
-            "label": "Front Page - Jumbotron Content",
-            "name": "front_page_jumbotron_content",
+            "key": "field_5abbc8d379318",
+            "label": "Persona Type - Jumbotron Content",
+            "name": "persona_type_jumbotron_content",
             "type": "wysiwyg",
             "instructions": "The content for the jumbotron on the front page.",
             "required": 0,
@@ -57,9 +57,9 @@
             "delay": 0
         },
         {
-            "key": "field_5ab5302119d06",
-            "label": "Front Page - Jumbotron Button 1 Link",
-            "name": "front_page_jumbotron_button_1_link",
+            "key": "field_5abbc8e579319",
+            "label": "Persona Type - Jumbotron Button 1 Link",
+            "name": "persona_type_jumbotron_button_1_link",
             "type": "link",
             "instructions": "The link for the first button in jumbotron on front page. Users can edit the text for the button here. Returns the link array.",
             "required": 0,
@@ -72,9 +72,9 @@
             "return_format": "array"
         },
         {
-            "key": "field_5ab5308619d08",
-            "label": "Front Page - Jumbotron Button 2 Link",
-            "name": "front_page_jumbotron_button_2_link",
+            "key": "field_5abbc8e77931a",
+            "label": "Persona Type - Jumbotron Button 2 Link",
+            "name": "persona_type_jumbotron_button_2_link",
             "type": "link",
             "instructions": "The link for the first button in jumbotron on front page. Users can edit the text for the button here. Returns the link array.",
             "required": 0,
@@ -87,57 +87,7 @@
             "return_format": "array"
         },
         {
-            "key": "field_5ab539554b359",
-            "label": "DrupalCon",
-            "name": "",
-            "type": "tab",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "placement": "left",
-            "endpoint": 0
-        },
-        {
-            "key": "field_5ab5396d4b35a",
-            "label": "Front Page - DrupalCon CTA",
-            "name": "front_page_drupalcon_cta",
-            "type": "text",
-            "instructions": "The main text for the DrupalCon CTA on the front page.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "placeholder": "",
-            "prepend": "",
-            "append": "",
-            "maxlength": ""
-        },
-        {
-            "key": "field_5ab539994b35b",
-            "label": "Front Page - DrupalCon CTA Link",
-            "name": "front_page_drupalcon_cta_link",
-            "type": "link",
-            "instructions": "The link for the DrupalCon CTA on the front page. The button text can be changed here. Returns a link array.",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "return_format": "array"
-        },
-        {
-            "key": "field_5ab57664b8b09",
+            "key": "field_5abbca287021c",
             "label": "Headline",
             "name": "",
             "type": "tab",
@@ -153,9 +103,9 @@
             "endpoint": 0
         },
         {
-            "key": "field_5ab5766db8b0a",
-            "label": "Front Page - Headline Header",
-            "name": "front_page_headline_header",
+            "key": "field_5abbca2a7021d",
+            "label": "Persona Type - Headline Header",
+            "name": "persona_type_headline_header",
             "type": "text",
             "instructions": "",
             "required": 0,
@@ -172,9 +122,9 @@
             "maxlength": ""
         },
         {
-            "key": "field_5ab57c30f06da",
-            "label": "Front Page - Headline Content",
-            "name": "front_page_headline_content",
+            "key": "field_5abbca2c7021e",
+            "label": "Persona Type - Headline Content",
+            "name": "persona_type_headline_content",
             "type": "wysiwyg",
             "instructions": "",
             "required": 0,
@@ -191,7 +141,7 @@
             "delay": 0
         },
         {
-            "key": "field_5ab539e34b35c",
+            "key": "field_5abbca307021f",
             "label": "Alternating",
             "name": "",
             "type": "tab",
@@ -207,9 +157,9 @@
             "endpoint": 0
         },
         {
-            "key": "field_5ab53a024b35d",
-            "label": "Front Page - Alternating Sections",
-            "name": "front_page_alternating_sections",
+            "key": "field_5abbca3270220",
+            "label": "Persona Type - Alternating Sections",
+            "name": "persona_type_alternating_section",
             "type": "flexible_content",
             "instructions": "The alternating sections on the home page. Select whether you want the image on the left or on the right.",
             "required": 0,
@@ -227,7 +177,7 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_5ab53a3a4b35f",
+                            "key": "field_5abbca3270221",
                             "label": "Image",
                             "name": "image",
                             "type": "image",
@@ -251,7 +201,7 @@
                             "mime_types": ""
                         },
                         {
-                            "key": "field_5ab581ce30794",
+                            "key": "field_5abbca3270222",
                             "label": "Image Attribution",
                             "name": "image_attribution",
                             "type": "text",
@@ -270,7 +220,7 @@
                             "maxlength": ""
                         },
                         {
-                            "key": "field_5ab53a574b360",
+                            "key": "field_5abbca3270223",
                             "label": "Header",
                             "name": "header",
                             "type": "text",
@@ -289,7 +239,7 @@
                             "maxlength": ""
                         },
                         {
-                            "key": "field_5ab53a674b361",
+                            "key": "field_5abbca3270224",
                             "label": "Content",
                             "name": "content",
                             "type": "wysiwyg",
@@ -308,7 +258,7 @@
                             "delay": 0
                         },
                         {
-                            "key": "field_5ab53a744b362",
+                            "key": "field_5abbca3270225",
                             "label": "Link",
                             "name": "link",
                             "type": "link",
@@ -333,7 +283,7 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_5ab53b7d55102",
+                            "key": "field_5abbca3270226",
                             "label": "Image",
                             "name": "image",
                             "type": "image",
@@ -357,7 +307,7 @@
                             "mime_types": ""
                         },
                         {
-                            "key": "field_5ab581dc30795",
+                            "key": "field_5abbca3270227",
                             "label": "Image Attribution",
                             "name": "image_attribution",
                             "type": "text",
@@ -376,7 +326,7 @@
                             "maxlength": ""
                         },
                         {
-                            "key": "field_5ab53b8855103",
+                            "key": "field_5abbca3270228",
                             "label": "Header",
                             "name": "header",
                             "type": "text",
@@ -395,7 +345,7 @@
                             "maxlength": ""
                         },
                         {
-                            "key": "field_5ab53b8f55104",
+                            "key": "field_5abbca3270229",
                             "label": "Content",
                             "name": "content",
                             "type": "wysiwyg",
@@ -414,7 +364,7 @@
                             "delay": 0
                         },
                         {
-                            "key": "field_5ab53b9555105",
+                            "key": "field_5abbca327022a",
                             "label": "Link",
                             "name": "link",
                             "type": "link",
@@ -438,7 +388,57 @@
             "max": ""
         },
         {
-            "key": "field_5ab453f6897d5",
+            "key": "field_5abbc949f8df7",
+            "label": "DrupalCon",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
+            "key": "field_5abbc94cf8df8",
+            "label": "Persona Type - DrupalCon CTA",
+            "name": "persona_type_drupalcon_cta",
+            "type": "text",
+            "instructions": "The main text for the DrupalCon CTA on the front page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5abbc94ff8df9",
+            "label": "Persona Type - DrupalCon CTA Link",
+            "name": "persona_type_drupalcon_cta_link",
+            "type": "link",
+            "instructions": "The link for the DrupalCon CTA on the front page. The button text can be changed here. Returns a link array.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_5abbca357022b",
             "label": "Testimonials",
             "name": "",
             "type": "tab",
@@ -454,9 +454,9 @@
             "endpoint": 0
         },
         {
-            "key": "field_5ab45380897d3",
-            "label": "Front Page - Testimonials",
-            "name": "front_page_testimonials",
+            "key": "field_5abbca387022c",
+            "label": "Persona Type - Testimonials",
+            "name": "persona_type_testimonials",
             "type": "repeater",
             "instructions": "",
             "required": 0,
@@ -473,7 +473,7 @@
             "button_label": "Add Testimonial",
             "sub_fields": [
                 {
-                    "key": "field_5ab45395897d4",
+                    "key": "field_5abbca387022d",
                     "label": "Testimonial",
                     "name": "testimonial",
                     "type": "post_object",
@@ -500,9 +500,9 @@
     "location": [
         [
             {
-                "param": "page_type",
+                "param": "page_template",
                 "operator": "==",
-                "value": "front_page"
+                "value": "template-persona-type.php"
             }
         ]
     ],
@@ -516,5 +516,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1522256614
+    "modified": 1522260224
 }
