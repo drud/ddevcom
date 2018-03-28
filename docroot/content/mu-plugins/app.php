@@ -10,6 +10,10 @@
  require_once(dirname(__FILE__) . '/app/options/header.php');
  require_once(dirname(__FILE__) . '/app/options/footer.php');
 
+ require_once(dirname(__FILE__) . '/app/options/theme.php');
+ require_once(dirname(__FILE__) . '/app/options/header.php');
+ require_once(dirname(__FILE__) . '/app/options/footer.php');
+
 /**
  * Place ACF JSON in field-groups directory
  */
