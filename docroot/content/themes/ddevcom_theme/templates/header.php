@@ -13,8 +13,11 @@
     endif;
    ?>
    <div class="ml-auto">
+
      <?php $header_cta_1 = get_field('header_cta_1_link'); ?>
      <?php $header_cta_2 = get_field('header_cta_2_link'); ?>
+
      <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Follow Us on GitHub</a>
    </div>
+
 </nav>
