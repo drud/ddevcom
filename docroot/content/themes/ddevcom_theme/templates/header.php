@@ -17,7 +17,13 @@
      <?php $header_cta_1 = get_field('header_cta_1_link'); ?>
      <?php $header_cta_2 = get_field('header_cta_2_link'); ?>
 
-     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2">Follow Us on GitHub</a>
+     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2 mb-1">Follow Us on GitHub</a>
+
+     <!-- Button trigger modal -->
+      <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-hosting">
+        Learn More About Hosting
+      </button>
+
    </div>
 
 </nav>

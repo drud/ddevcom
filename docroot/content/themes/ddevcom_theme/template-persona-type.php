@@ -127,8 +127,8 @@
             <?php the_field('persona_type_drupalcon_cta'); ?>
           </p>
           <?php $drupalcon_link = get_field('persona_type_drupalcon_cta_link'); ?>
-        <a href="<?= $drupalcon_link['url']; ?>" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
-          <?= $drupalcon_link['title']; ?>
+        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
+          Join Newsletter
         </a>
       </div>
     </div>
@@ -144,7 +144,7 @@
 
           <div class="row">
             <div class="col-lg-6 mx-auto">
-              <div class="py-4">
+              <div class="testimonial py-4">
                 <img  width="80" src="<?= get_field('testimonial_image', $testimonial->ID); ?>" alt="" class="rounded-circle d-block mx-auto mb-4">
                 <div class="h4 text-light text-center">
                   <?= get_field('testimonial_body', $testimonial->ID); ?>
