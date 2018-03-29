@@ -1,4 +1,4 @@
-<div class="modal" id="modal-newsletter" tabindex="-1" role="dialog" aria-labelledby="modal-newsletter-label" aria-hidden="true">
+<div class="modal fade" id="modal-newsletter" tabindex="-1" role="dialog" aria-labelledby="modal-newsletter-label" aria-hidden="true">
   <div class="modal-dialog my-0 mx-0 h-100" role="document">
     <div class="modal-content rounded-0">
       <div class="modal-body py-lg-5">
