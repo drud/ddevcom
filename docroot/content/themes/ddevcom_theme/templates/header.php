@@ -23,7 +23,6 @@
       <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-hosting">
         Learn More About Hosting
       </button>
-
    </div>
 
 </nav>
