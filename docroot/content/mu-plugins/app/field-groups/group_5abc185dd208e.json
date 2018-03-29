@@ -1,11 +1,11 @@
 {
-    "key": "group_5abbb4117dad1",
-    "title": "Page Header",
+    "key": "group_5abc185dd208e",
+    "title": "Builder",
     "fields": [
         {
-            "key": "field_5abbb421ead1b",
-            "label": "Page Header - Subheader",
-            "name": "page_header_subheader",
+            "key": "field_5abc185df0e33",
+            "label": "Builder - Featured Quote",
+            "name": "builder_featured_quote",
             "type": "wysiwyg",
             "instructions": "",
             "required": 0,
@@ -15,7 +15,7 @@
                 "class": "",
                 "id": ""
             },
-            "default_value": "The subheader text displayed within the page header.",
+            "default_value": "",
             "tabs": "all",
             "toolbar": "full",
             "media_upload": 1,
@@ -27,7 +27,7 @@
             {
                 "param": "post_type",
                 "operator": "==",
-                "value": "page"
+                "value": "builder"
             }
         ]
     ],
@@ -39,5 +39,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1522258200
+    "modified": 1522276468
 }

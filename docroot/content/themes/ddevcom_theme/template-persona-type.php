@@ -1,23 +1,29 @@
-<section class="front-page-jumbotron">
+<?php
+/**
+ * Template Name: Persona Type Template
+ */
+?>
+
+<section class="persona-type-jumbotron">
   <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 mx-auto text-center">
           <p class="h1 text-white mb-4">
-            <?php the_field('front_page_jumbotron_header'); ?>
+            <?php the_field('persona_type_jumbotron_header'); ?>
           </p>
           <div class="text-white mb-5 lead">
-            <?php the_field('front_page_jumbotron_content'); ?>
+            <?php the_field('persona_type_jumbotron_content'); ?>
           </div>
 
-          <?php $button_1_link = get_field('front_page_jumbotron_button_1_link'); ?>
+          <?php $button_1_link = get_field('persona_type_jumbotron_button_1_link'); ?>
           <?php if ($button_1_link): ?>
             <a href="<?= $button_1_link['url']; ?>" class="btn btn-outline-secondary btn-lg">
               <?= $button_1_link['title']; ?>
             </a>
           <?php endif; ?>
 
-          <?php $button_2_link = get_field('front_page_jumbotron_button_2_link'); ?>
+          <?php $button_2_link = get_field('persona_type_jumbotron_button_2_link'); ?>
           <?php if ($button_2_link): ?>
             <a href="<?= $button_2_link['url']; ?>" class="btn btn-outline-light btn-lg">
               <?= $button_2_link['title']; ?>
@@ -28,34 +34,17 @@
     </div>
   </div>
 </section>
-<section class="drupalcon">
-  <div class="container-fluid bg-primary-dark py-4">
-    <div class="row">
-      <div class="col-lg-9 mx-auto text-center">
-        <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
-        alt="DrupalCon Nashville 2018"
-        class="front-page-drupalcon-logo mr-3" width="80">
-          <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
-            <?php the_field('front_page_drupalcon_cta'); ?>
-          </p>
-          <?php $drupalcon_link = get_field('front_page_drupalcon_cta_link'); ?>
-        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
-          <?= $drupalcon_link['title']; ?>
-        </a>
-      </div>
-    </div>
-  </div>
-</section>
-<section class="front-page-headline">
+
+<section class="persona-type-headline">
   <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
         <div class="py-lg-4">
-          <h3 class="h2 mb-4"><?php the_field('front_page_headline_header'); ?></h3>
+          <h3 class="h2 mb-4"><?php the_field('persona_type_headline_header'); ?></h3>
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="text-muted">
-                <?php the_field('front_page_headline_content'); ?>
+                <?php the_field('persona_type_headline_content'); ?>
               </div>
             </div>
           </div>
@@ -64,11 +53,13 @@
     </div>
   </div>
 </section>
-<section class="front-page-alternating">
+
+<section class="persona-type-alternating">
   <div class="container-fluid mb-5">
+
     <?php
-      if( have_rows('front_page_alternating_sections') ):
-          while ( have_rows('front_page_alternating_sections') ) : the_row();
+      if( have_rows('persona_type_alternating_section') ):
+          while ( have_rows('persona_type_alternating_section') ) : the_row();
               if( get_row_layout() == 'image_left' ): ?>
 
                 <div class="row">
@@ -125,11 +116,29 @@
          ?>
   </div>
 </section>
-<section class="front-page-testimonials testimonials">
-  <div class="container-fluid bg-primary-gradient py-5">
+<section class="drupalcon">
+  <div class="container-fluid bg-primary py-4">
+    <div class="row">
+      <div class="col-lg-9 mx-auto text-center">
+        <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
+        alt="DrupalCon Nashville 2018"
+        class="persona-type-drupalcon-logo mr-3" width="80">
+          <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
+            <?php the_field('persona_type_drupalcon_cta'); ?>
+          </p>
+          <?php $drupalcon_link = get_field('persona_type_drupalcon_cta_link'); ?>
+        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
+          Join Newsletter
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="persona-type-testimonials testimonials">
+  <div class="container-fluid bg-primary-dark py-5">
 
-    <?php if ( have_rows('front_page_testimonials') ): ?>
-        <?php while ( have_rows('front_page_testimonials') ) : the_row(); ?>
+    <?php if ( have_rows('persona_type_testimonials') ): ?>
+        <?php while ( have_rows('persona_type_testimonials') ) : the_row(); ?>
 
           <?php $testimonial = get_sub_field('testimonial'); ?>
 
@@ -137,7 +146,7 @@
             <div class="col-lg-6 mx-auto">
               <div class="testimonial py-4">
                 <img  width="80" src="<?= get_field('testimonial_image', $testimonial->ID); ?>" alt="" class="rounded-circle d-block mx-auto mb-4">
-                <div class="h4 text-light text-center mb-4">
+                <div class="h4 text-light text-center">
                   <?= get_field('testimonial_body', $testimonial->ID); ?>
                 </div>
                 <p class="text-white text-center">
@@ -150,14 +159,5 @@
         <?php endwhile; ?>
     <?php endif; ?>
 
-  </div>
-</section>
-<section class="newsletter-cta">
-  <div class="container-fluid bg-primary py-4">
-    <div class="row">
-      <p class="h3 text-light">
-
-      </p>
-    </div>
   </div>
 </section>
