@@ -55,8 +55,8 @@ add_action('after_setup_theme', __NAMESPACE__ . '\\setup');
  */
 function widgets_init() {
   register_sidebar([
-    'name'          => __('Primary', 'sage'),
-    'id'            => 'sidebar-primary',
+    'name'          => __('Single Post', 'sage'),
+    'id'            => 'single-post-sidebar',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
@@ -98,6 +98,7 @@ function display_sidebar() {
     is_page(),
     is_singular('builder'),
     is_singular('tribe_events'),
+    is_singular('post'),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

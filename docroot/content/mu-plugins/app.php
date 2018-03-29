@@ -27,3 +27,8 @@ add_filter('acf/settings/load_json', function($paths) {
     $paths[] = dirname(__FILE__) . '/app/field-groups';
     return $paths;
 });
+
+add_filter('tribe_events_register_event_type_args', function($args){
+  $args['has_archive'] = false;
+  return $args;
+});

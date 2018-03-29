@@ -1,0 +1,6 @@
+h1.single-post-header {
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 10rem;
+  }
+}

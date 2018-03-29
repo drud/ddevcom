@@ -10,6 +10,10 @@ body.scrolled nav.navbar {
   background-color: theme-color('primary-dark');
 }
 
+body.single-post nav.navbar {
+  background-color: theme-color('primary-dark');
+}
+
 nav.navbar ul.nav li {
   padding: 0 1rem;
 }
