@@ -1,0 +1,23 @@
+{
+    "key": "group_5abd2089dd2c4",
+    "title": "Provider",
+    "fields": false,
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "provider"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1522344085
+}

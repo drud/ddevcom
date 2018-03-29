@@ -5,7 +5,7 @@
       <div class="row">
         <div class="col-lg-9 mx-auto">
           <header>
-            <h1 class="text-white"><?= Titles\title(); ?></h1>
+            <h1 class="text-white"><?php the_title(); ?></h1>
             <div class="lead text-white"><?php the_field('page_header_subheader'); ?></div>
           </header>
         </div>
@@ -13,7 +13,3 @@
     </div>
   </div>
 </section>
-
-
-<div class="page-header">
-</div>

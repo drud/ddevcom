@@ -128,7 +128,11 @@
 <section class="front-page-testimonials testimonials">
   <div class="container-fluid bg-primary-gradient py-5">
 
-    <?php if ( have_rows('front_page_testimonials') ): ?>
+    <?php if (is_active_sidebar('front-page-events')): ?>
+      <?php dynamic_sidebar('front-page-events'); ?>
+    <?php endif; ?>
+
+    <!-- <?php if ( have_rows('front_page_testimonials') ): ?>
         <?php while ( have_rows('front_page_testimonials') ) : the_row(); ?>
 
           <?php $testimonial = get_sub_field('testimonial'); ?>
@@ -148,12 +152,12 @@
           </div>
 
         <?php endwhile; ?>
-    <?php endif; ?>
+    <?php endif; ?> -->
 
   </div>
 </section>
 
-<section class="newsletter-cta">
+<section>
   <div class="container-fluid bg-primary py-4">
     <div class="row">
       <p class="h3 text-light">

@@ -71,6 +71,15 @@ function widgets_init() {
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
   ]);
+
+  register_sidebar([
+    'name'          => __('Front Page Events', 'sage'),
+    'id'            => 'front-page-events',
+    'before_widget' => '<section class="widget %1$s %2$s">',
+    'after_widget'  => '</section>',
+    'before_title'  => '<h3 class="text-white text-center mb-4">',
+    'after_title'   => '</h3>'
+  ]);
 }
 add_action('widgets_init', __NAMESPACE__ . '\\widgets_init');
 
@@ -88,6 +97,7 @@ function display_sidebar() {
     is_page_template('template-custom.php'),
     is_page(),
     is_singular('builder'),
+    is_singular('tribe_events'),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

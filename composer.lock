@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "893d220eeb57bb42766b4066a64af214",
+    "content-hash": "60cdef7feafa182a737e9ffd8fa1c09b",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -114,20 +114,20 @@
         },
         {
             "name": "johnpbloch/wordpress",
-            "version": "4.8.1",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress.git",
-                "reference": "75bbc8dade6d66b66c7184656df7b3d545d31baa"
+                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/75bbc8dade6d66b66c7184656df7b3d545d31baa",
-                "reference": "75bbc8dade6d66b66c7184656df7b3d545d31baa",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress/zipball/5394373d26a8e304eb293c2a9359701a7ab03131",
+                "reference": "5394373d26a8e304eb293c2a9359701a7ab03131",
                 "shasum": ""
             },
             "require": {
-                "johnpbloch/wordpress-core": "4.8.1",
+                "johnpbloch/wordpress-core": "4.9.4",
                 "johnpbloch/wordpress-core-installer": "^1.0",
                 "php": ">=5.3.2"
             },
@@ -149,29 +149,32 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2017-08-02T21:47:41+00:00"
+            "time": "2018-02-06T16:42:18+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core",
-            "version": "4.8.1",
+            "version": "4.9.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core.git",
-                "reference": "eee7b6128469d31803da3a07aaac9c442f81758e"
+                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/eee7b6128469d31803da3a07aaac9c442f81758e",
-                "reference": "eee7b6128469d31803da3a07aaac9c442f81758e",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core/zipball/eef672cdb4ae9e846c464d4d03684b43d4108eda",
+                "reference": "eef672cdb4ae9e846c464d4d03684b43d4108eda",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.2"
             },
+            "provide": {
+                "wordpress/core-implementation": "4.9.4"
+            },
             "type": "wordpress-core",
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -186,20 +189,20 @@
                 "cms",
                 "wordpress"
             ],
-            "time": "2017-08-02T21:47:36+00:00"
+            "time": "2018-02-06T16:42:13+00:00"
         },
         {
             "name": "johnpbloch/wordpress-core-installer",
-            "version": "1.0.0",
+            "version": "1.0.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/johnpbloch/wordpress-core-installer.git",
-                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2"
+                "reference": "7941acd71725710a789daabe0557429da63e7ac6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/e9e767f2d9f994f358c34b41def2c410ad8717f2",
-                "reference": "e9e767f2d9f994f358c34b41def2c410ad8717f2",
+                "url": "https://api.github.com/repos/johnpbloch/wordpress-core-installer/zipball/7941acd71725710a789daabe0557429da63e7ac6",
+                "reference": "7941acd71725710a789daabe0557429da63e7ac6",
                 "shasum": ""
             },
             "require": {
@@ -235,7 +238,7 @@
             "keywords": [
                 "wordpress"
             ],
-            "time": "2017-05-31T18:42:33+00:00"
+            "time": "2018-01-29T14:49:29+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
@@ -369,6 +372,26 @@
             "homepage": "https://wordpress.org/plugins/google-sitemap-generator/"
         },
         {
+            "name": "wpackagist-plugin/simple-301-redirects",
+            "version": "1.07",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/simple-301-redirects/",
+                "reference": "tags/1.07"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/simple-301-redirects.1.07.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/simple-301-redirects/"
+        },
+        {
             "name": "wpackagist-plugin/stream",
             "version": "3.2.2",
             "source": {
@@ -389,16 +412,36 @@
             "homepage": "https://wordpress.org/plugins/stream/"
         },
         {
-            "name": "wpackagist-plugin/wordpress-importer",
-            "version": "0.6.3",
+            "name": "wpackagist-plugin/the-events-calendar",
+            "version": "4.6.13",
             "source": {
                 "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
-                "reference": "tags/0.6.3"
+                "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
+                "reference": "tags/4.6.13"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.6.3.zip",
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.4.6.13.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "composer/installers": "~1.0"
+            },
+            "type": "wordpress-plugin",
+            "homepage": "https://wordpress.org/plugins/the-events-calendar/"
+        },
+        {
+            "name": "wpackagist-plugin/wordpress-importer",
+            "version": "0.6.4",
+            "source": {
+                "type": "svn",
+                "url": "https://plugins.svn.wordpress.org/wordpress-importer/",
+                "reference": "tags/0.6.4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://downloads.wordpress.org/plugin/wordpress-importer.0.6.4.zip",
                 "reference": null,
                 "shasum": null
             },
