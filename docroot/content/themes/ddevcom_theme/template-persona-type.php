@@ -43,7 +43,7 @@
           <h3 class="h2 mb-4"><?php the_field('persona_type_headline_header'); ?></h3>
           <div class="row">
             <div class="col-lg-8 mx-auto">
-              <div class="text-muted">
+              <div class="text-muted mb-5">
                 <?php the_field('persona_type_headline_content'); ?>
               </div>
 
