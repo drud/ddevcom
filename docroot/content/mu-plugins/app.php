@@ -12,6 +12,10 @@
  require_once(dirname(__FILE__) . '/app/options/newsletter.php');
  require_once(dirname(__FILE__) . '/app/options/hosting-modal.php');
 
+ require_once(dirname(__FILE__) . '/app/options/theme.php');
+ require_once(dirname(__FILE__) . '/app/options/header.php');
+ require_once(dirname(__FILE__) . '/app/options/footer.php');
+
 /**
  * Place ACF JSON in field-groups directory
  */
