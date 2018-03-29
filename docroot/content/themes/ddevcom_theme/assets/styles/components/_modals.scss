@@ -1,0 +1,20 @@
+.modal {
+  min-height: 100vh;
+}
+
+.modal-dialog {
+  max-width: none;
+}
+
+.modal-content {
+  height: 100%;
+}
+
+.modal-body {
+  overflow-y: scroll;
+
+
+  @include media-breakpoint-up(lg) {
+    position: relative;
+  }
+}
