@@ -66,10 +66,6 @@
 </section>
 <section class="front-page-alternating">
   <div class="container-fluid mb-5">
-<<<<<<< HEAD
-
-=======
->>>>>>> 5910f1d48c93cbce669116e0714d1b0532925acb
     <?php
       if( have_rows('front_page_alternating_sections') ):
           while ( have_rows('front_page_alternating_sections') ) : the_row();
