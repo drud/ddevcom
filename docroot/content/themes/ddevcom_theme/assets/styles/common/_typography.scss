@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500|Palanquin+Dark:600');
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500,500i|Palanquin+Dark:600');
 
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  line-height: 1.8;
 }
 
 .wysiwyg {
@@ -18,5 +22,41 @@ body {
 
   p {
     margin-bottom: 1.5rem;
+  }
+
+  blockquote {
+    padding: 2rem;
+    border-left: 0.5rem solid theme-color('secondary-light');
+    background-color: theme-color('light');;
+  }
+
+  ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  ul ul {
+    list-style-type: circle;
+    padding-left: inherit;
+  }
+
+  ul li {
+    padding: 1rem 0.5rem;
+    border-left: 0.5rem solid theme-color('primary-light');
+    margin-bottom: 1rem;
+    background-color: theme-color('light');
+
+  }
+
+  ul ul li {
+    padding: 0;
+    margin-top: 1rem;
+    border-left: none;
+    margin-left: 1rem;
+    margin-bottom: 0.5rem;
+  }
+
+  img {
+    margin: 2rem;
   }
 }

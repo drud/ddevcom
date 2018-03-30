@@ -8,7 +8,7 @@
   <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9 mx-auto text-center">
+        <div class="col-lg-9 col-xl-8 mx-auto text-center">
           <p class="h1 text-white mb-4">
             <?php the_field('persona_type_jumbotron_header'); ?>
           </p>
@@ -38,11 +38,11 @@
 <section class="persona-type-headline">
   <div class="container-fluid py-5">
     <div class="row">
-      <div class="col-lg-9 mx-auto text-center text-primary">
+      <div class="col-lg-9 col-xl-6 mx-auto text-center text-primary">
         <div class="py-lg-4">
           <h3 class="h2 mb-4"><?php the_field('persona_type_headline_header'); ?></h3>
           <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-12 mx-auto">
               <div class="text-muted mb-5">
                 <?php the_field('persona_type_headline_content'); ?>
               </div>
@@ -74,7 +74,7 @@
                     <div class="row">
                       <div class="col-lg-6 px-0">
                         <img src="<?php the_sub_field('image'); ?>" alt="" class="img-fluid">
-                        <p class="small mt-2"><?php the_sub_field('image_attribution'); ?></p>
+                        <p class="small mt-2 ml-2 ml-lg-0"><?php the_sub_field('image_attribution'); ?></p>
                       </div>
                       <div class="col-lg-6">
                         <div class="py-5 px-lg-5">
@@ -142,7 +142,7 @@
   </div>
 </section>
 <section class="persona-type-recent-posts">
-  <div class="container-fluid bg-light py-5">
+  <div class="container-fluid py-5">
     <div class="row">
       <?php $slug = get_post_field( 'post_name', get_post() ); ?>
       <div class="col-lg-12 mx-auto">
@@ -191,29 +191,11 @@
     </div>
   </div>
 </section>
-<section class="persona-type-testimonials testimonials">
-  <div class="container-fluid bg-primary-dark py-5">
+<section class="persona-type-events events">
+  <div class="container-fluid bg-primary-gradient py-5">
 
-    <?php if ( have_rows('persona_type_testimonials') ): ?>
-        <?php while ( have_rows('persona_type_testimonials') ) : the_row(); ?>
-
-          <?php $testimonial = get_sub_field('testimonial'); ?>
-
-          <div class="row">
-            <div class="col-lg-6 mx-auto">
-              <div class="testimonial py-4">
-                <img  width="80" src="<?= get_field('testimonial_image', $testimonial->ID); ?>" alt="" class="rounded-circle d-block mx-auto mb-4">
-                <div class="h4 text-light text-center">
-                  <?= get_field('testimonial_body', $testimonial->ID); ?>
-                </div>
-                <p class="text-white text-center">
-                  - <?= get_field('testimonial_name', $testimonial->ID); ?>, <a href="<?= get_field('testimonial_company_link', $testimonial->ID); ?>" class="text-secondary-light"><?= get_field('testimonial_company', $testimonial->ID); ?></a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-        <?php endwhile; ?>
+    <?php if (is_active_sidebar('front-page-events')): ?>
+      <?php dynamic_sidebar('front-page-events'); ?>
     <?php endif; ?>
 
   </div>

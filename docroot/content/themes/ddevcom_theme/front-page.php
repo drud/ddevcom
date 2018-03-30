@@ -2,7 +2,7 @@
   <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9 mx-auto text-center">
+        <div class="col-lg-9 col-xl-8 mx-auto text-center">
           <p class="h1 text-white mb-4">
             <?php the_field('front_page_jumbotron_header'); ?>
           </p>
@@ -49,11 +49,11 @@
 <section class="front-page-headline">
   <div class="container-fluid py-5">
     <div class="row">
-      <div class="col-lg-9 mx-auto text-center text-primary">
+      <div class="col-lg-9 col-xl-6 mx-auto text-center text-primary">
         <div class="py-lg-4">
           <h3 class="h2 mb-4"><?php the_field('front_page_headline_header'); ?></h3>
           <div class="row">
-            <div class="col-lg-8 mx-auto">
+            <div class="col-lg-12 mx-auto">
               <div class="text-muted">
                 <?php the_field('front_page_headline_content'); ?>
               </div>
@@ -76,18 +76,20 @@
                     <div class="row">
                       <div class="col-lg-6 px-0">
                         <img src="<?php the_sub_field('image'); ?>" alt="" class="img-fluid">
-                        <p class="small mt-2"><?php the_sub_field('image_attribution'); ?></p>
+                        <p class="small mt-2 ml-2 ml-lg-0"><?php the_sub_field('image_attribution'); ?></p>
                       </div>
                       <div class="col-lg-6">
-                        <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
-                          <div class="text-muted mb-5">
-                            <?php the_sub_field('content'); ?>
+                        <div class="py-xl-5">
+                          <div class="py-5 px-lg-5">
+                            <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                            <div class="text-muted mb-5">
+                              <?php the_sub_field('content'); ?>
+                            </div>
+                            <?php $section_left_link = get_sub_field('link'); ?>
+                            <a href="<?= $section_left_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                              <?= $section_left_link['title']; ?>
+                            </a>
                           </div>
-                          <?php $section_left_link = get_sub_field('link'); ?>
-                          <a href="<?= $section_left_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
-                            <?= $section_left_link['title']; ?>
-                          </a>
                         </div>
                       </div>
                     </div>
@@ -103,15 +105,17 @@
                         <p class="small mt-2"><?php the_sub_field('image_attribution'); ?></p>
                       </div>
                       <div class="col-lg-6 order-lg-1">
-                        <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
-                          <div class="text-muted mb-5">
-                            <?php the_sub_field('content'); ?>
+                        <div class="py-xl-5">
+                          <div class="py-5 px-lg-5">
+                            <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                            <div class="text-muted mb-5">
+                              <?php the_sub_field('content'); ?>
+                            </div>
+                            <?php $section_right_link = get_sub_field('link'); ?>
+                            <a href="<?= $section_right_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
+                              <?= $section_right_link['title']; ?>
+                            </a>
                           </div>
-                          <?php $section_right_link = get_sub_field('link'); ?>
-                          <a href="<?= $section_right_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
-                            <?= $section_right_link['title']; ?>
-                          </a>
                         </div>
                       </div>
                     </div>
@@ -126,11 +130,11 @@
   </div>
 </section>
 <section class="front-page-recent-posts">
-  <div class="container-fluid bg-light py-5">
+  <div class="container-fluid py-5">
     <div class="row">
       <?php $slug = get_post_field( 'post_name', get_post() ); ?>
       <div class="col-lg-12 mx-auto">
-        <h2 class="text-primary text-center mb-4">Recent Posts</h2>
+        <h2 class="text-primary text-center">Recent Posts</h2>
         <div class="card-deck">
           <?php
             $args = [
@@ -141,25 +145,8 @@
           ?>
 
           <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
-              <div class="card rounded-0 border-0 bg-white py-5 text-center text-lg-left">
-                <article class="persona-article">
-                  <header>
-                    <div class="card-header border-0 py-0 bg-white">
-                        <h3 class="mb-2">
-                          <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
-                        </h3>
-                    </div>
-                  </header>
-                  <div class="card-body">
-                    <div class="text-muted">
-                      <?php the_excerpt(); ?>
-                    </div>
-                  </div>
-                  <div class="card-footer border-0 bg-white">
-                    <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary-light">View Post</a>
-                  </div>
-                </article>
-              </div>
+
+              <?php get_template_part('templates/content', 'card'); ?>
 
           <?php endwhile; ?>
           <!-- post navigation -->
@@ -175,33 +162,11 @@
   </div>
 </section>
 <section class="front-page-events events">
-  <div class="container-fluid bg-primary-gradient py-5">
+  <div class="container-fluid bg-primary-dark py-5">
 
     <?php if (is_active_sidebar('front-page-events')): ?>
       <?php dynamic_sidebar('front-page-events'); ?>
     <?php endif; ?>
-
-    <!-- <?php if ( have_rows('front_page_testimonials') ): ?>
-        <?php while ( have_rows('front_page_testimonials') ) : the_row(); ?>
-
-          <?php $testimonial = get_sub_field('testimonial'); ?>
-
-          <div class="row">
-            <div class="col-lg-6 mx-auto">
-              <div class="testimonial py-4">
-                <img  width="80" src="<?= get_field('testimonial_image', $testimonial->ID); ?>" alt="" class="rounded-circle d-block mx-auto mb-4">
-                <div class="h4 text-light text-center mb-4">
-                  <?= get_field('testimonial_body', $testimonial->ID); ?>
-                </div>
-                <p class="text-white text-center">
-                  - <?= get_field('testimonial_name', $testimonial->ID); ?>, <a href="<?= get_field('testimonial_company_link', $testimonial->ID); ?>" class="text-secondary-light"><?= get_field('testimonial_company', $testimonial->ID); ?></a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-        <?php endwhile; ?>
-    <?php endif; ?> -->
 
   </div>
 </section>

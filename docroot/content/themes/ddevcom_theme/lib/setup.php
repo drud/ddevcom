@@ -99,6 +99,7 @@ function display_sidebar() {
     is_singular('builder'),
     is_singular('tribe_events'),
     is_singular('post'),
+    is_archive(),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);
