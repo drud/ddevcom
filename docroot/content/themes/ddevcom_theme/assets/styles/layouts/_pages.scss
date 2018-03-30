@@ -1,5 +1,7 @@
 // Front Page
 section.page-header-jumbotron .jumbotron {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
 
   @include media-breakpoint-up(lg) {
     padding: 8rem 2rem;
@@ -8,6 +10,8 @@ section.page-header-jumbotron .jumbotron {
 
 section.persona-type-jumbotron .jumbotron,
 section.front-page-jumbotron .jumbotron {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
 
   @include media-breakpoint-up(lg) {
     padding: 12rem 4rem 8rem;

@@ -141,7 +141,6 @@
     </div>
   </div>
 </section>
-
 <section class="persona-type-recent-posts">
   <div class="container-fluid bg-light py-5">
     <div class="row">

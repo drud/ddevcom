@@ -1,28 +1,25 @@
-<nav class="navbar navbar-dark fixed-top">
-  <?php if (is_admin_bar_showing()): ?>
-    <div style="height: 32px;"></div>
-  <?php endif; ?>
-
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top">
   <a class="navbar-brand" href="<?= home_url('/'); ?>">
     <img src="/content/themes/ddevcom_theme/dist/images/ddev-logo.svg" width="200" alt="">
   </a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-  <?php
-    if (has_nav_menu('primary_navigation')) :
-      wp_nav_menu(['theme_location' => 'primary_navigation', 'menu_class' => 'nav']);
-    endif;
-   ?>
-   <div class="ml-auto">
+  <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
 
-     <?php $header_cta_1 = get_field('header_cta_1_link'); ?>
-     <?php $header_cta_2 = get_field('header_cta_2_link'); ?>
+    <?php
+      if (has_nav_menu('primary_navigation')) :
+        wp_nav_menu([
+          'theme_location' => 'primary_navigation',
+          'menu_class' => 'navbar-nav mr-auto ml-lg-4 mt-2 mt-lg-0'
+        ]);
+      endif;
+     ?>
 
-     <a href="#" class="btn btn-secondary btn-block btn-lg mr-2 mb-1">Follow Us on GitHub</a>
-
-     <!-- Button trigger modal -->
-      <button type="button" class="btn btn-primary btn-block" data-toggle="modal" data-target="#modal-hosting">
-        Learn More About Hosting
-      </button>
-   </div>
-
+     <?php $cta_link = get_field('header_cta_link', 'option'); ?>
+     <a href="<?= $cta_link['url'];  ?>" class="btn btn-secondary btn-lg ml-auto">
+       <?= isset($cta_link['title']) ? $cta_link['title'] : 'Follow Us on GitHub';  ?>
+     </a>
+  </div>
 </nav>

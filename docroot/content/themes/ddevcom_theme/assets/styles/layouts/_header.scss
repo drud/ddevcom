@@ -14,11 +14,28 @@ body.single-post nav.navbar {
   background-color: theme-color('primary-dark');
 }
 
-nav.navbar ul.nav li {
-  padding: 0 1rem;
+nav.navbar ul.navbar-nav {
+  margin-top: 1rem;
+  flex-direction: column;
+  background-color: theme-color('primary-dark');
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 0;
+    flex-direction: row;
+    background-color: transparent;
+  }
 }
 
-nav.navbar ul.nav li a {
+nav.navbar ul.navbar-nav li {
+  padding: 0.5rem;
+
+  @include media-breakpoint-up(md) {
+    padding: 0.5rem 1rem;
+  }
+}
+
+nav.navbar ul.navbar-nav li a {
   color: theme-color('light');
 
   &:hover {
@@ -27,6 +44,14 @@ nav.navbar ul.nav li a {
   }
 }
 
-nav.navbar ul.nav li ul.sub-menu {
+nav.navbar ul.navbar-nav li ul.sub-menu {
   display: none;
+}
+
+nav.navbar .btn {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: auto;
+  }
 }
