@@ -6,8 +6,26 @@
           <p class="h1 text-white mb-4">
             <?php the_field('front_page_jumbotron_header'); ?>
           </p>
-          <div class="text-white mb-5">
+          <div class="text-white lead mb-2">
             <?php the_field('front_page_jumbotron_content'); ?>
+          </div>
+          <div class="front-page-logos mb-5">
+            <div class="row mt-4">
+              <div class="col-lg-12 text-center">
+                <p class="text-secondary">Proudly supporting:</p>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-lg-4 py-4 px-4 text-center">
+                <img src="/content/themes/ddevcom_theme/dist/images/drupal.svg" alt="Drupal" width="200" class="img-fluid mb-3 mb-lg-0">
+              </div>
+              <div class="col-lg-4 text-center">
+                <img src="/content/themes/ddevcom_theme/dist/images/wordpress.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-5 mb-lg-0">
+              </div>
+              <div class="col-lg-4 text-center">
+                <img src="/content/themes/ddevcom_theme/dist/images/typo3.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
+              </div>
+            </div>
           </div>
 
           <?php $button_1_link = get_field('front_page_jumbotron_button_1_link'); ?>
@@ -29,7 +47,7 @@
   </div>
 </section>
 <section class="drupalcon">
-  <div class="container-fluid py-1 bg-secondary"></div>
+  <div class="container-fluid py-1 bg-secondary rounded-1"></div>
   <div class="container-fluid bg-primary-dark py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">

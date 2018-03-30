@@ -5,10 +5,10 @@
 ?>
 
 <section class="product-jumbotron">
-  <div class="jumbotron bg-primary-light rounded-0 mb-0">
+  <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9 mx-auto text-center">
+        <div class="col-lg-9 col-xl-8 mx-auto text-center">
           <p class="h1 text-white mb-4">
             <?php the_field('product_jumbotron_header'); ?>
           </p>
@@ -36,6 +36,7 @@
 </section>
 
 <section class="product-headline">
+  <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
@@ -58,8 +59,8 @@
   <div class="container-fluid mb-5">
 
     <?php
-      if( have_rows('product_alternating_section') ):
-          while ( have_rows('product_alternating_section') ) : the_row();
+      if( have_rows('product_alternating_sections') ):
+          while ( have_rows('product_alternating_sections') ) : the_row();
               if( get_row_layout() == 'image_left' ): ?>
 
                 <div class="row">
@@ -116,17 +117,13 @@
          ?>
   </div>
 </section>
-<section class="drupalcon">
+<section class="newsletter">
   <div class="container-fluid bg-primary py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">
-        <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
-        alt="DrupalCon Nashville 2018"
-        class="product-drupalcon-logo mr-3" width="80">
           <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
-            <?php the_field('product_drupalcon_cta'); ?>
+            <?php the_field('product_newsletter_cta'); ?>
           </p>
-          <?php $drupalcon_link = get_field('product_drupalcon_cta_link'); ?>
         <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
           Join Newsletter
         </a>

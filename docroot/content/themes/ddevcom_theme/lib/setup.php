@@ -100,6 +100,7 @@ function display_sidebar() {
     is_singular('tribe_events'),
     is_post_type_archive('tribe_events'),
     is_singular('post'),
+    is_category(),
     is_post_type_archive('post'),
   ]);
 
