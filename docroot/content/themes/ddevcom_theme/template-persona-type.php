@@ -36,6 +36,7 @@
 </section>
 
 <section class="persona-type-headline">
+  <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 col-xl-6 mx-auto text-center text-primary">

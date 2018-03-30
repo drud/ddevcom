@@ -98,8 +98,9 @@ function display_sidebar() {
     is_page(),
     is_singular('builder'),
     is_singular('tribe_events'),
+    is_post_type_archive('tribe_events'),
     is_singular('post'),
-    is_archive(),
+    is_post_type_archive('post'),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

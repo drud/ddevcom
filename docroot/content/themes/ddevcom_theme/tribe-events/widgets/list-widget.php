@@ -89,7 +89,7 @@ if ( $posts ) : ?>
         <?php do_action( 'tribe_events_list_widget_before_the_event_title' ); ?>
         <!-- Event Title -->
         <h4 class="tribe-event-title">
-          <a class="text-secondary-light mb-2 d-block" href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php the_title(); ?></a>
+          <a class="text-secondary mb-2 d-block" href="<?php echo esc_url( tribe_get_event_link() ); ?>" rel="bookmark"><?php the_title(); ?></a>
         </h4>
 
 

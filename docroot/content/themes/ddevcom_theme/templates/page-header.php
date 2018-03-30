@@ -1,6 +1,6 @@
 <?php use Roots\Sage\Titles; ?>
 <section class="page-header-jumbotron">
-  <div class="jumbotron bg-primary-gradient rounded-0">
+  <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 mx-auto">
@@ -12,4 +12,5 @@
       </div>
     </div>
   </div>
+  <div class="container-fluid py-1 bg-secondary"></div>
 </section>

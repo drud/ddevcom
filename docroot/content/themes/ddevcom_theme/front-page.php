@@ -6,7 +6,7 @@
           <p class="h1 text-white mb-4">
             <?php the_field('front_page_jumbotron_header'); ?>
           </p>
-          <div class="text-white mb-5 lead">
+          <div class="text-white mb-5">
             <?php the_field('front_page_jumbotron_content'); ?>
           </div>
 
@@ -29,6 +29,7 @@
   </div>
 </section>
 <section class="drupalcon">
+  <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid bg-primary-dark py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">
@@ -162,6 +163,7 @@
   </div>
 </section>
 <section class="front-page-events events">
+  <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid bg-primary-dark py-5">
 
     <?php if (is_active_sidebar('front-page-events')): ?>
@@ -174,12 +176,6 @@
 <section>
   <div class="container-fluid bg-primary py-4">
     <div class="row">
-      <p class="h3 text-light">
-
-      </p>
     </div>
-
   </div>
-
-
 </section>
