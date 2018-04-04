@@ -52,7 +52,7 @@
   ],
   "require": {
     "php": ">=5.3",
-    "johnpbloch/wordpress": "4.9.4",
+    "johnpbloch/wordpress": "4.9.5",
     "composer/installers": "v1.0.12",
     "vlucas/phpdotenv": "1.0.9",
     "gravityforms": "2.2.5",

@@ -101,6 +101,7 @@ function display_sidebar() {
     is_post_type_archive('tribe_events'),
     is_singular('post'),
     is_category(),
+    is_home(),
     is_post_type_archive('post'),
   ]);
 

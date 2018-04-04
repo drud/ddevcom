@@ -1,25 +1,25 @@
 <?php
 
-namespace App\PostTypes\Testimonial;
+namespace App\PostTypes\Job;
 
 /**
  * Testimonial custom post type
  */
 add_action('init', function () {
-    register_post_type('testimonial', [
+    register_post_type('job', [
         'labels'              => [
-            'name'               => 'Testimonials',
-            'singular_name'      => 'Testimonial',
+            'name'               => 'Jobs',
+            'singular_name'      => 'Job',
             'add_new'            => 'Add New',
-            'add_new_item'       => 'Add New Testimonial',
-            'edit_item'          => 'Edit Testimonial',
-            'new_item'           => 'New Testimonial',
-            'view_item'          => 'View Testimonial',
-            'search_items'       => 'Search Testimonials',
-            'not_found'          => 'No testimonials found',
-            'not_found_in_trash' => 'No testimonials found in trash',
+            'add_new_item'       => 'Add New Job',
+            'edit_item'          => 'Edit Job',
+            'new_item'           => 'New Job',
+            'view_item'          => 'View Job',
+            'search_items'       => 'Search Jobs',
+            'not_found'          => 'No jobs found',
+            'not_found_in_trash' => 'No jobs found in trash',
             'parent_item_colon'  => '',
-            'menu_name'          => 'Testimonials'
+            'menu_name'          => 'Jobs'
         ],
         'public'              => true,
         'exclude_from_search' => true,
@@ -28,7 +28,7 @@ add_action('init', function () {
         'show_in_menu'        => true,
         'menu_icon'           => 'dashicons-star-filled',
         'query_var'           => true,
-        'rewrite'             => ['slug' => 'testimonials'],
+        'rewrite'             => ['slug' => 'jobs'],
         'capability_type'     => 'post',
         'has_archive'         => true,
         'hierarchical'        => false,
@@ -41,11 +41,11 @@ add_action('init', function () {
  * Testimonial taxonomies
  */
 add_action('init', function () {
-    register_taxonomy('testimonial_category', 'testimonial', [
-        'label'         => 'Testimonial Category',
+    register_taxonomy('job_category', 'testimonial', [
+        'label'         => 'Job Category',
         'labels'        => [
-            'name'              => 'Testimonial Categories',
-            'singular_name'     => 'Testimonial Category',
+            'name'              => 'Job Categories',
+            'singular_name'     => 'Job Category',
             'all_items'         => 'All Categories',
             'edit_item'         => 'Edit Category',
             'view_item'         => 'View Category',

@@ -46,7 +46,7 @@
     </div>
   </div>
 </section>
-<section class="drupalcon">
+<section class="newsletter">
   <div class="container-fluid py-1 bg-secondary rounded-1"></div>
   <div class="container-fluid bg-primary-dark py-4">
     <div class="row">
@@ -54,13 +54,10 @@
         <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
         alt="DrupalCon Nashville 2018"
         class="front-page-drupalcon-logo mr-3" width="80">
-          <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
-            <?php the_field('front_page_drupalcon_cta'); ?>
+          <p class="h3 text-white mb-4 mb-md-0 d-md-inline newsletter-cta">
+            <?php the_field('front_page_newsletter_cta'); ?>
           </p>
-          <?php $drupalcon_link = get_field('front_page_drupalcon_cta_link'); ?>
-        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
-          <?= $drupalcon_link['title']; ?>
-        </a>
+        <div data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3"></div>
       </div>
     </div>
   </div>
@@ -88,14 +85,18 @@
   <div class="container-fluid mb-5">
     <div class="row">
       <div class="col-lg-8 mx-auto">
-        <div class="video-wrapper">
+        <div class="video-wrapper mb-4">
           <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+        <div class="front-page-video-summary p text-muted">
+          <?php the_field('front_page_video_summary'); ?>
         </div>
       </div>
     </div>
   </div>
 </section>
 <?php endif; ?>
+
 <section class="front-page-recent-posts">
   <div class="container-fluid py-5">
     <div class="row">
@@ -128,6 +129,7 @@
     </div>
   </div>
 </section>
+
 <section class="front-page-events events">
   <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid bg-primary-dark py-5">
@@ -140,8 +142,5 @@
 </section>
 
 <section>
-  <div class="container-fluid bg-primary py-4">
-    <div class="row">
-    </div>
-  </div>
+  <div class="container-fluid bg-primary py-4"></div>
 </section>
