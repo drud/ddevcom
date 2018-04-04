@@ -57,7 +57,9 @@
           <p class="h3 text-white mb-4 mb-md-0 d-md-inline newsletter-cta">
             <?php the_field('front_page_newsletter_cta'); ?>
           </p>
-        <div data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3"></div>
+        <div data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
+          Join Newsletter
+        </div>
       </div>
     </div>
   </div>
