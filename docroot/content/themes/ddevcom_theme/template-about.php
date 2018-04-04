@@ -71,7 +71,7 @@
 </section>
 
 <section class="about-alternating">
-  <div class="container-fluid mb-5">
+  <div class="container-fluid my-5">
 
     <?php
       if( have_rows('about_alternating_sections') ):

@@ -131,3 +131,53 @@
     </div>
   </div>
 </section>
+<section class="product-recent-posts">
+  <div class="container-fluid py-5">
+    <div class="row">
+      <?php $slug = get_post_field( 'post_name', get_post() ); ?>
+      <div class="col-lg-12 mx-auto">
+        <h2 class="text-primary text-center mb-4">Related Posts</h2>
+        <div class="card-deck">
+          <?php
+            $args = [
+              'post_type' => 'post',
+              'posts_per_page' => 3,
+              'category_name' => $slug,
+            ];
+            $query = new WP_Query($args);
+          ?>
+
+          <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
+              <div class="card rounded-0 border-0 bg-white py-5 text-center text-lg-left">
+                <article class="product-article">
+                  <header>
+                    <div class="card-header border-0 py-0 bg-white">
+                        <h3 class="mb-2">
+                          <a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+                        </h3>
+                    </div>
+                  </header>
+                  <div class="card-body">
+                    <div class="text-muted">
+                      <?php the_excerpt(); ?>
+                    </div>
+                  </div>
+                  <div class="card-footer border-0 bg-white">
+                    <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary-light">View Post</a>
+                  </div>
+                </article>
+              </div>
+
+          <?php endwhile; ?>
+          <!-- post navigation -->
+        <?php else: ?>
+          <!-- no posts found -->
+        <?php endif; ?>
+
+        <?php wp_reset_query(); ?>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
