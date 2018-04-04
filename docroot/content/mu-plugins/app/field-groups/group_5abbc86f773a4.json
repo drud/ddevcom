@@ -172,6 +172,22 @@
             "endpoint": 0
         },
         {
+            "key": "field_5abebb7f78594",
+            "label": "Alternating (copy)",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
             "key": "field_5abbca3270220",
             "label": "Persona Type - Alternating Sections",
             "name": "persona_type_alternating_section",
@@ -419,6 +435,22 @@
             "endpoint": 0
         },
         {
+            "key": "field_5abebb8278595",
+            "label": "DrupalCon (copy)",
+            "name": "",
+            "type": "tab",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "placement": "left",
+            "endpoint": 0
+        },
+        {
             "key": "field_5abbc94cf8df8",
             "label": "Persona Type - DrupalCon CTA",
             "name": "persona_type_drupalcon_cta",
@@ -531,5 +563,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1522359382
+    "modified": 1522449303
 }
