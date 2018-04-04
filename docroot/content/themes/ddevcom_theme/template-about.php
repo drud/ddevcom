@@ -41,12 +41,25 @@
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
         <div class="py-lg-4">
-          <h3 class="h2 mb-4"><?php the_field('about_headline_header'); ?></h3>
           <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div class="text-muted">
+            <div class="col-lg-10 mx-auto">
                 <?php the_field('about_headline_content'); ?>
-              </div>
+                <h3 class="h2 my-4"><?php the_field('about_headline_header'); ?></h3>
+                <?php $headline_link_1 = get_field('about_headline_link_1'); ?>
+                <?php $headline_link_2 = get_field('about_headline_link_2'); ?>
+
+                <?php if($headline_link_1): ?>
+                  <a href="<?= $headline_link_1['url']; ?>" class="btn btn-outline-primary-light">
+                    <?= $headline_link_1['title']; ?>
+                  </a>
+                <?php endif; ?>
+
+                <?php if($headline_link_2): ?>
+                  <a href="<?= $headline_link_2['url']; ?>" class="btn btn-outline-primary-light">
+                    <?= $headline_link_2['title']; ?>
+                  </a>
+                <?php endif; ?>
+
             </div>
           </div>
         </div>
@@ -72,7 +85,6 @@
 
 <section class="about-alternating">
   <div class="container-fluid my-5">
-
     <?php
       if( have_rows('about_alternating_sections') ):
           while ( have_rows('about_alternating_sections') ) : the_row();

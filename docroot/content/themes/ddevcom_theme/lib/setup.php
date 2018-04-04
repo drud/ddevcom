@@ -103,6 +103,7 @@ function display_sidebar() {
     is_category(),
     is_home(),
     is_post_type_archive('post'),
+    is_post_type_archive('job'),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);

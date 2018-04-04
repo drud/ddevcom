@@ -86,7 +86,7 @@
 <section class="front-page-video">
   <div class="container-fluid mb-5">
     <div class="row">
-      <div class="col-lg-8 mx-auto">
+      <div class="col-lg-9 mx-auto">
         <div class="video-wrapper mb-4">
           <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
         </div>
