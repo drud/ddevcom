@@ -11,7 +11,9 @@ body.scrolled nav.navbar {
 }
 
 body.single-post nav.navbar,
+body.single-job nav.navbar,
 body.blog nav.navbar,
+body.archive nav.navbar,
 body.category nav.navbar,
 body.page-template-template-quickstart nav.navbar, {
   background-color: theme-color('primary-dark');

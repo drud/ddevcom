@@ -11,7 +11,9 @@
               <!-- post -->
               <?php get_template_part('templates/content'); ?>
             <?php endwhile; ?>
-            <!-- post navigation -->
+            <div class="py-5">
+              <?php the_posts_pagination(); ?>
+            </div>
           <?php else: ?>
             <!-- no posts found -->
           <?php endif; ?>
