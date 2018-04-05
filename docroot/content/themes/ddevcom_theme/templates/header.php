@@ -17,9 +17,26 @@
       endif;
      ?>
 
-     <?php $cta_link = get_field('header_cta_link', 'option'); ?>
-     <a href="<?= $cta_link['url'];  ?>" class="btn btn-secondary btn-lg ml-auto">
-       <?= isset($cta_link['title']) ? $cta_link['title'] : 'Follow Us on GitHub';  ?>
-     </a>
+
+      <div class="ml-auto">
+        <?php $cta_link = get_field('header_cta_link', 'option'); ?>
+        <a href="<?= $cta_link['url'];  ?>" class="btn btn-secondary btn-lg d-block mb-1">
+          <?= isset($cta_link['title']) ? $cta_link['title'] : 'Follow Us on GitHub';  ?>
+        </a>
+
+        <div class="btn-group justify-content-center w-100" role="group" aria-label="Basic example">
+          <a class="btn btn-link" href="<?php the_field('company_facebook_url','option'); ?>">
+            <i class="fa fa-facebook text-white"></i>
+          </a>
+          <a class="btn btn-link" href="<?php the_field('company_twitter_url','option'); ?>">
+            <i class="fa fa-twitter text-white"></i>
+          </a>
+          <a class="btn btn-link" href="<?php the_field('company_linkedin_url','option'); ?>">
+            <i class="fa fa-linkedin text-white"></i>
+          </a>
+        </div>
+      </div>
+
+
   </div>
 </nav>

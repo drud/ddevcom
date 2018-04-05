@@ -1,0 +1,15 @@
+ul#menu-footer-menu {
+  list-style-type: none;
+  padding-left: 0;
+
+}
+
+ul#menu-footer-menu li.menu-item a {
+  color: #fff;
+
+  &:hover {
+    text-decoration: none;
+    color: theme-color('secondary-light');
+  }
+}
+
