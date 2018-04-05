@@ -1,15 +1,19 @@
 ul#menu-footer-menu {
   list-style-type: none;
   padding-left: 0;
+}
 
+ul#menu-footer-menu li.menu-item {
+  margin-bottom: 0.5rem;
 }
 
 ul#menu-footer-menu li.menu-item a {
   color: #fff;
+  font-size: 1.2rem;
 
   &:hover {
     text-decoration: none;
-    color: theme-color('secondary-light');
+    color: theme-color('secondary');
   }
 }
 
