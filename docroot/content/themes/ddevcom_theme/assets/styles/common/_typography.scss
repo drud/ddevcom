@@ -1,5 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500,500i|Palanquin+Dark:600');
-
+@import url('https://fonts.googleapis.com/css?family=Montserrat:500,500i|Palanquin+Dark:600|Source+Code+Pro');
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -33,5 +32,9 @@ p {
   img {
     margin: 2rem;
     max-width: 100%;
+  }
+
+  code {
+    font-family: 'Source Sans Pro', monospace;
   }
 }
