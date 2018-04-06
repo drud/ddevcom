@@ -21,14 +21,14 @@ section.front-page-jumbotron .jumbotron {
 }
 
 
-section.front-page-jumbotron .jumbotron p.h1 {
+section.front-page-jumbotron .jumbotron h1 {
 
   @include media-breakpoint-up(lg) {
     font-size: 3.5rem;
   }
 }
 
-section.persona-type-jumbotron .jumbotron p.h1 {
+section.persona-type-jumbotron .jumbotron h1 {
   @include media-breakpoint-up(lg) {
     font-size: 3rem;
   }

@@ -3,9 +3,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 col-xl-8 mx-auto text-center">
-          <p class="h1 text-white mb-4">
-            <?php the_field('front_page_jumbotron_header'); ?>
-          </p>
+          <header>
+            <h1 class="text-white mb-4">
+              <?php the_field('front_page_jumbotron_header'); ?>
+            </h1>
+          </header>
           <div class="text-white lead mb-2">
             <?php the_field('front_page_jumbotron_content'); ?>
           </div>
@@ -72,7 +74,7 @@
     <div class="row">
       <div class="col-lg-9 col-xl-6 mx-auto text-center text-primary">
         <div class="py-lg-4">
-          <h3 class="h2 mb-4"><?php the_field('front_page_headline_header'); ?></h3>
+          <h2 class="mb-4"><?php the_field('front_page_headline_header'); ?></h2>
           <div class="row">
             <div class="col-lg-12 mx-auto">
               <div class="text-muted">
@@ -107,7 +109,9 @@
     <div class="row">
       <?php $slug = get_post_field( 'post_name', get_post() ); ?>
       <div class="col-lg-12 mx-auto">
-        <h2 class="text-primary text-center">Recent Posts</h2>
+        <header>
+          <h2 class="text-primary text-center">Recent Posts</h2>
+        </header>
         <div class="card-deck">
           <?php
             $args = [
@@ -144,8 +148,4 @@
     <?php endif; ?>
 
   </div>
-</section>
-
-<section>
-  <div class="container-fluid bg-primary py-4"></div>
 </section>

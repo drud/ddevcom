@@ -9,9 +9,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 col-xl-8 mx-auto text-center">
-          <p class="h1 text-white mb-4">
-            <?php the_field('persona_type_jumbotron_header'); ?>
-          </p>
+          <header>
+            <h1 class="text-white mb-4">
+              <?php the_field('persona_type_jumbotron_header'); ?>
+            </h1>
+          </header>
           <div class="text-white mb-5 lead">
             <?php the_field('persona_type_jumbotron_content'); ?>
           </div>
@@ -79,7 +81,9 @@
                       </div>
                       <div class="col-lg-6">
                         <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <header>
+                            <h3 class="text-primary my-4 mt-lg-0"><?php the_sub_field('header'); ?></h3>
+                          </header>
                           <div class="text-muted mb-5">
                             <?php the_sub_field('content'); ?>
                           </div>
@@ -103,7 +107,9 @@
                       </div>
                       <div class="col-lg-6 order-lg-1">
                         <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <header>
+                            <h3 class="text-primary my-4 mt-lg-0"><?php the_sub_field('header'); ?></h3>
+                          </header>
                           <div class="text-muted mb-5">
                             <?php the_sub_field('content'); ?>
                           </div>
@@ -124,7 +130,7 @@
          ?>
   </div>
 </section>
-<section class="drupalcon">
+<section class="newsletter">
   <div class="container-fluid bg-primary py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">

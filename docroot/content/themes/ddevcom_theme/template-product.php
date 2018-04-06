@@ -9,9 +9,11 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-9 col-xl-8 mx-auto text-center">
-          <p class="h1 text-white mb-4">
-            <?php the_field('product_jumbotron_header'); ?>
-          </p>
+          <header>
+            <h1 class="text-white mb-4">
+              <?php the_field('product_jumbotron_header'); ?>
+            </h1>
+          </header>
           <div class="text-white mb-5 lead">
             <?php the_field('product_jumbotron_content'); ?>
           </div>
@@ -29,19 +31,20 @@
               <?= $button_2_link['title']; ?>
             </a>
           <?php endif; ?>
+
         </div>
       </div>
     </div>
   </div>
 </section>
-
+<?php if(get_field('product_headline_header') && get_field('product_headline_content') ): ?>
 <section class="product-headline">
   <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center text-primary">
         <div class="py-lg-4">
-          <h3 class="h2 mb-4"><?php the_field('product_headline_header'); ?></h3>
+          <h2 class="mb-4"><?php the_field('product_headline_header'); ?></h2>
           <div class="row">
             <div class="col-lg-8 mx-auto">
               <div class="text-muted">
@@ -54,7 +57,7 @@
     </div>
   </div>
 </section>
-
+<?php endif; ?>
 <section class="product-alternating">
   <div class="container-fluid mb-5">
 
@@ -72,7 +75,7 @@
                       </div>
                       <div class="col-lg-9">
                         <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <h3 class="text-primary my-4 mt-lg-0"><?php the_sub_field('header'); ?></h3>
                           <div class="text-muted mb-5">
                             <?php the_sub_field('content'); ?>
                           </div>
@@ -98,7 +101,7 @@
                       </div>
                       <div class="col-lg-9 order-lg-1">
                         <div class="py-5 px-lg-5">
-                          <h4 class="text-primary h3 my-4 mt-lg-0"><?php the_sub_field('header'); ?></h4>
+                          <h3 class="text-primary my-4 mt-lg-0"><?php the_sub_field('header'); ?></h3>
                           <div class="text-muted mb-5">
                             <?php the_sub_field('content'); ?>
                           </div>
@@ -118,7 +121,7 @@
               endif;
             endwhile;
           endif;
-         ?>
+          ?>
   </div>
 </section>
 <section class="newsletter">
@@ -168,3 +171,4 @@
     </div>
   </div>
 </section>
+

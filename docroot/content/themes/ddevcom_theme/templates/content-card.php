@@ -2,6 +2,7 @@
   <article class="persona-article">
     <header>
       <div class="card-header border-0 py-0 bg-white">
+
           <h3 class="mb-3">
             <a href="<?php the_permalink(); ?>" class="text-primary-light"><?php the_title(); ?></a>
           </h3>
