@@ -30,7 +30,7 @@
 
   <?php if(is_active_sidebar('footer-4')): ?>
 
-  <div class="container-fluid py-2 bg-primary-dark">
+  <div class="container-fluid py-2 bg-primary">
     <div class="row">
       <div class="col-lg-12 text-center text-white">
         <?php dynamic_sidebar( 'footer-4' ); ?>
