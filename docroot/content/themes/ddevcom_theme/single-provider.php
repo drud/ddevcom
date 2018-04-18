@@ -27,7 +27,7 @@
           <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
             Join our newsletter!
           </p>
-        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
+        <a href="http://eepurl.com/dlqkUD" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
           Join Newsletter
         </a>
       </div>

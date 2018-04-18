@@ -28,7 +28,7 @@
             <?php the_field('persona_type_drupalcon_cta'); ?>
           </p>
           <?php $drupalcon_link = get_field('persona_type_drupalcon_cta_link'); ?>
-        <a href="#" data-toggle="modal" data-target="#modal-newsletter" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
+        <a href="http://eepurl.com/dlqkUD" class="btn btn-outline-secondary btn-lg d-block d-md-inline-block mb-1 ml-md-3">
           Join Newsletter
         </a>
       </div>
