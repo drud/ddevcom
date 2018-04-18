@@ -24,17 +24,32 @@
           <?= isset($cta_link['title']) ? $cta_link['title'] : 'Follow Us on GitHub';  ?>
         </a>
 
-        <div class="btn-group justify-content-center w-100" role="group" aria-label="Basic example">
-          <a class="btn btn-link" href="<?php the_field('company_facebook_url','option'); ?>">
-            <i class="fa fa-facebook text-white"></i>
-          </a>
-          <a class="btn btn-link" href="<?php the_field('company_twitter_url','option'); ?>">
-            <i class="fa fa-twitter text-white"></i>
-          </a>
-          <a class="btn btn-link" href="<?php the_field('company_linkedin_url','option'); ?>">
-            <i class="fa fa-linkedin text-white"></i>
-          </a>
+        <?php if( get_field('company_facebook_url','option') || get_field('company_twitter_url','option') || get_field('company_linkedin_url','option') ): ?>
+
+        <div class="btn-group justify-content-center w-100" role="group">
+
+          <?php if(get_field('company_facebook_url','option')): ?>
+            <a class="btn btn-link" href="<?php the_field('company_facebook_url','option'); ?>">
+              <i class="fa fa-facebook text-white"></i>
+            </a>
+          <?php endif; ?>
+
+          <?php if(get_field('company_twitter_url','option')): ?>
+            <a class="btn btn-link" href="<?php the_field('company_twitter_url','option'); ?>">
+              <i class="fa fa-twitter text-white"></i>
+            </a>
+          <?php endif; ?>
+
+          <?php if(get_field('company_linkedin_url','option')): ?>
+            <a class="btn btn-link" href="<?php the_field('company_linkedin_url','option'); ?>">
+              <i class="fa fa-linkedin text-white"></i>
+            </a>
+          <?php endif; ?>
+
         </div>
+
+        <?php endif; ?>
+
       </div>
 
 
