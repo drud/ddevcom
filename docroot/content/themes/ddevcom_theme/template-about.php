@@ -45,10 +45,10 @@
         <div class="py-lg-4">
           <div class="row">
             <div class="col-lg-10 mx-auto">
-                <?php the_field('about_headline_content'); ?>
                 <header>
                   <h2 class="my-4"><?php the_field('about_headline_header'); ?></h2>
                 </header>
+                <?php the_field('about_headline_content'); ?>
                 <?php $headline_link_1 = get_field('about_headline_link_1'); ?>
                 <?php $headline_link_2 = get_field('about_headline_link_2'); ?>
 
