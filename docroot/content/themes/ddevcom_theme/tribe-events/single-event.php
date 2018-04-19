@@ -24,7 +24,7 @@ $event_id = get_the_ID();
 
 <div id="tribe-events-content" class="tribe-events-single container-fluid my-2 my-lg-5">
   <div class="row">
-    <div class="col-lg-6 mx-auto">
+    <div class="col-12">
       <p class="tribe-events-back">
         <a href="<?php echo esc_url( tribe_get_events_link() ); ?>"> <?php printf( '&laquo; ' . esc_html_x( 'All %s', '%s Events plural label', 'the-events-calendar' ), $events_label_plural ); ?></a>
       </p>
