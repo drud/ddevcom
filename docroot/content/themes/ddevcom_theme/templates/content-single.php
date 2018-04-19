@@ -6,8 +6,8 @@
         <div class="col-lg-9 mx-auto">
           <div class="row">
             <div class="col-lg-8">
-              <header class="pt-5">
-                  <h1 class="text-primary single-post-header mt-4 mb-3"><?php the_title(); ?></h1>
+              <header>
+                <h1 class="text-primary single-post-header mb-3"><?php the_title(); ?></h1>
                 <div class="text-primary mb-4">
                   <?php get_template_part('templates/entry-meta'); ?>
                 </div>
