@@ -23,4 +23,4 @@ vendor/*
 node_modules
 
 # DDEV
-./.ddev/docker-compose.yaml
+.ddev/docker-compose.yaml

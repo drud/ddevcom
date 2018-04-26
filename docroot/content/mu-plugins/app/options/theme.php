@@ -9,7 +9,8 @@ add_action('init', function(){
       'menu_title'  => 'Theme Settings',
       'menu_slug'   => 'theme-general-settings',
       'capability'  => 'edit_posts',
-      'redirect'    => true
+      'redirect'    => true,
+      'position'    => 5
     ]);
   }
 });

@@ -67,7 +67,9 @@
     "wpackagist-plugin/the-events-calendar": "^4.6",
     "wpackagist-plugin/simple-301-redirects": "^1.07",
     "wpackagist-plugin/wpmandrill": "^1.33",
-    "wpackagist-plugin/prism-wp": "^1.0"
+    "wpackagist-plugin/prism-wp": "^1.0",
+    "wpackagist-plugin/schema-app-structured-data-for-schemaorg": "^1.9",
+    "wpackagist-plugin/ultimate-social-media-icons": "^1.9"
   },
   "extra": {
     "installer-paths": {

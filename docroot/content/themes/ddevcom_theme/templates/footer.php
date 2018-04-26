@@ -1,6 +1,5 @@
 
-<?php get_template_part('templates/modal','newsletter'); ?>
-<?php get_template_part('templates/modal','hosting'); ?>
+<?php get_template_part('templates/modal','video'); ?>
 
 <footer class="content-info">
   <div class="container-fluid py-5 bg-primary">

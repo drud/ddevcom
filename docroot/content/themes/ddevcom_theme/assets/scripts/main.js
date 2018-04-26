@@ -20,6 +20,14 @@
       init: function() {
         // JavaScript to be fired on all pages
 
+        $(document).ready(function(){
+          if ($(window).scrollTop() > 0 ) {
+            $('body').addClass('scrolled');
+          } else {
+            $('body').removeClass('scrolled');
+          }
+        });
+
         $(window).scroll(function(){
           if ($(this).scrollTop() > 0 ) {
             $('body').addClass('scrolled');
@@ -27,6 +35,15 @@
             $('body').removeClass('scrolled');
           }
         });
+
+        $('#modal-video').on('shown.bs.modal', function() {
+          $(this).find('iframe').attr('src', 'https://www.youtube.com/embed/rj4WTnZcjjY?modestbranding=1&amp;showinfo=0&amp;rel=0;autoplay=1');
+        });
+
+        $('#modal-video').on('hidden.bs.modal', function() {
+          $(this).find('iframe').attr('src', '');
+        })
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired

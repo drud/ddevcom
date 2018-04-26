@@ -19,10 +19,10 @@
             "endpoint": 0
         },
         {
-            "key": "field_5abec8daccb47",
-            "label": "Header - CTA Link",
-            "name": "header_cta_link",
-            "type": "link",
+            "key": "field_5ae20cabd8ba7",
+            "label": "Header - Video Embed URL",
+            "name": "header_video_embed_url",
+            "type": "text",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -31,7 +31,11 @@
                 "class": "",
                 "id": ""
             },
-            "return_format": "array"
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
         }
     ],
     "location": [
@@ -51,5 +55,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1522452735
+    "modified": 1524763857
 }
