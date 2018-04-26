@@ -1,4 +1,30 @@
-@import url('https://fonts.googleapis.com/css?family=Montserrat:500,500i|Palanquin+Dark:600|Source+Code+Pro');
+/* montserrat-regular - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Montserrat Regular'), local('Montserrat-Regular'),
+       url('../fonts/montserrat-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/montserrat-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/montserrat-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/montserrat-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/montserrat-v12-latin-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
+}
+
+/* palanquin-dark-500 - latin */
+@font-face {
+  font-family: 'Palanquin Dark';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/palanquin-dark-v3-latin-500.eot'); /* IE9 Compat Modes */
+  src: local('Palanquin Dark Medium'), local('PalanquinDark-Medium'),
+       url('../fonts/palanquin-dark-v3-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/palanquin-dark-v3-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/palanquin-dark-v3-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/palanquin-dark-v3-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/palanquin-dark-v3-latin-500.svg#PalanquinDark') format('svg'); /* Legacy iOS */
+}
 
 body {
   -webkit-font-smoothing: antialiased;
