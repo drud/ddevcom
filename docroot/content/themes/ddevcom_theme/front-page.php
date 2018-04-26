@@ -87,7 +87,9 @@
     </div>
   </div>
 </section>
+
 <?php if(get_field('front_page_video_embed_url')): ?>
+
 <section class="front-page-video">
   <div class="container-fluid mb-5">
     <div class="row">
@@ -98,10 +100,58 @@
         <div class="front-page-video-summary p text-muted">
           <?php the_field('front_page_video_summary'); ?>
         </div>
+        <div class="text-center mx-auto py-3">
+          <?php if(get_field('front_page_video_link_1')): ?>
+            <?php $video_link_1 = get_field('front_page_video_link_1'); ?>
+            <a href="<?= $video_link_1['url']; ?>" class="btn btn-outline-primary-light">
+              <?= $video_link_1['title']; ?>
+            </a>
+          <?php endif; ?>
+          <?php if(get_field('front_page_video_link_2')): ?>
+            <?php $video_link_2 = get_field('front_page_video_link_2'); ?>
+            <a href="<?= $video_link_2['url']; ?>" class="btn btn-outline-dark">
+              <?= $video_link_2['title']; ?>
+            </a>
+          <?php endif; ?>
+        </div>
       </div>
     </div>
   </div>
 </section>
+
+<?php endif; ?>
+
+<?php if(get_field('front_page_tweets')): ?>
+
+<section class="front-page-tweets bg-light py-5">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-9 mx-auto py-lg-5">
+
+        <?php if(get_field('front_page_tweets_header')): ?>
+          <h3 class="text-primary text-center mb-4"><?php the_field('front_page_tweets_header'); ?></h3>
+        <?php endif; ?>
+
+        <div class="card-deck">
+
+          <?php if(have_rows('front_page_tweets')): ?>
+            <?php while(have_rows('front_page_tweets')):  ?>
+              <?php the_row(); ?>
+
+                <div class="card rounded-0 border-0 bg-light">
+                  <?php the_sub_field('tweet_embed_code'); ?>
+                </div>
+
+            <?php endwhile; ?>
+          <?php endif; ?>
+
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
 <?php endif; ?>
 
 <section class="front-page-recent-posts">
