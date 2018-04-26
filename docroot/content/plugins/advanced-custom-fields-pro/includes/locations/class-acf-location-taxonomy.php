@@ -24,7 +24,7 @@ class acf_location_taxonomy extends acf_location {
 		
 		// vars
 		$this->name = 'taxonomy';
-		$this->label = __("Taxonomy",'acf');
+		$this->label = __("Taxonomy Term",'acf');
 		$this->category = 'forms';
     	
 	}

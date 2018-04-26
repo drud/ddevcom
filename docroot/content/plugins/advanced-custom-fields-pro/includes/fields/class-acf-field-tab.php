@@ -48,15 +48,13 @@ class acf_field_tab extends acf_field {
 		
 		// vars
 		$atts = array(
-			'href'				=> '',
-			'class'				=> 'acf-tab-button',
+			'class'				=> 'acf-tab',
 			'data-placement'	=> $field['placement'],
-			'data-endpoint'		=> $field['endpoint'],
-			'data-key'			=> $field['key']
+			'data-endpoint'		=> $field['endpoint']
 		);
 		
 		?>
-		<a <?php acf_esc_attr_e( $atts ); ?>><?php echo acf_esc_html($field['label']); ?></a>
+		<div <?php acf_esc_attr_e( $atts ); ?>><?php echo acf_esc_html($field['label']); ?></div>
 		<?php
 		
 		
@@ -79,22 +77,20 @@ class acf_field_tab extends acf_field {
 	
 	function render_field_settings( $field ) {
 		
-/*
 		// message
 		$message = '';
+		$message .= '<span class="acf-error-message"><p>' . __("The tab field will display incorrectly when added to a Table style repeater field or flexible content field layout", 'acf') . '</p></span>';
 		$message .= '<p>' . __( 'Use "Tab Fields" to better organize your edit screen by grouping fields together.', 'acf') . '</p>';
 		$message .= '<p>' . __( 'All fields following this "tab field" (or until another "tab field" is defined) will be grouped together using this field\'s label as the tab heading.','acf') . '</p>';
-		
 		
 		// default_value
 		acf_render_field_setting( $field, array(
 			'label'			=> __('Instructions','acf'),
 			'instructions'	=> '',
-			'name'			=> 'notes',
 			'type'			=> 'message',
 			'message'		=> $message,
+			'new_lines'		=> ''
 		));
-*/
 		
 		
 		// preview_size
@@ -103,16 +99,16 @@ class acf_field_tab extends acf_field {
 			'type'			=> 'select',
 			'name'			=> 'placement',
 			'choices' 		=> array(
-				'top'			=>	__("Top aligned", 'acf'),
-				'left'			=>	__("Left aligned", 'acf'),
+				'top'			=>	__("Top aligned",'acf'),
+				'left'			=>	__("Left Aligned",'acf'),
 			)
 		));
 		
 		
 		// endpoint
 		acf_render_field_setting( $field, array(
-			'label'			=> __('Endpoint','acf'),
-			'instructions'	=> __('Define an endpoint for the previous tabs to stop. This will start a new group of tabs.', 'acf'),
+			'label'			=> __('End-point','acf'),
+			'instructions'	=> __('Use this field as an end-point and start a new group of tabs','acf'),
 			'name'			=> 'endpoint',
 			'type'			=> 'true_false',
 			'ui'			=> 1,
@@ -140,11 +136,14 @@ class acf_field_tab extends acf_field {
 		// remove name to avoid caching issue
 		$field['name'] = '';
 		
+		
 		// remove required to avoid JS issues
 		$field['required'] = 0;
 		
+		
 		// set value other than 'null' to avoid ACF loading / caching issue
 		$field['value'] = false;
+		
 		
 		// return
 		return $field;

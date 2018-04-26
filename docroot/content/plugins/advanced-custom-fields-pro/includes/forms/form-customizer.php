@@ -241,56 +241,47 @@ class acf_form_customizer {
 		if( empty($this->preview_values) ) return;
 		
 		
-		// add filters
-		add_filter('acf/pre_load_value', array($this, 'pre_load_value'), 10, 3);
-		add_filter('acf/pre_load_reference', array($this, 'pre_load_reference'), 10, 3);
+		// add filter
+		add_filter('acf/get_field_reference', 	array($this, 'get_field_reference'), 10, 3);
 		
 	}
 	
-	/**
-	*  pre_load_value
+	
+	/*
+	*  get_field_reference
 	*
-	*  Used to inject preview value
+	*  This function will return a field_key for a given field name + post_id
+	*  Normally, ACF would lookup the DB fro this connection, but a new preview widget has not yet saved anything to the DB
 	*
-	*  @date	2/2/18
-	*  @since	5.6.5
+	*  @type	function
+	*  @date	12/05/2016
+	*  @since	5.3.8
 	*
-	*  @param	type $var Description. Default.
-	*  @return	type Description.
+	*  @param	$field_key (string)
+	*  @param	$field_name (string)
+	*  @param	$post_id (mixed)
+	*  @return	$field_key
 	*/
 	
-	function pre_load_value( $value, $post_id, $field ) {
+	function get_field_reference( $field_key, $field_name, $post_id ) {
 		
-		// check 
-		if( isset($this->preview_values[ $post_id ][ $field['key'] ]) ) {
-			return $this->preview_values[ $post_id ][ $field['key'] ];
-		}
-		
-		// return
-		return $value;
-	}
-	
-	/**
-	*  pre_load_reference
-	*
-	*  Used to inject preview value
-	*
-	*  @date	2/2/18
-	*  @since	5.6.5
-	*
-	*  @param	type $var Description. Default.
-	*  @return	type Description.
-	*/
-	
-	function pre_load_reference( $field_key, $field_name, $post_id ) {
-		
-		// check 
+		// look for reference
 		if( isset($this->preview_fields[ $post_id ][ $field_name ]) ) {
-			return $this->preview_fields[ $post_id ][ $field_name ];
+			
+			// update key
+			$field_key = $this->preview_fields[ $post_id ][ $field_name ];
+			$field_value = $this->preview_values[ $post_id ][ $field_key ];
+			
+			
+			// cache value
+			acf_set_cache("get_value/post_id={$post_id}/name={$field_name}", $field_value);
+			
 		}
 		
+		
 		// return
-		return $value;
+		return $field_key;
+		
 	}
 		
 	

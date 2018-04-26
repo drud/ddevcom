@@ -342,11 +342,11 @@ class acf_field__group extends acf_field {
 	function render_field_block( $field ) {
 		
 		// vars
-		$label_placement = ($field['layout'] == 'block') ? 'top' : 'left';
+		$label_placement = $field['layout'] == 'block' ? 'top' : 'left';
 		
 		
 		// html
-		echo '<div class="acf-fields -' . $label_placement . ' -border">';
+		echo '<div class="acf-fields -'.$label_placement.' -border">';
 			
 		foreach( $field['sub_fields'] as $sub_field ) {
 			
@@ -407,8 +407,10 @@ class acf_field__group extends acf_field {
 				
 			?>
 			<th <?php acf_esc_attr_e( $atts ); ?>>
-				<?php acf_render_field_label( $sub_field ); ?>
-				<?php acf_render_field_instructions( $sub_field ); ?>
+				<?php echo acf_get_field_label( $sub_field ); ?>
+				<?php if( $sub_field['instructions'] ): ?>
+					<p class="description"><?php echo $sub_field['instructions']; ?></p>
+				<?php endif; ?>
 			</th>
 		<?php endforeach; ?>
 		</tr>
@@ -456,7 +458,8 @@ class acf_field__group extends acf_field {
 		
 		?><tr class="acf-field acf-field-setting-sub_fields" data-setting="group" data-name="sub_fields">
 			<td class="acf-label">
-				<label><?php _e("Sub Fields",'acf'); ?></label>	
+				<label><?php _e("Sub Fields",'acf'); ?></label>
+				<p class="description"></p>		
 			</td>
 			<td class="acf-input">
 				<?php 
@@ -534,40 +537,6 @@ class acf_field__group extends acf_field {
 		
 		// return
 		return $valid;
-		
-	}
-	
-	
-	/*
-	*  duplicate_field()
-	*
-	*  This filter is appied to the $field before it is duplicated and saved to the database
-	*
-	*  @type	filter
-	*  @since	3.6
-	*  @date	23/01/13
-	*
-	*  @param	$field - the field array holding all the field options
-	*
-	*  @return	$field - the modified field
-	*/
-
-	function duplicate_field( $field ) {
-		
-		// get sub fields
-		$sub_fields = acf_extract_var( $field, 'sub_fields' );
-		
-		
-		// save field to get ID
-		$field = acf_update_field( $field );
-		
-		
-		// duplicate sub fields
-		acf_duplicate_fields( $sub_fields, $field['ID'] );
-		
-						
-		// return		
-		return $field;
 		
 	}
 	

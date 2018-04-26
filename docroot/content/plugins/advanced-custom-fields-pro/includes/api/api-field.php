@@ -284,10 +284,7 @@ function acf_get_field_label( $field ) {
 	$label = $field['label'];
 	
 	
-	// required
-	if( $field['required'] ) {
-		$label .= ' <span class="acf-required">*</span>';
-	}
+	if( $field['required'] ) $label .= ' <span class="acf-required">*</span>';
 	
 	
 	// filter for 3rd party customization
@@ -323,38 +320,32 @@ function acf_the_field_label( $field ) {
 *  @return	n/a
 */
 
-function acf_render_fields( $fields, $post_id = 0, $el = 'div', $instruction = 'label' ) {
-	
-	// parameter order changed in ACF 5.6.9
-	if( is_array($post_id) ) {
-		$args = func_get_args();
-		$fields = $args[1];
-		$post_id = $args[0];
-	}
-	
-	// filter
-	$fields = apply_filters('acf/pre_render_fields', $fields, $post_id);
+function acf_render_fields( $post_id = 0, $fields, $el = 'div', $instruction = 'label' ) {
 	
 	// bail early if no fields
-	if( empty($fields) ) return;
+	if( empty($fields) ) return false;
 	
-	// loop
+		
+	// remove corrupt fields
+	$fields = array_filter($fields);
+	
+	
+	// loop through fields
 	foreach( $fields as $field ) {
 		
-		// bail ealry if no field
-		if( !$field ) continue;
-	
 		// load value
 		if( $field['value'] === null ) {
+			
 			$field['value'] = acf_get_value( $post_id, $field );
+			
 		} 
+		
 		
 		// render
 		acf_render_field_wrap( $field, $el, $instruction );
+		
 	}
 	
-	// action
-	do_action( 'acf/render_fields', $fields, $post_id );
 }
 
 
@@ -422,21 +413,23 @@ function acf_render_field_wrap( $field, $el = 'div', $instruction = 'label' ) {
 	if( !$field ) return;
 	
 	
-	// elements
-	$elements = array(
+	// el
+	$elements = apply_filters('acf/render_field_wrap/elements', array(
 		'div'	=> 'div',
 		'tr'	=> 'td',
 		'ul'	=> 'li',
 		'ol'	=> 'li',
 		'dl'	=> 'dt',
 		'td'	=> 'div' // special case for sub field!
-	);
+	));
 	
 	
-	// vars
-	$el = isset($elements[ $el ]) ? $el : 'div';
-	$el2 = $elements[ $el ];
-	$show_label = ($el !== 'td') ? true : false;
+	// validate $el
+	if( !array_key_exists($el, $elements) ) {
+		
+		$el = 'div';
+	
+	}
 	
 	
 	// wrapper
@@ -453,7 +446,9 @@ function acf_render_field_wrap( $field, $el = 'div', $instruction = 'label' ) {
 	
 	// add required
 	if( $field['required'] ) {
+		
 		$wrapper['data-required'] = 1;
+		
 	}
 	
 	
@@ -498,7 +493,7 @@ function acf_render_field_wrap( $field, $el = 'div', $instruction = 'label' ) {
 	
 	if( $el == 'tr' || $el == 'td' ) {
 		
-		// do nothing
+		$width = 0;
 		
 	} elseif( $width > 0 && $width < 100 ) {
 		
@@ -509,99 +504,44 @@ function acf_render_field_wrap( $field, $el = 'div', $instruction = 'label' ) {
 	
 	
 	// remove empty attributes
-	$wrapper = array_filter($wrapper);
-	
-	
-	// html
-	?>
-<<?php echo $el; ?> <?php acf_esc_attr_e($wrapper); ?>>
-	<?php if( $show_label ): ?>
-	<<?php echo $el2; ?> class="acf-label"><?php
+	foreach( $wrapper as $k => $v ) {
 		
-		acf_render_field_label( $field );
+		if( $v == '' ) {
+			
+			unset($wrapper[$k]);
+			
+		}
 		
-		if( $instruction == 'label' ) acf_render_field_instructions( $field );
+	}
 	
-	?></<?php echo $el2; ?>>
-	<?php endif; ?>
-	<<?php echo $el2; ?> class="acf-input">
+	
+	// vars
+	$show_label = ($el !== 'td') ? true : false;
+	
+	
+?><<?php echo $el; ?> <?php echo acf_esc_attr($wrapper); ?>>
+<?php if( $show_label ): ?>
+	<<?php echo $elements[ $el ]; ?> class="acf-label">
+		<label for="<?php echo $field['id']; ?>"><?php echo acf_get_field_label($field); ?></label>
+<?php if( $instruction == 'label' && $field['instructions'] ): ?>
+		<p class="description"><?php echo $field['instructions']; ?></p>
+<?php endif; ?>
+	</<?php echo $elements[ $el ]; ?>>
+<?php endif; ?>
+	<<?php echo $elements[ $el ]; ?> class="acf-input">
 		<?php acf_render_field( $field ); ?>
-		<?php if( $instruction == 'field' ) acf_render_field_instructions( $field ); ?>
-		<?php if( !empty($field['conditional_logic']) ): ?>
-		<script type="text/javascript">
-			if( typeof acf !== 'undefined' ) { 
-				acf.conditional_logic.add( '<?php echo esc_js($field['key']); ?>', <?php echo wp_json_encode( $field['conditional_logic'] ); ?> ); 
-			}
-		</script>
-		<?php endif; ?>
-	</<?php echo $el2; ?>>
+<?php if( $instruction == 'field' && $field['instructions'] ): ?>
+		<p class="description"><?php echo $field['instructions']; ?></p>
+<?php endif; ?>
+	</<?php echo $elements[ $el ]; ?>>
+<?php if( !empty($field['conditional_logic'])): ?>
+	<script type="text/javascript">
+		if(typeof acf !== 'undefined'){ acf.conditional_logic.add( '<?php echo $field['key']; ?>', <?php echo json_encode($field['conditional_logic']); ?>); }
+	</script>
+<?php endif; ?>
 </<?php echo $el; ?>>
 <?php
 	
-}
-
-
-/**
-*  acf_render_field_label
-*
-*  This function will maybe output the field's label
-*
-*  @date	19/9/17
-*  @since	5.6.3
-*
-*  @param	array $field
-*  @return	n/a
-*/
-
-function acf_render_field_label( $field ) {
-	
-	// vars
-	$label = acf_get_field_label( $field );
-	
-	
-	// check
-	if( $label ) {
-		echo '<label' . ($field['id'] ? ' for="' . esc_attr($field['id']) . '"' : '' ) . '>' . acf_esc_html($label) . '</label>';
-	}
-	
-}
-
-
-/* depreciated since 5.6.5 */
-function acf_render_field_wrap_label( $field ) {
-	acf_render_field_label( $field );
-}
-
-
-/**
-*  acf_render_field_instructions
-*
-*  This function will maybe output the field's instructions
-*
-*  @date	19/9/17
-*  @since	5.6.3
-*
-*  @param	array $field
-*  @return	n/a
-*/
-
-function acf_render_field_instructions( $field ) {
-	
-	// vars
-	$instructions = $field['instructions'];
-	
-	
-	// check
-	if( $instructions ) {
-		echo '<p class="description">' . acf_esc_html($instructions) . '</p>';
-	}
-	
-}
-
-
-/* depreciated since 5.6.5 */
-function acf_render_field_wrap_description( $field ) {
-	acf_render_field_instructions( $field );
 }
 
 
@@ -717,7 +657,6 @@ function acf_get_fields( $parent = false ) {
 	
 	
 	// filter
-	$fields = apply_filters('acf/load_fields', $fields, $parent);
 	$fields = apply_filters('acf/get_fields', $fields, $parent);
 	
 	
@@ -769,8 +708,7 @@ function acf_get_fields_by_id( $parent_id = 0 ) {
 			'suppress_filters'			=> true, // DO NOT allow WPML to modify the query
 			'post_parent'				=> $parent_id,
 			'post_status'				=> 'publish, trash', // 'any' won't get trashed fields
-			'update_post_meta_cache'	=> false,
-			'update_post_term_cache'	=> false
+			'update_post_meta_cache'	=> false
 		));
 		
 		
@@ -1048,9 +986,7 @@ function _acf_get_field_by_name( $name = '', $db_only = false ) {
 		'orderby' 			=> 'menu_order title',
 		'order'				=> 'ASC',
 		'suppress_filters'	=> false,
-		'acf_field_name'	=> $name,
-		'update_post_meta_cache'	=> false,
-		'update_post_term_cache'	=> false
+		'acf_field_name'	=> $name
 	);
 	
 	
@@ -1107,7 +1043,7 @@ function acf_maybe_get_field( $selector, $post_id = false, $strict = true ) {
 	
 	
 	// get reference
-	$field_key = acf_get_reference( $selector, $post_id );
+	$field_key = acf_get_field_reference( $selector, $post_id );
 	
 	
 	// update selector
@@ -1160,9 +1096,7 @@ function acf_get_field_id( $key = '' ) {
 		'orderby' 			=> 'menu_order title',
 		'order'				=> 'ASC',
 		'suppress_filters'	=> false,
-		'acf_field_key'		=> $key,
-		'update_post_meta_cache'	=> false,
-		'update_post_term_cache'	=> false
+		'acf_field_key'		=> $key
 	);
 	
 	
@@ -1309,7 +1243,7 @@ function acf_update_field( $field = false, $specific = false ) {
 	
 	
 	// allow fields to contain the same name
-	add_filter( 'wp_unique_post_slug', 'acf_update_field_wp_unique_post_slug', 999, 6 ); 
+	add_filter( 'wp_unique_post_slug', 'acf_update_field_wp_unique_post_slug', 100, 6 ); 
 	
 	
 	// slash data
@@ -1757,7 +1691,7 @@ function acf_prepare_fields_for_import( $fields = false ) {
 		
 		
 		// allow multiple fields to be returned ($field + $sub_fields)
-		if( !isset($field['key']) && isset($field[0]) ) {
+		if( acf_is_sequential_array($field) ) {
 			
 			// merge in $field (1 or more fields)
 			array_splice($fields, $i, 1, $field);
@@ -2032,5 +1966,7 @@ function acf_prefix_fields( &$fields, $prefix = 'acf' ) {
 	return $fields;
 	
 }
+
+
 
 ?>

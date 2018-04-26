@@ -31,48 +31,37 @@ class acf_third_party {
 	function __construct() {
 		
 		// Tabify Edit Screen - http://wordpress.org/extend/plugins/tabify-edit-screen/
-		if( class_exists('Tabify_Edit_Screen') ) {
-			add_filter('tabify_posttypes',			array($this, 'tabify_posttypes'));
-			add_action('tabify_add_meta_boxes',		array($this, 'tabify_add_meta_boxes'));
-		}
+		add_action('admin_head-settings_page_tabify-edit-screen', array($this, 'admin_head_tabify'));
+		
 		
 		// Post Type Switcher - http://wordpress.org/extend/plugins/post-type-switcher/
-		if( class_exists('Post_Type_Switcher') ) {
-			add_filter('pts_allowed_pages', array($this, 'pts_allowed_pages'));
-		}
+		add_filter('pts_allowed_pages', array($this, 'pts_allowed_pages'));
 		
-		// Event Espresso - https://wordpress.org/plugins/event-espresso-decaf/
-		if( function_exists('espresso_version') ) {
-			add_filter('acf/get_post_types', array($this, 'ee_get_post_types'), 10, 2);
-		}
 	}
 	
 	
-	/**
-	*  acf_get_post_types
+	/*
+	*  admin_head_tabify
 	*
-	*  EE post types do not use the native post.php edit page, but instead render their own.
-	*  Show the EE post types in lists where 'show_ui' is used.
+	*  description
 	*
-	*  @date	24/2/18
-	*  @since	5.6.9
+	*  @type	action (admin_head)
+	*  @date	9/10/12
+	*  @since	3.5.1
 	*
-	*  @param	array $post_types
-	*  @param	array $args
-	*  @return	array
+	*  @param	n/a
+	*  @return	n/a
 	*/
 	
-	function ee_get_post_types( $post_types, $args ) {
+	function admin_head_tabify() {
 		
-		if( !empty($args['show_ui']) ) {
-			$ee_post_types = get_post_types(array('show_ee_ui' => 1));
-			$ee_post_types = array_keys($ee_post_types);
-			$post_types = array_merge($post_types, $ee_post_types);
-			$post_types = array_unique($post_types);
-		}
+		// remove ACF from the tabs
+		add_filter('tabify_posttypes',			array($this, 'tabify_posttypes'));
 		
-		// return
-		return $post_types;
+		
+		// add acf metaboxes to list
+		add_action('tabify_add_meta_boxes',		array($this, 'tabify_add_meta_boxes'));
+		
 	}
 	
 	

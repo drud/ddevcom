@@ -19,10 +19,9 @@
 
 
       <div class="ml-auto">
-        <?php $cta_link = get_field('header_cta_link', 'option'); ?>
-        <a href="<?= $cta_link['url'];  ?>" class="btn btn-secondary btn-lg d-block mb-1">
-          <?= isset($cta_link['title']) ? $cta_link['title'] : 'Follow Us on GitHub';  ?>
-        </a>
+        <button class="btn btn-secondary btn-lg d-block mb-1" data-toggle="modal" data-target="#modal-video">
+          Watch a 90-Second Video
+        </button>
 
         <?php if( get_field('company_facebook_url','option') || get_field('company_twitter_url','option') || get_field('company_linkedin_url','option') ): ?>
 

@@ -258,10 +258,6 @@ class acf_loop {
 		// reset keys
 		$this->loops = array_values( $this->loops );
 		
-		// PHP 7.2 no longer resets array keys for empty value
-		if( $this->is_empty() ) {
-			$this->loops = array();
-		}
 	}
 	
 }
