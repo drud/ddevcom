@@ -21,3 +21,6 @@ vendor/*
 
 # Node Package Manager
 node_modules
+
+# DDEV
+./.ddev/docker-compose.yaml
