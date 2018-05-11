@@ -9,7 +9,7 @@
       }
     ?>
 
-    <img class="card-img-top mb-4 rounded-0" src="<?= $card_image_url; ?>" alt="Card image cap">
+    <img class="card-img-top mb-4 rounded-0" src="<?= $card_image_url; ?>" alt="<?php the_title(); ?>">
     <header>
       <div class="card-header border-0 py-0 bg-white">
           <h3 class="mb-3">
