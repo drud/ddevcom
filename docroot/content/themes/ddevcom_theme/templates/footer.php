@@ -1,5 +1,6 @@
 
 <?php get_template_part('templates/modal','video'); ?>
+<?php get_template_part('templates/alert','cookies'); ?>
 
 <footer class="content-info">
   <div class="container-fluid py-5 bg-primary">

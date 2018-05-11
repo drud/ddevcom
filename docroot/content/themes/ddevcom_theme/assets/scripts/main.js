@@ -21,10 +21,23 @@
         // JavaScript to be fired on all pages
 
         $(document).ready(function(){
+
           if ($(window).scrollTop() > 0 ) {
             $('body').addClass('scrolled');
           } else {
             $('body').removeClass('scrolled');
+          }
+
+          var cookieAccept = sessionStorage.getItem('cookieAccept');
+
+          $('#accept-cookies').click(function(){
+            if(!cookieAccept) {
+              sessionStorage.cookieAccept = 1;
+            }
+          });
+
+          if(!sessionStorage.cookieAccept) {
+            $('#cookie-alert').addClass('show');
           }
         });
 
