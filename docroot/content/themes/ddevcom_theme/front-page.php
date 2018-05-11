@@ -56,9 +56,11 @@
   <div class="container-fluid bg-primary-dark py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">
-        <img src="/content/themes/ddevcom_theme/dist/images/drupalcon-2018-logo.svg"
-        alt="DrupalCon Nashville 2018"
-        class="front-page-drupalcon-logo mr-3" width="80">
+        <?php if(get_field('front_page_newsletter_cta_image')): ?>
+          <img src="<?= get_field('front_page_newsletter_cta_image'); ?>"
+          alt="DDEV Newsletter"
+          class="mr-3" width="80">
+        <?php endif; ?>
           <p class="h3 text-white mb-4 mb-md-0 d-md-inline newsletter-cta">
             <?php the_field('front_page_newsletter_cta'); ?>
           </p>

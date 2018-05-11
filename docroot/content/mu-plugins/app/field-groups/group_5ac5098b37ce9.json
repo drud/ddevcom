@@ -122,6 +122,30 @@
             "maxlength": ""
         },
         {
+            "key": "field_5af5b421db765",
+            "label": "Front Page - Newsletter CTA Image",
+            "name": "front_page_newsletter_cta_image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
             "key": "field_5ac5098b54fc0",
             "label": "Headline",
             "name": "",
@@ -335,5 +359,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1524762014
+    "modified": 1526051994
 }
