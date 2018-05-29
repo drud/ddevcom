@@ -1,15 +1,22 @@
-APIVersion: "1"
+APIVersion: v0.18.0
 name: ddevwebsite
-type: php
+type: wordpress
 docroot: docroot
 php_version: "7.1"
-webimage: drud/nginx-php-fpm-local:v1.2.2
-dbimage: drud/mariadb-local:v0.9.0
-dbaimage: drud/phpmyadmin:v0.2.0
 router_http_port: "80"
 router_https_port: "443"
+xdebug_enabled: false
 additional_hostnames: []
 provider: default
+
+
+# This config.yaml was created with ddev version v0.18.0 
+# webimage: drud/nginx-php-fpm-local:v1.3.0
+# dbimage: drud/mariadb-local:v0.9.0
+# dbaimage: drud/phpmyadmin:v0.2.0
+# However we do not recommend explicitly wiring these images into the
+# config.yaml as they may break future versions of ddev.
+# You can update this config.yaml using 'ddev config'.
 
 # Key features of ddev's config.yaml:
 
@@ -22,8 +29,9 @@ provider: default
 
 # php_version: "7.1"  # PHP version to use, "5.6", "7.0", "7.1", "7.2"
 
-# You can delete the webimage, dbimage, dbaimage lines to use the defaults
-# in ddev.
+# You can explicitly specify the webimage, dbimage, dbaimage lines but this 
+# is not recommended, as the images are often closely tied to ddev's' behavior,
+# so this can break upgrades.
 
 # webimage: <docker_image>  # nginx/php docker image. 
 # dbimage: <docker_image>  # mariadb docker image. 
@@ -31,6 +39,8 @@ provider: default
 
 # router_http_port: <port>  # Port to be used for http (defaults to port 80)
 # router_https_port: <port> # Port for https (defaults to 443)
+
+# xdebug_enabled: false  # Set to true to enable xdebug and "ddev start" or "ddev restart"
 
 #additional_hostnames:
 # - somename
@@ -46,3 +56,7 @@ provider: default
 # information on the commands that can be extended and the tasks you can define
 # for them. Example:
 #hooks:
+# Un-comment and enter the production url and local url
+# to replace in your database after import.
+#post-import-db:
+#  - exec: "wp search-replace <production-url> <local-url>"
