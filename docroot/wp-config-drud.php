@@ -14,3 +14,6 @@ define('WP_CONTENT_URL', '/content');
 
 // unforce SSL for admin
 define('FORCE_SSL_ADMIN', false);
+
+// admin cookie path
+define('ADMIN_COOKIE_PATH', '/');
