@@ -17,3 +17,5 @@ define('FORCE_SSL_ADMIN', false);
 
 // admin cookie path
 define('ADMIN_COOKIE_PATH', '/');
+
+define('RELOCATE', true);
