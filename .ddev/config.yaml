@@ -1,4 +1,4 @@
-APIVersion: v0.18.0
+APIVersion: v0.10.0-128-gc1bbf0de
 name: ddevwebsite
 type: wordpress
 docroot: docroot
@@ -8,11 +8,14 @@ router_https_port: "443"
 xdebug_enabled: false
 additional_hostnames: []
 provider: default
+hooks:
+  post-import-db:
+  - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
 
 
-# This config.yaml was created with ddev version v0.18.0 
-# webimage: drud/nginx-php-fpm-local:v1.3.0
-# dbimage: drud/mariadb-local:v0.9.0
+# This config.yaml was created with ddev version v0.10.0-128-gc1bbf0de 
+# webimage: drud/nginx-php-fpm-local:20180522_fpm_env_vars
+# dbimage: drud/mariadb-local:20180529_fix_maria_root
 # dbaimage: drud/phpmyadmin:v0.2.0
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
@@ -58,6 +61,5 @@ provider: default
 #hooks:
 # Un-comment and enter the production url and local url
 # to replace in your database after import.
-hooks:
-  post-import-db:
-    - exec: "wp search-replace https://www.drud.com http://ddevwebsite.ddev.local"
+#post-import-db:
+#  - exec: "wp search-replace <production-url> <local-url>"
