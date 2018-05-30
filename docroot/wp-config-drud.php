@@ -14,3 +14,6 @@ define('WP_CONTENT_URL', '/content');
 
 // unforce SSL for admin
 define('FORCE_SSL_ADMIN', false);
+
+// Absolute path to the WordPress directory
+define('ABSPATH', dirname(__FILE__) . '/wp/');
