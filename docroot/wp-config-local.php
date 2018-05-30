@@ -1,10 +1,10 @@
 <?php
 
 // site URL
-define('WP_HOME', 'http://drud-com-production.site-prod.ddev-live.drud.io');
+define('WP_HOME', 'http://ddevwebsite.ddev.local');
 
 // WP URL
-define('WP_SITEURL', 'http://drud-com-production.site-prod.ddev-live.drud.io/wp');
+define('WP_SITEURL', 'http://ddevwebsite.ddev.local/wp');
 
 // full local path of current directory (no trailing slash)
 define('WP_CONTENT_DIR', getcwd().'/content');

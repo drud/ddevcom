@@ -58,5 +58,6 @@ provider: default
 #hooks:
 # Un-comment and enter the production url and local url
 # to replace in your database after import.
-#post-import-db:
-#  - exec: "wp search-replace <production-url> <local-url>"
+hooks:
+  post-import-db:
+    - exec: "wp search-replace https://www.drud.com http://ddevwebsite.ddev.local"
