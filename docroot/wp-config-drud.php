@@ -1,4 +1,7 @@
 <?php
+echo "Made it to wp-config-drud.php!";
+die;
+
 // site URL
 define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
 
