@@ -4,7 +4,6 @@ docroot/content/uploads
 
 # WordPress
 docroot/.htaccess
-docroot/wp-config.php
 
 # WP-CLI
 db-sync
