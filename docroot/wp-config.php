@@ -40,8 +40,11 @@ define('WP_CONTENT_DIR', getcwd() . '/content');
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', '/content');
 
-// unforce SSL for admin
-define('FORCE_SSL_ADMIN', false);
+// force SSL for admin
+define('FORCE_SSL_ADMIN', true);
+
+// admin cookie path
+define('ADMIN_COOKIE_PATH', '/wp/wp-admin/');
 
 define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
