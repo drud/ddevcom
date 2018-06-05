@@ -29,7 +29,7 @@ define('NONCE_SALT', getenv('WPNONCESALT'));
 $table_prefix  = 'wp_';
 
 // site URL
-define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+define('WP_HOME', 'https://www.drud.com');
 
 // WP URL
 define('WP_SITEURL', WP_HOME . '/wp');
@@ -39,14 +39,6 @@ define('WP_CONTENT_DIR', getcwd() . '/content');
 
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', '/content');
-
-
-// Set cookie domain for login cookies
-define('COOKIE_DOMAIN', '.drud.com'); // Domain and all subdomains
-define('COOKIEPATH', $_SERVER['HTTP_HOST'] . '/'); // You should set this explicitely.
-define('SITECOOKIEPATH', $_SERVER['HTTP_HOST'] . '/wp/'); // You should set this explicitely.
-define('ADMIN_COOKIE_PATH', SITECOOKIEPATH . 'wp-admin');
-
 
 define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
