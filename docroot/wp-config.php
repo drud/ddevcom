@@ -29,7 +29,7 @@ define('NONCE_SALT', getenv('WPNONCESALT'));
 $table_prefix  = 'wp_';
 
 // site URL
-define('WP_HOME', 'https://www.drud.com');
+define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
 
 // WP URL
 define('WP_SITEURL', WP_HOME . '/wp');
@@ -40,9 +40,8 @@ define('WP_CONTENT_DIR', getcwd() . '/content');
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', '/content');
 
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 define('DISALLOW_FILE_MODS', true);
-
 
 if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/wp/');
