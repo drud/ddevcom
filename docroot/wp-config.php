@@ -35,7 +35,7 @@ define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 
 define('WP_SITEURL', WP_HOME . '/wp');
 
 // full local path of current directory (no trailing slash)
-define('WP_CONTENT_DIR', getcwd() . '/content');
+define('WP_CONTENT_DIR', '/var/www/html/docroot/content');
 
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', WP_HOME . '/content');
@@ -50,11 +50,5 @@ define('DISALLOW_FILE_MODS', true);
 if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/wp/');
 }
-
-var_dump(WP_CONTENT_DIR);
-var_dump(WP_CONTENT_URL);
-var_dump(ABSPATH);
-die;
-
 
 require_once(ABSPATH . 'wp-settings.php');
