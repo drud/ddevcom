@@ -29,7 +29,7 @@ define('NONCE_SALT', getenv('WPNONCESALT'));
 $table_prefix  = 'wp_';
 
 // site URL
-define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+define('WP_HOME', 'https://www.drud.com');
 
 // WP URL
 define('WP_SITEURL', WP_HOME . '/wp');
