@@ -41,14 +41,6 @@ define('WP_CONTENT_DIR', getcwd() . '/content');
 define('WP_CONTENT_URL', '/content');
 
 
-// Set cookie domain for login cookies
-define('COOKIE_DOMAIN', $_SERVER['HTTP_HOST']);
-define('COOKIEPATH', $_SERVER['HTTP_HOST'] . '/'); // You should set this explicitely.
-define('SITECOOKIEPATH', $_SERVER['HTTP_HOST'] . '/wp/'); // You should set this explicitely.
-define('ADMIN_COOKIE_PATH', SITECOOKIEPATH . 'wp-admin');
-define('PLUGINS_COOKIE_PATH', preg_replace('|https?://[^/]+|i', '', WP_PLUGIN_URL));
-
-
 define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 
