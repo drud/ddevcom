@@ -49,17 +49,4 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/wp/');
 }
 
-
-echo "WP_HOME:" . WP_HOME . '<br>';
-echo "WP_SITEURL:" . WP_SITEURL . '<br>';
-echo "WP_CONTENT_DIR:" . WP_CONTENT_DIR . '<br>';
-echo "WP_CONTENT_URL:" . WP_CONTENT_URL . '<br>';
-echo "ABSPATH:" . ABSPATH . '<br>';
-echo "COOKIEPATH:" . COOKIEPATH . '<br>';
-echo "SITECOOKIEPATH:" . SITECOOKIEPATH . '<br>';
-echo "ADMIN_COOKIE_PATH:" . ADMIN_COOKIE_PATH . '<br>';
-echo "PLUGINS_COOKIE_PATH:" . PLUGINS_COOKIE_PATH . '<br>';
-die;
-
-
 require_once(ABSPATH . 'wp-settings.php');
