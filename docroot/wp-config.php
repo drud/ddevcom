@@ -51,9 +51,9 @@ if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/wp/');
 }
 
-vardump(WP_CONTENT_DIR);
-vardump(WP_CONTENT_URL);
-vardump(ABSPATH);
+var_dump(WP_CONTENT_DIR);
+var_dump(WP_CONTENT_URL);
+var_dump(ABSPATH);
 die;
 
 
