@@ -1,5 +1,10 @@
 <?php
 echo "Hello World";
+echo "WP_HOME:" . WP_HOME . '<br>';
+echo "WP_SITEURL:" . WP_SITEURL . '<br>';
+echo "WP_CONTENT_DIR:" . WP_CONTENT_DIR . '<br>';
+echo "WP_CONTENT_URL:" . WP_CONTENT_URL . '<br>';
+echo "ABSPATH:" . ABSPATH . '<br>';
 die;
 
 /**
