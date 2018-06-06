@@ -458,6 +458,17 @@ if ( is_multisite() ) {
 	unset($file);
 }
 
+echo "WP_HOME:" . WP_HOME . '<br>';
+echo "WP_SITEURL:" . WP_SITEURL . '<br>';
+echo "WP_CONTENT_DIR:" . WP_CONTENT_DIR . '<br>';
+echo "WP_CONTENT_URL:" . WP_CONTENT_URL . '<br>';
+echo "ABSPATH:" . ABSPATH . '<br>';
+echo "COOKIEPATH:" . COOKIEPATH . '<br>';
+echo "SITECOOKIEPATH:" . SITECOOKIEPATH . '<br>';
+echo "ADMIN_COOKIE_PATH:" . ADMIN_COOKIE_PATH . '<br>';
+echo "PLUGINS_COOKIE_PATH:" . PLUGINS_COOKIE_PATH . '<br>';
+die;
+
 /**
  * This hook is fired once WP, all plugins, and the theme are fully loaded and instantiated.
  *
