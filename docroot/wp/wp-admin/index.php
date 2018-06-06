@@ -1,4 +1,7 @@
 <?php
+echo "Hello World";
+die;
+
 /**
  * Dashboard Administration Screen
  *
