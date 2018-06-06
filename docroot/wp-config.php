@@ -35,7 +35,7 @@ define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 
 define('WP_SITEURL', WP_HOME . '/wp');
 
 // full local path of current directory (no trailing slash)
-define('WP_CONTENT_DIR', '/content');
+define('WP_CONTENT_DIR', getcwd() . '/content');
 
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', WP_HOME . '/content');
