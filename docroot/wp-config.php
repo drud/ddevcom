@@ -38,7 +38,7 @@ define('WP_SITEURL', WP_HOME . '/wp');
 define('WP_CONTENT_DIR', getcwd() . '/content');
 
 // full URI of current directory (no trailing slash)
-define('WP_CONTENT_URL', '/content');
+define('WP_CONTENT_URL', WP_HOME . '/content');
 
 
 define('WP_DEBUG', false);
@@ -55,6 +55,10 @@ echo "WP_SITEURL:" . WP_SITEURL . '<br>';
 echo "WP_CONTENT_DIR:" . WP_CONTENT_DIR . '<br>';
 echo "WP_CONTENT_URL:" . WP_CONTENT_URL . '<br>';
 echo "ABSPATH:" . ABSPATH . '<br>';
+echo "COOKIEPATH:" . COOKIEPATH . '<br>';
+echo "SITECOOKIEPATH:" . SITECOOKIEPATH . '<br>';
+echo "ADMIN_COOKIE_PATH:" . ADMIN_COOKIE_PATH . '<br>';
+echo "PLUGINS_COOKIE_PATH:" . PLUGINS_COOKIE_PATH . '<br>';
 die;
 
 
