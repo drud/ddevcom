@@ -54,6 +54,7 @@ if (!defined('ABSPATH')) {
 vardump(WP_CONTENT_DIR);
 vardump(WP_CONTENT_URL);
 vardump(ABSPATH);
+die;
 
 
 require_once(ABSPATH . 'wp-settings.php');
