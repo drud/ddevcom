@@ -46,6 +46,8 @@ define('FORCE_SSL_ADMIN', true);
 define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 
+// placeholder for WP_ENV - force indexing
+define('WP_ENV', 'production');
 
 if (!defined('ABSPATH')) {
     define('ABSPATH', dirname(__FILE__) . '/wp/');
