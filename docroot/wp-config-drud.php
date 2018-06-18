@@ -1,6 +1,7 @@
 <?php
 
 // site URL
+var_dump(getenv('DDEV_ENV_NAME'));
 if (getenv('DDEV_ENV_NAME') == 'production') {
     define('WP_HOME', 'https://www.drud.com');
 } else {
