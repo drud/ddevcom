@@ -2,6 +2,9 @@
 
 // site URL
 var_dump(getenv('DDEV_ENV_NAME'));
+var_dump(getenv('NGINX_DOCROOT'));
+die;
+
 if (getenv('DDEV_ENV_NAME') == 'production') {
     define('WP_HOME', 'https://www.drud.com');
 } else {
