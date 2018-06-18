@@ -22,5 +22,6 @@ node_modules
 
 # DDEV
 .ddev/docker-compose.yaml
+wp-config-ddev.php
 
 .DS_Store
