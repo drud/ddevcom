@@ -1,7 +1,11 @@
 <?php
 
 // site URL
-define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+if (getenv('DDEV_ENV_NAME') == 'production') {
+    define('WP_HOME', 'https://www.drud.com');
+} else {
+    define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+}
 
 /** WP in Sub-directory */
 // WP URL
