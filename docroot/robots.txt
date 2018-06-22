@@ -1,0 +1,9 @@
+User-agent: *
+Disallow: /wp/wp-admin/
+Allow: /wp/wp-admin/admin-ajax.php
+
+User-Agent: Googlebot
+Allow: .js
+Allow: .css
+
+Sitemap: https://www.drud.com/sitemap.xml
