@@ -33,3 +33,6 @@ add_filter('tribe_events_register_event_type_args', function($args){
   $args['has_archive'] = false;
   return $args;
 });
+
+// remove robots.txt creation
+remove_filter('robots_txt', 'The_SEO_Framework\Init\adsense', 10, 2);
