@@ -12,7 +12,11 @@
     }
   ],
   "keywords": [
-    "wordpress", "stack", "composer", "vagrant", "wp"
+    "wordpress",
+    "stack",
+    "composer",
+    "vagrant",
+    "wp"
   ],
   "support": {
     "issues": "https://github.com/newmediadenver/wp/issues"
@@ -67,16 +71,20 @@
     "wpackagist-plugin/the-events-calendar": "^4.6",
     "wpackagist-plugin/simple-301-redirects": "^1.07",
     "wpackagist-plugin/wpmandrill": "^1.33",
-    "wpackagist-plugin/prism-wp": "^1.0",
-    "wpackagist-plugin/schema-app-structured-data-for-schemaorg": "^1.9",
     "wpackagist-plugin/ultimate-social-media-icons": "^1.9",
     "wpackagist-plugin/wpremote": "2.8.4.1"
   },
   "extra": {
     "installer-paths": {
-      "docroot/content/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "docroot/content/plugins/{$name}/": ["type:wordpress-plugin"],
-      "docroot/content/themes/{$name}/": ["type:wordpress-theme"]
+      "docroot/content/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "docroot/content/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "docroot/content/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
     },
     "wordpress-install-dir": "docroot/wp"
   }
