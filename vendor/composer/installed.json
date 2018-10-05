@@ -300,16 +300,16 @@
     },
     {
         "name": "wpackagist-plugin/advanced-custom-fields",
-        "version": "5.6.9",
-        "version_normalized": "5.6.9.0",
+        "version": "5.7.7",
+        "version_normalized": "5.7.7.0",
         "source": {
             "type": "svn",
             "url": "https://plugins.svn.wordpress.org/advanced-custom-fields/",
-            "reference": "tags/5.6.9"
+            "reference": "tags/5.7.7"
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.5.6.9.zip",
+            "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip",
             "reference": null,
             "shasum": null
         },
@@ -387,50 +387,6 @@
         "homepage": "https://wordpress.org/plugins/google-sitemap-generator/"
     },
     {
-        "name": "wpackagist-plugin/prism-wp",
-        "version": "1.0.0",
-        "version_normalized": "1.0.0.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/prism-wp/",
-            "reference": "tags/1.0.0"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/prism-wp.1.0.0.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/prism-wp/"
-    },
-    {
-        "name": "wpackagist-plugin/schema-app-structured-data-for-schemaorg",
-        "version": "1.9.10",
-        "version_normalized": "1.9.10.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/schema-app-structured-data-for-schemaorg/",
-            "reference": "tags/1.9.10"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/schema-app-structured-data-for-schemaorg.1.9.10.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/schema-app-structured-data-for-schemaorg/"
-    },
-    {
         "name": "wpackagist-plugin/simple-301-redirects",
         "version": "1.07",
         "version_normalized": "1.07.0.0",
@@ -454,16 +410,16 @@
     },
     {
         "name": "wpackagist-plugin/stream",
-        "version": "3.2.2",
-        "version_normalized": "3.2.2.0",
+        "version": "3.2.3",
+        "version_normalized": "3.2.3.0",
         "source": {
             "type": "svn",
             "url": "https://plugins.svn.wordpress.org/stream/",
-            "reference": "tags/3.2.2"
+            "reference": "tags/3.2.3"
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/stream.3.2.2.zip",
+            "url": "https://downloads.wordpress.org/plugin/stream.3.2.3.zip",
             "reference": null,
             "shasum": null
         },
@@ -476,16 +432,16 @@
     },
     {
         "name": "wpackagist-plugin/the-events-calendar",
-        "version": "4.6.13",
-        "version_normalized": "4.6.13.0",
+        "version": "4.6.24",
+        "version_normalized": "4.6.24.0",
         "source": {
             "type": "svn",
             "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-            "reference": "tags/4.6.13"
+            "reference": "tags/4.6.24"
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/the-events-calendar.4.6.13.zip",
+            "url": "https://downloads.wordpress.org/plugin/the-events-calendar.4.6.24.zip",
             "reference": null,
             "shasum": null
         },
@@ -498,16 +454,16 @@
     },
     {
         "name": "wpackagist-plugin/ultimate-social-media-icons",
-        "version": "1.9.5",
-        "version_normalized": "1.9.5.0",
+        "version": "1.9.8",
+        "version_normalized": "1.9.8.0",
         "source": {
             "type": "svn",
             "url": "https://plugins.svn.wordpress.org/ultimate-social-media-icons/",
-            "reference": "tags/1.9.5"
+            "reference": "tags/1.9.8"
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/ultimate-social-media-icons.1.9.5.zip",
+            "url": "https://downloads.wordpress.org/plugin/ultimate-social-media-icons.1.9.8.zip",
             "reference": null,
             "shasum": null
         },
