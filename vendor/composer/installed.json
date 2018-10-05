@@ -299,28 +299,6 @@
         ]
     },
     {
-        "name": "wpackagist-plugin/advanced-custom-fields",
-        "version": "5.7.7",
-        "version_normalized": "5.7.7.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/advanced-custom-fields/",
-            "reference": "tags/5.7.7"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/advanced-custom-fields.5.7.7.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/advanced-custom-fields/"
-    },
-    {
         "name": "wpackagist-plugin/autodescription",
         "version": "2.9.4",
         "version_normalized": "2.9.4.0",
@@ -341,28 +319,6 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/autodescription/"
-    },
-    {
-        "name": "wpackagist-plugin/go-newrelic",
-        "version": "0.3",
-        "version_normalized": "0.3.0.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/go-newrelic/",
-            "reference": "trunk"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/go-newrelic.zip?timestamp=1415111666",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/go-newrelic/"
     },
     {
         "name": "wpackagist-plugin/google-sitemap-generator",
