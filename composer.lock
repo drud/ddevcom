@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "2f02f0d3cbf9b9d8b79b62f375827185",
+    "content-hash": "2c9643f4d5fb3913d8373e74604a58c4",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
-            "version": "5.6.2",
+            "version": "5.7.6",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.6.2.zip",
+                "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.7.6.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -103,10 +103,10 @@
         },
         {
             "name": "gravityforms",
-            "version": "2.2.5",
+            "version": "2.3.2",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/wp-premium/gravityforms/archive/2.2.5.zip",
+                "url": "https://github.com/wp-premium/gravityforms/archive/2.3.2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -293,15 +293,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "2.9.4",
+            "version": "3.1.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/2.9.4"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.2.9.4.zip",
+                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1537989908",
                 "reference": null,
                 "shasum": null
             },
@@ -393,15 +393,15 @@
         },
         {
             "name": "wpackagist-plugin/ultimate-social-media-icons",
-            "version": "1.9.8",
+            "version": "2.0.6",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/ultimate-social-media-icons/",
-                "reference": "tags/1.9.8"
+                "reference": "tags/2.0.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/ultimate-social-media-icons.1.9.8.zip",
+                "url": "https://downloads.wordpress.org/plugin/ultimate-social-media-icons.2.0.6.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -433,15 +433,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "0.10.1",
+            "version": "1.3.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/0.10.1"
+                "reference": "tags/1.3.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.0.10.1.zip",
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.1.3.3.zip",
                 "reference": null,
                 "shasum": null
             },
