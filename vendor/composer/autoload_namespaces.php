@@ -7,6 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'johnpbloch\\Composer\\' => array($vendorDir . '/johnpbloch/wordpress-core-installer/src'),
-    'Dotenv' => array($vendorDir . '/vlucas/phpdotenv/src'),
-    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src'),
 );

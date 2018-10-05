@@ -100,10 +100,6 @@ function sfsi_social_buttons_below($content)
 			{
 				$icons.="<div class='sf_google' style='text-align:left;float:left;max-width:62px;min-width:35px;'>".sfsi_googlePlus($permalink,$show_count)."</div>";
 			}
-			if($sfsi_section6['sfsi_rectshr'] == 'yes')
-			{
-				$icons.="<div class='sf_addthis'>".sfsi_Addthis($show_count, $permalink, $title)."</div>";
-			}
 		$icons.="</div>";
 		//closing wrapper div
 	$icons.="</div>";
@@ -239,30 +235,6 @@ function sfsi_FBlike($permalink,$show_count)
 	$fb_like_html .= ' ></div>';
 	return $fb_like_html;
 }
-/* create add this  button */
-function sfsi_Addthis($show_count, $permalink, $post_title)
-{
-   
-   $atiocn =' <script type="text/javascript">
-			var addthis_config = {
-				 url: "'.$permalink.'",
-				 title: "'.$post_title.'"
-			}
-			</script>';
-
-   if($show_count==1)
-   {
-       $atiocn.=' <div class="addthis_toolbox" addthis:url="'.$permalink.'" addthis:title="'.$post_title.'">
-              <a class="addthis_counter addthis_pill_style share_showhide"></a>
-	   </div>';
-	    return $atiocn;
-   }
-   else
-   {
-	$atiocn.='<div class="addthis_toolbox addthis_default_style addthis_20x20_style" addthis:url="'.$permalink.'" addthis:title="'.$post_title.'"><a class="addthis_button_compact " href="#">  <img src="'.SFSI_PLUGURL.'images/sharebtn.png"  border="0" alt="Share" /></a></div>';
-      return $atiocn; 
-    }
-}
 	
 /* add all external javascript to wp_footer */        
 function sfsi_footer_script()
@@ -298,6 +270,8 @@ function sfsi_footer_script()
 		$sfsi_section6['sfsi_rectfbshare'] = 'no';
 	}
 	
+	$sfsi_section6['sfsi_show_Onposts'] = isset($sfsi_section6['sfsi_show_Onposts']) && !empty($sfsi_section6['sfsi_show_Onposts']) ? $sfsi_section6['sfsi_show_Onposts'] : "no";
+
 	if($sfsi_section1['sfsi_facebook_display']=="yes" || ($sfsi_section6['sfsi_rectfb'] == "yes" && $sfsi_section6['sfsi_show_Onposts'] == "yes") || ($sfsi_section6['sfsi_rectfbshare'] == "yes" && $sfsi_section6['sfsi_show_Onposts'] == "yes"))
 	{
 		?>
@@ -353,15 +327,6 @@ function sfsi_footer_script()
 	{ ?>	
        <!-- linkedIn share and  follow js -->
         <script src="//platform.linkedin.com/in.js" type="text/javascript">lang: en_US</script>
-	<?php
-	}
-	if($sfsi_section1['sfsi_share_display']=="yes" || $sfsi_section6['sfsi_show_Onposts']=="yes" || $sfsi_section6['sfsi_rectshr'] == "yes")
-	{ ?>
-	 	<!-- Addthis js -->
-        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-558ac14e7f79bff7"></script>
-        <script type="text/javascript">
-       		var addthis_config = {  ui_click: true  };
-       	</script>
 	<?php
 	}
 	if($sfsi_section1['sfsi_pinterest_display']=="yes" || ($sfsi_section6['sfsi_rectpinit'] == "yes" && $sfsi_section6['sfsi_show_Onposts'] == "yes"))

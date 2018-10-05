@@ -403,21 +403,6 @@ function sfsi_validationStep4()
             }      
         }
   }
-  /* validate Atthis */
-  if(sfsi_validator(SFSI('input[name="sfsi_shares_countsDisplay"]'),'activte') && sfsi_validator(SFSI('input[name="sfsi_shares_countsDisplay"]'),'checked'))
-  {    
-        
-       
-        if(SFSI('input[name="sfsi_shares_countsFrom"]:checked').val()=='manual' )
-        {   
-            
-          if(!sfsi_validator(SFSI('input[name="sfsi_shares_manualCounts"]'),'blank'))
-            {   showErrorSuc("error","Error : Please Enter Share icon manual counts ",4);
-                SFSI('input[name="sfsi_shares_manualCounts"]').addClass('inputError');
-                return false;
-            }      
-        }
-  }
   
   
     return true;
@@ -491,13 +476,13 @@ function sfsi_validationStep5()
             return false;
         }   
         
-  /* validate icons effects   */      
-        if(SFSI('input[name="sfsi_icons_float"]:checked').val()=="yes" && SFSI('input[name="sfsi_icons_stick"]:checked').val()=="yes")
-        {   
-            showErrorSuc("error","Error : Only one allow from Sticking & floating ",5);
-            SFSI('input[name="sfsi_icons_float"][value="no"]').prop("checked", true);
-            return false;
-        }
+       /* validate icons effects   */      
+        // if(SFSI('input[name="sfsi_icons_float"]:checked').val()=="yes" && SFSI('input[name="sfsi_icons_stick"]:checked').val()=="yes")
+        // {   
+        //     showErrorSuc("error","Error : Only one allow from Sticking & floating ",5);
+        //     SFSI('input[name="sfsi_icons_float"][value="no"]').prop("checked", true);
+        //     return false;
+        // }
  
     
     return true;

@@ -6,6 +6,28 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
 {
+    public static $prefixLengthsPsr4 = array (
+        'D' => 
+        array (
+            'Dotenv\\' => 7,
+        ),
+        'C' => 
+        array (
+            'Composer\\Installers\\' => 20,
+        ),
+    );
+
+    public static $prefixDirsPsr4 = array (
+        'Dotenv\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
+        ),
+        'Composer\\Installers\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+        ),
+    );
+
     public static $prefixesPsr0 = array (
         'j' => 
         array (
@@ -14,25 +36,13 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
                 0 => __DIR__ . '/..' . '/johnpbloch/wordpress-core-installer/src',
             ),
         ),
-        'D' => 
-        array (
-            'Dotenv' => 
-            array (
-                0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
-            ),
-        ),
-        'C' => 
-        array (
-            'Composer\\Installers\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/composer/installers/src',
-            ),
-        ),
     );
 
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
+            $loader->prefixLengthsPsr4 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixesPsr0;
 
         }, null, ClassLoader::class);

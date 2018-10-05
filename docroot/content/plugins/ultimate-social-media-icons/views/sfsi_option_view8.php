@@ -406,6 +406,9 @@ $option8['sfsi_form_button_background'] = (isset($option8['sfsi_form_button_back
     	<!--Section End-->
     </div>
 
+    <?php sfsi_ask_for_help(8); ?>
+
+
     <!-- SAVE BUTTON SECTION   --> 
 	<div class="save_button">
 	     <img src="<?php echo SFSI_PLUGURL ?>images/ajax-loader.gif" class="loader-img" />

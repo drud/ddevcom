@@ -28,17 +28,6 @@
             $('body').removeClass('scrolled');
           }
 
-          var cookieAccept = sessionStorage.getItem('cookieAccept');
-
-          $('#accept-cookies').click(function(){
-            if(!cookieAccept) {
-              sessionStorage.cookieAccept = 1;
-            }
-          });
-
-          if(!sessionStorage.cookieAccept) {
-            $('#cookie-alert').addClass('show');
-          }
         });
 
         $(window).scroll(function(){

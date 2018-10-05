@@ -1,14 +1,15 @@
 <?php
 /**
+ * @see ./index.php
  * @package The_SEO_Framework\Classes
  */
 namespace The_SEO_Framework;
 
-defined( 'ABSPATH' ) or die;
+defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2017 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -33,6 +34,23 @@ defined( 'ABSPATH' ) or die;
 class Core {
 
 	/**
+	 * Tells if this plugin is loaded.
+	 *
+	 * @NOTE: Only `\The_SEO_Framework\_init_tsf()` should adjust this.
+	 *
+	 * @since 3.1.0
+	 * @access protected
+	 *         Don't alter this variable!!!
+	 * @var true $loaded
+	 */
+	public $loaded = false;
+
+	/**
+	 * Calling any top file without __construct() is forbidden.
+	 */
+	private function __construct() { }
+
+	/**
 	 * Unserializing instances of this object is forbidden.
 	 */
 	final protected function __wakeup() { }
@@ -44,8 +62,9 @@ class Core {
 
 	/**
 	 * Handles unapproachable invoked properties.
+	 *
 	 * Makes sure deprecated properties are still overwritten.
-	 * If property never existed, default PHP behavior is invoked.
+	 * If the property never existed, default PHP behavior is invoked.
 	 *
 	 * @since 2.8.0
 	 *
@@ -54,9 +73,9 @@ class Core {
 	 */
 	final public function __set( $name, $value ) {
 		/**
-		 * For now, no deprecation is being handled; as no properties are deprecated.
+		 * For now, no deprecation is being handled; as no properties have been deprecated. Just removed.
 		 */
-		$this->_deprecated_function( 'the_seo_framework()->' . \esc_html( $name ), 'unknown' );
+		$this->_inaccessible_p_or_m( 'the_seo_framework()->' . \esc_html( $name ), 'unknown' );
 
 		//* Invoke default behavior.
 		$this->$name = $value;
@@ -68,21 +87,14 @@ class Core {
 	 * If property never existed, default PHP behavior is invoked.
 	 *
 	 * @since 2.7.0
+	 * @since 3.1.0 Removed known deprecations.
 	 *
 	 * @param string $name The property name.
 	 * @return mixed $var The property value.
 	 */
 	final public function __get( $name ) {
 
-		switch ( $name ) :
-			case 'pagehook' :
-				$this->_deprecated_function( 'the_seo_framework()->' . \esc_html( $name ), '2.7.0', 'the_seo_framework()->seo_settings_page_hook' );
-				return $this->seo_settings_page_hook;
-				break;
-
-			default:
-				break;
-		endswitch;
+		$this->_inaccessible_p_or_m( 'the_seo_framework()->' . \esc_html( $name ), 'unknown' );
 
 		//* Invoke default behavior.
 		return $this->$name;
@@ -90,6 +102,8 @@ class Core {
 
 	/**
 	 * Handles unapproachable invoked methods.
+	 *
+	 * @since 2.7.0
 	 *
 	 * @param string $name The method name.
 	 * @param array $arguments The method arguments.
@@ -102,31 +116,12 @@ class Core {
 		if ( is_null( $depr_class ) )
 			$depr_class = new Deprecated;
 
-		if ( is_callable( array( $depr_class, $name ) ) ) {
-			return call_user_func_array( array( $depr_class, $name ), $arguments );
+		if ( is_callable( [ $depr_class, $name ] ) ) {
+			return call_user_func_array( [ $depr_class, $name ], $arguments );
 		}
 
 		\the_seo_framework()->_inaccessible_p_or_m( 'the_seo_framework()->' . \esc_html( $name ) . '()' );
 		return;
-	}
-
-	/**
-	 * Constructor. Loads actions and filters.
-	 * Latest Class. Doesn't have parent.
-	 */
-	protected function __construct() {
-
-		\add_action( 'current_screen', array( $this, 'post_type_support' ), 0 );
-
-		if ( $this->the_seo_framework_debug ) {
-
-			$debug_instance = \The_SEO_Framework\Debug::get_instance();
-
-			\add_action( 'the_seo_framework_do_before_output', array( $debug_instance, 'set_debug_query_output_cache' ) );
-			\add_action( 'admin_footer', array( $debug_instance, 'debug_screens' ) );
-			\add_action( 'admin_footer', array( $debug_instance, 'debug_output' ) );
-			\add_action( 'wp_footer', array( $debug_instance, 'debug_output' ) );
-		}
 	}
 
 	/**
@@ -140,9 +135,8 @@ class Core {
 	protected function clean_response_header() {
 
 		if ( $level = ob_get_level() ) {
-			while ( $level ) {
+			while ( $level-- ) {
 				ob_end_clean();
-				$level--;
 			}
 			return true;
 		}
@@ -160,17 +154,28 @@ class Core {
 	 *
 	 * @param string $view The file name.
 	 * @param array $args The arguments to be supplied within the file name.
-	 * 		Each array key is converted to a variable with its value attached.
+	 *              Each array key is converted to a variable with its value attached.
 	 * @param string $instance The instance suffix to call back upon.
 	 */
-	public function get_view( $view, array $args = array(), $instance = 'main' ) {
+	public function get_view( $view, array $__args = [], $instance = 'main' ) {
 
-		foreach ( $args as $key => $val )
-			$$key = $val;
+		//? extract().
+		foreach ( $__args as $__k => $__v ) $$__k = $__v;
+		unset( $__k, $__v, $__args );
 
-		$file = THE_SEO_FRAMEWORK_DIR_PATH_VIEWS . $view . '.php';
+		include $this->get_view_location( $view );
+	}
 
-		include( $file );
+	/**
+	 * Gets view location.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $file The file name.
+	 * @return string The view location.
+	 */
+	public function get_view_location( $file ) {
+		return THE_SEO_FRAMEWORK_DIR_PATH_VIEWS . $file . '.php';
 	}
 
 	/**
@@ -207,52 +212,29 @@ class Core {
 	}
 
 	/**
-	 * Adds post type support for The SEO Framework.
+	 * Adds various links to the plugin row on the plugin's screen.
 	 *
-	 * @since 2.1.6
-	 */
-	public function post_type_support() {
-
-		$defaults = array(
-			'post',
-			'page',
-			'product',
-			'forum',
-			'topic',
-			'jetpack-testimonial',
-			'jetpack-portfolio',
-		);
-
-		/**
-		 * Applies filters the_seo_framework_supported_post_types : Array The supported post types.
-		 * @since 2.3.1
-		 */
-		$post_types = (array) \apply_filters( 'the_seo_framework_supported_post_types', $defaults );
-
-		$types = \wp_parse_args( $defaults, $post_types );
-
-		foreach ( $types as $type ) {
-			\add_post_type_support( $type, array( 'autodescription-meta' ) );
-		}
-	}
-
-	/**
-	 * Adds link from plugins page to SEO Settings page.
-	 *
-	 * @since 2.2.8
-	 * @since 2.9.2 : Added TSFEM link.
+	 * @since 3.1.0
+	 * @access private
 	 *
 	 * @param array $links The current links.
 	 * @return array The plugin links.
 	 */
-	public function plugin_action_links( $links = array() ) {
+	public function _add_plugin_action_links( $links = [] ) {
 
-		$tsf_links = array();
+		$tsf_links = [];
 
 		if ( $this->load_options )
-			$tsf_links['settings'] = '<a href="' . \esc_url( \admin_url( 'admin.php?page=' . $this->seo_settings_page_slug ) ) . '">' . \esc_html__( 'SEO Settings', 'autodescription' ) . '</a>';
+			$tsf_links['settings'] = sprintf(
+				'<a href="%s">%s</a>',
+				\esc_url( \admin_url( 'admin.php?page=' . $this->seo_settings_page_slug ) ),
+				\esc_html__( 'Settings', 'autodescription' )
+			);
 
-		$tsf_links['home'] = '<a href="' . \esc_url( 'https://theseoframework.com/' ) . '" rel="noopener" target="_blank">' . \esc_html_x( 'Plugin Home', 'As in: The Plugin Home Page', 'autodescription' ) . '</a>';
+		$tsf_links['about'] = sprintf(
+			'<a href="https://theseoframework.com/" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
+			\esc_html__( 'About', 'autodescription' )
+		);
 
 		/**
 		 * These are weak checks.
@@ -260,205 +242,17 @@ class Core {
 		 */
 		if ( ! defined( 'TSF_EXTENSION_MANAGER_VERSION' ) ) {
 			$tsfem = \get_plugins( '/the-seo-framework-extension-manager' );
+			//... I want PHP 5.5 for empty expressions :(
+			// TODO open a plugin installation screen?
 			if ( empty( $tsfem ) )
-				$tsf_links['tsfem'] = '<a href="' . \esc_url( \__( 'https://wordpress.org/plugins/the-seo-framework-extension-manager/', 'autodescription' ) ) . '" rel="noopener" target="_blank">' . \esc_html_x( 'Extensions', 'Plugin extensions', 'autodescription' ) . '</a>';
+				$tsf_links['tsfem'] = sprintf(
+					'<a href="%s" rel="noreferrer noopener" target="_blank">%s</a>',
+					\esc_url( \__( 'https://wordpress.org/plugins/the-seo-framework-extension-manager/', 'autodescription' ) ),
+					\esc_html_x( 'Extensions', 'Plugin extensions', 'autodescription' )
+				);
 		}
 
-		return array_merge( $tsf_links, $links );
-	}
-
-	/**
-	 * Returns the front page ID, if home is a page.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @return int the ID.
-	 */
-	public function get_the_front_page_ID() {
-
-		static $front_id = null;
-
-		if ( isset( $front_id ) )
-			return $front_id;
-
-		return $front_id = $this->has_page_on_front() ? (int) \get_option( 'page_on_front' ) : 0;
-	}
-
-	/**
-	 * Generates dismissible notice.
-	 * Also loads scripts and styles if out of The SEO Framework's context.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $message The notice message. Expected to be escaped if $escape is false.
-	 * @param string $type The notice type : 'updated', 'error', 'warning'. Expected to be escaped.
-	 * @param bool $a11y Whether to add an accessibility icon.
-	 * @param bool $escape Whether to escape the whole output.
-	 * @return string The dismissible error notice.
-	 */
-	public function generate_dismissible_notice( $message = '', $type = 'updated', $a11y = true, $escape = true ) {
-
-		if ( empty( $message ) )
-			return '';
-
-		if ( $escape )
-			$message = \esc_html( $message );
-
-		//* Make sure the scripts are loaded.
-		$this->init_admin_scripts( true );
-
-		if ( 'warning' === $type )
-			$type = 'notice-warning';
-
-		$a11y = $a11y ? 'tsf-show-icon' : '';
-
-		$notice = '<div class="notice ' . \esc_attr( $type ) . ' tsf-notice ' . $a11y . '"><p>';
-		$notice .= '<a class="hide-if-no-js tsf-dismiss" title="' . \esc_attr__( 'Dismiss', 'autodescription' ) . '"></a>';
-		$notice .= '<strong>' . $message . '</strong>';
-		$notice .= '</p></div>';
-
-		return $notice;
-	}
-
-	/**
-	 * Echos generated dismissible notice.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @param $message The notice message. Expected to be escaped if $escape is false.
-	 * @param $type The notice type : 'updated', 'error', 'warning'. Expected to be escaped.
-	 * @param bool $a11y Whether to add an accessibility icon.
-	 * @param bool $escape Whether to escape the whole output.
-	 */
-	public function do_dismissible_notice( $message = '', $type = 'updated', $a11y = true, $escape = true ) {
-		echo $this->generate_dismissible_notice( $message, $type, (bool) $a11y, (bool) $escape );
-	}
-
-	/**
-	 * Generates dismissible notice that stick until the user dismisses it.
-	 * Also loads scripts and styles if out of The SEO Framework's context.
-	 *
-	 * @since 2.9.3
-	 * @see $this->do_dismissible_sticky_notice()
-	 * @uses THE_SEO_FRAMEWORK_UPDATES_CACHE
-	 * @todo make this do something.
-	 * NOTE: This method is a placeholder.
-	 *
-	 * @param string $message The notice message. Expected to be escaped if $escape is false.
-	 * @param string $key     The notice key. Must be unique and tied to the stored updates cache option.
-	 * @param array $args : {
-	 *    'type'   => string Optional. The notification type. Default 'updated'.
-	 *    'a11y'   => bool   Optional. Whether to enable accessibility. Default true.
-	 *    'escape' => bool   Optional. Whether to escape the $message. Default true.
-	 *    'color'  => string Optional. If filled in, it will output the selected color. Default ''.
-	 *    'icon'   => string Optional. If filled in, it will output the selected icon. Default ''.
-	 * }
-	 * @return string The dismissible error notice.
-	 */
-	public function generate_dismissible_sticky_notice( $message, $key, $args = array() ) {
-		return '';
-	}
-
-	/**
-	 * Echos generated dismissible sticky notice.
-	 *
-	 * @since 2.9.3
-	 * @uses $this->generate_dismissible_sticky_notice()
-	 *
-	 * @param string $message The notice message. Expected to be escaped if $escape is false.
-	 * @param string $key     The notice key. Must be unique and tied to the stored updates cache option.
-	 * @param array $args : {
-	 *    'type'   => string Optional. The notification type. Default 'updated'.
-	 *    'a11y'   => bool   Optional. Whether to enable accessibility. Default true.
-	 *    'escape' => bool   Optional. Whether to escape the $message. Default true.
-	 *    'color'  => string Optional. If filled in, it will output the selected color. Default ''.
-	 *    'icon'   => string Optional. If filled in, it will output the selected icon. Default ''.
-	 * }
-	 * @return string The dismissible error notice.
-	 */
-	public function do_dismissible_sticky_notice( $message, $key, $args = array() ) {
-		echo $this->generate_dismissible_sticky_notice( $message, $key, $args );
-	}
-
-	/**
-	 * Mark up content with code tags.
-	 * Escapes all HTML, so `<` gets changed to `&lt;` and displays correctly.
-	 *
-	 * @since 2.0.0
-	 *
-	 * @param string $content Content to be wrapped in code tags.
-	 * @return string Content wrapped in code tags.
-	 */
-	public function code_wrap( $content ) {
-		return $this->code_wrap_noesc( \esc_html( $content ) );
-	}
-
-	/**
-	 * Mark up content with code tags.
-	 * Escapes no HTML.
-	 *
-	 * @since 2.2.2
-	 *
-	 * @param string $content Content to be wrapped in code tags.
-	 * @return string Content wrapped in code tags.
-	 */
-	public function code_wrap_noesc( $content ) {
-		return '<code>' . $content . '</code>';
-	}
-
-	/**
-	 * Mark up content in description wrap.
-	 * Escapes all HTML, so `<` gets changed to `&lt;` and displays correctly.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @param string $content Content to be wrapped in the description wrap.
-	 * @param bool $block Whether to wrap the content in <p> tags.
-	 * @return string Content wrapped int he description wrap.
-	 */
-	public function description( $content, $block = true ) {
-		$this->description_noesc( \esc_html( $content ), $block );
-	}
-
-	/**
-	 * Mark up content in description wrap.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @param string $content Content to be wrapped in the description wrap. Expected to be escaped.
-	 * @param bool $block Whether to wrap the content in <p> tags.
-	 * @return string Content wrapped int he description wrap.
-	 */
-	public function description_noesc( $content, $block = true ) {
-
-		$output = '<span class="description">' . $content . '</span>';
-		echo $block ? '<p>' . $output . '</p>' : $output;
-
-	}
-
-	/**
-	 * Google docs language determinator.
-	 *
-	 * @since 2.2.2
-	 * @staticvar string $language
-	 *
-	 * @return string language code
-	 */
-	protected function google_language() {
-
-		/**
-		 * Cache value
-		 * @since 2.2.4
-		 */
-		static $language = null;
-
-		if ( isset( $language ) )
-			return $language;
-
-		//* Language shorttag to be used in Google help pages.
-		$language = \esc_html_x( 'en', 'e.g. en for English, nl for Dutch, fi for Finish, de for German', 'autodescription' );
-
-		return $language;
+		return array_merge( $links, $tsf_links );
 	}
 
 	/**
@@ -477,38 +271,10 @@ class Core {
 			return $allowed;
 
 		/**
-		 * Applies filters the_seo_framework_allow_external_redirect : bool
 		 * @since 2.1.0
+		 * @param bool $allowed Whether external redirect is allowed.
 		 */
 		return $allowed = (bool) \apply_filters( 'the_seo_framework_allow_external_redirect', true );
-	}
-
-	/**
-	 * Checks if the string input is exactly '1'.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $value The value to check.
-	 * @return bool true if value is '1'
-	 */
-	public function is_checked( $value ) {
-
-		if ( '1' === $value )
-			return true;
-
-		return false;
-	}
-
-	/**
-	 * Checks if the option is used and checked.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @param string $option The option name.
-	 * @return bool Option is checked.
-	 */
-	public function is_option_checked( $option ) {
-		return $this->is_checked( $this->get_option( $option ) );
 	}
 
 	/**
@@ -537,14 +303,19 @@ class Core {
 	 * Multisite Only.
 	 *
 	 * @since 2.6.0
-	 * @global object $current_blog. NULL on single site.
+	 * @since 3.1.0 Now uses get_site()
+	 * @since 3.1.1 Now checks for `is_multisite()`, to prevent a crash with Divi's compatibility injection.
 	 *
 	 * @return bool Current blog is spam.
 	 */
 	public function current_blog_is_spam_or_deleted() {
-		global $current_blog;
 
-		if ( isset( $current_blog ) && ( '1' === $current_blog->spam || '1' === $current_blog->deleted ) )
+		if ( ! function_exists( '\\get_site' ) || ! \is_multisite() )
+			return false;
+
+		$site = \get_site();
+
+		if ( $site instanceof \WP_Site && ( '1' === $site->spam || '1' === $site->deleted ) )
 			return true;
 
 		return false;
@@ -561,7 +332,7 @@ class Core {
 	 */
 	public function maybe_lowercase_noun( $noun ) {
 
-		static $lowercase = array();
+		static $lowercase = [];
 
 		if ( isset( $lowercase[ $noun ] ) )
 			return $lowercase[ $noun ];
@@ -572,16 +343,28 @@ class Core {
 	/**
 	 * Returns the minimum role required to adjust settings.
 	 *
-	 * Applies filter 'the_seo_framework_settings_capability' : string
-	 * This filter changes the minimum role for viewing and editing the plugin's settings.
-	 *
-	 * @since 2.6.0
-	 * @access private
+	 * @since 3.0.0
 	 *
 	 * @return string The minimum required capability for SEO Settings.
 	 */
-	public function settings_capability() {
+	public function get_settings_capability() {
+		/**
+		 * @since 2.6.0
+		 * @param string $capability The user capability required to adjust settings.
+		 */
 		return (string) \apply_filters( 'the_seo_framework_settings_capability', 'manage_options' );
+	}
+
+	/**
+	 * Determines if the current user can do settings.
+	 * Not cached as it's imposing security functionality.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool
+	 */
+	public function can_access_settings() {
+		return \current_user_can( $this->get_settings_capability() );
 	}
 
 	/**
@@ -598,7 +381,7 @@ class Core {
 
 			$url = html_entity_decode( \menu_page_url( $this->seo_settings_page_slug, false ) );
 
-			return \esc_url( $url, array( 'http', 'https' ) );
+			return \esc_url( $url, [ 'http', 'https' ] );
 		}
 
 		return '';
@@ -612,7 +395,7 @@ class Core {
 	 *
 	 * @param bool $guess : If true, the timezone will be guessed from the
 	 * WordPress core gmt_offset option.
-	 * @return string|empty PHP Timezone String.
+	 * @return string PHP Timezone String. May be empty (thus invalid).
 	 */
 	public function get_timezone_string( $guess = false ) {
 
@@ -622,8 +405,7 @@ class Core {
 			$tzstring = '';
 
 		if ( $guess && empty( $tzstring ) ) {
-			$offset = \get_option( 'gmt_offset' );
-			$tzstring = $this->get_tzstring_from_offset( $offset );
+			$tzstring = $this->get_tzstring_from_offset( \get_option( 'gmt_offset' ) );
 		}
 
 		return $tzstring;
@@ -656,7 +438,11 @@ class Core {
 	/**
 	 * Sets and resets the timezone.
 	 *
+	 * This exists because WordPress' current_time() adds discrepancies between UTC and GMT.
+	 * This is also far more accurate than WordPress' tiny time table.
+	 *
 	 * @since 2.6.0
+	 * @since 3.0.6 Now uses the old timezone string when a new one can't be generated.
 	 *
 	 * @param string $tzstring Optional. The PHP Timezone string. Best to leave empty to always get a correct one.
 	 * @link http://php.net/manual/en/timezones.php
@@ -668,17 +454,24 @@ class Core {
 		static $old_tz = null;
 
 		if ( is_null( $old_tz ) ) {
+			// See method docs.
+			// phpcs:ignore
 			$old_tz = date_default_timezone_get();
 			if ( empty( $old_tz ) )
 				$old_tz = 'UTC';
 		}
 
-		if ( $reset )
+		if ( $reset ) {
+			// See method docs.
+			// phpcs:ignore
 			return date_default_timezone_set( $old_tz );
+		}
 
 		if ( empty( $tzstring ) )
-			$tzstring = $this->get_timezone_string( true );
+			$tzstring = $this->get_timezone_string( true ) ?: $old_tz;
 
+		// See method docs.
+		// phpcs:ignore
 		return date_default_timezone_set( $tzstring );
 	}
 
@@ -711,10 +504,60 @@ class Core {
 	}
 
 	/**
+	 * Returns timestamp format based on timestamp settings.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return string The timestamp format used in PHP date.
+	 */
+	public function get_timestamp_format() {
+		return '1' === $this->get_option( 'timestamps_format' ) ? 'Y-m-d\TH:iP' : 'Y-m-d';
+	}
+
+	/**
+	 * Determines if time is used in the timestamp format.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @return bool True if time is used. False otherwise.
+	 */
+	public function uses_time_in_timestamp_format() {
+		return '1' === $this->get_option( 'timestamps_format' );
+	}
+
+	/**
+	 * Shortens string and adds ellipses when over a threshold in length.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @param string $string The string to test and maybe trim
+	 * @param int    $over   The character limit. Must be over 0 to have effect.
+	 *                       If 1 is given, the returned string length will be 3.
+	 *                       If 2 is given, the returned string will only consist of the hellip.
+	 * @return string
+	 */
+	public function hellip_if_over( $string, $over = 0 ) {
+		if ( $over > 0 && strlen( $string ) > $over ) {
+			$string = substr( $string, 0, abs( $over - 2 ) ) . ' &hellip;';
+		}
+
+		return $string;
+	}
+
+	/**
 	 * Counts words encounters from input string.
 	 * Case insensitive. Returns first encounter of each word if found multiple times.
 	 *
+	 * Will only return words that are above set input thresholds.
+	 *
 	 * @since 2.7.0
+	 * @since 3.1.0 This method now uses PHP 5.4+ encoding, capable of UTF-8 interpreting,
+	 *              instead of relying on PHP's incomplete encoding table.
+	 *              This does mean that the functionality is crippled* when the PHP
+	 *              installation isn't unicode compatible; this is unlikely.
+	 * @staticvar bool $utf8_pcre Determines whether pcre supports UTF-8.
+	 *
+	 * *Crippled as in skipping every non-latin and diacritic character.
 	 *
 	 * @param string $string Required. The string to count words in.
 	 * @param int $amount Minimum amount of words to encounter in the string.
@@ -729,20 +572,43 @@ class Core {
 	 */
 	public function get_word_count( $string, $amount = 3, $amount_bother = 5, $bother_length = 3 ) {
 
-		//* Convert string's special characters into PHP readable words.
-		$string = htmlentities( $string, ENT_COMPAT, 'UTF-8' );
+		$string = html_entity_decode( $string );
 
-		//* Count the words. Because we've converted all characters to XHTML codes, the odd ones should be only numerical.
-		$words = str_word_count( strtolower( $string ), 2, '&#0123456789;' );
+		static $utf8_pcre = null;
+		if ( ! isset( $utf8_pcre ) )
+			$utf8_pcre = @preg_match( '/^./u', 'a' );
 
-		$words_too_many = array();
+		if ( $utf8_pcre ) {
+			$string = \wp_check_invalid_utf8( $string, true );
+			$word_list = preg_split(
+				'/\W+/mu',
+				function_exists( 'mb_strtolower' ) ? mb_strtolower( $string ) : strtolower( $string ),
+				-1,
+				PREG_SPLIT_OFFSET_CAPTURE | PREG_SPLIT_NO_EMPTY
+			);
+		} else {
+			$word_list = preg_split(
+				'/\W+/m',
+				strtolower( $string ),
+				-1,
+				PREG_SPLIT_OFFSET_CAPTURE | PREG_SPLIT_NO_EMPTY
+			);
+		}
 
-		if ( is_array( $words ) ) :
+		$words_too_many = [];
+
+		if ( count( $word_list ) ) :
 			/**
-			 * Applies filters 'the_seo_framework_bother_me_desc_length' : int Min Character length to bother you with.
 			 * @since 2.6.0
+			 * @param int $bother_length Min Character length to bother you with.
 			 */
-			$bother_me_length = (int) \apply_filters( 'the_seo_framework_bother_me_desc_length', $bother_length );
+			$bother_length = (int) \apply_filters( 'the_seo_framework_bother_me_desc_length', $bother_length );
+
+			$words = [];
+			foreach ( $word_list as $wli ) {
+				//= { $words[ int Offset ] => string Word }
+				$words[ $wli[1] ] = $wli[0];
+			}
 
 			$word_count = array_count_values( $words );
 
@@ -752,8 +618,7 @@ class Core {
 				$word_keys = array_flip( array_reverse( $words, true ) );
 
 				foreach ( $word_count as $word => $count ) {
-
-					if ( mb_strlen( html_entity_decode( $word ) ) < $bother_me_length ) {
+					if ( mb_strlen( $word ) < $bother_length ) {
 						$run = $count >= $amount_bother;
 					} else {
 						$run = $count >= $amount;
@@ -762,13 +627,15 @@ class Core {
 					if ( $run ) {
 						//* The encoded word is longer or equal to the bother length.
 
-						$word_len = mb_strlen( $word );
-
-						$position = $word_keys[ $word ];
-						$first_encountered_word = mb_substr( $string, $position, $word_len );
+						//! Don't use mb_* here. preg_split's offset is in bytes, NOT unicode.
+						$args = [
+							'pos' => $word_keys[ $word ],
+							'len' => strlen( $word ),
+						];
+						$first_encountered_word = substr( $string, $args['pos'], $args['len'] );
 
 						//* Found words that are used too frequently.
-						$words_too_many[] = array( $first_encountered_word => $count );
+						$words_too_many[] = [ $first_encountered_word => $count ];
 					}
 				}
 			}
@@ -783,6 +650,9 @@ class Core {
 	 * @since 2.8.0
 	 * @since 2.9.0 Now adds a little more relative softness based on rel_lum.
 	 * @since 2.9.2 (Typo): Renamed from 'get_relatitve_fontcolor' to 'get_relative_fontcolor'.
+	 * @since 3.0.4 : Now uses WCAG's relative luminance formula
+	 * @link https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
+	 * @link https://www.w3.org/WAI/GL/wiki/Relative_luminance
 	 *
 	 * @param string $hex The 3 to 6 character RGB hex. '#' prefix is supported.
 	 * @return string The hexadecimal RGB relative font color, without '#' prefix.
@@ -802,41 +672,42 @@ class Core {
 		$g = hexdec( $hex[1] );
 		$b = hexdec( $hex[2] );
 
-		//* Convert to sRGB for relative luminance.
-		$sr = 0.2125 * $r;
-		$sg = 0.7154 * $g;
-		$sb = 0.0721 * $b;
-		$rel_lum = 1 - ( $sr + $sg + $sb ) / 255;
+		$get_relative_luminance = function( $v ) {
+			//= Convert to 0~1 value.
+			$v /= 255;
 
-		//* Convert to relative intvals between 1 and 0 for L from HSL
-		// $rr = $r / 255;
-		// $rg = $g / 255;
-		// $rb = $b / 255;
-		// $luminance = ( min( $rr, $rg, $rb ) + max( $rr, $rg, $rb ) ) / 2;
+			if ( $v > .03928 ) {
+				$lum = pow( ( $v + .055 ) / 1.055, 2.4 );
+			} else {
+				$lum = $v / 12.92;
+			}
+			return $lum;
+		};
 
-		//* Get perceptive luminance (greyscale) according to W3C.
-		$gr = 0.2989 * $r;
-		$gg = 0.5870 * $g;
-		$gb = 0.1140 * $b;
-		$per_lum = 1 - ( $gr + $gg + $gb ) / 255;
+		//* Use sRGB for relative luminance.
+		$sr = 0.2126 * $get_relative_luminance( $r );
+		$sg = 0.7152 * $get_relative_luminance( $g );
+		$sb = 0.0722 * $get_relative_luminance( $b );
 
-		//* Invert colors if they hit luminance boundaries.
+		$rel_lum = ( $sr + $sg + $sb );
+
+		//= Invert colors if they hit luminance boundaries.
 		if ( $rel_lum < 0.5 ) {
-			//* Build dark. Add softness.
-			$gr = $gr * $per_lum / 8 / 0.2989 + 8 * 0.2989 / $rel_lum;
-			$gg = $gg * $per_lum / 8 / 0.5870 + 8 * 0.5870 / $rel_lum;
-			$gb = $gb * $per_lum / 8 / 0.1140 + 8 * 0.1140 / $rel_lum;
+			//* Build dark greyscale.
+			$gr = 255 - ( $r * 0.2989 / 8 ) * $rel_lum;
+			$gg = 255 - ( $g * 0.5870 / 8 ) * $rel_lum;
+			$gb = 255 - ( $b * 0.1140 / 8 ) * $rel_lum;
 		} else {
-			//* Build light. Add (subtract) softness.
-			$gr = 255 - $gr * $per_lum / 8 * 0.2989 - 8 * 0.2989 / $rel_lum;
-			$gg = 255 - $gg * $per_lum / 8 * 0.5870 - 8 * 0.5870 / $rel_lum;
-			$gb = 255 - $gb * $per_lum / 8 * 0.1140 - 8 * 0.1140 / $rel_lum;
+			//* Build light greyscale.
+			$gr = ( $r * 0.2989 / 8 ) * $rel_lum;
+			$gg = ( $g * 0.5870 / 8 ) * $rel_lum;
+			$gb = ( $b * 0.1140 / 8 ) * $rel_lum;
 		}
 
-		//* Complete hexvals.
-		$retr = str_pad( dechex( $gr ), 2, '0', STR_PAD_LEFT );
-		$retg = str_pad( dechex( $gg ), 2, '0', STR_PAD_LEFT );
-		$retb = str_pad( dechex( $gb ), 2, '0', STR_PAD_LEFT );
+		//* Build RGB hex.
+		$retr = str_pad( dechex( round( $gr ) ), 2, '0', STR_PAD_LEFT );
+		$retg = str_pad( dechex( round( $gg ) ), 2, '0', STR_PAD_LEFT );
+		$retb = str_pad( dechex( round( $gb ) ), 2, '0', STR_PAD_LEFT );
 
 		return $retr . $retg . $retb;
 	}
@@ -851,8 +722,7 @@ class Core {
 	 * @since 2.9.0 : 1. Removed word boundary requirement for strong.
 	 *                2. Now accepts regex count their numeric values in string.
 	 *                3. Fixed header 1~6 calculation.
-	 * @since 2.9.3 : 1. Added $args parameter.
-	 *                2. TODO It now uses substr_replace instead of str_replace to prevent duplicated replacements.
+	 * @since 2.9.3 : Added $args parameter.
 	 * @link https://wordpress.org/plugins/about/readme.txt
 	 *
 	 * @param string $text The text that might contain markdown. Expected to be escaped.
@@ -861,7 +731,7 @@ class Core {
 	 * @param array $args The function arguments.
 	 * @return string The markdown converted text.
 	 */
-	public function convert_markdown( $text, $convert = array(), $args = array() ) {
+	public function convert_markdown( $text, $convert = [], $args = [] ) {
 
 		preprocess : {
 			$text = str_replace( "\r\n", "\n", $text );
@@ -872,26 +742,26 @@ class Core {
 		if ( '' === $text )
 			return '';
 
-		$defaults = array(
+		// Merge defaults with $args.
+		$args = array_merge( [
 			'a_internal' => false,
-		);
-		$args = array_merge( $defaults, $args );
+		], $args );
 
 		/**
 		 * The conversion list's keys are per reference only.
 		 */
-		$conversions = array(
+		$conversions = [
 			'**'   => 'strong',
 			'*'    => 'em',
 			'`'    => 'code',
 			'[]()' => 'a',
-			'======'  => 'h6',
-			'====='  => 'h5',
-			'===='  => 'h4',
+			'======' => 'h6',
+			'=====' => 'h5',
+			'====' => 'h4',
 			'==='  => 'h3',
 			'=='   => 'h2',
 			'='    => 'h1',
-		);
+		];
 
 		$md_types = empty( $convert ) ? $conversions : array_intersect( $conversions, $convert );
 
@@ -942,6 +812,7 @@ class Core {
 					$amount = filter_var( $type, FILTER_SANITIZE_NUMBER_INT );
 					//* Considers word non-boundary. @TODO consider removing this?
 					$expression = sprintf( '/(?:\={%1$s})\B([^\={\%1$s}]+)\B(?:\={%1$s})/', $amount );
+
 					$count = preg_match_all( $expression, $text, $matches, PREG_PATTERN_ORDER );
 
 					for ( $i = 0; $i < $count; $i++ ) {
@@ -961,13 +832,13 @@ class Core {
 					for ( $i = 0; $i < $count; $i++ ) {
 						$text = str_replace(
 							$matches[0][ $i ],
-							sprintf( $_string, \esc_url( $matches[2][ $i ], array( 'http', 'https' ) ), \esc_html( $matches[1][ $i ] ) ),
+							sprintf( $_string, \esc_url( $matches[2][ $i ], [ 'http', 'https' ] ), \esc_html( $matches[1][ $i ] ) ),
 							$text
 						);
 					}
 					break;
 
-				default :
+				default:
 					break;
 			endswitch;
 		endforeach;

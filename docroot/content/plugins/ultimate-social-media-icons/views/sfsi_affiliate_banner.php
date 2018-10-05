@@ -1,5 +1,5 @@
 <style type="text/css">
-.tab10 .save_button{padding-bottom: 20px;}div#accordion2 {margin-top: 40px;}
+.tab10 .save_button{padding-bottom: 20px;}div#accordion2 {margin-top: 20px;}
 #accordion2 h3 span {position: absolute;left: 0;top: 0;width: 50px;height: 49px;background: #31373d;line-height: 50px;text-align: center;font-family: helveticaregular;font-size: 20px;color: #FFF;}
 .tab11 img{min-height: 150px;min-width: 150px;margin-left: auto;margin-right: auto;text-align: center;display: table-cell;vertical-align: middle;}	
 </style>

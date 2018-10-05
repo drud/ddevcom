@@ -372,15 +372,6 @@ if("id"== $option2['sfsi_youtubeusernameorid'] && isset($option2['sfsi_youtubeus
     </div>
     <!-- END LINKEDIN ICON -->
     
-    <!-- share button -->
-    <div class="row share_section">
-    	<h2 class="sfsicls_share">Share</h2>
-        <div class="inr_cont">
-        	<p>Nothing needs to be done here – your visitors to share your site via «all the other» social media sites.  <a class="rit_link pop-up" href="javascript:;"  data-id="share-s2">(see an example).</a></p> 
-        </div>
-    </div>
-    <!-- share end -->
-    
     <!-- Custom icon section start here -->
    	<div class="custom-links custom_section">
 	<?php 
@@ -414,6 +405,9 @@ if("id"== $option2['sfsi_youtubeusernameorid'] && isset($option2['sfsi_youtubeus
         </div>  
     </div>
     <!-- END Custom icon section here -->
+
+    <?php sfsi_ask_for_help(2); ?>
+
       
     <!-- SAVE BUTTON SECTION   --> 
     <div class="save_button tab_2_sav">

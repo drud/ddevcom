@@ -4,11 +4,11 @@
  */
 namespace The_SEO_Framework;
 
-defined( 'ABSPATH' ) or die;
+defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2017 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -33,525 +33,454 @@ defined( 'ABSPATH' ) or die;
 class Generate_Url extends Generate_Title {
 
 	/**
-	 * Whether to slash the url or not. Used when query vars are in url.
+	 * Caches and returns the current URL.
 	 *
-	 * @since 2.6.0
-	 * @since 2.8.0 : Made public.
+	 * @since 3.0.0
+	 * @staticvar string $cache
 	 *
-	 * @var bool Whether to slash the url.
+	 * @return string The current URL.
 	 */
-	public $url_slashit;
-
-	/**
-	 * Holds current HTTP host.
-	 *
-	 * @since 2.6.5
-	 * @since 2.8.0 : Made public.
-	 *
-	 * @var string The current HTTP host.
-	 */
-	public $current_host;
-
-	/**
-	 * Constructor, load parent constructor and set up variables.
-	 */
-	protected function __construct() {
-		parent::__construct();
+	public function get_current_canonical_url() {
+		static $cache;
+		return isset( $cache ) ? $cache : $cache = $this->get_canonical_url();
 	}
 
 	/**
-	 * Creates canonical URL.
+	 * Caches and returns the current permalink.
+	 * This link excludes any pagination. Great for structured data.
 	 *
-	 * @since 2.0.0
-	 * @since 2.4.2 : Refactored arguments
-	 * @since 2.8.0 : No longer tolerates $id as Post object.
-	 * @since 2.9.0 : When using 'home => true' args parameter, the home path is added when set.
-	 * @since 2.9.2 Added filter usage cache.
-	 * @staticvar array $_has_filters
+	 * @since 3.0.0
+	 * @since 3.1.0 Now properly generates taxonomical URLs.
+	 * @staticvar string $cache
 	 *
-	 * @param string $url the url
-	 * @param array $args : accepted args : {
-	 *    @param bool $paged Return current page URL without pagination if false
-	 *    @param bool $paged_plural Whether to add pagination for the second or later page.
-	 *    @param bool $from_option Get the canonical uri option
-	 *    @param object $post The Post Object.
-	 *    @param bool $external Whether to fetch the current WP Request or get the permalink by Post Object.
-	 *    @param bool $is_term Fetch url for term.
-	 *    @param object $term The term object.
-	 *    @param bool $home Fetch home URL.
-	 *    @param bool $forceslash Fetch home URL and slash it, always.
-	 *    @param int $id The Page or Term ID.
-	 * }
-	 * @return string Escape url.
+	 * @return string The current permalink.
 	 */
-	public function the_url( $url = '', $args = array() ) {
+	public function get_current_permalink() {
+		static $cache;
+		return isset( $cache ) ? $cache : $cache = $this->create_canonical_url( [
+			'id'       => $this->get_the_real_ID(),
+			'taxonomy' => $this->get_current_taxonomy(),
+		] );
+	}
 
-		$this->the_seo_framework_debug && false === $this->doing_sitemap and $this->debug_init( __METHOD__, true, $debug_key = microtime( true ), get_defined_vars() );
+	/**
+	 * Caches and returns the homepage URL.
+	 *
+	 * @since 3.0.0
+	 * @staticvar string $cache
+	 *
+	 * @return string The home URL.
+	 */
+	public function get_homepage_permalink() {
+		static $cache;
+		return isset( $cache ) ? $cache : $cache = $this->create_canonical_url( [
+			'id' => $this->get_the_front_page_ID(),
+		] );
+	}
 
-		$args = $this->reparse_url_args( $args );
+	/**
+	 * Returns a canonical URL based on parameters.
+	 * The URL will never be paginated.
+	 *
+	 * @since 3.0.0
+	 * @uses $this->get_canonical_url()
+	 *
+	 * @param array $args The canonical URL arguments : {
+	 *    int    $id               The Post, Page or Term ID to generate the URL for.
+	 *    string $taxonomy         The taxonomy.
+	 *    bool   $get_custom_field Whether to get custom canonical URLs from user settings.
+	 * }
+	 * @return string The canonical URL, if any.
+	 */
+	public function create_canonical_url( $args = [] ) {
 
-		/**
-		 * Fetch permalink if Feed.
-		 * @since 2.5.2
-		 */
-		if ( $this->is_feed() )
-			$url = \get_permalink();
+		$defaults = [
+			'id'               => 0,
+			'taxonomy'         => '',
+			'get_custom_field' => false,
+		];
+		$args = array_merge( $defaults, $args );
 
-		//* Reset cache.
-		$this->url_slashit = true;
-		$this->unset_current_subdomain();
-		$this->current_host = '';
+		return $this->get_canonical_url( $args );
+	}
 
-		$path = '';
-		$scheme = '';
-		$slashit = true;
+	/**
+	 * Returns the current canonical URL.
+	 *
+	 * @since 3.0.0
+	 * @see $this->create_canonical_url()
+	 *
+	 * @param array|null $args : Private variable. Use $this->create_canonical_url() instead.
+	 * @return string The canonical URL, if any.
+	 */
+	public function get_canonical_url( $args = null ) {
 
-		if ( false === $args['home'] && empty( $url ) ) {
-			/**
-			 * Get URL from options.
-			 * @since 2.2.9
-			 */
-			if ( $args['get_custom_field'] && $this->is_singular() ) {
-				$custom_url = $this->get_custom_field( '_genesis_canonical_uri' );
+		if ( $args ) {
+			//= See $this->create_canonical_url().
+			$canonical_url = $this->build_canonical_url( $args );
+			$query = false;
+		} else {
+			$canonical_url = $this->generate_canonical_url();
+			$query = true;
+		}
 
-				if ( $custom_url ) {
-					$url = $custom_url;
-					$this->url_slashit = false;
-					$parsed_url = \wp_parse_url( $custom_url );
-					$scheme = isset( $parsed_url['scheme'] ) ? $parsed_url['scheme'] : 'http';
+		if ( ! $canonical_url )
+			return '';
+
+		if ( ! $query && $args['id'] === $this->get_the_real_ID() ) {
+			$canonical_url = $this->remove_pagination_from_url( $canonical_url );
+		}
+		if ( $this->matches_this_domain( $canonical_url ) ) {
+			$canonical_url = $this->set_preferred_url_scheme( $canonical_url );
+		}
+		$canonical_url = $this->clean_canonical_url( $canonical_url );
+
+		return $canonical_url;
+	}
+
+	/**
+	 * Builds canonical URL from input arguments.
+	 *
+	 * @since 3.0.0
+	 * @see $this->create_canonical_url()
+	 *
+	 * @param array $args. Use $this->create_canonical_url().
+	 * @return string The canonical URL.
+	 */
+	protected function build_canonical_url( array $args ) {
+
+		//? extract(). See $this->create_canonical_url()
+		foreach ( $args as $k => $v ) $$k = $v;
+
+		$canonical_url = '';
+
+		if ( $taxonomy ) {
+			$canonical_url = $this->get_taxonomial_canonical_url( $id, $taxonomy );
+		} else {
+			if ( $get_custom_field ) {
+				$canonical_url = $this->get_singular_custom_canonical_url( $id );
+			}
+
+			if ( ! $canonical_url ) {
+				if ( ! $id || ( $this->has_page_on_front() && $this->is_front_page_by_id( $id ) ) ) {
+					$canonical_url = $this->get_home_canonical_url();
+				} elseif ( $id ) {
+					$canonical_url = $this->get_singular_canonical_url( $id );
 				}
 			}
-
-			if ( empty( $url ) )
-				$path = $this->generate_url_path( $args );
-		} elseif ( $args['home'] ) {
-			$path = $this->get_home_path();
 		}
 
-		static $_has_filters = null;
-		if ( null === $_has_filters ) {
-			$_has_filters = array();
-			$_has_filters['the_seo_framework_url_path'] = \has_filter( 'the_seo_framework_url_path' );
-			$_has_filters['the_seo_framework_url_output_args'] = \has_filter( 'the_seo_framework_url_output_args' );
-		}
+		return $canonical_url;
+	}
 
-		if ( $_has_filters['the_seo_framework_url_path'] ) {
-			/**
-			 * Applies filters 'the_seo_framework_url_path' : array
-			 *
-			 * @since 2.8.0
-			 *
-			 * @param string $path the URL path.
-			 * @param int $id The current post, page or term ID.
-			 * @param bool $external Whether the call is made from outside the current ID scope. Like from the Sitemap.
-			 */
-			$path = (string) \apply_filters( 'the_seo_framework_url_path', $path, $args['id'], $args['external'] );
-		}
+	/**
+	 * Generates canonical URL from current query.
+	 *
+	 * @since 3.0.0
+	 * @see $this->get_canonical_url()
+	 *
+	 * @return string The canonical URL.
+	 */
+	protected function generate_canonical_url() {
 
-		if ( $_has_filters['the_seo_framework_url_output_args'] ) {
-			/**
-			 * Applies filters 'the_seo_framework_sanitize_redirect_url' : array
-			 *
-			 * @since 2.8.0
-			 *
-			 * @param array : { 'url' => The full URL built from $path, 'scheme' => The preferred scheme }
-			 * @param string $path the URL path.
-			 * @param int $id The current post, page or term ID.
-			 * @param bool $external Whether the call is made from outside the current ID scope. Like from the Sitemap.
-			 */
-			$url_filter = (array) \apply_filters( 'the_seo_framework_url_output_args', array(), $path, $args['id'], $args['external'] );
+		$id  = $this->get_the_real_ID();
+		$url = '';
 
-			if ( $url_filter ) {
-				$url = $url_filter['url'];
-				$scheme = $url_filter['scheme'];
+		if ( $this->is_real_front_page() ) {
+			if ( $this->has_page_on_front() )
+				$url = $this->get_singular_custom_canonical_url( $id );
+			if ( ! $url )
+				$url = $this->get_home_canonical_url();
+		} elseif ( $this->is_singular() ) {
+			$url = $this->get_singular_custom_canonical_url( $id );
+			if ( ! $url )
+				$url = $this->get_singular_canonical_url( $id );
+		} elseif ( $this->is_archive() ) {
+			if ( $this->is_category() || $this->is_tag() || $this->is_tax() ) {
+				$url = $this->get_taxonomial_canonical_url( $id, $this->get_current_taxonomy() );
+			} elseif ( \is_post_type_archive() ) {
+				$url = $this->get_post_type_archive_canonical_url( $id );
+			} elseif ( $this->is_author() ) {
+				$url = $this->get_author_canonical_url( $id );
+			} elseif ( $this->is_date() ) {
+				if ( $this->is_day() ) {
+					$url = $this->get_date_canonical_url( \get_query_var( 'year' ), \get_query_var( 'monthnum' ), \get_query_var( 'day' ) );
+				} elseif ( $this->is_month() ) {
+					$url = $this->get_date_canonical_url( \get_query_var( 'year' ), \get_query_var( 'monthnum' ) );
+				} elseif ( $this->is_year() ) {
+					$url = $this->get_date_canonical_url( \get_query_var( 'year' ) );
+				}
 			}
+		} elseif ( $this->is_search() ) {
+			$url = $this->get_search_canonical_url();
 		}
-
-		//* Non-custom URL
-		if ( empty( $url ) ) {
-			//* Reset cache if request is for the home URL.
-			if ( $args['home'] )
-				$this->unset_current_subdomain();
-
-			$url = $this->add_url_host( $path );
-			$scheme = '';
-
-			$url = $this->add_url_subdomain( $url );
-		}
-
-		$scheme = $scheme ?: $this->get_prefered_scheme();
-
-		$url = $this->set_url_scheme( $url, $scheme );
-
-		if ( $this->url_slashit ) {
-			if ( $args['forceslash'] ) {
-				$url = \trailingslashit( $url );
-			} elseif ( $slashit ) {
-				$url = \user_trailingslashit( $url );
-			}
-		}
-
-		if ( $this->pretty_permalinks ) {
-			$url = \esc_url( $url, array( 'http', 'https' ) );
-		} else {
-			//* Keep the &'s more readable.
-			$url = \esc_url_raw( $url, array( 'http', 'https' ) );
-		}
-
-		$this->the_seo_framework_debug && false === $this->doing_sitemap and $this->debug_init( __METHOD__, false, $debug_key, array( 'url_output' => $url ) );
 
 		return $url;
 	}
 
 	/**
-	 * Parse and sanitize url args.
+	 * Cleans canonical URL.
+	 * Looks at permalink settings to determine roughness of escaping.
 	 *
-	 * @since 2.4.2
-	 * @since 2.9.2 Added filter usage cache.
-	 * @staticvar bool $_has_filter
+	 * @since 3.0.0
 	 *
-	 * @param array $args required The passed arguments.
-	 * @param array $defaults The default arguments.
-	 * @param bool $get_defaults Return the default arguments. Ignoring $args.
-	 * @return array $args parsed args.
+	 * @param string $url A fully qualified URL.
+	 * @return string A fully qualified clean URL.
 	 */
-	public function parse_url_args( $args = array(), $defaults = array(), $get_defaults = false ) {
+	public function clean_canonical_url( $url ) {
 
-		//* Passing back the defaults reduces the memory usage.
-		if ( empty( $defaults ) ) :
-			$defaults = array(
-				'paged'            => false,
-				'paged_plural'     => true,
-				'get_custom_field' => true,
-				'external'         => false,
-				'is_term'          => false,
-				'post'             => null,
-				'term'             => null,
-				'home'             => false,
-				'forceslash'       => false,
-				'id'               => $this->get_the_real_ID(),
-			);
+		if ( $this->pretty_permalinks ) {
+			$url = \esc_url( $url, [ 'http', 'https' ] );
+		} else {
+			//= Keep the &'s more readable.
+			$url = \esc_url_raw( $url, [ 'http', 'https' ] );
+		}
 
-			static $_has_filter = null;
-			if ( null === $_has_filter )
-				$_has_filter = \has_filter( 'the_seo_framework_url_args' );
-
-			if ( $_has_filter ) {
-				/**
-				 * @applies filters the_seo_framework_url_args : {
-				 *  	@param bool $paged Return current page URL without pagination if false
-				 *  	@param bool $paged_plural Whether to add pagination for the second or later page.
-				 *  	@param bool $from_option Get the canonical uri option
-				 *  	@param object $post The Post Object.
-				 *  	@param bool $external Whether to fetch the current WP Request or get the permalink by Post Object.
-				 *  	@param bool $is_term Fetch url for term.
-				 *  	@param object $term The term object.
-				 *  	@param bool $home Fetch home URL.
-				 *  	@param bool $forceslash Fetch home URL and slash it, always.
-				 *  	@param int $id The Page or Term ID.
-				 * }
-				 *
-				 * @since 2.5.0
-				 *
-				 * @param array $defaults The url defaults.
-				 * @param array $args The input args.
-				 */
-				$defaults = (array) \apply_filters( 'the_seo_framework_url_args', $defaults, $args );
-			}
-		endif;
-
-		//* Return early if it's only a default args request.
-		if ( $get_defaults )
-			return $defaults;
-
-		//* Array merge doesn't support sanitation. We're simply type casting here.
-		$args['paged']            = isset( $args['paged'] )            ? (bool) $args['paged']            : $defaults['paged'];
-		$args['paged_plural']     = isset( $args['paged_plural'] )     ? (bool) $args['paged_plural']     : $defaults['paged_plural'];
-		$args['get_custom_field'] = isset( $args['get_custom_field'] ) ? (bool) $args['get_custom_field'] : $defaults['get_custom_field'];
-		$args['external']         = isset( $args['external'] )         ? (bool) $args['external']         : $defaults['external'];
-		$args['is_term']          = isset( $args['is_term'] )          ? (bool) $args['is_term']          : $defaults['is_term'];
-		$args['post']             = isset( $args['post'] )             ? (object) $args['post']           : $defaults['post'];
-		$args['term']             = isset( $args['term'] )             ? (object) $args['term']           : $defaults['term'];
-		$args['home']             = isset( $args['home'] )             ? (bool) $args['home']             : $defaults['home'];
-		$args['forceslash']       = isset( $args['forceslash'] )       ? (bool) $args['forceslash']       : $defaults['forceslash'];
-		$args['id']               = isset( $args['id'] )               ? (int) $args['id']                : $defaults['id'];
-
-		return $args;
+		return $url;
 	}
 
 	/**
-	 * Reparse URL args.
+	 * Returns home canonical URL.
+	 * Automatically adds pagination if the ID matches the query.
 	 *
-	 * @since 2.6.2
-	 * @since 2.9.2 Now passes args to filter.
+	 * @since 3.0.0
 	 *
-	 * @param array $args required The passed arguments.
-	 * @return array $args parsed args.
+	 * @return string The home canonical URL.
 	 */
-	public function reparse_url_args( $args = array() ) {
+	public function get_home_canonical_url() {
 
-		$default_args = $this->parse_url_args( $args, '', true );
+		//= Prevent admin bias by passing preferred scheme.
+		$url = \get_home_url( null, '', $this->get_preferred_scheme() );
 
-		if ( is_array( $args ) ) {
-			if ( empty( $args ) ) {
-				$args = $default_args;
+		if ( $url ) {
+			if ( $this->get_the_real_ID() === (int) \get_option( 'page_for_posts' ) ) {
+				$url = $this->add_url_pagination( $url, $this->paged(), true );
+			}
+
+			return \user_trailingslashit( $url );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Returns singular custom field's canonical URL.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int $id The page ID.
+	 * @return string The custom canonical URL, if any.
+	 */
+	public function get_singular_custom_canonical_url( $id ) {
+		return $this->get_custom_field( '_genesis_canonical_uri', $id ) ?: '';
+	}
+
+	/**
+	 * Returns singular canonical URL.
+	 * Automatically adds pagination if the ID matches the query.
+	 *
+	 * Prevents SEO attacks regarding pagination.
+	 *
+	 * @since 3.0.0
+	 * @since 3.1.0 Added WC Shop and WP Blog (as page) pagination integration via $this->paged().
+	 *
+	 * @param int|null $id The page ID.
+	 * @return string The custom canonical URL, if any.
+	 */
+	public function get_singular_canonical_url( $id = null ) {
+
+		$canonical_url = \wp_get_canonical_url( $id );
+
+		if ( ! $canonical_url )
+			return '';
+
+		//* @link https://core.trac.wordpress.org/ticket/37505
+		$_page = \get_query_var( 'page', 0 );
+		if ( $_page !== $this->page() ) {
+			$canonical_url = $this->remove_pagination_from_url( $canonical_url, $_page );
+		}
+		$_paged = \get_query_var( 'paged', 0 );
+		if ( $_paged === $this->paged() ) {
+			$canonical_url = $this->add_url_pagination( $canonical_url, $_paged, true );
+		}
+
+		return $canonical_url;
+	}
+
+	/**
+	 * Returns taxonomical canonical URL.
+	 * Automatically adds pagination if the ID matches the query.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int    $term_id The term ID.
+	 * @param string $taxonomy The taxonomy.
+	 * @return string The taxonomical canonical URL, if any.
+	 */
+	public function get_taxonomial_canonical_url( $term_id, $taxonomy ) {
+
+		$link = \get_term_link( $term_id, $taxonomy );
+
+		if ( \is_wp_error( $link ) )
+			return '';
+
+		if ( $term_id === $this->get_the_real_ID() ) {
+			//= Adds pagination if ID matches query.
+			$link = $this->add_url_pagination( $link, $this->paged(), true );
+		}
+
+		return $link;
+	}
+
+	/**
+	 * Returns post type archive canonical URL.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param int|string $post_type The post type archive ID or post type.
+	 * @return string The post type archive canonical URL, if any.
+	 */
+	public function get_post_type_archive_canonical_url( $post_type ) {
+
+		if ( is_int( $post_type ) ) {
+			$term_id = (int) $post_type;
+			$term    = $this->fetch_the_term( $term_id );
+
+			if ( $term instanceof \WP_Post_Type ) {
+				$link = \get_post_type_archive_link( $term->name );
+
+				if ( $term_id === $this->get_the_real_ID() ) {
+					//= Adds pagination if ID matches query.
+					$link = $this->add_url_pagination( $link, $this->paged(), true );
+				}
 			} else {
-				$args = $this->parse_url_args( $args, $default_args );
+				$link = '';
 			}
 		} else {
-			//* Old style parameters are used. Doing it wrong.
-			$this->_doing_it_wrong( __METHOD__, 'Use $args = array() for parameters.', '2.4.2' );
-			$args = $default_args;
+			$link = \get_post_type_archive_link( $post_type );
 		}
 
-		return $args;
+		return $link ?: '';
 	}
 
 	/**
-	 * Generate URL from arguments.
+	 * Returns author canonical URL.
+	 * Automatically adds pagination if the ID matches the query.
 	 *
-	 * @since 2.6.0
-	 * @NOTE: Handles full path, including home directory.
+	 * @since 3.0.0
 	 *
-	 * @param array $args the URL args.
-	 * @return string $path
+	 * @param int $author_id The author ID.
+	 * @return string The author canonical URL, if any.
 	 */
-	public function generate_url_path( $args = array() ) {
+	public function get_author_canonical_url( $author_id ) {
 
-		$args = $this->reparse_url_args( $args );
+		$link = \get_author_posts_url( $author_id );
 
-		if ( $this->is_archive() || $args['is_term'] ) :
-
-			$term = $args['term'];
-
-			//* Term or Taxonomy.
-			if ( ! isset( $term ) )
-				$term = \get_queried_object();
-
-			if ( isset( $term->taxonomy ) ) {
-				//* Registered Terms and Taxonomies.
-				$path = $this->get_relative_term_url( $term, $args );
-			} elseif ( ! $args['external'] && isset( $GLOBALS['wp']->request ) ) {
-				//* Everything else.
-				$_url = \trailingslashit( \get_option( 'home' ) ) . $GLOBALS['wp']->request;
-				$path = $this->set_url_scheme( $_url, 'relative' );
-			} else {
-				//* Nothing to see here...
-				$path = '';
-			}
-		elseif ( $this->is_search() ) :
-			$_url = \get_search_link();
-			$path = $this->set_url_scheme( $_url, 'relative' );
-		else :
-			/**
-			 * Reworked to use the $args['id'] check based on get_the_real_ID.
-			 * @since 2.6.0 & 2.6.2
-			 */
-			$post_id = isset( $args['post']->ID ) ? $args['post']->ID : $args['id'];
-
-			if ( $this->pretty_permalinks && $post_id && $this->is_singular( $post_id ) ) {
-				$post = \get_post( $post_id );
-
-				//* Don't slash draft links.
-				if ( isset( $post->post_status ) && ( 'auto-draft' === $post->post_status || 'draft' === $post->post_status ) )
-					$this->url_slashit = false;
-			}
-
-			$path = $this->build_singular_relative_url( $post_id, $args );
-		endif;
-
-		return $path;
-	}
-
-	/**
-	 * Generates relative URL for the Homepage and Singular Posts.
-	 *
-	 * @since 2.6.5
-	 * @NOTE: Handles full path, including home directory.
-	 * @since 2.8.0: Continues on empty post ID. Handles it as HomePage.
-	 *
-	 * @param int $post_id The ID.
-	 * @param array $args The URL arguments.
-	 * @return relative Post or Page url.
-	 */
-	public function build_singular_relative_url( $post_id = null, $args = array() ) {
-
-		if ( empty( $post_id ) ) {
-			//* We can't fetch the post ID when there's an external request.
-			if ( $args['external'] ) {
-				$post_id = 0;
-			} else {
-				$post_id = $this->get_the_real_ID();
-			}
-		}
-
-		$args = $this->reparse_url_args( $args );
-
-		if ( $args['external'] || ! $this->is_real_front_page() || ! $this->is_front_page_by_id( $post_id ) ) {
-			$url = \get_permalink( $post_id );
-		} elseif ( $this->is_real_front_page() || $this->is_front_page_by_id( $post_id ) ) {
-			$url = \get_home_url();
-		} elseif ( ! $args['external'] ) {
-			if ( isset( $GLOBALS['wp']->request ) )
-				$url = \trailingslashit( \get_home_url() ) . $GLOBALS['wp']->request;
-		}
-
-		//* No permalink found.
-		if ( ! isset( $url ) )
+		if ( ! $link )
 			return '';
 
-		$paged = false;
-
-		if ( false === $args['external'] ) {
-			$paged = $this->is_singular() ? $this->page() : $this->paged();
-			$paged = $this->maybe_get_paged( $paged, $args['paged'], $args['paged_plural'] );
+		if ( $author_id === $this->get_the_real_ID() ) {
+			//= Adds pagination if ID matches query.
+			$link = $this->add_url_pagination( $link, $this->paged(), true );
 		}
 
-		if ( $paged ) {
-			if ( $this->pretty_permalinks ) {
-				if ( $this->is_singular() ) {
-					$url = \trailingslashit( $url ) . $paged;
-				} else {
-					$url = \trailingslashit( $url ) . 'page/' . $paged;
-				}
-			} else {
-				if ( $this->is_singular() ) {
-					$url = \add_query_arg( 'page', $paged, $url );
-				} else {
-					$url = \add_query_arg( 'paged', $paged, $url );
-				}
-			}
-		}
-
-		return $this->set_url_scheme( $url, 'relative' );
+		return $link;
 	}
 
 	/**
-	 * Create full valid URL with parsed host.
-	 * Don't forget to use set_url_scheme() afterwards.
+	 * Returns date canonical URL.
+	 * Automatically adds pagination if the date input matches the query.
 	 *
-	 * Note: will return $path if no host can be found.
+	 * @since 3.0.0
 	 *
-	 * @since 2.6.5
-	 *
-	 * @param string $path Current path.
-	 * @return string Full valid URL with http host.
+	 * @param int $year  The year.
+	 * @param int $month The month.
+	 * @param int $day   The day.
+	 * @return string The author canonical URL, if any.
 	 */
-	public function add_url_host( $path = '' ) {
+	public function get_date_canonical_url( $year, $month = null, $day = null ) {
 
-		$host = $this->current_host ?: $this->get_home_host();
+		if ( $day ) {
+			$link = \get_day_link( $year, $month, $day );
+			$_get = 'day';
+		} elseif ( $month ) {
+			$link = \get_month_link( $year, $month );
+			$_get = 'month';
+			$_get = 1;
+		} else {
+			$link = \get_year_link( $year );
+			$_get = 'year';
+		}
 
-		$scheme = $host ? 'http://' : '';
+		//* Determine whether the input matches query.
+		$_paginate = true;
+		switch ( $_get ) {
+			case 'day' :
+				$_day = \get_query_var( 'day' );
+				$_paginate = $_paginate && $_day == $day; // loose comparison OK.
+				// No break. Get month too.
 
-		return $url = $scheme . \trailingslashit( $host ) . ltrim( $path, ' \\/' );
+			case 'month' :
+				$_month = \get_query_var( 'monthnum' );
+				$_paginate = $_paginate && $_month == $month; // loose comparison OK.
+				// No break. Get year too.
+
+			case 'year' :
+				$_year = \get_query_var( 'year' );
+				$_paginate = $_paginate && $_year == $year; // loose comparison OK.
+				break;
+		}
+
+		if ( $_paginate ) {
+			//= Adds pagination if input matches query.
+			$link = $this->add_url_pagination( $link, $this->paged(), true );
+		}
+
+		return $link;
 	}
 
 	/**
-	 * Generates relative URL for current term.
+	 * Returns search canonical URL.
+	 * Automatically adds pagination if the input matches the query.
 	 *
-	 * @since 2.4.2
-	 * @since 2.7.0 Added home directory to output.
-	 * @global object $wp_rewrite
-	 * @NOTE: Handles full path, including home directory.
+	 * @since 3.0.0
+	 * @since 3.1.0 : 1. The first parameter now defaults to null.
+	 *                2. The search term is now matched with the input query if not set,
+	 *                   instead of it being empty.
 	 *
-	 * @param object $term The term object.
-	 * @param array|bool $args {
-	 *		'external' : Whether to fetch the WP Request or get the permalink by Post Object.
-	 *		'paged'	: Whether to add pagination for all types.
-	 *		'paged_plural' : Whether to add pagination for the second or later page.
-	 * }
-	 * @return Relative term or taxonomy URL.
+	 * @param string $query The search query. Mustn't be escaped.
+	 *                      When left empty, the current query will be used.
+	 * @return string The search link.
 	 */
-	public function get_relative_term_url( $term = null, $args = array() ) {
-		global $wp_rewrite;
+	public function get_search_canonical_url( $query = null ) {
 
-		if ( ! is_array( $args ) ) {
-			/**
-			 * @since 2.6.0
-			 * '$args = array()' replaced '$no_request = false'.
-			 */
-			$this->_doing_it_wrong( __METHOD__, 'Use $args = array() for parameters.', '2.6.0' );
+		$_paginate = false;
 
-			$no_request = (bool) $args;
-			$args = $this->parse_url_args( '', '', true );
-			$args['external'] = $no_request;
+		if ( ! isset( $query ) ) {
+			$query = \get_search_query( false );
+			$_paginate = true;
 		}
 
-		// We can't fetch the Term object within sitemaps.
-		if ( $args['external'] && is_null( $term ) )
-			return '';
+		$link = \get_search_link( $query );
 
-		if ( is_null( $term ) )
-			$term = \get_queried_object();
+		if ( $_paginate ) {
+			//= Adds pagination if input query isn't null.
+			$link = $this->add_url_pagination( $link, $this->paged(), true );
+		}
 
-		$taxonomy = $term->taxonomy;
-		$path = $wp_rewrite->get_extra_permastruct( $taxonomy );
-
-		$slug = $term->slug;
-		$t = \get_taxonomy( $taxonomy );
-
-		$paged = $this->maybe_get_paged( $this->paged(), $args['paged'], $args['paged_plural'] );
-
-		if ( empty( $path ) ) :
-			//* Default permalink structure.
-
-			if ( 'category' === $taxonomy ) {
-				$path = '?cat=' . $term->term_id;
-			} elseif ( isset( $t->query_var ) && '' !== $t->query_var ) {
-				$path = '?' . $t->query_var . '=' . $slug;
-			} else {
-				$path = '?taxonomy=' . $taxonomy . '&term=' . $slug;
-			}
-
-			if ( $paged )
-				$path .= '&paged=' . $paged;
-
-			//* Don't slash it.
-			$this->url_slashit = false;
-
-		else :
-			if ( $t->rewrite['hierarchical'] ) {
-				$hierarchical_slugs = array();
-				$ancestors = \get_ancestors( $term->term_id, $taxonomy, 'taxonomy' );
-
-				foreach ( (array) $ancestors as $ancestor ) {
-					$ancestor_term = \get_term( $ancestor, $taxonomy );
-					$hierarchical_slugs[] = $ancestor_term->slug;
-				}
-
-				$hierarchical_slugs = array_reverse( $hierarchical_slugs );
-				$hierarchical_slugs[] = $slug;
-
-				$path = str_replace( "%$taxonomy%", implode( '/', $hierarchical_slugs ), $path );
-			} else {
-				$path = str_replace( "%$taxonomy%", $slug, $path );
-			}
-
-			if ( $paged )
-				$path = \trailingslashit( $path ) . 'page/' . $paged;
-
-			$path = \user_trailingslashit( $path, 'category' );
-		endif;
-
-		//* Add plausible domain subdirectories.
-		$url = \trailingslashit( \get_option( 'home' ) ) . ltrim( $path, ' \\/' );
-		$path = $this->set_url_scheme( $url, 'relative' );
-
-		return $path;
+		return $link;
 	}
 
 	/**
 	 * Returns preferred $url scheme.
-	 * Can be automatically be detected.
+	 * Can automatically be detected.
 	 *
-	 * @since 2.8.0
-	 * @since 2.9.2 Added filter usage cache.
+	 * @since 3.0.0
 	 * @staticvar string $scheme
-	 * @staticvar bool $_has_filter
 	 *
 	 * @return string The preferred URl scheme.
 	 */
-	public function get_prefered_scheme() {
+	public function get_preferred_scheme() {
 
 		static $scheme;
 
@@ -567,27 +496,17 @@ class Generate_Url extends Generate_Title {
 				$scheme = 'http';
 				break;
 
+			default:
 			case 'automatic' :
-			default :
 				$scheme = $this->is_ssl() ? 'https' : 'http';
 				break;
 		endswitch;
 
-		static $_has_filter = null;
-
-		if ( null === $_has_filter )
-			$_has_filter = \has_filter( 'the_seo_framework_preferred_url_scheme' );
-
-		if ( $_has_filter ) {
-			/**
-			 * Applies filters 'the_seo_framework_preferred_url_scheme' : string
-			 *
-			 * @since 2.8.0
-			 *
-			 * @param string $scheme The current URL scheme.
-			 */
-			$scheme = (string) \apply_filters( 'the_seo_framework_preferred_url_scheme', $scheme );
-		}
+		/**
+		 * @since 2.8.0
+		 * @param string $scheme The current URL scheme.
+		 */
+		$scheme = (string) \apply_filters( 'the_seo_framework_preferred_url_scheme', $scheme );
 
 		return $scheme;
 	}
@@ -602,7 +521,7 @@ class Generate_Url extends Generate_Title {
 	 * @return string The URL with the preferred scheme.
 	 */
 	public function set_preferred_url_scheme( $url ) {
-		return $this->set_url_scheme( $url, $this->get_prefered_scheme(), false );
+		return $this->set_url_scheme( $url, $this->get_preferred_scheme() );
 	}
 
 	/**
@@ -610,17 +529,22 @@ class Generate_Url extends Generate_Title {
 	 * WordPress core function, without filter.
 	 *
 	 * @since 2.4.2
+	 * @since 3.0.0 $use_filter now defaults to false.
+	 * @since 3.1.0 The third parameter ($use_filter) is now $deprecated.
 	 *
 	 * @param string $url Absolute url that includes a scheme.
 	 * @param string $scheme optional. Scheme to give $url. Currently 'http', 'https', 'login', 'login_post', 'admin', or 'relative'.
-	 * @param bool $use_filter Whether to parse filters.
+	 * @param null|bool $deprecated Deprecated
 	 * @return string url with chosen scheme.
 	 */
-	public function set_url_scheme( $url, $scheme = null, $use_filter = true ) {
+	public function set_url_scheme( $url, $scheme = null, $deprecated = null ) {
+
+		if ( null !== $deprecated )
+			$this->_doing_it_wrong( __METHOD__, 'Third parameter is deprecated.', '3.1.0' );
 
 		if ( empty( $scheme ) ) {
 			$scheme = $this->is_ssl() ? 'https' : 'http';
-		} elseif ( 'admin' === $scheme || 'login' === $scheme  || 'login_post' === $scheme || 'rpc' === $scheme ) {
+		} elseif ( 'admin' === $scheme || 'login' === $scheme || 'login_post' === $scheme || 'rpc' === $scheme ) {
 			$scheme = $this->is_ssl() || \force_ssl_admin() ? 'https' : 'http';
 		} elseif ( 'http' !== $scheme && 'https' !== $scheme && 'relative' !== $scheme ) {
 			$scheme = $this->is_ssl() ? 'https' : 'http';
@@ -631,126 +555,150 @@ class Generate_Url extends Generate_Title {
 		if ( 'relative' === $scheme ) {
 			$url = ltrim( preg_replace( '#^\w+://[^/]*#', '', $url ) );
 			if ( '' !== $url && '/' === $url[0] )
-				$url = '/' . ltrim( $url , "/ \t\n\r\0\x0B" );
+				$url = '/' . ltrim( $url, "/ \t\n\r\0\x0B" );
 		} else {
-			//* This will break if $scheme is set to false.
 			$url = preg_replace( '#^\w+://#', $scheme . '://', $url );
 		}
-
-		if ( $use_filter )
-			return $this->set_url_scheme_filter( $url, $scheme );
 
 		return $url;
 	}
 
 	/**
-	 * Set URL scheme based on filter.
+	 * Adds pagination to input URL.
 	 *
-	 * @since 2.6.0
-	 * @since 2.8.0 Deprecated.
-	 * @since 2.9.2 Added filter usage cache.
-	 * @staticvar $_has_filter;
-	 * @deprecated
+	 * @since 3.0.0
 	 *
-	 * @param string $url The url with scheme.
-	 * @param string $scheme The current scheme.
-	 * @return $url with applied filters.
+	 * @param string $url      The fully qualified URL.
+	 * @param int    $page     The page number. Should be bigger than 1 to paginate.
+	 * @param bool   $use_base Whether to use pagination base. True on archives, false on pages.
+	 * @return string The fully qualified URL with pagination.
 	 */
-	public function set_url_scheme_filter( $url, $current_scheme ) {
+	public function add_url_pagination( $url, $page, $use_base ) {
 
-		static $_has_filter = null;
-		if ( null === $_has_filter )
-			$_has_filter = \has_filter( 'the_seo_framework_canonical_force_scheme' );
+		if ( $page < 2 )
+			return $url;
 
-		if ( $_has_filter ) {
+		if ( $this->pretty_permalinks ) {
+			if ( $use_base ) {
+				static $base;
+				$base = $base ?: $GLOBALS['wp_rewrite']->pagination_base;
 
-			$this->_deprecated_filter( 'the_seo_framework_canonical_force_scheme', '2.8.0', 'the_seo_framework_preferred_url_scheme' );
-
-			/**
-			 * Applies filters the_seo_framework_canonical_force_scheme : Changes scheme.
-			 *
-			 * Accepted variables:
-			 * (string) 'https'		: Force https
-			 * (bool) true 			: Force https
-			 * (bool) false			: Force http
-			 * (string) 'http'		: Force http
-			 * (string) 'relative' 	: Scheme relative
-			 * (void) null			: Do nothing
-			 *
-			 * @since 2.4.2
-			 * @since 2.8.0 Deprecated.
-			 * @deprecated
-			 *
-			 * @param string $current_scheme the current used scheme.
-			 */
-			$scheme_settings = \apply_filters( 'the_seo_framework_canonical_force_scheme', null, $current_scheme );
-
-			if ( null !== $scheme_settings ) {
-				if ( 'https' === $scheme_settings || 'http' === $scheme_settings || 'relative' === $scheme_settings ) {
-					$url = $this->set_url_scheme( $url, $scheme_settings, false );
-				} elseif ( ! $scheme_settings ) {
-					$url = $this->set_url_scheme( $url, 'http', false );
-				} elseif ( $scheme_setting ) {
-					$url = $this->set_url_scheme( $url, 'https', false );
-				}
+				$url = \user_trailingslashit( \trailingslashit( $url ) . $base . '/' . $page, 'single_paged' );
+			} else {
+				$url = \user_trailingslashit( \trailingslashit( $url ) . $page, 'single_paged' );
+			}
+		} else {
+			if ( $use_base ) {
+				$url = \add_query_arg( 'paged', $page, $url );
+			} else {
+				$url = \add_query_arg( 'page', $page, $url );
 			}
 		}
 
 		return $url;
+	}
+
+	/**
+	 * Removes pagination from input URL.
+	 * The URL must match this query.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param string $url   The fully qualified URL to remove pagination from.
+	 * @param int    $page  The page number to remove. If empty, it will get query.
+	 * @param int    $paged The page number to remove. If empty, it will get query.
+	 * @return string $url The fully qualified URL without pagination.
+	 */
+	protected function remove_pagination_from_url( $url, $page = 0, $paged = 0 ) {
+
+		if ( $this->pretty_permalinks ) {
+			//* Defensive programming...
+			static $user_slash;
+			$user_slash = isset( $user_slash ) ? $user_slash :
+				( $GLOBALS['wp_rewrite']->use_trailing_slashes ? '/' : '' );
+
+			$paged = $paged ?: $this->paged();
+			$page  = $page ?: $this->page();
+
+			$find = '';
+
+			if ( $paged > 1 ) {
+				static $base;
+				$base = $base ?: $GLOBALS['wp_rewrite']->pagination_base;
+
+				$find = '/' . $base . '/' . $paged . $user_slash;
+			} elseif ( $page > 1 ) {
+				$find = '/' . $page . $user_slash;
+			}
+
+			if ( $find ) {
+				$pos = strrpos( $url, $find );
+				//* Defensive programming...
+				$continue = $pos && $pos + strlen( $find ) === strlen( $url );
+				if ( $continue ) {
+					$url = substr( $url, 0, $pos );
+					$url = \user_trailingslashit( $url );
+				}
+			}
+		} else {
+			$url = \remove_query_arg( [ 'page', 'paged', 'cpage' ], $url );
+		}
+
+		return $url;
+	}
+
+	/**
+	 * Adjusts category post link.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @param \WP_Term  $term  The category to use in the permalink.
+	 * @param array     $terms Array of all categories (WP_Term objects) associated with the post.
+	 * @param \WP_Post  $post  The post in question.
+	 * @return \WP_Term The primary term.
+	 */
+	public function _adjust_post_link_category( $term, $terms = null, $post = null ) {
+		return $this->get_primary_term( $post->ID, $term->taxonomy ) ?: $term;
 	}
 
 	/**
 	 * Generates shortlink URL.
 	 *
 	 * @since 2.2.2
+	 * @since 3.1.0 1. No longer accepts $post_id input. Output's based on query only.
+	 *              2. Shortened date archive URL length.
+	 *              3. Removed query parameter collisions.
 	 *
-	 * @param int $post_id The post ID.
 	 * @return string|null Escaped site Shortlink URL.
 	 */
-	public function get_shortlink( $post_id = 0 ) {
+	public function get_shortlink() {
 
-		if ( ! $this->get_option( 'shortlink_tag' ) )
-			return '';
+		if ( ! $this->get_option( 'shortlink_tag' ) ) return '';
+		if ( $this->is_real_front_page() ) return '';
 
-		if ( $this->is_real_front_page() || $this->is_front_page_by_id( $post_id ) )
-			return '';
+		// We slash it because plain permalinks do that too, for consistency.
+		$home = \trailingslashit( $this->get_homepage_permalink() );
+		$id   = $this->get_the_real_ID();
+		$url  = '';
 
-		$path = '';
-
-		if ( $this->is_singular( $post_id ) ) {
-			if ( 0 === $post_id )
-				$post_id = $this->get_the_real_ID();
-
-			if ( $post_id ) {
-				if ( $this->is_static_frontpage( $post_id ) ) {
-					$path = '';
-				} else {
-					//* This will be converted to '?p' later.
-					$path = '?page_id=' . $post_id;
-				}
-			}
+		if ( $this->is_singular() ) {
+			$url = \add_query_arg( [ 'p' => $id ], $home );
 		} elseif ( $this->is_archive() ) {
 			if ( $this->is_category() ) {
-				$id = \get_queried_object_id();
-				$path = '?cat=' . $id;
+				$url = \add_query_arg( [ 'cat' => $id ], $home );
 			} elseif ( $this->is_tag() ) {
-				$id = \get_queried_object_id();
-				$path = '?post_tag=' . $id;
+				$url = \add_query_arg( [ 'post_tag' => $id ], $home );
 			} elseif ( $this->is_date() && isset( $GLOBALS['wp_query']->query ) ) {
-				$query = $GLOBALS['wp_query']->query;
-				$var = '';
-
-				$first = true;
-				foreach ( $query as $key => $val ) {
-					$var .= $first ? '?' : '&';
-					$var .= $key . '=' . $val;
-					$first = false;
-				}
-
-				$path = $var;
+				// FIXME: Core Report: WP doesn't accept paged parameters w/ date parameters. It'll lead to the homepage.
+				$_query = $GLOBALS['wp_query']->query;
+				$_date = [
+					'y' => isset( $_query['year'] ) ? $_query['year'] : '',
+					'm' => isset( $_query['monthnum'] ) ? $_query['monthnum'] : '',
+					'd' => isset( $_query['day'] ) ? $_query['day'] : '',
+				];
+				$url = \add_query_arg( [ 'm' => implode( '', $_date ) ], $home );
 			} elseif ( $this->is_author() ) {
-				$id = \get_queried_object_id();
-				$path = '?author=' . $id;
+				$url = \add_query_arg( [ 'author' => $id ], $home );
 			} elseif ( $this->is_tax() ) {
 				//* Generate shortlink for object type and slug.
 				$object = \get_queried_object();
@@ -761,304 +709,149 @@ class Generate_Url extends Generate_Title {
 					$slug = isset( $object->slug ) ? urlencode( $object->slug ) : '';
 
 					if ( $slug )
-						$path = '?' . $t . '=' . $slug;
+						$url = \add_query_arg( [ $t => $slug ], $home );
 				}
 			}
+		} elseif ( $this->is_search() ) {
+			$url = \add_query_arg( [ 's' => \get_search_query( false ) ], $home );
 		}
 
-		if ( empty( $path ) )
-			return '';
+		if ( ! $url ) return '';
 
-		if ( 0 === $post_id )
-			$post_id = $this->get_the_real_ID();
-
-		//* Get additional public queries from the page URL.
-		$url = $this->the_url_from_cache( '', $post_id, false, false, false );
-		$query = parse_url( $url, PHP_URL_QUERY );
-
-		$additions = '';
-		if ( ! empty( $query ) ) {
-			if ( false !== strpos( $query, '&' ) ) {
-				//= This can fail on malformed URLs
-				$query = explode( '&', $query );
-			} else {
-				$query = array( $query );
-			}
-
-			foreach ( $query as $arg ) {
-				/**
-				 * @since 2.9.4 Added $args availability check.
-				 * This is a band-aid, not a fix.
-				 * @TODO inspect prior explode().
-				 * @link https://wordpress.org/support/topic/error-when-previewing-a-draft-of-knowledge-base-article/#post-9452791
-				 */
-				if ( $arg && false === strpos( $path, $arg ) )
-					$additions .= '&' . $arg;
-			}
-		}
-
-		//* We used 'page_id' to determine duplicates. Now we can convert it to a shorter form.
-		$path = str_replace( 'page_id=', 'p=', $path );
-
-		if ( $this->is_archive() || $this->is_home() ) {
+		if ( $this->is_archive() || $this->is_singular_archive() || $this->is_search() ) {
 			$paged = $this->maybe_get_paged( $this->paged(), false, true );
-			if ( $paged )
-				$path .= '&paged=' . $paged;
+			$url   = \add_query_arg( [ 'paged' => $paged ], $url );
 		} else {
 			$page = $this->maybe_get_paged( $this->page(), false, true );
-			if ( $page )
-				$path .= '&page=' . $page;
+			$url  = \add_query_arg( [ 'page' => $page ], $url );
 		}
 
-		$home_url = $this->the_home_url_from_cache( true );
-		$url = $home_url . $path . $additions;
+		//? Append queries other plugins might've filtered.
+		if ( $this->is_singular() ) {
+			$url = $this->append_php_query(
+				$url,
+				parse_url( \get_permalink( $id ), PHP_URL_QUERY )
+			);
+		}
 
-		return \esc_url_raw( $url, array( 'http', 'https' ) );
+		return \esc_url_raw( $url, [ 'http', 'https' ] );
 	}
 
 	/**
 	 * Generates Previous and Next links.
 	 *
 	 * @since 2.2.4
+	 * @since 3.1.0 1. Now recognizes WC Shops and WP Blog pages as archival types.
+	 *              2. Now sanitizes canonical URL according to permalink settings.
+	 *              3. Removed second parameter. It was only a source of bugs.
+	 *              4. Removed WordPress Core `get_pagenum_link` filter.
+	 * @uses $this->get_paged_urls();
 	 *
-	 * @param string $prev_next Previous or next page link.
-	 * @param int $post_id The post ID.
-	 * @return string|null Escaped site Pagination URL
+	 * @param string $prev_next Whether to get the previous or next page link.
+	 *                          Accepts 'prev' and 'next'.
+	 * @return string Escaped site Pagination URL
 	 */
-	public function get_paged_url( $prev_next = 'next', $post_id = 0 ) {
-
-		if ( ! $this->get_option( 'prev_next_posts' ) && ! $this->get_option( 'prev_next_archives' ) && ! $this->get_option( 'prev_next_frontpage' ) )
-			return '';
-
-		$prev = '';
-		$next = '';
-
-		if ( $this->is_singular() ) :
-			if ( $this->is_real_front_page() || $this->is_static_frontpage( $post_id ) ) {
-				$output_singular_paged = $this->is_option_checked( 'prev_next_frontpage' );
-			} else {
-				$output_singular_paged = $this->is_option_checked( 'prev_next_posts' );
-			}
-
-			if ( $output_singular_paged ) :
-
-				$page = $this->page();
-
-				if ( ! $page )
-					$page = 1;
-
-				if ( 'prev' === $prev_next ) {
-					$prev = $page > 1 ? $this->get_paged_post_url( $page - 1, $post_id, 'prev' ) : '';
-				} elseif ( 'next' === $prev_next ) {
-					$_numpages = substr_count( $this->get_post_content( $post_id ), '<!--nextpage-->' ) + 1;
-					$next = $page < $_numpages ? $this->get_paged_post_url( $page + 1, $post_id, 'next' ) : '';
-				}
-			endif;
-		elseif ( $this->is_archive() || $this->is_home() ) :
-
-			$output_archive_paged = false;
-			if ( $this->is_real_front_page() || $this->is_front_page_by_id( $post_id ) ) {
-				//* Only home.
-				$output_archive_paged = $this->is_option_checked( 'prev_next_frontpage' );
-			} else {
-				//* Both home and archives.
-				$output_archive_paged = $this->is_option_checked( 'prev_next_archives' );
-			}
-
-			if ( $output_archive_paged ) {
-				$paged = $this->paged();
-
-				if ( 'prev' === $prev_next && $paged > 1 ) {
-					$paged = intval( $paged ) - 1;
-
-					if ( $paged < 1 )
-						$paged = 1;
-
-					$prev = \get_pagenum_link( $paged, false );
-				} elseif ( 'next' === $prev_next && $paged < $GLOBALS['wp_query']->max_num_pages ) {
-
-					if ( ! $paged )
-						$paged = 1;
-					$paged = intval( $paged ) + 1;
-
-					$next = \get_pagenum_link( $paged, false );
-				}
-			}
-		endif;
-
-		if ( $prev )
-			return $this->set_preferred_url_scheme( \esc_url_raw( $prev, array( 'http', 'https' ) ) );
-
-		if ( $next )
-			return $this->set_preferred_url_scheme( \esc_url_raw( $next, array( 'http', 'https' ) ) );
-
-		return '';
+	public function get_paged_url( $next_prev ) {
+		return $this->get_paged_urls()[ $next_prev ];
 	}
 
 	/**
-	 * Returns the special URL of a paged post.
+	 * Generates Previous and Next links.
 	 *
-	 * Taken from _wp_link_page() in WordPress core, but instead of anchor markup, just return the URL.
-	 * Also adds WPMUdev Domain Mapping support and is optimized for speed.
+	 * @since 3.1.0
+	 * @staticvar array $ret
 	 *
-	 * @since 2.2.4
-	 * @uses $this->the_url_from_cache();
-	 *
-	 * @param int $i The page number to generate the URL from.
-	 * @param int $post_id The post ID
-	 * @param string $pos Which url to get, accepts next|prev
-	 * @return string Unescaped URL
+	 * @param string $prev_next Whether to get the previous or next page link.
+	 *                          Accepts 'prev' and 'next'.
+	 * @return array  Escaped site Pagination URL
 	 */
-	public function get_paged_post_url( $i, $post_id = 0, $pos = 'prev' ) {
+	public function get_paged_urls() {
 
-		$from_option = false;
+		static $ret;
+		if ( isset( $ret ) ) return $ret;
 
-		if ( empty( $post_id ) )
-			$post_id = $this->get_the_real_ID();
+		$prev = $next = '';
+		$_run = false;
 
-		if ( 1 === $i ) :
-			$url = $this->the_url_from_cache( '', $post_id, false, $from_option, false );
-		else :
-			$post = \get_post( $post_id );
+		if ( $this->is_singular() && ! $this->is_singular_archive() && $this->is_multipage() ) {
+			$_run = $this->is_real_front_page()
+				  ? $this->get_option( 'prev_next_frontpage' )
+				  : $this->get_option( 'prev_next_posts' );
 
-			$urlfromcache = $this->the_url_from_cache( '', $post_id, false, $from_option, false );
+			if ( ! $_run ) goto end;
 
-			if ( $i >= 2 ) {
-				//* Fix adding pagination url.
+			$archive   = false;
+			$page      = $this->page();
+			$_numpages = $this->numpages();
+		} elseif ( $this->is_archive() || $this->is_singular_archive() || $this->is_search() ) {
+			$_run = $this->is_real_front_page()
+				  ? $this->get_option( 'prev_next_frontpage' )
+				  : $this->get_option( 'prev_next_archives' );
 
-				//* Parse query arg, put in var and remove from current URL.
-				$query_arg = parse_url( $urlfromcache, PHP_URL_QUERY );
-				if ( isset( $query_arg ) )
-					$urlfromcache = str_replace( '?' . $query_arg, '', $urlfromcache );
+			if ( ! $_run ) goto end;
 
-				//* Continue if still bigger than or equal to 2.
-				if ( $i >= 2 ) {
-					// Calculate current page number.
-					$_current = 'next' === $pos ? (string) ( $i - 1 ) : (string) ( $i + 1 );
-
-					//* We're adding a page.
-					$_last_occurrence = strrpos( $urlfromcache, '/' . $_current . '/' );
-
-					if ( false !== $_last_occurrence )
-						$urlfromcache = substr_replace( $urlfromcache, '/', $_last_occurrence, strlen( '/' . $_current . '/' ) );
-				}
-			}
-
-			if ( ! $this->pretty_permalinks || in_array( $post->post_status, array( 'draft', 'auto-draft', 'pending' ), true ) ) {
-
-				//* Put removed query arg back prior to adding pagination.
-				if ( isset( $query_arg ) )
-					$urlfromcache = $urlfromcache . '?' . $query_arg;
-
-				$url = \add_query_arg( 'page', $i, $urlfromcache );
-			} elseif ( $this->is_static_frontpage( $post_id ) ) {
-				global $wp_rewrite;
-
-				$url = \trailingslashit( $urlfromcache ) . \user_trailingslashit( $wp_rewrite->pagination_base . '/' . $i, 'single_paged' );
-
-				//* Add back query arg if removed.
-				if ( isset( $query_arg ) )
-					$url = $url . '?' . $query_arg;
-			} else {
-				$url = \trailingslashit( $urlfromcache ) . \user_trailingslashit( $i, 'single_paged' );
-
-				//* Add back query arg if removed.
-				if ( isset( $query_arg ) )
-					$url = $url . '?' . $query_arg;
-			}
-		endif;
-
-		return $url;
-	}
-
-	/**
-	 * Adds subdomain to input URL.
-	 *
-	 * @since 2.6.5
-	 *
-	 * @param string $url The current URL without subdomain.
-	 * @return string $url Fully qualified URL with possible subdomain.
-	 */
-	public function add_url_subdomain( $url = '' ) {
-
-		$url = $this->make_fully_qualified_url( $url );
-
-		//* Add subdomain, if set.
-		if ( $subdomain = $this->get_current_subdomain() ) {
-			$parsed_url = \wp_parse_url( $url );
-			$scheme = isset( $parsed_url['scheme'] ) ? $parsed_url['scheme'] : 'http';
-			$url = str_replace( $scheme . '://', '', $url );
-
-			//* Put it together.
-			$url = $scheme . '://' . $subdomain . '.' . $url;
+			$archive   = true;
+			$page      = $this->paged();
+			$_numpages = $this->numpages();
 		}
 
-		return $url;
+		if ( ! $_run ) goto end;
+
+		$canonical = $this->remove_pagination_from_url( $this->get_current_canonical_url() );
+
+		// If this page is not the last, create a next-URL.
+		if ( $page + 1 <= $_numpages ) {
+			$next = $this->add_url_pagination( $canonical, $page + 1, $archive );
+		}
+		// If this page is not the first, create a prev-URL.
+		if ( $page > 1 ) {
+			$prev = $this->add_url_pagination( $canonical, $page - 1, $archive );
+		}
+
+		end:;
+
+		return $ret = compact( 'next', 'prev' );
 	}
 
 	/**
-	 * Fetches current subdomain set by $this->set_current_subdomain();
+	 * Fetches home URL host. Like "wordpress.org".
+	 * If this fails, you're going to have a bad time.
 	 *
 	 * @since 2.7.0
-	 * @staticvar string $subdomain
+	 * @since 2.9.2 : Now considers port too.
+	 *              : Now uses get_home_url(), rather than get_option('home').
+	 * @staticvar string $cache
 	 *
-	 * @param null|string $set Whether to set a new subdomain.
-	 * @param bool $unset Whether to remove subdomain from cache.
-	 * @return string|bool The set subdomain, false if none is set.
+	 * @return string The home URL host.
 	 */
-	public function get_current_subdomain( $set = null, $unset = false ) {
+	public function get_home_host() {
 
-		static $subdomain = null;
+		static $cache = null;
 
-		if ( isset( $set ) )
-			$subdomain = \esc_html( $set );
+		if ( isset( $cache ) )
+			return $cache;
 
-		if ( $unset )
-			unset( $subdomain );
+		$parsed_url = \wp_parse_url( \get_home_url() );
 
-		if ( isset( $subdomain ) )
-			return $subdomain;
+		$host = isset( $parsed_url['host'] ) ? $parsed_url['host'] : '';
 
-		return false;
-	}
+		if ( $host && isset( $parsed_url['port'] ) )
+			$host .= ':' . $parsed_url['port'];
 
-	/**
-	 * Sets current working subdomain.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @param string $subdomain The current subdomain.
-	 * @return string The set subdomain.
-	 */
-	public function set_current_subdomain( $subdomain = '' ) {
-		return $this->get_current_subdomain( $subdomain );
-	}
-
-	/**
-	 * Unsets current working subdomain.
-	 *
-	 * @since 2.7.0
-	 */
-	public function unset_current_subdomain() {
-		$this->get_current_subdomain( null, true );
+		return $cache = $host;
 	}
 
 	/**
 	 * Cached WordPress permalink structure settings.
 	 *
 	 * @since 2.6.0
-	 * @staticvar string $structure
+	 * @since 3.1.0 Removed caching.
+	 * @todo deprecate, use property `the_seo_framework()->pretty_permalinks` instead.
 	 *
 	 * @return string permalink structure.
 	 */
 	public function permalink_structure() {
-
-		static $structure = null;
-
-		if ( isset( $structure ) )
-			return $structure;
-
-		return $structure = \get_option( 'permalink_structure' );
+		return \get_option( 'permalink_structure' );
 	}
 
 	/**
@@ -1106,55 +899,33 @@ class Generate_Url extends Generate_Title {
 	}
 
 	/**
-	 * Fetches home URL host. Like "wordpress.org".
-	 * If this fails, you're going to have a bad time.
+	 * Appends given query to given URL.
 	 *
-	 * @since 2.7.0
-	 * @since 2.9.2 : Now considers port too.
-	 *              : Now uses get_home_url(), rather than get_option('home').
-	 * @staticvar string $cache
+	 * @since 3.0.0
+	 * @since 3.1.0 Now uses parse_str and add_query_arg, preventing duplicated entries.
 	 *
-	 * @return string The home URL host.
+	 * @param string $url   A fully qualified URL.
+	 * @param string $query A fully qualified query taken from parse_url( $url, PHP_URL_QUERY );
+	 * @return string A fully qualified URL with appended $query.
 	 */
-	public function get_home_host() {
+	public function append_php_query( $url, $query = '' ) {
 
-		static $cache = null;
+		if ( ! $query )
+			return $url;
 
-		if ( isset( $cache ) )
-			return $cache;
+		$_fragment = parse_url( $url, PHP_URL_FRAGMENT );
 
-		$parsed_url = \wp_parse_url( \get_home_url() );
+		if ( $_fragment )
+			$url = str_replace( '#' . $_fragment, '', $url );
 
-		$host = isset( $parsed_url['host'] ) ? $parsed_url['host'] : '';
+		parse_str( $query, $results );
 
-		if ( $host && isset( $parsed_url['port'] ) )
-			$host .= ':' . $parsed_url['port'];
+		if ( $results )
+			$url = \add_query_arg( $results, $url );
 
-		return $cache = $host;
-	}
+		if ( $_fragment )
+			$url .= '#' . $_fragment;
 
-	/**
-	 * Fetches home URL subdirectory path. Like "wordpress.org/plugins/".
-	 *
-	 * @since 2.7.0
-	 * @staticvar string $cache
-	 *
-	 * @return string The home URL path.
-	 */
-	public function get_home_path() {
-
-		static $cache = null;
-
-		if ( isset( $cache ) )
-			return $cache;
-
-		$path = '';
-
-		$parsed_url = \wp_parse_url( \get_option( 'home' ) );
-
-		if ( ! empty( $parsed_url['path'] ) && $path = ltrim( $parsed_url['path'], ' \\/' ) )
-			$path = '/' . $path;
-
-		return $cache = $path;
+		return $url;
 	}
 }

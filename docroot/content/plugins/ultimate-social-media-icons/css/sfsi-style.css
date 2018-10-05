@@ -346,6 +346,7 @@ label.toglpstpgsbttl { float: left; margin-top: 5px !important}
     padding: 0;
     list-style: none;
     display: inline-block;
+    float: left;
 }
 .tab5 ul.enough_waffling li span {
     float: left;
@@ -386,7 +387,9 @@ label.toglpstpgsbttl { float: left; margin-top: 5px !important}
 }
 .sticking a {
     color: #a4a9ad;
-    text-decoration: none;
+}
+.sticking p{
+    line-height: 19px !important;
 }
 .sticking .field {
     position: relative;
@@ -909,17 +912,14 @@ ul.tab_3_icns li .icns_tab_3, ul.tab_3_icns li .radio {
 .sfsi_Sicons .sf_fb{ margin: 0 4px 0 5px; line-height: 20px;}
 .sfsi_Sicons .sf_google{ margin: 0 5px 0 5px; line-height: 20px;}
 .sfsi_Sicons .sf_twiter{ margin: 2px 7px 0 4px; line-height: 17px;}
-.sfsi_Sicons .sf_addthis{ margin: 2px 7px 0 2px; line-height: 20px;}
 .sfsi_Sicons.left .sf_subscrbe{ margin: 2px 8px 3px 0; }
 .sfsi_Sicons.left .sf_fb{ margin: 0 8px 0 0; }
 .sfsi_Sicons.left .sf_google{ margin: 0 9px 0 0; }
 .sfsi_Sicons.left .sf_twiter{ margin: 2px 7px 0 0; }
-.sfsi_Sicons.left .sf_addthis{ margin: 2px 7px 0 0; }
 .sfsi_Sicons.right .sf_subscrbe{ margin: 2px 0 3px; }
 .sfsi_Sicons.right .sf_fb{ margin: 0 0 0 7px; }
 .sfsi_Sicons.right .sf_google{ margin: 0 0 0 7px; }
 .sfsi_Sicons.right .sf_twiter{ margin: 2px 0 0 8px; }
-.sfsi_Sicons.right .sf_addthis{ margin: 2px 0 0 6px; }
 .sfsi_Sicons .sf_subscrbe, .sfsi_Sicons .sf_twiter
 {
 	position: relative;
@@ -958,6 +958,7 @@ ul.tab_3_icns li .icns_tab_3, ul.tab_3_icns li .radio {
 }
 .sfsi_Sicons .fb_iframe_widget {
     float: left;
+    /*min-width: 98px;*/    
     width: 73px;
     margin: 2px 0 0;
 }
@@ -976,14 +977,6 @@ ul.icn_listing li .right_info a {
 .upload_pop_up .upload_butt {
     line-height: 27px;
     margin-left: 6px;
-}
-.sfsi_pop_up .addthis_toolbox {
-    width: 80px;
-    margin: 40px auto 0;
-}
-a.addthis_button_compact {
-    margin-top: 0;
-    width: auto;
 }
 .drop_lsts {
     left: 220px;
@@ -1045,7 +1038,7 @@ a.addthis_button_compact {
     background: #f1f1f1;
 }
 #accordion {
-    margin-top: 4px;
+    margin-top: 25px;
 }
 .main_contant p>a, .tab1 p span {
     font-family: helveticabold;
@@ -1789,13 +1782,6 @@ h2.optional {
     /*width: 450px!important;
     z-index: 1;*/
 }
-.sfsi_Sicons .sf_addthis, .sfsi_Sicons .sf_google {
-    position: relative;
-    /*z-index: 99;*/
-}
-.wrapper .sfsi_Sicons .sf_addthis {
-    margin: 7px 0 0 4px!important;
-}
 .tab2 .utube_inn label {
     font-size: 18px;
 }
@@ -2198,11 +2184,6 @@ ul.cstmskin_iconlist {
 { 
 	float: left !important;
 }
-.sfsi_socialwpr .sf_addthis
-{
-	float:left;
-	min-height: 20px;
-}
 .sfsipyplfrm
 {
     float: left;
@@ -2250,7 +2231,6 @@ ul.cstmskin_iconlist {
  max-width: none;
 }
 .sfsi_mainContainer p.bldtxtmsg{float: left; font-size: 15px; font-weight: bold; margin-top: 12px; width: 100%;text-align: center;}
-.addthis_toolbox a{border: medium none !important; float: left;}
 .sfsinewplgndesc
 {
 	background: none repeat scroll 0 0 #e5e5e5;
@@ -2297,3 +2277,4 @@ ul.cstmskin_iconlist {
 	right: -45px !important;
 }
 .sfsi_wicons a{box-shadow:none !important;}
+a.sficn{ cursor: pointer; }

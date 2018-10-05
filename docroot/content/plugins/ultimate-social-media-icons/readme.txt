@@ -1,19 +1,25 @@
 === Social Media Share Buttons & Social Sharing Icons ===
 Contributors: socialdude
-Tags: social media, share, buttons, social, icons, share icons, share buttons, sharing icons, sharing buttons, social share, sharing, social sharing
+Tags: social media, share, buttons, social widget, icons, share icons, share buttons, sharing icons, sharing buttons, social share, sharing, social sharing
 Requires at least: 2.8
-Tested up to: 4.9.4
-Stable tag: 1.9.5
+Tested up to: 4.9.8
+Stable tag: 2.0.6
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Share buttons and share icons for social media sharing 
+Share buttons and share icons plugin for social media sharing on Facebook, Twitter, Instagram, Whatsapp, Pinterest etc.
 
 == Description ==
 
 Social media plugin which let's you add share icons for RSS, Email, Facebook, Twitter, LinkedIn, Google+, Pinterest, Instagram, Youtube, 'Share' (covering 200+ other social media platforms) and upload custom share icons of your choice. 
 
-The social media plugin offers a wide range of options, for example you can: 
+This free plugin has a lot to offer. Even more can be found in the Premium Plugin, please watch this short video: 
+
+[vimeo https://vimeo.com/269140798] 
+
+See [all features of the Premium plugin](https://www.ultimatelysocial.com/usm-premium/).
+
+The free social media plugin includes the following features: 
 
 - Pick from 16 different designs for your social media share icons
 - Give several actions to one social media share icon (e.g. your facebook share icon can lead visitors to your Facebook page, and also give visitors the opportunity to like your page)
@@ -24,6 +30,8 @@ The social media plugin offers a wide range of options, for example you can:
 - Decide to display a pop-up (on all or only on selected pages) asking people to follow/share you via your social media icons
 - Decide to display sharing-buttons and social media icons at the end of every post
 - Select from many other customization features for your socialmedia icons!
+
+For GDPR compliance, please have a look at our [Social Media GDPR Compliance page](https://ultimatelysocial.com/gdpr/). 
 
 The social media plugin is very easy to use as it takes you through all the steps: 
 
@@ -36,7 +44,7 @@ The social media plugin is very easy to use as it takes you through all the step
 - Step 7: Add a customized pop-up asking people to follow or share (optional)
 - Step 8: Add a subscription form on your site (optional)
 
-In case of issues please check the FAQ on http://ultimatelysocial.com/faq
+In case of issues or questions please ask in the [Support forum](https://wordpress.org/support/plugin/ultimate-social-media-icons).
 
 We hope you enjoy the free social media plugin! 
 
@@ -57,7 +65,7 @@ We released a Premium Plugin with many more exciting features:
 - **Friendly support** in case you're stuck
 - **Many more settings and options** for your social media network icons
 
-Have a look at the Premium Plugin features on https://www.ultimatelysocial.com/usm-premium/
+Have a look at the [Premium Plugin features](https://www.ultimatelysocial.com/usm-premium/)
 
 
 == Installation ==
@@ -267,6 +275,34 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 == Changelog ==
 
+= 2.0.6 =
+* Fixed bug that sometimes banner didn't disappear
+* Links in review message updated 
+
+= 2.0.5 =
+* Issue with click on icons on mobile fixed
+
+= 2.0.4 =
+* Corrected missing ? in shortcode
+
+= 2.0.3 =
+* Optimized texts
+
+= 2.0.2 =
+* Addthis removed due to GDPR
+* New option to switch debugging mode on/off
+
+= 2.0.1 =
+* Issue of window.onscroll function overriding and breaking other plugins/themes fixed
+
+= 2.0.0 =
+* New question 3 to facilitate placement of icons
+
+= 1.9.7 =
+* Stopped setting cookies for pop-up selection "if user moved to end of page" as not needed in this case (relevant for GDPR compliance)
+
+= 1.9.6 =
+* Usage instructions updated
 
 = 1.9.5 =
 * Facebook like count fixed (previously only fixed for likes of user's website, not likes of Facebook page) 
@@ -683,5 +719,5 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 == Upgrade Notice ==
 
-= 1.9.5 =
+= 2.0.6 =
 Please upgrade

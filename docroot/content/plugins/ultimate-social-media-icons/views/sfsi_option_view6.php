@@ -5,7 +5,7 @@ $option6 =  unserialize(get_option('sfsi_section6_options',false));
 /**
  * Sanitize, escape and validate values
  */
-$option6['sfsi_show_Onposts'] 		= (isset($option6['sfsi_show_Onposts'])) ? sanitize_text_field($option6['sfsi_show_Onposts']) : '';
+$option6['sfsi_show_Onposts'] 		= (isset($option6['sfsi_show_Onposts'])) ? sanitize_text_field($option6['sfsi_show_Onposts']) : 'no';
 $option6['sfsi_show_Onbottom'] 		= (isset($option6['sfsi_show_Onbottom'])) ? sanitize_text_field($option6['sfsi_show_Onbottom']) : '';
 $option6['sfsi_icons_postPositon'] 	= (isset($option6['sfsi_icons_postPositon'])) ? sanitize_text_field($option6['sfsi_icons_postPositon']) : '';
 $option6['sfsi_icons_alignment'] 	= (isset($option6['sfsi_icons_alignment'])) ? sanitize_text_field($option6['sfsi_icons_alignment']) : '';
@@ -32,10 +32,6 @@ if(!isset($option6['sfsi_rectgp']))
 {
 	$option6['sfsi_rectgp'] = 'yes';
 }
-if(!isset($option6['sfsi_rectshr']))
-{
-	$option6['sfsi_rectshr'] = 'yes';
-}
 if(!isset($option6['sfsi_recttwtr']))
 {
 	$option6['sfsi_recttwtr'] = 'no';
@@ -51,6 +47,7 @@ if(!isset($option6['sfsi_rectfbshare']))
    
 ?>
 <!-- Section 6 "Do you want to display icons at the end of every post?" main div Start -->
+
 <div class="tab6">
 	<p>The selections you made so far were to display the subscriptions/ social media icons for your site in general (in a widget on the sidebar). You can also display icons at the end of every post, encouraging users to subscribe/like/share after they’ve read it. The following buttons will be added: </p>
 	<!-- icons example  section -->	
@@ -98,14 +95,6 @@ if(!isset($option6['sfsi_rectfbshare']))
             	<img src="<?php echo SFSI_PLUGURL; ?>images/google_plus1.jpg" alt="Google Plus" />
             </a>
         </li>
-        
-        <li>
-        	<div class="radio_section tb_4_ck"><input name="sfsi_rectshr" <?php echo ($option6['sfsi_rectshr']=='yes') ?  'checked="true"' : '' ;?>  id="sfsi_rectshr" type="checkbox" value="yes" class="styled"  /></div>
-        	<a href="#" title="Share">
-            	<img src="<?php echo SFSI_PLUGURL; ?>images/share1.jpg" alt="Share" />
-            </a>
-            <p style="width:auto;float:left;padding: 0px!important;">(may impact loading speed)</p>
-        </li>
 		
 	</ul>	
 	</div><!-- icons position section -->
@@ -116,7 +105,6 @@ if(!isset($option6['sfsi_rectfbshare']))
 		<li>2. Facebook is No.1 in «liking», so it’s a must have</li>
 		<li>3. Google+ is becoming more popular, and also important for SEO reasons</li>
 		<li>4. The Tweet-button allows quick tweeting of your article</li>
-        <li>5. The share-button covers all other platforms for sharing</li>
         <li></li>
 	</ul>
 	
@@ -127,7 +115,7 @@ if(!isset($option6['sfsi_rectfbshare']))
     </div> -->
     
 	<!-- icons display section -->
-	<h4 class="sfsi_dsplyatend">So: do you want to display those at the end of every post?</h4>
+	<h4 class="sfsi_dsplyatend" id="sfsi_dsplyafterposts">So: do you want to display those at the end of every post?</h4>
 	<ul class="enough_waffling sfsi_dsplyatend">
 		<li><input name="sfsi_show_Onposts" <?php echo ($option6['sfsi_show_Onposts']=='yes') ?  'checked="true"' : '' ;?> type="radio" value="yes" class="styled"  /><label>Yes</label></li>
 		<li><input name="sfsi_show_Onposts" <?php echo ($option6['sfsi_show_Onposts']=='no') ?  'checked="true"' : '' ;?> type="radio" value="no" class="styled" /><label>No</label></li>
@@ -157,6 +145,8 @@ if(!isset($option6['sfsi_rectfbshare']))
 		<p><b>New:</b> In our Premium Plugin you have many more placement options, e.g. place the icons you selected under question 1, place them also on your homepage (instead of only post’s pages), place them before posts (instead of only after posts) etc.  <a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=more_placement_options&utm_medium=banner" target="_blank">See all features</a></p>
     </div>
   
+  <?php sfsi_ask_for_help(6); ?>
+
      <!-- SAVE BUTTON SECTION   --> 
   <div class="save_button">
        <img src="<?php echo SFSI_PLUGURL ?>images/ajax-loader.gif" class="loader-img" />
