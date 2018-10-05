@@ -91,12 +91,18 @@ $connectFeedLgn	= "http://www.specificfeeds.com/?".base64_encode("userprofile=wo
 
 
 <?php 
-	 $active_theme=$option3['sfsi_actvite_theme'];
-     $icons_baseUrl=SFSI_PLUGURL."/images/icons_theme/".$active_theme."/";
+	   $active_theme  = $option3['sfsi_actvite_theme'];
+     $icons_baseUrl = SFSI_PLUGURL."/images/icons_theme/".$active_theme."/";
      $visit_iconsUrl= SFSI_PLUGURL."/images/visit_icons/";
-     $soicalObj=new sfsi_SocialHelper();
-     $twitetr_share=($option2['sfsi_twitter_followUserName']!='') ?  "https://twitter.com/".$option2['sfsi_twitter_followUserName'] : 'http://specificfeeds.com';
-     $twitter_text=($option2['sfsi_twitter_followUserName']!='') ?  $option2['sfsi_twitter_aboutPageText'] : 'Create Your Perfect Newspaper for free';
+     $soicalObj     = new sfsi_SocialHelper();
+
+     $twitetr_share = 'http://specificfeeds.com';
+     $twitter_text  = 'Create Your Perfect Newspaper for free';
+
+     if(isset($option2['sfsi_twitter_followUserName']) && !empty($option2['sfsi_twitter_followUserName'])){
+          $twitetr_share = "https://twitter.com/".$option2['sfsi_twitter_followUserName'];
+          $twitter_text  = $option2['sfsi_twitter_aboutPageText'];
+     }
 ?>
 
 <!-- Facebook  example pop up -->
@@ -120,31 +126,19 @@ $connectFeedLgn	= "http://www.specificfeeds.com/?".base64_encode("userprofile=wo
     </div>
 </div><!-- END Facebook  example pop up -->
 
-<!-- adthis example pop up -->
-<div class="pop-overlay read-overlay athis-s1" >
-    <div class="pop_up_box sfsi_pop_up adPopWidth"  >
-        <img src="<?php echo SFSI_PLUGURL; ?>images/close.jpg" id="close_popup" class="sfsicloseBtn" />
-    	<h4 id="readmore_text">Move over the “+ icon” to see the sharing options</h4>
-    	<div style="margin: 0px auto;">
-			<script type="text/javascript">
-				var addthis_config = {pubid: "YOUR-PROFILE-ID"}
-			</script>
-			<a href="http://www.addthis.com/bookmark.php?v=250" class="addthis_button">
-            	<img width="51" class="sfsi_wicon" src="<?php echo $icons_baseUrl."/".$active_theme; ?>_share.png" title="share" alt="share" />
-            </a>
-    		<?php //echo sfsi_Addthis(1); ?>
-    	</div>
-    </div>
-</div><!-- END adthis example pop up -->
 
 <?php
-	  $twit_tolCls = "100";
-	  $twt_margin = "63";  
-	  $icons_space = $option5['sfsi_icons_spacing'];  
-	  $twitter_user = $option2['sfsi_twitter_followUserName'];
-	  $twit_tolCls = round(strlen($twitter_user)*4+100+20); 
-      $main_margin = round($icons_space)/2;
-      $twt_margin = round($twit_tolCls/2+$main_margin+6);
+	  $twit_tolCls  = "100";
+	  $twt_margin   = "63";  
+	  $icons_space  = $option5['sfsi_icons_spacing'];
+
+    if(isset($option2['sfsi_twitter_followUserName']) && !empty($option2['sfsi_twitter_followUserName'])){
+      $twitter_user = $option2['sfsi_twitter_followUserName'];
+      $twit_tolCls  = round(strlen($twitter_user)*4+100+20);
+      $main_margin  = round($icons_space)/2;
+      $twt_margin   = round($twit_tolCls/2+$main_margin+6);             
+    }
+
 ?>
 <!-- twiiter example pop-up -->
 <div class="pop-overlay read-overlay twex-s2" >
@@ -167,7 +161,7 @@ $connectFeedLgn	= "http://www.specificfeeds.com/?".base64_encode("userprofile=wo
 </div><!-- END twiiter example pop-up -->
 
 <?php 
-	$google_url=($option2['sfsi_google_pageURL']!='') ?  $option2['sfsi_google_pageURL'] : 'https://plus.google.com/117732335852724933053' ;
+	$google_url=(isset($option2['sfsi_google_pageURL']) && !empty($option2['sfsi_google_pageURL'])) ?  $option2['sfsi_google_pageURL'] : 'https://plus.google.com/117732335852724933053' ;
 ?>
 <!-- Goolge+  example pop up -->
 <div class="pop-overlay read-overlay googlex-s2"  style="display: block;z-index: -1;opacity: 0;">
@@ -190,8 +184,8 @@ $connectFeedLgn	= "http://www.specificfeeds.com/?".base64_encode("userprofile=wo
 </div><!-- END Goolge+  example pop up -->
 
 <?php 
-	$youtube_url=($option2['sfsi_youtube_pageUrl']!='') ?  $option2['sfsi_youtube_pageUrl'] : 'http://www.youtube.com/user/SpecificFeeds' ;
-	$youtube_user=($option4['sfsi_youtube_user']!='' && isset($option4['sfsi_youtube_user']))?  $option4['sfsi_youtube_user'] : 'SpecificFeeds' ;
+	$youtube_url = isset($option2['sfsi_youtube_pageUrl']) && !empty($option2['sfsi_youtube_pageUrl']) ?  $option2['sfsi_youtube_pageUrl'] : 'http://www.youtube.com/user/SpecificFeeds' ;
+	$youtube_user= isset($option4['sfsi_youtube_user']) && !empty($option4['sfsi_youtube_user']) ?  $option4['sfsi_youtube_user'] : 'SpecificFeeds' ;
 ?>
 <!-- You tube  example pop up -->
 <div class="pop-overlay read-overlay ytex-s2" >
@@ -211,8 +205,10 @@ $connectFeedLgn	= "http://www.specificfeeds.com/?".base64_encode("userprofile=wo
    		</div>
 	</div>
 </div><!-- END You tube  example pop up -->
+
 <?php 
-$pin_url=($option2['sfsi_pinterest_pageUrl']!='') ?  $option2['sfsi_pinterest_pageUrl'] : 'http://pinterest.com/specificfeeds' ;
+
+$pin_url= isset($option2['sfsi_pinterest_pageUrl']) && !empty($option2['sfsi_pinterest_pageUrl']) ?  $option2['sfsi_pinterest_pageUrl'] : 'http://pinterest.com/specificfeeds' ;
 ?>
 <!-- Pinterest  example pop up -->
 <div class="pop-overlay read-overlay pinex-s2" >
@@ -234,9 +230,9 @@ $pin_url=($option2['sfsi_pinterest_pageUrl']!='') ?  $option2['sfsi_pinterest_pa
 </div> <!-- END Pinterest  example pop up -->
 
 <?php 
-	$linnked_share=($option2['sfsi_linkedin_pageURL']!='') ?  $option2['sfsi_linkedin_pageURL'] : 'https://www.linkedin.com/' ;
-	$linkedIncom=($option2['sfsi_linkedin_followCompany']!='') ?  $option2['sfsi_linkedin_followCompany'] : '904740' ;
-	$ln_product=($option2['sfsi_linkedin_recommendProductId']!='') ?  $option2['sfsi_linkedin_recommendProductId'] : '201714' ;
+	$linnked_share = isset($option2['sfsi_linkedin_pageURL']) && !empty($option2['sfsi_linkedin_pageURL']) ?  $option2['sfsi_linkedin_pageURL'] : 'https://www.linkedin.com/' ;
+	$linkedIncom   = isset($option2['sfsi_linkedin_followCompany']) && !empty($option2['sfsi_linkedin_followCompany']) ?  $option2['sfsi_linkedin_followCompany'] : '904740' ;
+	$ln_product    = isset($option2['sfsi_linkedin_recommendProductId']) && !empty($option2['sfsi_linkedin_recommendProductId']) ?  $option2['sfsi_linkedin_recommendProductId'] : '201714' ;
 ?>
 <!-- LinkedIn  example pop up -->
 <div class="pop-overlay read-overlay linkex-s2" style="display: block;z-index: -1;opacity: 0;" >
@@ -257,17 +253,6 @@ $pin_url=($option2['sfsi_pinterest_pageUrl']!='') ?  $option2['sfsi_pinterest_pa
    		</div>
   </div>
 </div> <!-- END LinkedIn  example pop up -->
-
-<!-- ADDTHIS ICON POP-UP -->
-<div class="pop-overlay read-overlay share-s2" >
-    <div class="pop_up_box sfsi_pop_up adPopWidth" >
-        <img src="<?php echo SFSI_PLUGURL; ?>images/close.jpg" id="close_popup" class="sfsicloseBtn" />
-    	<h4 id="readmore_text">Move over the “+ icon” to see the sharing options</h4>
- 	    <div style="float: right;opacity: 1;position: relative;right: 215px;top: 10px;width: 52px; text-align: center;" ><a alt="share"  href="http://www.addthis.com/bookmark.php?v=250"  effect="" class="addthis_button"><img width="51" class="sfsi_wicon" src="<?php echo SFSI_PLUGURL; ?>images/share.png" title="share" alt="share" /></a>
-    </div>
-  </div>
-</div><!-- END ADDTHIS ICON POP-UP -->
-
 
 
 <!-- email deactivate pop-ups -->

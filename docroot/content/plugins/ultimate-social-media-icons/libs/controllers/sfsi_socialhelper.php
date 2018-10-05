@@ -165,19 +165,6 @@ class sfsi_SocialHelper
 		return $subs;
 	}
 	
-	/* get addthis counts  */
-	function sfsi_get_atthis()
-	{
-		// $scheme = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' || $_SERVER['SERVER_PORT'] == 443) ? "https" :"http";
-		// $url=$scheme.'://'.$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI'];
-
-		$url= sfsi_get_current_page_url();
-
-		$json_string = $this->file_get_contents_curl('http://api-public.addthis.com/url/shares.json?url='.$url);
-		$json = json_decode($json_string, true);
-		return isset($json['shares'])? $this->format_num((int) $json['shares']):0;   
-	}
-	
 	/* get pinit counts  */       
 	function sfsi_get_pinterest($url)
 	{

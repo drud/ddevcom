@@ -47,13 +47,13 @@ body {
     outline: 0;
 }
 .wapper {
-    padding: 48px 106px 40px 20px;
+    padding: 30px 40px 40px 40px;
     display: block;
     background: #f1f1f1;
 }
 .main_contant {
     margin: 0;
-    padding: 0;
+    padding: 20px 0 0 0;
     width: 100%;
     float: left;
 }
@@ -73,6 +73,9 @@ body {
     text-decoration: underline;
     font-family: helveticabold;
 }
+a#save_all_settings {
+    padding: 15px 10px;
+}
 #accordion p, #accordion1 p {
     color: #5a6570;
     text-align: left;
@@ -83,7 +86,7 @@ body {
     padding-top: 19px;
 }
 #accordion p:first-child, #accordion1 p:first-child {
-    padding-top: 0;
+    padding-top: 2px;
 }
 #accordion h4, #accordion1 h4 {
     margin: 0;
@@ -1959,4 +1962,134 @@ h2.optional { float: left;clear: both;margin-top: 25px !important; }
     .premiumButtonsContainer{width: 44% !important;}
     .premiumButtonsContainer .premiumSection2{width: 41% !important;}
     .premiumButtonsContainer .premiumSection3{width: 41% !important;}
+}
+
+/************************************ Question 3-> Where shall they be displayed? CSS STARTS *************************/
+.tab9 h1    {font-size: 20px !important;ont-weight: bold !important;margin-bottom: 20px !important;}
+.tab9 span.checkbox {margin-top: 3px;}
+.tab9 input {width: 317px; background: #e5e5e5;box-shadow: 2px 2px 3px #dcdcdc inset;border: 0;padding: 13px 10px !important;font-size: 17px;color: #5a6570;}
+.tab9 ul.sfsi_icn_listing8 {list-style: outside none none;margin: 5px 0 0;overflow: hidden;}
+.tab9 ul.sfsi_icn_listing8 li .sfsi_right_info {font-family: helveticaregular;width: 94.7%;float: left;}
+.tab9 ul.sfsi_icn_listing8 li {float: left;padding: 11px 0 15px 8px;width: 100%;margin: 0;}
+.tab9 .sfsi_float_position_icon_label img{margin-left: auto;margin-right: auto;display: block;margin-top: 7px;    }
+.tab9 .sfsi_float_position_icon_label img.sfsi_img_center_bottom {position: absolute;bottom: 0px;left: 18%;}
+.tab9 .sfsiLocationli .cstmfltonpgstck p{padding-top: 0px!important; padding-left: 20px!important; display: table;font-size: 19px !important}
+.sfsi_mainContainer .checkbox{ float: left; }
+
+
+#accordion .tab9 .sfsi_icn_listing8 li .sfsi_right_info .kckslctn p:first-child {margin-top: 17px !important;}
+#accordion .tab9 .sfsi_icn_listing8 li .sfsi_right_info p {padding-left: 20px;font-size: 19px !important; display: table}
+#accordion .tab9 .sfsi_icn_listing8 li.sfsi_show_via_shortcode .sfsi_right_info p:last-child {padding-top: 0px;}
+#accordion .tab9 .sfsi_icn_listing8 li.sfsi_show_via_shortcode .sfsi_right_info .kckslctn p:last-child {padding-top: 19px !important;}
+.tab9 .sfsi_premium_feature_note {font-size: 18px !important;margin-left:12px !important;padding-top:0px !important;}
+.tab9 .ul.sfsi_make_icons.sfsi_plus_mobile_float {float: left;}
+.tab9 .sfsi_disable_floatingicons_mobile { width: 88%; float: left; margin:25px 0 0 27px }
+.tab9 .sfsi_disable_floatingicons_mobile h4 { float: left;line-height: 56px !important;margin-right: 50px !important;font-family: 'helveticaneue-light' !important;color: #5a6570 !important;}
+.tab9 .sfsi_toglepstpgspn {font-weight: bold;}
+.tab9 .sfsi_show_via_shortcode .kckslctn,.tab9 .sfsi_show_via_afterposts .kckslctn{font-size: 15px;margin-top: 5px;    }
+.tab9 .sfsi_show_via_shortcode .kckslctn h4,.tab9 .sfsi_show_via_afterposts .kckslctn h4{font-size: 18px !important;padding: 18px 0 0 0 !important; }
+.tab9 .sfsi_navigate_to_question7{text-decoration:underline;cursor:pointer}
+.tab9 .sfsiLocationli h4{font-size:19px!important}
+.tab9 .sfsi_make_icons span.radio{background-position:0 0;display:inline-block;vertical-align:middle;float: left;}
+.tab9 ul.sfsi_icn_listing8 li .flthmonpg li{min-width:33%;width:33%!important}.
+.tab9 .radio_section.tb_4_ck{margin:0 20px 0 0!important;float:left}
+.tab9 .sfsi_tab_3_icns {display: block;}
+.tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns .sfsi_make_icons li{width:13%;min-width:35px}
+.tab9 .sfsi_make_icons .sfsi_flicnsoptn3{color:#69737c;display:inline-block;float:none;font-family:helveticaneue-light;font-size:20px;margin:0 0 0 15px;vertical-align:middle;width:auto}
+.tab9 .sfsi_float_position_icon_label{border:1px solid #ccc;border-radius:18px;margin-top:3px;position:relative;width:189px;height:148px}
+.tab9 .save_button{padding-top:0}
+.tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns li{padding-left:0;padding-bottom:15px}
+.tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns ul.sfsi_floaticon_margin_sec li{min-width:50%;padding-left:0;padding-bottom:15px;float:left;width:50%}
+.tab9 .sfsi_tab_3_icns.flthmonpg .radio{margin-top:55px}
+.tab9 .sfsi_position_divider{float:left;margin-top:0;margin-left:15px;width:100%}
+#accordion .tab9 ul.sfsiplus_shwthmbfraftr .labelhdng4,#accordion .tab9 ul.sfsiplus_shwthmbfraftr .row h4.labelhdng4{color:#555;font-size:20px;margin-left:20px;font-family:helveticaregular}
+.tab9 .sfsiLocationli .sfsi_right_info .sfsi_tab_3_icns{float:left;clear:both}
+.tab9 ul.sfsi_tab_3_icns li .sfsiplus_icns_tab_3,ul.sfsi_tab_3_icns li .radio{float:left}
+.tab9 ul.sfsi_tab_3_icns.flthmonpg{margin-top:20px}
+.tab9 .sfsi_right_info ul.sfsi_floaticon_margin_sec li{float:left}
+.tab9 .sfsi_right_info ul.sfsi_floaticon_margin_sec label{font-size:17px;padding-right:7px;width:63px!important;display:inline-block;margin-top:10px}
+.tab9 .sfsi_right_info ul.sfsi_floaticon_margin_sec ins{margin-top:10px}
+.tab9 .sfsi_right_info ul.sfsi_floaticon_margin_sec li input{background-color:#dedede;border:none;box-shadow:none;padding:14px 8px;width:80px}
+.tab9 .sfsi_right_info ul.sfsi_floaticon_margin_sec li ins{font-size:17px;font-weight:400;margin-left:15px;text-decoration:none}
+.tab9 .sfsi_flicnsoptn3{color:#69737c;float:left;font-size:20px;margin:62px 5px 0 20px;font-family:helveticaneue-light;width:136px}
+.tab9 ul.sfsi_tab_3_icns label{float:left;line-height:42px;color:#69737C;font-size:18px;font-family:helveticaregular;min-width:120px}
+
+@media screen and (max-width: 823px){
+    .wapper             { padding: 0 15px; }
+    .welcometext        { width: 62% !important; }
+    .supportforum       { margin-top: 22px; }
+    .main_contant h1    { line-height: 35px;}
+    #sfpageLoad         { width: 100% !important;left: 0px !important;}
+   .tab9 .sfsi_position_divider { margin-left: 0px !important; }
+    .row ul.tab_2_email_sec li{ width: 31%; }
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_right_info {width: 89.7% !important;}
+    .tab9 ul.sfsi_icn_listing8 li.sfsiLocationli .sfsi_right_info {width: 100% !important;}
+    .tab9 .sfsi_float_position_icon_label { clear: both !important; }
+    .tab9 .sfsi_tab_3_icns.flthmonpg .radio { margin-top: 0px !important; }
+    .tab9 .sfsi_flicnsoptn3 {margin: 5px 5px 0 20px!important;width: 131px !important;}
+    .tab9 .sfsiLocationli label, .tab9 .sfsi_float_position_icon_label { margin-top: 13px; clear: both !important;}
+    .tab9 .sfsi_position_divider:nth-child(2) {margin: 20px 0;}
+    .tab9 ul.sfsi_tab_3_icns.flthmonpg {margin-left: 44px;}
+
+    .tab9 ul.sfsi_make_icons.sfsi_plus_mobile_float {float: left;clear: both;}
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns .sfsi_make_icons li { width: 50% !important; }       
+}
+@media screen and (min-width: 360px) and (max-width: 414px){
+    .tab9 ul.sfsi_icn_listing8 li .flthmonpg li{ width: 100% !important; }
+}
+@media screen and (min-width: 640px) and (max-width: 640px){    
+    .tab9 ul.sfsi_icn_listing8 li .flthmonpg li{ width: 100% !important ; }
+    .tab9 .sfsi_img_center_bottom { padding-top: 0px !important;width: 62% !important;margin-top: -10px;margin-left: 5px;}
+}
+@media screen and (min-width: 1024px) and (max-width: 1024px){
+    .wapper             { padding: 0 30px 0px 15px; }
+    .welcometext        { width: 62% !important; }
+    .supportforum       { margin-top: 22px; }
+    .main_contant h1    { line-height: 35px;}
+    #sfpageLoad         { width: 100% !important;}
+    .tab9 ul.sfsi_tab_3_icns.flthmonpg {margin-left: 45px;}
+    .row ul.tab_2_email_sec li{ width: 31%; }
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_right_info {width: 90.7% !important;} 
+    .tab9 ul.sfsi_icn_listing8 li.sfsiLocationli .sfsi_right_info {width: 100% !important;}
+    .tab9 .sfsi_float_position_icon_label { clear: both !important; }
+    .tab9 .sfsiLocationli label, .tab9 .sfsi_float_position_icon_label { margin-top: 13px;clear: both;float: left;}
+    .tab9 .sfsi_tab_3_icns.flthmonpg .radio {margin-top: 0px !important;}
+    .tab9 .sfsi_flicnsoptn3 {margin-top: 3px !important}
+    .tab9 .sfsi_position_divider:nth-child(2) {margin: 20px 0;}
+    .tab9 .sfsi_position_divider{ margin-left: 0px !important; }
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns .sfsi_make_icons li { width: 30% !important; }
+    .tab9 ul.sfsi_make_icons.sfsi_plus_mobile_float { width: 100% !important; }    
+}
+
+@media screen and (min-width: 1080px) and (max-width: 1080px){
+    .tab9 ul.sfsi_tab_3_icns label {clear: both;margin-top: 20px;}
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns  ul.sfsi_make_icons {float: left;clear: both; width: 100%;}
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns  ul.sfsi_make_icons li {width: 50%;}            
+}
+
+@media screen and (min-width: 1920px) and (max-width: 1920px){
+    .tab9 ul.sfsi_icn_listing8 li .sfsi_tab_3_icns  ul.sfsi_make_icons li span.sfsi_flicnsoptn3 { padding-top: 6px;padding-left: 5px; }   
+}
+
+@media screen and (min-width: 1366px) and (max-width: 1366px){
+    .wapper { padding: 40px 40px 40px 10px;}
+    .tab9 ul.sfsi_icn_listing8 li.sfsiLocationli .sfsi_right_info {width: 100% !important;}
+    .tab9 .sfsi_flicnsoptn3{font-size: 18px !important;min-width: 113px !important; margin: 60px 0px 0 10px !important;width: auto !important;}
+    .tab9 .sfsi_position_divider { margin-left: 0px !important; }
+}
+/************************************ Question 3-> Where shall they be displayed? CSS CLOSES *************************/
+
+/* Link to support forum left of every Save button */
+.ui-accordion .ui-accordion-content { position: relative; }
+.sfsi_askforhelp          { float: left;width: 32%;position: absolute;bottom: 30px;}
+.sfsi_askforhelp img      { float: left;width: 35px;height: 35px;vertical-align: middle;    }
+.sfsi_askforhelp span     { float: left;margin-left: 6px;margin-top: 8px;}
+.askhelpInview2           { bottom: 25px; }
+.askhelpInview3           { bottom: 51px; }
+.askhelpInview7           { bottom: 50px; }
+
+div#sfsi_plus_langnotice,div#sfsi_plus_addThis_removal_notice,div#sfsi_error_reporting_notice{
+    padding: 10px;
+    margin-left: 0px;
+    position: relative;
 }

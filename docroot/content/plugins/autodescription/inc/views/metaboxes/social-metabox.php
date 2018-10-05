@@ -1,6 +1,10 @@
 <?php
+/**
+ * @package The_SEO_Framework\Views\Admin
+ * @subpackage The_SEO_Framework\Views\Metaboxes
+ */
 
-defined( 'ABSPATH' ) and $_this = the_seo_framework_class() and $this instanceof $_this or die;
+defined( 'THE_SEO_FRAMEWORK_PRESENT' ) and $_this = the_seo_framework_class() and $this instanceof $_this or die;
 
 //* Fetch the required instance within this file.
 $instance = $this->get_view_instance( 'the_seo_framework_social_metabox', $instance );
@@ -13,45 +17,40 @@ switch ( $instance ) :
 		 * @since 2.2.2
 		 *
 		 * @param array $default_tabs { 'id' = The identifier =>
-		 *		array(
-		 *			'name'     => The name
-		 *			'callback' => The callback function, use array for method calling
-		 *			'dashicon' => Desired dashicon
-		 *		)
+		 *   array(
+		 *       'name'     => The name
+		 *       'callback' => The callback function, use array for method calling
+		 *       'dashicon' => Desired dashicon
+		 *   )
 		 * }
 		 */
-		$default_tabs = array(
-			'general' => array(
+		$default_tabs = [
+			'general' => [
 				'name'     => __( 'General', 'autodescription' ),
-				'callback' => array( $this, 'social_metabox_general_tab' ),
+				'callback' => [ $this, 'social_metabox_general_tab' ],
 				'dashicon' => 'admin-generic',
-			),
-			'facebook' => array(
+			],
+			'facebook' => [
 				'name'     => 'Facebook',
-				'callback' => array( $this, 'social_metabox_facebook_tab' ),
+				'callback' => [ $this, 'social_metabox_facebook_tab' ],
 				'dashicon' => 'facebook-alt',
-			),
-			'twitter' => array(
+			],
+			'twitter' => [
 				'name'     => 'Twitter',
-				'callback' => array( $this, 'social_metabox_twitter_tab' ),
+				'callback' => [ $this, 'social_metabox_twitter_tab' ],
 				'dashicon' => 'twitter',
-			),
-			'postdates' => array(
+			],
+			'postdates' => [
 				'name'     => __( 'Post Dates', 'autodescription' ),
-				'callback' => array( $this, 'social_metabox_postdates_tab' ),
+				'callback' => [ $this, 'social_metabox_postdates_tab' ],
 				'dashicon' => 'backup',
-			),
-		);
+			],
+		];
 
 		/**
-		 * Applies filters the_seo_framework_social_settings_tabs : array see $default_tabs
-		 *
-		 * Used to extend Social tabs
-		 *
 		 * @since 2.2.2
-		 *
-		 * @param array $default_tabs The default tabs
-		 * @param array $args The method's input arguments
+		 * @param array $defaults The default tabs.
+		 * @param array $args     The args added on the callback.
 		 */
 		$defaults = (array) apply_filters( 'the_seo_framework_social_settings_tabs', $default_tabs, $args );
 
@@ -61,7 +60,6 @@ switch ( $instance ) :
 		break;
 
 	case 'the_seo_framework_social_metabox_general' :
-
 		?>
 		<h4><?php esc_html_e( 'Social Meta Tags Settings', 'autodescription' ); ?></h4>
 		<?php
@@ -83,13 +81,14 @@ switch ( $instance ) :
 		);
 
 		if ( $this->detect_og_plugin() )
-			$this->description( __( 'Note: Another Open Graph plugin has been detected.', 'autodescription' ) );
+			$this->attention_description( __( 'Note: Another Open Graph plugin has been detected. These tags might conflict.', 'autodescription' ) );
 
 		//* Echo Facebook Tags checkbox.
 		$this->wrap_fields(
 			$this->make_checkbox(
 				'facebook_tags',
 				__( 'Output Facebook meta tags?', 'autodescription' ),
+				/* translators: %s = Facebook */
 				sprintf( __( 'Output various tags targetted at %s.', 'autodescription' ), 'Facebook' ),
 				true
 			),
@@ -101,6 +100,7 @@ switch ( $instance ) :
 			$this->make_checkbox(
 				'twitter_tags',
 				__( 'Output Twitter meta tags?', 'autodescription' ),
+				/* translators: %s = Facebook */
 				sprintf( __( 'Output various tags targetted at %s.', 'autodescription' ), 'Twitter' ),
 				true
 			),
@@ -108,7 +108,7 @@ switch ( $instance ) :
 		);
 
 		if ( $this->detect_twitter_card_plugin() )
-			$this->description( __( 'Note: Another Twitter Card plugin has been detected.', 'autodescription' ) );
+			$this->attention_description( __( 'Note: Another Twitter Card plugin has been detected. These tags might conflict.', 'autodescription' ) );
 
 		?>
 		<hr>
@@ -117,17 +117,22 @@ switch ( $instance ) :
 		<?php
 		$this->description( __( 'A social image can be displayed when your website is shared. It is a great way to grab attention.', 'autodescription' ) );
 
-		$image_placeholder = $this->get_social_image( array( 'post_id' => 0, 'disallowed' => array( 'homemeta', 'postmeta', 'featured' ), 'escape' => false ) );
+		$image_placeholder = $this->get_social_image( [
+			'post_id'    => 0,
+			'disallowed' => [ 'homemeta', 'postmeta', 'featured' ],
+			'escape'     => false,
+		] );
 
 		?>
 		<p>
 			<label for="tsf_fb_socialimage-url">
 				<strong><?php esc_html_e( 'Social Image Fallback URL', 'autodescription' ); ?></strong>
-				<?php $this->make_info( __( 'Preferred Social Image fallback URL location', 'autodescription' ), 'https://developers.facebook.com/docs/sharing/best-practices#images' ); ?>
+				<?php $this->make_info( __( 'Set preferred Social Image fallback URL location.', 'autodescription' ), 'https://developers.facebook.com/docs/sharing/best-practices#images' ); ?>
 			</label>
 		</p>
 		<p>
-			<input class="large-text" type="text" name="<?php $this->field_name( 'social_image_fb_url' ); ?>" id="tsf_fb_socialimage-url" placeholder="<?php echo esc_url( $image_placeholder ); ?>" value="<?php echo esc_url( $this->get_field_value( 'social_image_fb_url' ) ); ?>" />
+			<input class="large-text" type="url" name="<?php $this->field_name( 'social_image_fb_url' ); ?>" id="tsf_fb_socialimage-url" placeholder="<?php echo esc_url( $image_placeholder ); ?>" value="<?php echo esc_url( $this->get_option( 'social_image_fb_url' ) ); ?>" />
+			<input type="hidden" name="<?php $this->field_name( 'social_image_fb_id' ); ?>" id="tsf_fb_socialimage-id" value="<?php echo absint( $this->get_option( 'social_image_fb_id' ) ); ?>" disabled class="tsf-enable-media-if-js" />
 		</p>
 		<p class="hide-if-no-js">
 			<?php
@@ -135,16 +140,6 @@ switch ( $instance ) :
 			echo $this->get_social_image_uploader_form( 'tsf_fb_socialimage' );
 			?>
 		</p>
-		<?php
-		/**
-		 * Insert form element only if JS is active. If JS is inactive, then this will cause it to be emptied on $_POST
-		 * @TODO use disabled and jQuery.removeprop( 'disabled' )?
-		 */
-		?>
-		<script>
-			document.getElementById( 'tsf_fb_socialimage-url' ).insertAdjacentHTML( 'afterend', '<input type="hidden" name="<?php $this->field_name( 'social_image_fb_id' ); ?>" id="tsf_fb_socialimage-id" value="<?php echo absint( $this->get_field_value( 'social_image_fb_id' ) ); ?>" />' );
-		</script>
-
 		<hr>
 
 		<h4><?php esc_html_e( 'Site Shortlink Settings', 'autodescription' ); ?></h4>
@@ -164,66 +159,83 @@ switch ( $instance ) :
 		break;
 
 	case 'the_seo_framework_social_metabox_facebook' :
+		$fb_author = $this->get_option( 'facebook_author' );
+		$fb_author_placeholder = _x( 'https://www.facebook.com/YourPersonalProfile', 'Example Facebook Personal URL', 'autodescription' );
 
-		$fb_author = $this->get_field_value( 'facebook_author' );
-		$fb_author_placeholder = empty( $fb_publisher ) ? _x( 'https://www.facebook.com/YourPersonalProfile', 'Example Facebook Personal URL', 'autodescription' ) : '';
+		$fb_publisher = $this->get_option( 'facebook_publisher' );
+		$fb_publisher_placeholder = _x( 'https://www.facebook.com/YourBusinessProfile', 'Example Facebook Business URL', 'autodescription' );
 
-		$fb_publisher = $this->get_field_value( 'facebook_publisher' );
-		$fb_publisher_placeholder = empty( $fb_publisher ) ? _x( 'https://www.facebook.com/YourVerifiedBusinessProfile', 'Example Verified Facebook Business URL', 'autodescription' ) : '';
+		$fb_appid = $this->get_option( 'facebook_appid' );
+		$fb_appid_placeholder = '123456789012345';
 
-		$fb_appid = $this->get_field_value( 'facebook_appid' );
-		$fb_appid_placeholder = empty( $fb_appid ) ? '123456789012345' : '';
-
-		?><h4><?php esc_html_e( 'Default Facebook Integration Settings', 'autodescription' ); ?></h4><?php
+		?>
+		<h4><?php esc_html_e( 'Default Facebook Integration Settings', 'autodescription' ); ?></h4>
+		<?php
 		$this->description( __( 'Facebook post sharing works mostly through Open Graph. However, you can also link your Business and Personal Facebook pages, among various other options.', 'autodescription' ) );
-		$this->description( __( 'When these options are filled in, Facebook might link your Facebook profile to be followed and liked when your post or page is shared.', 'autodescription' ) );
-
+		$this->description( __( 'When these options are filled in, Facebook might link the Facebook profile to be followed and liked when your post or page is shared.', 'autodescription' ) );
 		?>
 		<hr>
 
 		<p>
-			<label for="<?php $this->field_id( 'facebook_author' ); ?>">
-				<strong><?php esc_html_e( 'Article Author Facebook URL', 'autodescription' ); ?></strong>
-				<a href="<?php echo esc_url( 'https://facebook.com/me' ); ?>" class="description" target="_blank" title="<?php esc_attr_e( 'Your Facebook Profile', 'autodescription' ); ?>">[?]</a>
+			<label for="<?php $this->field_id( 'facebook_appid' ); ?>">
+				<strong><?php esc_html_e( 'Facebook App ID', 'autodescription' ); ?></strong>
 			</label>
+			<?php
+			$this->make_info(
+				__( 'Get Facebook App ID.', 'autodescription' ),
+				'https://developers.facebook.com/apps'
+			);
+			?>
 		</p>
 		<p>
-			<input type="text" name="<?php $this->field_name( 'facebook_author' ); ?>" class="large-text" id="<?php $this->field_id( 'facebook_author' ); ?>" placeholder="<?php echo esc_attr( $fb_author_placeholder ); ?>" value="<?php echo esc_attr( $fb_author ); ?>" />
+			<input type="text" name="<?php $this->field_name( 'facebook_appid' ); ?>" class="large-text ltr" id="<?php $this->field_id( 'facebook_appid' ); ?>" placeholder="<?php echo esc_attr( $fb_appid_placeholder ); ?>" value="<?php echo esc_attr( $fb_appid ); ?>" />
 		</p>
 
 		<p>
 			<label for="<?php $this->field_id( 'facebook_publisher' ); ?>">
-				<strong><?php esc_html_e( 'Article Publisher Facebook URL', 'autodescription' ); ?></strong>
-				<a href="<?php echo esc_url( 'https://instantarticles.fb.com/' ); ?>" class="description" target="_blank" title="<?php esc_html_e( 'To use this, you need to be a verified business', 'autodescription' ); ?>">[?]</a>
+				<strong><?php esc_html_e( 'Facebook Publisher page', 'autodescription' ); ?></strong>
 			</label>
+			<?php
+			$this->make_info(
+				__( 'Only Facebook Business Pages are accepted.', 'autodescription' ),
+				'https://www.facebook.com/business/learn/set-up-facebook-page'
+			);
+			?>
 		</p>
 		<p>
-			<input type="text" name="<?php $this->field_name( 'facebook_publisher' ); ?>" class="large-text" id="<?php $this->field_id( 'facebook_publisher' ); ?>" placeholder="<?php echo esc_attr( $fb_publisher_placeholder ); ?>" value="<?php echo esc_attr( $fb_publisher ); ?>" />
+			<input type="url" name="<?php $this->field_name( 'facebook_publisher' ); ?>" class="large-text" id="<?php $this->field_id( 'facebook_publisher' ); ?>" placeholder="<?php echo esc_attr( $fb_publisher_placeholder ); ?>" value="<?php echo esc_attr( $fb_publisher ); ?>" />
 		</p>
 
 		<p>
-			<label for="<?php $this->field_id( 'facebook_appid' ); ?>">
-				<strong><?php esc_html_e( 'Facebook App ID', 'autodescription' ); ?></strong>
-				<a href="<?php echo esc_url( 'https://developers.facebook.com/apps' ); ?>" target="_blank" class="description" title="<?php esc_html_e( 'Get Facebook App ID', 'autodescription' ); ?>">[?]</a>
+			<label for="<?php $this->field_id( 'facebook_author' ); ?>">
+				<strong><?php esc_html_e( 'Facebook Author Fallback Page', 'autodescription' ); ?></strong>
 			</label>
+			<?php
+			$this->make_info(
+				__( 'Your Facebook profile.', 'autodescription' ),
+				'https://facebook.com/me'
+			);
+			?>
 		</p>
+		<?php $this->description( __( 'Authors can override this option on their profile page.', 'autodescription' ) ); ?>
 		<p>
-			<input type="text" name="<?php $this->field_name( 'facebook_appid' ); ?>" class="large-text" id="<?php $this->field_id( 'facebook_appid' ); ?>" placeholder="<?php echo esc_attr( $fb_appid_placeholder ); ?>" value="<?php echo esc_attr( $fb_appid ); ?>" />
+			<input type="url" name="<?php $this->field_name( 'facebook_author' ); ?>" class="large-text" id="<?php $this->field_id( 'facebook_author' ); ?>" placeholder="<?php echo esc_attr( $fb_author_placeholder ); ?>" value="<?php echo esc_attr( $fb_author ); ?>" />
 		</p>
 		<?php
 		break;
 
 	case 'the_seo_framework_social_metabox_twitter' :
+		$tw_site = $this->get_option( 'twitter_site' );
+		$tw_site_placeholder = _x( '@your-site-username', 'Twitter @username', 'autodescription' );
 
-		$tw_site = $this->get_field_value( 'twitter_site' );
-		$tw_site_placeholder = empty( $tw_site ) ? _x( '@your-site-username', 'Twitter @username', 'autodescription' ) : '';
-
-		$tw_creator = $this->get_field_value( 'twitter_creator' );
-		$tw_creator_placeholder = empty( $tw_creator ) ? _x( '@your-personal-username', 'Twitter @username', 'autodescription' ) : '';
+		$tw_creator = $this->get_option( 'twitter_creator' );
+		$tw_creator_placeholder = _x( '@your-personal-username', 'Twitter @username', 'autodescription' );
 
 		$twitter_card = $this->get_twitter_card_types();
 
-		?><h4><?php esc_html_e( 'Default Twitter Integration Settings', 'autodescription' ); ?></h4><?php
+		?>
+		<h4><?php esc_html_e( 'Default Twitter Integration Settings', 'autodescription' ); ?></h4>
+		<?php
 		$this->description( __( 'Twitter post sharing works mostly through Open Graph. However, you can also link your Business and Personal Twitter pages, among various other options.', 'autodescription' ) );
 
 		?>
@@ -246,7 +258,7 @@ switch ( $instance ) :
 			foreach ( $twitter_card as $type => $name ) {
 				?>
 				<span class="tsf-toblock">
-					<input type="radio" name="<?php $this->field_name( 'twitter_card' ); ?>" id="<?php $this->field_id( 'twitter_card_' . $type ); ?>" value="<?php echo esc_attr( $type ); ?>" <?php checked( $this->get_field_value( 'twitter_card' ), $type ); ?> />
+					<input type="radio" name="<?php $this->field_name( 'twitter_card' ); ?>" id="<?php $this->field_id( 'twitter_card_' . $type ); ?>" value="<?php echo esc_attr( $type ); ?>" <?php checked( $this->get_option( 'twitter_card' ), $type ); ?> />
 					<label for="<?php $this->field_id( 'twitter_card_' . $type ); ?>">
 						<span><?php echo $this->code_wrap( $name ); ?></span>
 						<a class="description" href="<?php echo esc_url( 'https://dev.twitter.com/cards/types/' . $name ); ?>" target="_blank" title="Twitter Card <?php echo esc_attr( $name ) . ' ' . esc_attr__( 'Example', 'autodescription' ); ?>"><?php esc_html_e( 'Example', 'autodescription' ); ?></a>
@@ -260,81 +272,67 @@ switch ( $instance ) :
 
 		<hr>
 
-		<?php $this->description( __( 'When the following options are filled in, Twitter might link your Twitter Site or Personal Profile when your post or page is shared.', 'autodescription' ) ); ?>
+		<?php
+		$this->description( __( 'When the following options are filled in, Twitter might link your Twitter Site or Author Profile when your post or page is shared.', 'autodescription' ) );
+		?>
 
 		<p>
 			<label for="<?php $this->field_id( 'twitter_site' ); ?>" class="tsf-toblock">
-				<strong><?php esc_html_e( "Your Website's Twitter Profile", 'autodescription' ); ?></strong>
-				<a href="<?php echo esc_url( 'https://twitter.com/home' ); ?>" target="_blank" class="description" title="<?php esc_html_e( 'Find your @username', 'autodescription' ); ?>">[?]</a>
+				<strong><?php esc_html_e( 'Website Twitter Profile', 'autodescription' ); ?></strong>
 			</label>
+			<?php
+			$this->make_info(
+				__( 'Find your @username.', 'autodescription' ),
+				'https://twitter.com/home'
+			);
+			?>
 		</p>
 		<p>
-			<input type="text" name="<?php $this->field_name( 'twitter_site' ); ?>" class="large-text" id="<?php $this->field_id( 'twitter_site' ); ?>" placeholder="<?php echo esc_attr( $tw_site_placeholder ); ?>" value="<?php echo esc_attr( $tw_site ); ?>" />
+			<input type="text" name="<?php $this->field_name( 'twitter_site' ); ?>" class="large-text ltr" id="<?php $this->field_id( 'twitter_site' ); ?>" placeholder="<?php echo esc_attr( $tw_site_placeholder ); ?>" value="<?php echo esc_attr( $tw_site ); ?>" />
 		</p>
 
 		<p>
 			<label for="<?php $this->field_id( 'twitter_creator' ); ?>" class="tsf-toblock">
-				<strong><?php esc_html_e( 'Your Personal Twitter Profile', 'autodescription' ); ?></strong>
-				<a href="<?php echo esc_url( 'https://twitter.com/home' ); ?>" target="_blank" class="description" title="<?php esc_attr_e( 'Find your @username', 'autodescription' ); ?>">[?]</a>
+				<strong><?php esc_html_e( 'Twitter Author Fallback Profile', 'autodescription' ); ?></strong>
 			</label>
+			<?php
+			$this->make_info(
+				__( 'Find your @username.', 'autodescription' ),
+				'https://twitter.com/home'
+			);
+			?>
 		</p>
+		<?php $this->description( __( 'Authors can override this option on their profile page.', 'autodescription' ) ); ?>
 		<p>
-			<input type="text" name="<?php $this->field_name( 'twitter_creator' ); ?>" class="large-text" id="<?php $this->field_id( 'twitter_creator' ); ?>" placeholder="<?php echo esc_attr( $tw_creator_placeholder ); ?>" value="<?php echo esc_attr( $tw_creator ); ?>" />
+			<input type="text" name="<?php $this->field_name( 'twitter_creator' ); ?>" class="large-text ltr" id="<?php $this->field_id( 'twitter_creator' ); ?>" placeholder="<?php echo esc_attr( $tw_creator_placeholder ); ?>" value="<?php echo esc_attr( $tw_creator ); ?>" />
 		</p>
 		<?php
 		break;
 
 	case 'the_seo_framework_social_metabox_postdates' :
-
-		$pages_i18n = esc_html__( 'Pages', 'autodescription' );
 		$posts_i18n = esc_html__( 'Posts', 'autodescription' );
 		$home_i18n = esc_html__( 'Home Page', 'autodescription' );
 
-		?><h4><?php esc_html_e( 'Post Date Settings', 'autodescription' ); ?></h4><?php
-		$this->description( __( 'Some Search Engines output the publishing date and modified date next to the search results. These help Search Engines find new content and could impact the SEO value.', 'autodescription' ) );
-		$this->description( __( "It's recommended on posts, but it's not recommended on pages unless you modify or create new pages frequently.", 'autodescription' ) );
+		?>
+		<h4><?php esc_html_e( 'Post Date Settings', 'autodescription' ); ?></h4>
+		<?php
+		$this->description( __( 'Some social sites output the published date and modified date in the sharing snippet.', 'autodescription' ) );
+		?>
+		<hr>
+		<?php
 
 		/* translators: 1: Option, 2: Post Type */
 		$post_publish_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:published_time' ), $posts_i18n );
 		$post_publish_time_checkbox = $this->make_checkbox( 'post_publish_time', $post_publish_time_label, '', false );
 
 		/* translators: 1: Option, 2: Post Type */
-		$page_publish_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:published_time' ), $pages_i18n );
-		$page_publish_time_checkbox = $this->make_checkbox( 'page_publish_time', $page_publish_time_label, '', false );
-
-		//* Echo checkboxes.
-		$this->wrap_fields( $post_publish_time_checkbox . $page_publish_time_checkbox, true );
-
-		/* translators: 1: Option, 2: Post Type */
 		$post_modify_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:modified_time' ), $posts_i18n );
 		$post_modify_time_checkbox = $this->make_checkbox( 'post_modify_time', $post_modify_time_label, '', false );
 
-		/* translators: 1: Option, 2: Post Type */
-		$page_modify_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:modified_time' ), $pages_i18n );
-		$page_modify_time_checkbox = $this->make_checkbox( 'page_modify_time', $page_modify_time_label, '', false );
-
 		//* Echo checkboxes.
-		$this->wrap_fields( $post_modify_time_checkbox . $page_modify_time_checkbox, true );
-
-		?>
-		<hr>
-
-		<h4><?php esc_html_e( 'Home Page', 'autodescription' ); ?></h4>
-		<?php
-		$this->description( __( 'Because you only publish the Home Page once, Search Engines might think your website is outdated. This can be prevented by disabling the following options.', 'autodescription' ) );
-
-		/* translators: 1: Option, 2: Post Type */
-		$home_publish_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:published_time' ), $home_i18n );
-		$home_publish_time_checkbox = $this->make_checkbox( 'home_publish_time', $home_publish_time_label, '', false );
-
-		/* translators: 1: Option, 2: Post Type */
-		$home_modify_time_label = sprintf( esc_html__( 'Add %1$s to %2$s?', 'autodescription' ), $this->code_wrap( 'article:modified_time' ), $home_i18n );
-		$home_modify_time_checkbox = $this->make_checkbox( 'home_modify_time', $home_modify_time_label, '', false );
-
-		//* Echo checkboxes.
-		$this->wrap_fields( $home_publish_time_checkbox . $home_modify_time_checkbox, true );
+		$this->wrap_fields( $post_publish_time_checkbox . $post_modify_time_checkbox, true );
 		break;
 
-	default :
+	default:
 		break;
 endswitch;

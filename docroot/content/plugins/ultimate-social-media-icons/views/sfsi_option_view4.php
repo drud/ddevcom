@@ -106,9 +106,6 @@ $option4['sfsi_instagram_countsDisplay']= 	(isset($option4['sfsi_instagram_count
 $option4['sfsi_pinterest_manualCounts'] = 	(isset($option4['sfsi_pinterest_manualCounts']))
 												? intval($option4['sfsi_pinterest_manualCounts'])
 												: '';
-$option4['sfsi_shares_manualCounts'] 	= 	(isset($option4['sfsi_shares_manualCounts']))
-												? intval($option4['sfsi_shares_manualCounts'])
-												: '';
 $option4['sfsi_linkedIn_manualCounts'] 	= 	(isset($option4['sfsi_linkedIn_manualCounts']))
 												? intval($option4['sfsi_linkedIn_manualCounts'])
 												: '';
@@ -118,7 +115,7 @@ if(isset($option4['sfsi_youtube_user']) && !empty($option4['sfsi_youtube_user'])
 }
 else{
     if("name"== $option2['sfsi_youtubeusernameorid'] && isset($option2['sfsi_youtubeusernameorid']) && !empty($option2['sfsi_youtubeusernameorid'])){
-        $option4['sfsi_youtube_user']   = $option2['sfsi_ytube_user'];
+        $option4['sfsi_youtube_user']   = isset($option2['sfsi_ytube_user']) && !empty($option2['sfsi_ytube_user']) ? $option2['sfsi_ytube_user']: '';
     }
 }
 
@@ -127,7 +124,7 @@ if(isset($option4['sfsi_youtube_channelId']) && !empty($option4['sfsi_youtube_ch
 }
 else{
     if("id"== $option2['sfsi_youtubeusernameorid'] && isset($option2['sfsi_youtubeusernameorid']) && !empty($option2['sfsi_youtubeusernameorid'])){
-        $option4['sfsi_youtube_channelId']   = $option2['sfsi_ytube_chnlid'];
+        $option4['sfsi_youtube_channelId']   = isset($option2['sfsi_ytube_chnlid']) && !empty($option2['sfsi_ytube_chnlid']) ? $option2['sfsi_ytube_chnlid']: '';
     }
 }
 
@@ -136,7 +133,8 @@ $counts = sfsi_getCounts();
 
 /* check for email icon display */
 $email_image="email.png";
-if($option2['sfsi_rss_icons']=="sfsi")
+
+if(isset($option2['sfsi_rss_icons']) && !empty($option2['sfsi_rss_icons']) && $option2['sfsi_rss_icons']=="sfsi")
 {
 	$email_image="sf_arow_icn.png";
 }    
@@ -185,12 +183,12 @@ $hide="display:none;";
             </a>
             <span>12k</span>
         </li>
-        <li class="share_section">
+<!--         <li class="share_section">
             <a href="#" title="Share">
-                <img src="<?php echo SFSI_PLUGURL ?>images/share.png" alt="Share" />
+                <img src="<?php //echo SFSI_PLUGURL ?>images/share.png" alt="Share" />
             </a>
             <span>12k</span>
-        </li>
+        </li> -->
         <li class="youtube_section">
             <a href="#" title="YouTube">
                 <img src="<?php echo SFSI_PLUGURL ?>images/youtube.png" alt="YouTube" />
@@ -584,31 +582,13 @@ $hide="display:none;";
     </div>
     <!-- END INSTAGRAM ICON COUNT SECTION-->
     
-    <!-- ADDTHIS ICON COUNT SECTION-->
-    <div class="specify_counts share_section">
-        <div class="radio_section"><input name="sfsi_shares_countsDisplay" <?php echo ($option4['sfsi_shares_countsDisplay']=='yes') ?  'checked="true"' : '' ;?>  type="checkbox" value="yes" class="styled"  /></div>
-        <div class="social_icon_like">
-            <ul class="like_icon">
-                <li>
-                    <a title="Share">
-                        <img src="<?php echo SFSI_PLUGURL ?>images/share.png" alt="Share" />
-                        <span><?php echo $counts['share_count']; ?></span>
-                    </a>
-                </li>
-            </ul>
-        </div>
-        <div class="listing">
-            <ul>
-                <li><input name="sfsi_shares_countsFrom" <?php echo ($option4['sfsi_shares_countsFrom']=='shares') ?  'checked="true"' : '' ;?>  type="radio" value="shares" class="styled" />Retrieve the number of shares</li>
-                <li><input name="sfsi_shares_countsFrom" <?php echo ($option4['sfsi_shares_countsFrom']=='manual') ?  'checked="true"' : '' ;?>  type="radio" value="manual" class="styled" /><label class="high_prb">Enter the figure manually</label><input name="sfsi_shares_manualCounts" type="text" class="input" value="<?php echo ($option4['sfsi_shares_manualCounts']!='') ?  $option4['sfsi_shares_manualCounts'] : '' ;?>" style="<?php echo ($option4['sfsi_shares_countsFrom']=='shares') ?  'display:none;' : '' ;?>" /></li>
-            </ul>
-    	</div>    
-    </div>
-    <!-- END ADDTHIS ICON COUNT SECTION-->
     
     </div>
     <!-- END show/hide counts for all icons section -->
   
+    <?php sfsi_ask_for_help(4); ?>
+
+
     <!-- SAVE BUTTON SECTION   --> 
     <div class="save_button">
 		<img src="<?php echo SFSI_PLUGURL ?>images/ajax-loader.gif" class="loader-img" />

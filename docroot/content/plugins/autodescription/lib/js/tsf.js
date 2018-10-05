@@ -2,13 +2,13 @@
  * This file holds The SEO Framework plugin's JS code.
  * Serve JavaScript as an addition, not as a means.
  *
- * @author Sybre Waaijer https://cyberwire.nl/
+ * @author Sybre Waaijer <https://cyberwire.nl/>
  * @link https://wordpress.org/plugins/autodescription/
  */
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2017 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -23,15 +23,15 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-// ==ClosureCompiler==
-// @compilation_level ADVANCED_OPTIMIZATIONS
-// @output_file_name tsf.min.js
-// @externs_url https://raw.githubusercontent.com/google/closure-compiler/master/contrib/externs/jquery-1.9.js
-// @externs_url https://raw.githubusercontent.com/sybrew/the-seo-framework/master/lib/js/tsf.externs.js
-// ==/ClosureCompiler==
-// http://closure-compiler.appspot.com/home
-
 'use strict';
+
+/**
+ * The more you know 🌈⭐ We only use plugins:
+ *    "transform-es2015-arrow-functions"
+ *    "transform-es2015-modules-commonjs"
+ * IE11 supports everything else implemented, even if it has cost us headaches.
+ * @see tsf.browseUnhappy
+ */
 
 /**
  * Holds The SEO Framework values in an object to avoid polluting global namespace.
@@ -44,23 +44,13 @@
 window.tsf = {
 
 	/**
-	 * AJAX Nonce string.
-	 *
-	 * @since 2.7.0
-	 * @todo deprecate
-	 *
-	 * @type {String} nonce The AJAX nonce
-	 */
-	nonce : tsfL10n.nonce,
-
-	/**
 	 * AJAX Nonces object.
 	 *
 	 * @since 2.9.0
 	 *
 	 * @type {Object<string, string>} nonces The AJAX nonces
 	 */
-	nonces : tsfL10n.nonces,
+	nonces: tsfL10n.nonces,
 
 	/**
 	 * i18n object.
@@ -70,7 +60,7 @@ window.tsf = {
 	 * @const
 	 * @type {Object<string, string>} i18n Localized strings
 	 */
-	i18n : tsfL10n.i18n,
+	i18n: tsfL10n.i18n,
 
 	/**
 	 * Page states object.
@@ -80,7 +70,7 @@ window.tsf = {
 	 * @const
 	 * @type {Object<string, *>} states Localized states
 	 */
-	states : tsfL10n.states,
+	states: tsfL10n.states,
 
 	/**
 	 * Option parameters object.
@@ -90,17 +80,7 @@ window.tsf = {
 	 * @const
 	 * @type {Object<string, *>} params Localized parameters
 	 */
-	params : tsfL10n.params,
-
-	/**
-	 * Other parameters object.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @const
-	 * @type {Object<string, ?>} other Localized strings|parameters|states
-	 */
-	other : tsfL10n.other,
+	params: tsfL10n.params,
 
 	/**
 	 * Determines if the settings have been changed since visit.
@@ -110,33 +90,6 @@ window.tsf = {
 	 * @typedef {(Boolean|null|undefined)} settingsChanged
 	 */
 	settingsChanged: false,
-
-	/**
-	 * The current title tagline.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @type {(Boolean|null)} titleTagline
-	 */
-	titleTagline : false,
-
-	/**
-	 * The current title separator.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @type {(String|null)} titleSeparator
-	 */
-	titleSeparator : '',
-
-	/**
-	 * The current description separator.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @type {(String|null)} descriptionSeparator
-	 */
-	descriptionSeparator : '',
 
 	/**
 	 * Mixed string and int (i10n is string, JS is int).
@@ -154,69 +107,31 @@ window.tsf = {
 	 *
 	 * @typedef {(Boolean|null|undefined)} hasInput
 	 */
-	hasInput : false,
+	hasInput: false,
 
 	/**
-	 * The current character counter additions class.
+	 * Determines if the user uses a crappy, outdated browser.
+	 * IE11 no longer receives feature updates, only security patches.
+	 * Remove it from browserhappy.com already...
 	 *
-	 * @since 2.6.0
+	 * @since 3.1.0
 	 *
-	 * @type {(string|null)} additionsClass
+	 * @typedef {Boolean} browseUnhappy
 	 */
-	additionsClass : '',
+	browseUnhappy: !! navigator.userAgent.match(/Trident\/7\./),
 
 	/**
-	 * Image cropper instance.
+	 * The current character counter classes.
 	 *
-	 * @since 2.8.0
+	 * @since 3.1.0
 	 *
-	 * @type {!Object} cropper
+	 * @type {(Object<number,string>)} counterClasses
 	 */
-	cropper : {},
-
-	/**
-	 * Cached doctitle function.
-	 *
-	 * @since 2.3.3
-	 * @todo Convert to class var instead of function call. It's much faster.
-	 *       i.e. setDocTitles() == docTitles : {}
-	 *
-	 * @function
-	 * @return {!jQuery} The jQuery doctitle ID's
-	 */
-	docTitles: function() {
-		/** Concept:
-		if ( this.docTitles.cache )
-			return this.docTitles.cache;
-
-		let $doctitles = this.docTitles.cache = jQuery( "#autodescription_title, #autodescription-meta\\[doctitle\\], #autodescription-site-settings\\[homepage_title\\]" );
-		*/
-
-		let $doctitles = jQuery( "#autodescription_title, #autodescription-meta\\[doctitle\\], #autodescription-site-settings\\[homepage_title\\]" );
-
-		return $doctitles;
-	},
-
-	/**
-	 * Cached description function.
-	 *
-	 * @since 2.5.0
-	 * @todo Convert to class var instead of function call. It's much faster.
-	 *
-	 * @function
-	 * @return {!jQuery} The jQuery description ID's
-	 */
-	docDescriptions: function() {
-		/** Concept:
-		if ( this.docDescriptions.cache )
-			return this.docDescriptions.cache;
-
-		let $descriptions = this.docDescriptions.cache = jQuery( "#autodescription_description, #autodescription-meta\\[description\\], #autodescription-site-settings\\[homepage_description\\]" );
-		*/
-
-		let $descriptions = jQuery( "#autodescription_description, #autodescription-meta\\[description\\], #autodescription-site-settings\\[homepage_description\\]" );
-
-		return $descriptions;
+	counterClasses : {
+		0: 'tsf-counter-zero',
+		1: 'tsf-counter-one',
+		2: 'tsf-counter-two',
+		3: 'tsf-counter-three',
 	},
 
 	/**
@@ -233,323 +148,1830 @@ window.tsf = {
 	},
 
 	/**
-	 * Description length counter.
+	 * Mimics PHP's strip_tags in a rudimentarily form, without allowed tags.
 	 *
-	 * @since 2.2.4
-	 * @since 2.9.3 Refactored to plain JS for discovering performance bugs.
+	 * PHP's version checks every single character to comply with the allowed tags,
+	 * whereas we simply use regex. This acts as a carbon-copy, regardless.
+	 *
+	 * @since 3.1.0
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
+	 * @param {String} str The text to strip tags from.
+	 * @return {String} The stripped tags.
 	 */
-	updateCharacterCountDescription: function( event ) {
-
-		let calcLength = event.target.value && event.target.value.length || 0,
-			item = document.getElementById( event.target.id + '_chars' ),
-			counterType = tsf.counterType,
-			additionsClass = tsf.additionsClass,
-			counterClass = '',
-			name = '',
-			output = '';
-
-		// Emptied input, get Description placeholder.
-		if ( 0 === calcLength ) {
-			//* Output length from placeholder.
-			calcLength = event.target.placeholder && event.target.placeholder.length;
-		}
-
-		if ( calcLength < 100 || calcLength >= 175 ) {
-			counterClass = 'tsf-count-bad';
-			name = tsf.getCounterName( 'bad' );
-		} else if ( calcLength < 137 || ( calcLength > 155 && calcLength < 175 ) ) {
-			counterClass = 'tsf-count-okay';
-			name = tsf.getCounterName( 'okay' );
-		} else {
-			counterClass = 'tsf-count-good';
-			name = tsf.getCounterName( 'good' );
-		}
-
-		//* Not strict by design.
-		if ( counterType < 2 ) {
-			output = calcLength;
-		} else if ( 2 == counterType ) {
-			output = name;
-		} else if ( 3 == counterType ) {
-			output = calcLength + ' - ' + name;
-		}
-
-		item.innerHTML = output;
-
-		if ( additionsClass )
-			counterClass += ' ' + additionsClass;
-
-		if ( item.className !== counterClass )
-			item.className = counterClass;
+	stripTags: function( str ) {
+		return str.replace( /(<([^>]+)?>?)/ig, '' );
 	},
 
 	/**
-	 * Title length counter, with special characters
+	 * Escapes input string.
 	 *
-	 * @since 2.2.4
+	 * @since 3.0.1
+	 * @since 3.1.2 Now escapes backslashes correctly.
+	 *
+	 * @source <https://stackoverflow.com/a/4835406>
+	 * @function
+	 * @param {string} str
+	 * @return {string}
+	 */
+	escapeString: function( str ) {
+
+		if ( ! str.length )
+			return '';
+
+		let map = {
+			'&':  '&amp;',
+			'<':  '&lt;',
+			'>':  '&gt;',
+			'"':  '&quot;',
+			"'":  '&#039;',
+			"\\\\": '&#92;',
+			"\\": '',
+		};
+
+		return str.replace( /[&<>"']|\\\\|\\/g, m => map[ m ] );
+	},
+
+	/**
+	 * Undoes what tsf.escapeString has done.
+	 *
+	 * @since 3.0.4
+	 * @since 3.1.0 Added IE11 compat for Object.find
+	 * @since 3.1.2 Now unescapes backslashes correctly.
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
+	 * @param {string} str The escaped str via tsf.escapeString
+	 * @return {string}
 	 */
-	updateCharacterCountTitle: function( event ) {
+	unescapeString: function( str ) {
 
-		var $this = jQuery( event.target ),
-			additions = tsf.params['titleAdditions'].length,
-			description = tsf.params['blogDescription'].length,
-			siteTitle = tsf.params['siteTitle'].length,
-			titleLength = event.target.value && event.target.value.length || 0,
-			placeholder = jQuery( event.target ).prop( 'placeholder' ).length,
-			tagline = jQuery( '#autodescription-site-settings\\[homepage_title_tagline\\]' ).val(),
-			seplen = 3,
-			$counter = jQuery( '#' + tsf.escapeStr( event.target.id ) + '_chars' ),
-			calcLength = 0,
-			additionsClass = tsf.additionsClass,
-			counterType = tsf.counterType,
-			counterClass = '',
-			name = '',
-			output = '';
+		if ( ! str.length )
+			return '';
 
-		// Additions or tagline removed, remove additions and separator.
-		if ( ! tsf.titleTagline ) {
-			additions = 0;
-			seplen = 0;
+		let map = {
+			'&': '&amp;',
+			'<': '&lt;',
+			'>': '&gt;',
+			'"': '&quot;',
+			"'": '&#039;',
+			"\\": '&#92;',
+		};
+		let values = {};
+
+		if ( tsf.browseUnhappy ) {
+			//= IE11 replacement for Object.prototype.values. <https://stackoverflow.com/a/42830295>
+			values = Object.keys( map ).map( e => map[ e ] );
+		} else {
+			values = Object.values( map );
 		}
 
-		// Emptied input, get Site title.
-		if ( 0 === titleLength ) {
-			if ( 0 !== siteTitle ) {
-				titleLength = siteTitle;
-			} else {
-				//* Output length from placeholder.
-				calcLength = placeholder;
+		let regex = new RegExp(
+			values.map(
+				v => v.replace( /[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, '\\$&' )
+			).join( '|' ),
+			'g'
+		);
+
+		if ( tsf.browseUnhappy ) {
+			//= IE11 inline-replacement for Object.prototype.find.
+			return str.replace( regex, m => {
+				for ( let k in map ) {
+					if ( map[k] === m ) return k;
+				}
+				return m;
+			} );
+		} else {
+			return str.replace( regex,
+				m => Object.keys( map ).find(
+					k => map[ k ] === m
+				)
+			);
+		}
+	},
+
+	/**
+	 * Removes duplicated spaces in strings.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @function
+	 * @param {string} str
+	 * @return {string}
+	 */
+	sDoubleSpace: function( str ) {
+		return str.replace( /\s\s+/g, ' ' );
+	},
+
+	/**
+	 * Gets string length.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @function
+	 * @param {string} str
+	 * @return {number}
+	 */
+	getStringLength: function( str ) {
+		let e,
+			length = 0;
+
+		if ( str.length ) {
+			e = document.createElement( 'span' );
+			e.innerHTML = tsf.escapeString( str ).trim(); // Trimming can lead to empty child nodes.
+			if ( 'undefined' !== typeof e.childNodes[0] )
+				length = e.childNodes[0].nodeValue.length;
+		}
+		return +length;
+	},
+
+	/**
+	 * Tries to convert JSON response to values if not already set.
+	 *
+	 * @since 3.1.0
+	 * @access public
+	 *
+	 * @function
+	 * @param {(object|string|undefined)} response
+	 * @return {(object|undefined)}
+	 */
+	convertJSONResponse: function( response ) {
+
+		let testJSON = response && response.json || void 0,
+			isJSON = 1 === testJSON;
+
+		if ( ! isJSON ) {
+			let _response = response;
+
+			try {
+				response = JSON.parse( response );
+				isJSON = true;
+			} catch ( error ) {
+				isJSON = false;
+			}
+
+			if ( ! isJSON ) {
+				// Reset response.
+				response = _response;
 			}
 		}
 
-		// Length should be something now.
-		if ( 0 !== titleLength ) {
+		return response;
+	},
 
-			if ( 0 !== additions && typeof tagline !== 'undefined' ) {
-				var $tagLength = tagline.length;
+	/**
+	 * Updates character counter.
+	 *
+	 * @since 3.1.0
+	 * @access private
+	 *
+	 * @function
+	 * @param {Object} test
+	 * @return {undefined}
+	 */
+	updateCharacterCounter: function( test ) {
 
-				// Replace additions with tagline is tagline isn't empty.
-				if ( 0 !== $tagLength ) {
-					additions = $tagLength;
+		let el = test.e,
+			text = test.text,
+			guidelines = test.guidelines;
+
+		let testLength = tsf.getStringLength( text ),
+			newClass = '',
+			exclaimer = '';
+
+		let classes = {
+			bad:     'tsf-count-bad',
+			okay:    'tsf-count-okay',
+			good:    'tsf-count-good',
+			unknown: 'tsf-count-unknown',
+		};
+
+		if ( ! testLength ) {
+			newClass  = classes.unknown;
+			exclaimer = tsf.i18n.inputGuidelines.short.empty;
+		} else if ( testLength < guidelines.lower ) {
+			newClass  = classes.bad;
+			exclaimer = tsf.i18n.inputGuidelines.short.farTooShort;
+		} else if ( testLength < guidelines.goodLower ) {
+			newClass  = classes.okay;
+			exclaimer = tsf.i18n.inputGuidelines.short.tooShort;
+		} else if ( testLength > guidelines.upper ) {
+			newClass  = classes.bad;
+			exclaimer = tsf.i18n.inputGuidelines.short.farTooLong;
+		} else if ( testLength > guidelines.goodUpper ) {
+			newClass  = classes.okay;
+			exclaimer = tsf.i18n.inputGuidelines.short.tooLong;
+		} else {
+			//= between goodUpper and goodLower.
+			newClass  = classes.good;
+			exclaimer = tsf.i18n.inputGuidelines.short.good;
+		}
+
+		switch ( tsf.counterType ) {
+			case 3:
+				exclaimer = testLength.toString() + ' - ' + exclaimer;
+				break;
+			case 2:break; // 2 uses exclaimer as-is.
+			case 1:
+			default:
+				exclaimer = testLength.toString();
+				break;
+		}
+
+		el.innerHTML = exclaimer;
+
+		//= IE11 compat... great. Spread syntax please :)
+		for ( let _c in classes ) {
+			el.classList.remove( classes[ _c ] );
+		}
+		for ( let _c in tsf.counterClasses ) {
+			el.classList.remove( tsf.counterClasses[ _c ] );
+		}
+		el.classList.add( newClass );
+		el.classList.add( tsf.counterClasses[ tsf.counterType ] );
+	},
+
+	/**
+	 * Updates pixel counter.
+	 *
+	 * @since 3.0.0
+	 * @since 3.1.0 No longer accepts test.guideline, but test.guidelines.
+	 * @access private
+	 *
+	 * @function
+	 * @param {Object} test
+	 * @return {undefined}
+	 */
+	updatePixelCounter: function( test ) {
+
+		let el = test.e,
+			text = test.text,
+			guidelines = test.guidelines;
+
+		let wrap = el.parentElement;
+
+		if ( ! wrap )
+			return;
+
+		let bar = wrap.querySelector( '.tsf-pixel-counter-bar' ),
+			shadow = wrap.querySelector( '.tsf-pixel-counter-shadow' );
+
+		if ( ! bar || ! shadow )
+			return;
+
+		shadow.innerHTML = tsf.escapeString( text );
+
+		let testWidth = shadow.offsetWidth,
+			newClass = '',
+			newWidth = '',
+			guidelineHelper = '';
+
+		let classes = {
+			bad:     'tsf-pixel-counter-bad',
+			okay:    'tsf-pixel-counter-okay',
+			good:    'tsf-pixel-counter-good',
+			unknown: 'tsf-pixel-counter-unknown',
+		};
+
+		//= Can never be over 100. Good.
+		newWidth = ( testWidth / guidelines.goodUpper * 100 ) + '%';
+
+		if ( ! testWidth ) {
+			newClass = classes.unknown;
+			newWidth = '100%'; // It's 100% unknown, not 0%.
+			guidelineHelper = tsf.i18n.inputGuidelines.long.empty;
+		} else if ( testWidth < guidelines.lower ) {
+			newClass = classes.bad;
+			guidelineHelper = tsf.i18n.inputGuidelines.long.farTooShort;
+		} else if ( testWidth < guidelines.goodLower ) {
+			newClass = classes.okay;
+			guidelineHelper = tsf.i18n.inputGuidelines.long.tooShort;
+		} else if ( testWidth > guidelines.upper ) {
+			//= Can never be 0. Good. Add 2/3rds of difference to it; implying emphasis.
+			newWidth = ( guidelines.upper / ( testWidth + ( ( testWidth - guidelines.upper ) * 2 / 3 ) ) * 100 ) + '%';
+			newClass = classes.bad;
+			guidelineHelper = tsf.i18n.inputGuidelines.long.farTooLong;
+		} else if ( testWidth > guidelines.goodUpper ) {
+			newClass = classes.okay;
+			guidelineHelper = tsf.i18n.inputGuidelines.long.tooLong;
+			newWidth = '100%'; // Let's just assume someone will break this otherwise.
+		} else {
+			//= between goodUpper and goodLower.
+			newClass = classes.good;
+			guidelineHelper = tsf.i18n.inputGuidelines.long.good;
+		}
+
+		let sub = bar.querySelector( '.tsf-pixel-counter-fluid' ),
+			label;
+
+		label = tsf.i18n.pixelsUsed.replace( /%1\$d/g, testWidth );
+		label = label.replace( /%2\$d/g, guidelines.goodUpper );
+
+		label = label + '<br>' + guidelineHelper;
+
+		//= IE11 compat... great. Spread syntax please :)
+		for ( let _c in classes ) {
+			bar.classList.remove( classes[ _c ] );
+		}
+
+		// Set visuals.
+		bar.classList.add( newClass );
+		sub.style.width = newWidth;
+
+		// Update tooltip.
+		bar.dataset.desc = label;
+		bar.setAttribute( 'aria-label', label );
+		tsfTT.triggerUpdate( bar );
+	},
+
+	/**
+	 * Initializes all aspects for title editing.
+	 * Assumes only one title editor is present in the DOM.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @function
+	 * @return {undefined}
+	 */
+	_initTitleInputs: function() {
+
+		if ( ! tsf.hasInput )
+			return;
+
+		let $doctitles = jQuery( [
+			"#autodescription_title",
+			"#autodescription-meta\\[doctitle\\]",
+			"#autodescription-site-settings\\[homepage_title\\]"
+		].join( ', ' ) );
+
+		if ( ! $doctitles.length )
+			return;
+
+		//= y u no fix dis, Microsoft. Crappy vars don't deserve CamelCase.
+		let ie11killswitch = false;
+
+		let hoverPrefixPlacement,
+			hoverAdditionsPlacement,
+			hoverPrefixElement,
+			hoverPrefixValue = '',
+			hoverAdditionsElement,
+			hoverAdditionsValue = '',
+			separator = tsf.params.titleSeparator,
+			defaultTitle = tsf.params.defaultTitle;
+
+		let useTagline          = tsf.states.useTagline,
+			isRTL               = tsf.states.isRTL,
+			isPrivate           = tsf.states.isPrivate,
+			isPasswordProtected = tsf.states.isPasswordProtected,
+			stripTitleTags      = tsf.states.stripTitleTags;
+
+		//= Sets hoverPrefixPlacement.
+		hoverPrefixPlacement = isRTL ? 'after' : 'before';
+		//= Sets hoverAdditionsPlacement.
+		const setHoverAdditionsPlacement = function() {
+			let placement = 'before';
+
+			if ( tsf.states.isSettingsPage ) {
+				if ( isRTL ) {
+					if ( 'right' === jQuery( '#tsf-home-title-location input:checked' ).val() ) {
+						placement = 'after';
+					}
 				} else {
-					additions = description;
+					if ( 'left' === jQuery( '#tsf-home-title-location input:checked' ).val() ) {
+						placement = 'after';
+					}
+				}
+			} else {
+				if ( tsf.states.isHome ) {
+					//= Static front page.
+					if ( isRTL ) {
+						if ( 'right' === tsf.params.titleLocation )
+							placement = 'after';
+					} else if ( 'left' === tsf.params.titleLocation ) {
+						placement = 'after';
+					}
+				} else {
+					if ( isRTL ) {
+						if ( 'left' === tsf.params.titleLocation )
+							placement = 'after';
+					} else if ( 'right' === tsf.params.titleLocation ) {
+						placement = 'after';
+					}
 				}
 			}
 
-			// Put it all together
-			if ( 0 === additions ) {
-				calcLength = titleLength;
+			hoverAdditionsPlacement = placement;
+		}
+		setHoverAdditionsPlacement();
+		//= Sets hoverAdditionsValue.
+		const setHoverAdditionsValue = function() {
+			let newValue = '';
+
+			if ( tsf.states.isSettingsPage ) {
+				if ( useTagline ) {
+					//= Tagline is enabled.
+					let e = document.getElementById( 'autodescription-site-settings[homepage_title_tagline]' ),
+						customTagline = e && e.value || '';
+
+					customTagline = tsf.sDoubleSpace( customTagline.trim() );
+
+					if ( customTagline.length ) {
+						newValue = customTagline;
+					} else {
+						newValue = tsf.params.blogDescription;
+					}
+				}
+			} else if ( tsf.states.isHome ) {
+				//= Static front page.
+				if ( useTagline )
+					newValue = tsf.params.titleAdditions;
 			} else {
-				calcLength = titleLength + seplen + additions;
+				//= Global additions are enabled.
+				if ( useTagline )
+					newValue = tsf.params.titleAdditions;
+			}
+
+			if ( newValue.length ) {
+				newValue = tsf.escapeString( tsf.sDoubleSpace( newValue.trim() ) );
+				switch ( hoverAdditionsPlacement ) {
+					case 'before' :
+						newValue = newValue + ' ' + separator + ' ';
+						break;
+
+					case 'after' :
+						newValue = ' ' + separator + ' ' + newValue;
+						break;
+				}
+			}
+			hoverAdditionsValue = newValue.length ? newValue : '';
+
+			hoverAdditionsElement = document.getElementById( 'tsf-title-placeholder' );
+			if ( hoverAdditionsValue.length && hoverAdditionsElement ) {
+				hoverAdditionsElement.innerHTML = hoverAdditionsValue;
 			}
 		}
+		setHoverAdditionsValue();
+		//= Sets hoverPrefixValue.
+		const setHoverPrefixValue = function() {
+			let newValue = '';
 
-		if ( calcLength < 25 || calcLength >= 75 ) {
-			counterClass = 'tsf-count-bad';
-			name = tsf.getCounterName( 'bad' );
-		} else if ( calcLength < 42 || ( calcLength > 55 && calcLength < 75 ) ) {
-			counterClass = 'tsf-count-okay';
-			name = tsf.getCounterName( 'okay' );
-		} else {
-			counterClass = 'tsf-count-good';
-			name = tsf.getCounterName( 'good' );
+			if ( isPrivate ) {
+				newValue = tsf.i18n.privateTitle;
+			} else if ( isPasswordProtected ) {
+				newValue = tsf.i18n.protectedTitle;
+			}
+
+			if ( newValue.length ) {
+				newValue = tsf.escapeString( newValue );
+				switch ( hoverPrefixPlacement ) {
+					case 'before' :
+						newValue = newValue + ' ';
+						break;
+
+					case 'after' :
+						newValue = ' ' + newValue;
+						break;
+				}
+			}
+			hoverPrefixValue = newValue.length ? newValue : '';
+
+			if ( hoverPrefixValue.length && hoverPrefixElement ) {
+				hoverPrefixElement.innerHTML = hoverPrefixValue;
+			}
+
+			hoverPrefixElement = document.getElementById( 'tsf-title-placeholder-prefix' );
+			if ( hoverPrefixValue.length && hoverPrefixElement ) {
+				hoverPrefixElement.innerHTML = hoverPrefixValue;
+			}
+		}
+		setHoverPrefixValue();
+		const updateHoverPlacement = function( event ) {
+
+			if ( ! hoverAdditionsElement && ! hoverPrefixElement )
+				return;
+
+			let $input = jQuery( event.target ),
+				inputValue = $input.val();
+
+			let hasAdditionsValue = !! hoverAdditionsValue.length,
+				hasPrefixValue = !! hoverPrefixValue.length;
+
+			if ( ! hasAdditionsValue && hoverAdditionsElement )
+				hoverAdditionsElement.style.display = 'none';
+			if ( ! hasPrefixValue && hoverPrefixElement )
+				hoverPrefixElement.style.display = 'none';
+
+			if ( ! hasAdditionsValue && ! hasPrefixValue ) {
+				//= Both items are emptied through settings.
+				$input.css( 'text-indent', 'initial' );
+				return;
+			}
+
+			if ( ! inputValue.length ) {
+				//= Input is emptied.
+				$input.css( 'text-indent', "initial" );
+				if ( hoverAdditionsElement ) hoverAdditionsElement.style.display = 'none';
+				if ( hoverPrefixElement ) hoverPrefixElement.style.display = 'none';
+				return;
+			}
+
+			let outerWidth = $input.outerWidth( true ),
+				verticalPadding = ( $input.outerHeight( true ) - $input.height() ) / 2,
+				horizontalPadding = ( outerWidth - $input.innerWidth() ) / 2;
+
+			let offsetPosition = isRTL ? 'right' : 'left',
+				leftOffset = ( $input.outerWidth( true ) - $input.width() ) / 2;
+
+			let fontStyleCSS = {
+				'display': $input.css( "display" ),
+				'lineHeight': $input.css( "lineHeight" ),
+				'fontFamily': $input.css( "fontFamily" ),
+				'fontWeight': $input.css( "fontWeight" ),
+				'fontSize': $input.css( "fontSize" ),
+				'letterSpacing': $input.css( "letterSpacing" ),
+				'paddingTop': verticalPadding + "px",
+				'paddingBottom': verticalPadding + "px",
+			};
+
+			let $prefixElement = jQuery( hoverPrefixElement ),
+				$additionsElement = jQuery( hoverAdditionsElement );
+
+			let additionsMaxWidth = 0,
+				additionsOffset = 0,
+				prefixOffset = 0,
+				totalIndent = 0,
+				prefixMaxWidth = 0;
+
+			let elipsisWidth = 0; // TODO make this 18? x-Browser incompatible & indentation bugs!
+
+			if ( hasPrefixValue ) {
+				$prefixElement.css( fontStyleCSS );
+				$prefixElement.css( { 'maxWidth' : 'initial' } );
+				prefixMaxWidth = $prefixElement[0].getBoundingClientRect().width;
+				if ( prefixMaxWidth < elipsisWidth )
+					prefixMaxWidth = 0;
+			}
+			if ( hasAdditionsValue ) {
+				let textWidth = 0;
+
+				(function() {
+					let $offsetTest = jQuery( "#tsf-title-offset" );
+					$offsetTest.text( inputValue );
+					$offsetTest.css({
+						'fontFamily' : fontStyleCSS.fontFamily,
+						'fontWeight' : fontStyleCSS.fontWeight,
+						'letterSpacing' : fontStyleCSS.letterSpacing,
+						'fontSize' : fontStyleCSS.fontSize,
+					});
+					textWidth = $offsetTest[0].getBoundingClientRect().width;
+				})();
+
+				//= Input element width - Padding - input text width - prefix value width.
+				additionsMaxWidth = $input[0].getBoundingClientRect().width - horizontalPadding - leftOffset - textWidth - prefixMaxWidth;
+				if ( additionsMaxWidth < elipsisWidth ) {
+					//= Add width to the prefix element, so it may stay its size, and hide the additions.
+					prefixMaxWidth += additionsMaxWidth;
+					additionsMaxWidth = 0;
+				}
+				$additionsElement.css( fontStyleCSS );
+				$additionsElement.css( { 'maxWidth' : 'initial' } );
+
+				switch ( hoverAdditionsPlacement ) {
+					case 'before' :
+						let additionsWidth = $additionsElement[0].getBoundingClientRect().width;
+
+						additionsWidth = additionsMaxWidth < additionsWidth ? additionsMaxWidth : additionsWidth;
+						if ( additionsWidth < elipsisWidth )
+							additionsWidth = 0;
+						additionsMaxWidth = additionsWidth;
+
+						totalIndent += additionsMaxWidth;
+						prefixOffset += additionsMaxWidth;
+						additionsOffset += leftOffset;
+						break;
+
+					case 'after' :
+						additionsOffset += leftOffset + textWidth + prefixMaxWidth;
+						break;
+				}
+			}
+			prefixOffset += leftOffset;
+			prefixMaxWidth = prefixMaxWidth < 0 ? 0 : prefixMaxWidth;
+			totalIndent += prefixMaxWidth;
+
+			let _css;
+
+			if ( hasPrefixValue ) {
+				_css = {};
+				_css[ offsetPosition ] = prefixOffset + "px";
+				_css['maxWidth'] = prefixMaxWidth + "px";
+				$prefixElement.css( _css );
+			}
+			if ( hasAdditionsValue ) {
+				_css = {};
+				_css[ offsetPosition ] = additionsOffset + "px";
+				_css['maxWidth'] = additionsMaxWidth + "px";
+				$additionsElement.css( _css );
+			}
+
+			_css = {};
+			_css['text-indent'] = totalIndent + "px";
+			$input.css( _css );
+		}
+		const updatePlaceholder = function() {
+
+			let $input = $doctitles,
+				_placeholder = '';
+
+			let _hasAdditionsValue = !! hoverAdditionsValue.length,
+				_hasPrefixValue = !! hoverPrefixValue.length;
+
+			let _hoverAdditionsValue = hoverAdditionsValue,
+				_hoverPrefixValue = hoverPrefixValue;
+
+			if ( tsf.states.isTermEdit ) {
+				if ( tsf.params.termName ) {
+					_hoverPrefixValue = isRTL ? ' :' + tsf.params.termName : tsf.params.termName + ': ';
+					_hasPrefixValue = tsf.states.useTermPrefix;
+				}
+			}
+
+			_placeholder = defaultTitle;
+
+			if ( _hasPrefixValue ) {
+				switch ( hoverPrefixPlacement ) {
+					case 'before' :
+						_placeholder = _hoverPrefixValue + _placeholder;
+						break;
+
+					case 'after' :
+						_placeholder = _placeholder + _hoverPrefixValue;
+						break;
+				}
+			}
+			if ( _hasAdditionsValue ) {
+				switch ( hoverAdditionsPlacement ) {
+					case 'before' :
+						_placeholder = _hoverAdditionsValue + _placeholder;
+						break;
+
+					case 'after' :
+						_placeholder = _placeholder + _hoverAdditionsValue;
+						break;
+				}
+			}
+
+			//= Microsoft be like: "Let's spare 0.000000000073% of our money."
+			if ( tsf.browseUnhappy ) ie11killswitch = true;
+
+			//= Converts special characters without running scripts.
+			let phText = document.createElement( 'span' );
+			phText.innerHTML = tsf.escapeString( tsf.sDoubleSpace( _placeholder ) );
+
+			//= Makes the escaped characters readable via textContent.
+			$input.prop( 'placeholder', tsf.unescapeString( phText.textContent ) );
+
+			//= Promise.
+			tsf.browseUnhappy && setTimeout( function() {
+				ie11killswitch = false;
+			}, 0 );
+		}
+		const setReferenceTitle = function( event ) {
+			let reference = document.getElementById( 'tsf-title-reference' ),
+				text = event.target.value;
+
+			if ( ! reference ) return;
+
+			text = text.trim();
+
+			if ( text.length < 1 || tsf.states.homeLocks.refTitleLock ) {
+				text = event.target.placeholder;
+			} else {
+				if ( hoverPrefixValue.length ) {
+					switch ( hoverPrefixPlacement ) {
+						case 'before' :
+							text = hoverPrefixValue + text;
+							break;
+
+						case 'after' :
+							text = text + hoverPrefixValue;
+							break;
+					}
+				}
+				if ( hoverAdditionsValue.length ) {
+					switch ( hoverAdditionsPlacement ) {
+						case 'before' :
+							text = hoverAdditionsValue + text;
+							break;
+
+						case 'after' :
+							text = text + hoverAdditionsValue;
+							break;
+					}
+				}
+			}
+
+			reference.innerHTML = tsf.escapeString( tsf.sDoubleSpace( text ) );
+
+			// Fires change event. Defered.
+			setTimeout( () => { jQuery( reference ).change() }, 0 );
+		}
+		const updateCounter = function( event ) {
+			let counter = document.getElementById( event.target.id + '_chars' ),
+				reference = document.getElementById( 'tsf-title-reference' );
+
+			if ( ! counter || ! reference ) return;
+
+			let test = {
+				'e': counter,
+				'text' : tsf.unescapeString( reference.innerHTML ),
+				'guidelines' : tsf.params.inputGuidelines.title.search.chars,
+			};
+
+			tsf.updateCharacterCounter( test );
+		}
+		const updatePixels = function( event ) {
+			let pixels = document.getElementById( event.target.id + '_pixels' ),
+				reference = document.getElementById( 'tsf-title-reference' );
+
+			if ( ! pixels || ! reference ) return;
+
+			let test = {
+				'e': pixels,
+				'text' : tsf.unescapeString( reference.innerHTML ),
+				'guidelines' : tsf.params.inputGuidelines.title.search.pixels,
+			};
+
+			tsf.updatePixelCounter( test );
 		}
 
-		if ( additionsClass )
-			counterClass += ' ' + additionsClass;
+		/**
+		 * Updates placements, placeholders and counters.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateTitlesTrigger = function( event ) {
+			if ( ie11killswitch ) return false;
+			updateHoverPlacement( event );
+			updatePlaceholder();
+			setReferenceTitle( event );
+			updateCounter( event );
+			updatePixels( event );
+		}
+		$doctitles.on( 'input.tsfUpdateTitles', updateTitlesTrigger );
 
-		if ( ! counterType || 1 == counterType ) {
-			output = calcLength.toString();
-		} else if ( 2 == counterType ) {
-			output = name;
-		} else if ( 3 == counterType ) {
-			output = calcLength.toString() + ' - ' + name;
+		/**
+		 * Updates character counters.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateCounterTrigger = function( event ) {
+			setReferenceTitle( event );
+			updateCounter( event );
+			updatePixels( event );
+		}
+		$doctitles.on( 'tsf-update-title-counter', updateCounterTrigger );
+
+		/**
+		 * Triggers counter updates.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const triggerCounter = function() {
+			$doctitles.trigger( 'tsf-update-title-counter' );
 		}
 
-		$counter.text( output ).removeClass().addClass( counterClass );
+		/**
+		 * Triggers additions hover update on tagline change.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const updateTagline = function() {
+			setHoverAdditionsValue();
+			triggerInput();
+		}
+		jQuery( '#autodescription-site-settings\\[homepage_title_tagline\\]' ).on( 'input', updateTagline );
+		jQuery( '#autodescription-site-settings\\[homepage_tagline\\]' ).on( 'change', updateTagline );
+
+		/**
+		 * Toggles tagline left/right example additions visibility for the homepage title.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const changeHomePageAdditionsVisibility = function( event ) {
+			let prevUseTagline = useTagline;
+
+			if ( jQuery( event.target ).is( ':checked' ) ) {
+				jQuery( '.tsf-custom-blogname-js' ).css( 'display', 'inline' );
+				useTagline = true;
+			} else {
+				jQuery( '.tsf-custom-blogname-js' ).css( 'display', 'none' );
+				useTagline = false;
+			}
+
+			if ( prevUseTagline ^ useTagline ) {
+				setHoverAdditionsValue();
+				enqueueTriggerInput();
+			}
+		}
+		jQuery( '#tsf-title-tagline-toggle :input' ).on( 'click', changeHomePageAdditionsVisibility );
+
+		/**
+		 * Updates private/protected title prefix upon Post visibility switch.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateVisibility = function( event ) {
+			let value = jQuery( '#visibility' ).find( 'input:radio:checked' ).val();
+
+			isPrivate = false;
+			isPasswordProtected = false;
+
+			switch ( value ) {
+				case 'password' :
+					let p = jQuery( '#visibility' ).find( '#post_password' ).val();
+					// A falsy-password (like '0'), will return true in "SOME OF" WP's front-end PHP, false in WP's JS before submitting...
+					// It won't invoke WordPress' password protection. TODO FIXME: file WP Core bug report.
+					isPasswordProtected = p ? !! p.length : false;
+					break;
+
+				case 'private' :
+					isPrivate = true;
+					break;
+
+				default :
+				case 'public' :
+					break;
+			}
+
+			//* @TODO move all of the above to a global state handler?
+			setHoverPrefixValue();
+			enqueueTriggerInput();
+		}
+		jQuery( '#visibility .save-post-visibility' ).on( 'click', updateVisibility );
+
+		/**
+		 * Updates used separator and all examples thereof.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateSeparator = function( event ) {
+			let val = jQuery( event.target ).val(),
+				newSep = '';
+
+			switch ( val ) {
+				case 'pipe' :
+					newSep = '|';
+					break;
+
+				case 'dash' :
+					newSep = '-';
+					break;
+
+				default :
+					newSep = jQuery( '<div/>' ).html( "&" + val + ";" ).text();
+					break;
+			}
+			separator = newSep;
+			jQuery( ".tsf-sep-js" ).text( ' ' + separator + ' ' );
+
+			setHoverAdditionsValue();
+			enqueueTriggerInput();
+		}
+		jQuery( '#tsf-title-separator :input' ).on( 'click', updateSeparator );
+
+		/**
+		 * Triggers doctitles input.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const triggerInput = function() {
+			$doctitles.trigger( 'input.tsfUpdateTitles' );
+		}
+
+		let enqueueTriggerInputBuffer = 0;
+		/**
+		 * Triggers doctitles input.
+		 * @function
+		 * @return {undefined}
+		 */
+		const enqueueTriggerInput = function() {
+			clearTimeout( enqueueTriggerInputBuffer );
+			enqueueTriggerInputBuffer = setTimeout( triggerInput, 10 );
+		}
+		jQuery( window ).on( 'tsf-counter-updated', enqueueTriggerInput );
+
+		/**
+		 * Triggers title update, without affecting change listeners.
+		 *
+		 * @function
+		 * @param {!jQuery.Event}
+		 * @return {undefined}
+		 */
+		const triggerUnregisteredInput = function() {
+			let settingsChangedCache = tsf.settingsChanged;
+			triggerInput();
+			tsf.settingsChanged = settingsChangedCache;
+		}
+
+		let unregisteredTriggerBuffer = 0;
+		/**
+		 * Enqueues doctitles input trigger.
+		 * @function
+		 * @return {undefined}
+		 */
+		const enqueueUnregisteredInputTrigger = function() {
+			clearTimeout( unregisteredTriggerBuffer );
+			unregisteredTriggerBuffer = setTimeout( triggerUnregisteredInput, 10 );
+		}
+		jQuery( window ).on( 'tsf-flex-resize', enqueueUnregisteredInputTrigger );
+		jQuery( '#homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
+		jQuery( '#tsf-flex-inpost-tab-general' ).on( 'tsf-flex-tab-toggled', enqueueUnregisteredInputTrigger );
+		enqueueUnregisteredInputTrigger();
+
+		let tsfPostBoxIds = [ 'autodescription-homepage-settings', 'tsf-inpost-box' ];
+		/**
+		 * Enqueues doctitles input trigger synchronously.
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @param {Element} elem
+		 * @return {undefined}
+		 */
+		const triggerPostboxSynchronousUnregisteredInput = function( event, elem ) {
+			if ( tsfPostBoxIds.indexOf( elem.id ) >= 0 ) {
+				let inside = elem.querySelector( '.inside' );
+				if ( inside.offsetHeight > 0 && inside.offsetWidth > 0 ) {
+					triggerUnregisteredInput();
+				}
+			}
+		}
+		jQuery( document ).on( 'postbox-toggled', triggerPostboxSynchronousUnregisteredInput );
+
+		/**
+		 * Triggers additions hover update on tagline placement change.
+		 * @function
+		 * @return {undefined}
+		 */
+		const setTaglinePlacement = function() {
+			setHoverAdditionsPlacement();
+			setHoverAdditionsValue();
+			enqueueTriggerInput();
+		}
+		jQuery( '#tsf-home-title-location :input' ).on( 'click', setTaglinePlacement );
+
+		/**
+		 * Updates default title placeholder.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateDefaultTitle = function( event ) {
+			let val = event.target.value;
+			val = val.trim();
+
+			if ( val.length ) {
+				defaultTitle = tsf.escapeString( stripTitleTags ? tsf.stripTags( val ) : val );
+			} else {
+				defaultTitle = tsf.params.untitledTitle;
+			}
+			updatePlaceholder();
+			triggerCounter();
+		}
+		//= The home page listens to a static preset value. Update all others.
+		if ( ! tsf.states.isHome ) {
+			jQuery( '#edittag #name, #titlewrap #title' ).on( 'input', updateDefaultTitle );
+		}
+
+		/**
+		 * Updates title additions, based on singular settings change.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateSingularTitleAdditions = function( event ) {
+			if ( tsf.states.taglineLocked ) return;
+
+			let prevUseTagline = useTagline;
+
+			useTagline = ! jQuery( event.target ).is( ':checked' );
+
+			if ( prevUseTagline ^ useTagline ) {
+				setHoverAdditionsValue();
+				enqueueTriggerInput();
+			}
+		}
+		//= The home page listens to a static preset value. Update all others.
+		if ( ! tsf.states.isHome ) {
+			jQuery( '#autodescription_title_no_blogname' ).on( 'change', updateSingularTitleAdditions );
+			jQuery( '#autodescription_title_no_blogname' ).trigger( 'change' );
+		}
+
+		/**
+		 * Triggers input event for titles in set intervals on window resize.
+		 *
+		 * This only happens if boundaries are surpassed to reduce CPU usage.
+		 * This boundary is 782 pixels, because that forces input fields to change.
+		 * in WordPress.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const prepareUnregisteredInputOnResize = function() {
+			let resizeTimeout = 0,
+				prevWidth = window.innerWidth;
+
+			window.addEventListener( 'resize', function() {
+				clearTimeout( resizeTimeout );
+				resizeTimeout = setTimeout( function() {
+					let width = window.innerWidth;
+					if ( prevWidth < width ) {
+						if ( prevWidth <= 782 && width >= 782 ) {
+							triggerUnregisteredInput();
+						}
+					} else {
+						if ( prevWidth >= 782 && width <= 782 ) {
+							triggerUnregisteredInput();
+						}
+					}
+					prevWidth = width;
+				}, 50 );
+			} );
+		}
+		prepareUnregisteredInputOnResize();
 	},
 
 	/**
-	 * Escapes HTML strings.
+	 * Initializes unbound title settings, which don't affect prefix/additions
+	 * on-page.
 	 *
-	 * @since 2.2.4
-	 *
-	 * @function
-	 *
-	 * @param {String} str
-	 * @return {(String|null)} HTML to jQuery converted string
-	 */
-	escapeStr: function( str ) {
-
-		if ( str )
-			return str.replace( /([\[\]\/])/g, '\\$1' );
-
-		return str;
-	},
-
-	/**
-	 * Dynamic Title separator replacement in metabox
-	 *
-	 * @since 2.2.2
+	 * @since 3.0.0
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
 	 * @return {undefined}
 	 */
-	separatorSwitchTitle: function( event ) {
+	_initUnboundTitleSettings: function() {
 
-		let $sep = jQuery( ".tsf-sep-js" ),
-			val = jQuery( event.target ).val();
+		if ( ! tsf.hasInput )
+			return;
 
-		//* Update cache.
-		tsf.titleSeparator = val;
+		let $doctitles = jQuery( [
+			"#autodescription_title",
+			"#autodescription-meta\\[doctitle\\]",
+			"#autodescription-site-settings\\[homepage_title\\]"
+		].join( ', ' ) );
 
-		if ( 'pipe' === val ) {
-			$sep.text( " | " );
-		} else if ( 'dash' === val ) {
-			$sep.text( " - " );
-		} else {
-			$sep.html( " &" + val + "; " ).text();
+		/**
+		 * Makes user click act naturally by selecting the adjacent Title text
+		 * input and move cursor all the way to the end.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const focusTitleInput = function( event ) {
+			let input = jQuery( event.target ).siblings( $doctitles )[0];
+
+			if ( 'function' === typeof input.setSelectionRange ) {
+				input.focus();
+				let length = input.value.length * 2;
+				input.setSelectionRange( length, length );
+			} else {
+				//= Older browser compat.
+				let val = input.value;
+				input.value = '';
+				input.focus();
+				input.value = val;
+			}
 		}
+		jQuery( '#tsf-title-placeholder, #tsf-title-placeholder-prefix' ).on( 'click', focusTitleInput );
+
+		/**
+		 * Triggers Change on Left/Right selection of global title options.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const toggleExampleDisplay = function( event ) {
+			if ( jQuery( event.target ).is( ':checked' ) ) {
+				jQuery( '.tsf-title-additions-js' ).css( 'display', 'none' );
+			} else {
+				jQuery( '.tsf-title-additions-js' ).css( 'display', 'inline' );
+			}
+		}
+		jQuery( '#autodescription-site-settings\\[title_rem_additions\\]' ).on( 'click', toggleExampleDisplay );
+
+		/**
+		 * Toggles title additions location for the Title examples.
+		 * There are two elements, rather than one. One is hidden by default.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const toggleExampleLocation = function( event ) {
+			let $titleExampleLeft = jQuery( '.tsf-title-additions-example-left' ),
+				$titleExampleRight = jQuery( '.tsf-title-additions-example-right' );
+
+			if ( 'right' === jQuery( event.target ).val() ) {
+				$titleExampleLeft.css( 'display', 'none' );
+				$titleExampleRight.css( 'display', 'inline' );
+			} else {
+				$titleExampleLeft.css( 'display', 'inline' );
+				$titleExampleRight.css( 'display', 'none' );
+			}
+		}
+		jQuery( '#tsf-title-location input' ).on( 'click', toggleExampleLocation );
+
+		/**
+		 * Adjusts homepage left/right title example part.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const adjustHomepageExampleOutput = function( event ) {
+			let val = event.target.value || '',
+				$title = jQuery( '.tsf-custom-title-js' );
+
+			if ( 0 === val.length ) {
+				$title.text( tsf.params.defaultTitle );
+			} else {
+				$title.text( val );
+			}
+		};
+		jQuery( '#autodescription-site-settings\\[homepage_title\\]' ).on( 'input', adjustHomepageExampleOutput );
+
+		/**
+		 * Adjusts homepage left/right title example part.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const adjustHomepageTaglineExampleOutput = function( event ) {
+			let val = event.target.value || '',
+				$tagline = jQuery( '.tsf-custom-tagline-js' );
+
+			val = tsf.escapeString( tsf.sDoubleSpace( val.trim() ) );
+
+			if ( val.length ) {
+				$tagline.html( val );
+				jQuery( '#tsf-home-title-location .tsf-sep-js' ).show();
+			} else {
+				$tagline.text( tsf.params.blogDescription );
+
+				if ( 0 === tsf.params.blogDescription.length ) {
+					jQuery( '#tsf-home-title-location .tsf-sep-js' ).hide();
+				} else {
+					jQuery( '#tsf-home-title-location .tsf-sep-js' ).show();
+				}
+			}
+		};
+		jQuery( '#autodescription-site-settings\\[homepage_title_tagline\\]' ).on( 'input.tsfInputTagline', adjustHomepageTaglineExampleOutput );
+		jQuery( '#autodescription-site-settings\\[homepage_title_tagline\\]' ).trigger( 'input.tsfInputTagline' );
+
+		/**
+		 * Toggles title prefixes for the Prefix Title example.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const adjustPrefixExample = function( event ) {
+			let $this = jQuery( event.target ),
+				$prefix = jQuery( '.tsf-title-prefix-example' );
+
+			if ( $this.is(':checked') ) {
+				$prefix.css( 'display', 'none' );
+			} else {
+				$prefix.css( 'display', 'inline' );
+			}
+		}
+		jQuery( '#title-prefixes-toggle :input' ).on( 'click', adjustPrefixExample );
 	},
 
 	/**
-	 * Dynamic Description separator replacement in metabox
+	 * Initializes all aspects for description editing.
+	 * Assumes only one description editor is present in the DOM.
 	 *
-	 * @since 2.3.4
-	 * @since 2.9.3 Removed sanitation on hardcoded input.
+	 * @since 3.0.0
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
 	 * @return {undefined}
 	 */
-	separatorSwitchDesc: function( event ) {
+	_initDescInputs: function() {
 
-		let $sep = jQuery( "#autodescription-descsep-js" ),
-			val = jQuery( event.target ).val();
+		if ( ! tsf.hasInput ) return;
 
-		if ( 'pipe' === val ) {
-			$sep.text( " | " );
-		} else if ( 'dash' === val ) {
-			$sep.text( " - " );
-		} else {
-			$sep.html( " &" + val + "; " ).text();
+		let $descriptions = jQuery( "#autodescription_description, #autodescription-meta\\[description\\], #autodescription-site-settings\\[homepage_description\\]" );
+
+		if ( ! $descriptions.length ) return;
+
+		let separator = tsf.params.descriptionSeparator;
+
+		/**
+		 * Updates used separator and all examples thereof.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateSeparator = function( event ) {
+			let val = jQuery( event.target ).val(),
+				newSep = '';
+
+			switch ( val ) {
+				case 'pipe' :
+					newSep = '|';
+					break;
+
+				case 'dash' :
+					newSep = '-';
+					break;
+
+				default :
+					newSep = jQuery( '<div/>' ).html( "&" + val + ";" ).text();
+					break;
+			}
+			separator = newSep;
+			jQuery( "#autodescription-descsep-js" ).text( ' ' + separator + ' ' );
+
+			enqueueTriggerInput();
 		}
+		jQuery( '#tsf-description-separator input' ).on( 'click', updateSeparator );
+
+		// TODO: We need to set a predicted description value, so we can toggle it.
+		// const updateAutodescription = function( event ) {
+		// 	let checked = jQuery( event.target ).checked();
+		// 	setReferenceDescription();
+		// 	enqueueTriggerInput();
+		// }
+		// jQuery( '#autodescription-site-settings\\[auto_description\\]' ).on( 'click', updateAutodescription );
+
+		/**
+		 * Updates used separator and all examples thereof.
+		 *
+		 * @since 3.0.4 : 1. Threshold "too long" has been increased from 155 to 300.
+		 *                2. Threshold "far too long" has been increased to 330 from 175.
+		 * @since 3.1.0 Now uses the new guidelines via a filterable function in PHP.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateCounter = function( event ) {
+			let counter = document.getElementById( event.target.id + '_chars' ),
+				reference = document.getElementById( 'tsf-description-reference' );
+
+			if ( ! counter || ! reference ) return;
+
+			let test = {
+				'e': counter,
+				'text' : tsf.unescapeString( reference.innerHTML ),
+				'guidelines' : tsf.params.inputGuidelines.description.search.chars,
+			};
+
+			tsf.updateCharacterCounter( test );
+		}
+		const setReferenceDescription = function( event ) {
+			let reference = document.getElementById( 'tsf-description-reference' ),
+				text = event.target.value;
+
+			if ( ! reference ) return;
+
+			text = text.trim();
+
+			if ( text.length < 1 || tsf.states.homeLocks.refDescriptionLock ) {
+				text = event.target.placeholder;
+			}
+
+			reference.innerHTML = tsf.escapeString( tsf.sDoubleSpace( text ) );
+			// Fires change event. Defered.
+			setTimeout( () => { jQuery( reference ).change() }, 0 );
+		}
+		const updatePixels = function( event ) {
+			let pixels = document.getElementById( event.target.id + '_pixels' ),
+				reference = document.getElementById( 'tsf-description-reference' );
+
+			if ( ! pixels || ! reference )
+				return;
+
+			let test = {
+				'e': pixels,
+				'text' : tsf.unescapeString( reference.innerHTML ),
+				'guidelines' : tsf.params.inputGuidelines.description.search.pixels
+			}
+
+			tsf.updatePixelCounter( test );
+		}
+
+		/**
+		 * Updates placements, placeholders and counters.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateDescriptionsTrigger = function( event ) {
+			setReferenceDescription( event );
+			updateCounter( event );
+			updatePixels( event );
+		}
+		$descriptions.on( 'input.tsfUpdateDescriptions', updateDescriptionsTrigger );
+
+		/**
+		 * Triggers descriptions input.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const triggerInput = function() {
+			$descriptions.trigger( 'input.tsfUpdateDescriptions' );
+		}
+
+		let enqueueTriggerInputBuffer = 0;
+		/**
+		 * Triggers descriptions input.
+		 * @function
+		 * @return {undefined}
+		 */
+		const enqueueTriggerInput = function() {
+			clearTimeout( enqueueTriggerInputBuffer );
+			enqueueTriggerInputBuffer = setTimeout( triggerInput, 10 );
+		}
+		jQuery( window ).on( 'tsf-counter-updated', enqueueTriggerInput );
+
+		/**
+		 * Triggers description input, without affecting change listeners.
+		 *
+		 * @function
+		 * @param {!jQuery.Event}
+		 * @return {undefined}
+		 */
+		const triggerUnregisteredInput = function() {
+			let settingsChangedCache = tsf.settingsChanged;
+			triggerInput();
+			tsf.settingsChanged = settingsChangedCache;
+		}
+
+		let unregisteredTriggerBuffer = 0;
+		/**
+		 * Enqueues doctitles input trigger.
+		 * @function
+		 * @return {undefined}
+		 */
+		const enqueueUnregisteredInputTrigger = function() {
+			clearTimeout( unregisteredTriggerBuffer );
+			unregisteredTriggerBuffer = setTimeout( triggerUnregisteredInput, 10 );
+		}
+		jQuery( '#homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
+		jQuery( '#tsf-flex-inpost-tab-general' ).on( 'tsf-flex-tab-toggled', enqueueUnregisteredInputTrigger );
+		enqueueUnregisteredInputTrigger();
+
+		let tsfPostBoxIds = [ 'autodescription-homepage-settings', 'tsf-inpost-box' ];
+		/**
+		 * Enqueues description input trigger synchronously.
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @param {Element} elem
+		 * @return {undefined}
+		 */
+		const triggerPostboxSynchronousUnregisteredInput = function( event, elem ) {
+			if ( tsfPostBoxIds.indexOf( elem.id ) >= 0 ) {
+				let inside = elem.querySelector( '.inside' );
+				if ( inside.offsetHeight > 0 && inside.offsetWidth > 0 ) {
+					enqueueTriggerInput();
+				}
+			}
+		}
+		jQuery( document ).on( 'postbox-toggled', triggerPostboxSynchronousUnregisteredInput );
 	},
 
 	/**
-	 * Status bar description init on hover actions.
+	 * Initializes social titles.
 	 *
-	 * @since 2.1.9
+	 * @since 3.0.4
 	 *
 	 * @function
 	 * @return {undefined}
 	 */
-	statusBarHover: function() {
+	_initSocialTitleInputs: function() {
 
-		let $wrap = jQuery( '.tsf-seo-bar-inner-wrap' ).find( 'a' );
+		if ( ! tsf.hasInput )
+			return;
 
-		$wrap.off( 'mouseenter mousemove mouseleave mouseout' );
+		let $ogTitle = jQuery( "#autodescription_og_title, #autodescription-site-settings\\[homepage_og_title\\]" ),
+			$twTitle = jQuery( "#autodescription_twitter_title, #autodescription-site-settings\\[homepage_twitter_title\\]" ),
+			$reference = jQuery( "#tsf-title-reference" );
 
-		$wrap.on( {
-			'mouseenter' : tsf.statusBarHoverEnter,
-			'mousemove'  : tsf.statusBarHoverMove,
-			'mouseleave' : tsf.statusBarHoverLeave,
-			'mouseout'   : tsf.statusBarHoverLeave,
+		if ( ! $ogTitle.length || ! $twTitle.length || ! $reference.length )
+			return;
+
+		//= y u no fix dis, Microsoft. Crappy vars don't deserve CamelCase.
+		let ie11killswitch = false;
+
+		let ogLocked = tsf.states.homeLocks.ogTitleLock,
+			ogPHLocked = tsf.states.homeLocks.ogTitlePHLock,
+			twLocked = tsf.states.homeLocks.twTitleLock,
+			twPHLocked = tsf.states.homeLocks.twTitlePHLock;
+
+		let ogTitleValue = ogLocked ? $ogTitle.prop( 'placeholder' ) : $ogTitle.val(),
+			twTitleValue = twLocked ? $twTitle.prop( 'placeholder' ) : $twTitle.val(),
+			referenceValue = $reference.text(); // already escaped.
+
+		const getActiveValue = ( what ) => {
+			let val = '';
+			switchActive:
+			switch ( what ) {
+				case 'twitter' :
+					val = twTitleValue;
+					if ( twLocked || twPHLocked ) {
+						val = val.length ? val : $twTitle.prop( 'placeholder' );
+						break switchActive;
+					}
+					// get next if not set.
+				case 'og' :
+					val = val.length ? val : ogTitleValue;
+					if ( ogLocked || ogPHLocked ) {
+						val = val.length ? val : $ogTitle.prop( 'placeholder' );
+						break switchActive;
+					}
+					// get next if not set.
+				case 'reference' :
+					val = val.length ? val : referenceValue;
+					break;
+			}
+			return val;
+		};
+		const setPlaceholders = () => {
+			if ( tsf.browseUnhappy ) ie11killswitch = true;
+
+			// This escapes.
+			ogLocked || ogPHLocked || $ogTitle.prop( 'placeholder', getActiveValue( 'reference' ) );
+			twLocked || twPHLocked || $twTitle.prop( 'placeholder', getActiveValue( 'og' ) );
+
+			tsf.browseUnhappy && setTimeout( () => {
+				ie11killswitch = false;
+			}, 0 );
+		};
+		const updateCounter = ( target, text, type ) => {
+			let counter = document.getElementById( target.id + '_chars' );
+
+			if ( ! counter ) return;
+
+			let test = {
+				'e': counter,
+				'text' : tsf.unescapeString( text ),
+				'guidelines' : tsf.params.inputGuidelines.title[ type ].chars,
+			};
+
+			tsf.updateCharacterCounter( test );
+		};
+		let updateAllCountersBuffer = 0;
+		const updateAllCounters = () => {
+			clearTimeout( updateAllCountersBuffer );
+			updateAllCountersBuffer = setTimeout( () => {
+				$ogTitle.each( ( i, el ) => updateCounter( el, getActiveValue( 'og' ), 'opengraph' ) );
+				$twTitle.each( ( i, el ) => updateCounter( el, getActiveValue( 'twitter' ), 'twitter' ) );
+			}, 10 );
+		};
+		$reference.on( 'change', () => {
+			referenceValue = $reference.text();
+			setPlaceholders();
+			updateAllCounters();
+		} );
+
+		const updateOgTitle = ( event ) => {
+			if ( ie11killswitch ) return;
+			if ( ! ogLocked ) {
+				let text = event.target.value.trim();
+				ogTitleValue = text.length ? tsf.sDoubleSpace( text ) : '';
+			}
+			setPlaceholders();
+			updateAllCounters();
+		};
+		const updateTwTitle = ( event ) => {
+			if ( ie11killswitch ) return;
+			if ( ! twLocked ) {
+				let text = event.target.value.trim();
+				twTitleValue = text.length ? tsf.sDoubleSpace( text ) : '';
+			}
+			setPlaceholders();
+			updateAllCounters();
+		};
+		$ogTitle.on( 'input.tsfUpdateOgTitle', updateOgTitle );
+		$twTitle.on( 'input.tsfUpdateTwTitle', updateTwTitle );
+	},
+
+	/**
+	 * Initializes social descriptions.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @function
+	 * @return {undefined}
+	 */
+	_initSocialDescInputs: function() {
+
+		if ( ! tsf.hasInput )
+			return;
+
+		let $ogDesc = jQuery( "#autodescription_og_description, #autodescription-site-settings\\[homepage_og_description\\]" ),
+			$twDesc = jQuery( "#autodescription_twitter_description, #autodescription-site-settings\\[homepage_twitter_description\\]" ),
+			$reference = jQuery( "#tsf-description-reference" );
+
+		if ( ! $ogDesc.length || ! $twDesc.length || ! $reference.length )
+			return;
+
+		//= y u no fix dis, Microsoft. Crappy vars don't deserve CamelCase.
+		let ie11killswitch = false;
+
+		let ogLocked   = tsf.states.homeLocks.ogDescriptionLock,
+			ogPHLocked = tsf.states.homeLocks.ogDescriptionPHLock,
+			twLocked   = tsf.states.homeLocks.twDescriptionLock,
+			twPHLocked = tsf.states.homeLocks.twDescriptionPHLock;
+
+		let ogDescValue = ogLocked ? $ogDesc.prop( 'placeholder' ) : $ogDesc.val(),
+			twDescValue = twLocked ? $twDesc.prop( 'placeholder' ) : $twDesc.val(),
+			referenceValue = $reference.text(); // already escaped.
+
+		let $descriptions = jQuery( [
+			"#autodescription_description",
+			"#autodescription-meta\\[description\\]",
+			"#autodescription-site-settings\\[homepage_description\\]",
+		].join( ', ' ) );
+
+		const getActiveValue = ( what, context ) => {
+			let val = '';
+			switchActive:
+			switch ( what ) {
+				case 'twitter' :
+					val = twDescValue;
+					if ( twLocked || twPHLocked ) {
+						val = val.length ? val : $twDesc.prop( 'placeholder' );
+						break switchActive;
+					}
+					// get next if not set.
+				case 'og' :
+					val = val.length ? val : ogDescValue;
+					if ( ogLocked || ogPHLocked ) {
+						val = val.length ? val : $ogDesc.prop( 'placeholder' );
+						break switchActive;
+					}
+					// get next if not set.
+				case 'reference' :
+					if ( ! val.length ) {
+						if ( $descriptions.val().length ) {
+							val = referenceValue;
+						} else {
+							if ( 'twitter' === context ) {
+								val = tsf.params.socialPlaceholders.twDesc;
+							} else if ( 'og' === context ) {
+								val = tsf.params.socialPlaceholders.ogDesc;
+							}
+						}
+					}
+					break;
+			}
+			return val;
+		};
+		const setPlaceholders = () => {
+			if ( tsf.browseUnhappy ) ie11killswitch = true;
+
+			// This escapes.
+			ogLocked || ogPHLocked || $ogDesc.attr( 'placeholder', getActiveValue( 'reference', 'og' ) );
+			twLocked || twPHLocked || $twDesc.attr( 'placeholder', getActiveValue( 'og', 'twitter' ) );
+
+			tsf.browseUnhappy && setTimeout( function() {
+				ie11killswitch = false;
+			}, 0 );
+		};
+		const updateCounter = ( target, text, type ) => {
+			let counter = document.getElementById( target.id + '_chars' );
+
+			if ( ! counter ) return;
+
+			let test = {
+				'e': counter,
+				'text' : tsf.unescapeString( text ),
+				'guidelines' : tsf.params.inputGuidelines.description[ type ].chars,
+			};
+
+			tsf.updateCharacterCounter( test );
+		};
+		let updateAllCountersBuffer = 0;
+		const updateAllCounters = () => {
+			clearTimeout( updateAllCountersBuffer );
+			updateAllCountersBuffer = setTimeout( () => {
+				$ogDesc.each( ( i, el ) => updateCounter( el, getActiveValue( 'og', 'og' ), 'opengraph' ) );
+				$twDesc.each( ( i, el ) => updateCounter( el, getActiveValue( 'twitter', 'twitter' ), 'twitter'  ) );
+			}, 10 );
+		};
+		$reference.on( 'change', () => {
+			referenceValue = $reference.text();
+			setPlaceholders();
+			updateAllCounters();
+		} );
+
+		const updateOgDesc = ( event ) => {
+			if ( ie11killswitch ) return;
+			if ( ! ogLocked ) {
+				let text = event.target.value.trim();
+				ogDescValue = text.length ? tsf.sDoubleSpace( text ) : '';
+			}
+			setPlaceholders();
+			updateAllCounters();
+		};
+		const updateTwDesc = ( event ) => {
+			if ( ie11killswitch ) return;
+			if ( ! twLocked ) {
+				let text = event.target.value.trim();
+				twDescValue = text.length ? tsf.sDoubleSpace( text ) : '';
+			}
+			setPlaceholders();
+			updateAllCounters();
+		};
+		$ogDesc.on( 'input.tsfUpdateOgDesc', updateOgDesc );
+		$twDesc.on( 'input.tsfUpdateOgDesc', updateTwDesc );
+	},
+
+	/**
+	 * Initializes Webmasters' meta input.
+	 *
+	 * @since 3.1.0
+	 *
+	 * @function
+	 * @return {undefined}
+	 */
+	_initWebmastersInput: function() {
+
+		if ( ! tsf.states.isSettingsPage ) return;
+
+		let $inputs = jQuery( [
+			"#autodescription-site-settings\\[google_verification\\]",
+			"#autodescription-site-settings\\[bing_verification\\]",
+			"#autodescription-site-settings\\[yandex_verification\\]",
+			"#autodescription-site-settings\\[pint_verification\\]"
+		].join( ', ' ) );
+
+		if ( ! $inputs.length ) return;
+
+		$inputs.on( 'paste', ( event ) => {
+			let val = event.originalEvent.clipboardData && event.originalEvent.clipboardData.getData('text') || void 0;
+
+			if ( val ) {
+				let match = /<meta[^>]+content=(\"|\')?([^\"\'>\s]+)\1?.*?>/i.exec( val );
+				if ( match && 2 in match && 'string' === typeof match[2] && match[2].length ) {
+					event.stopPropagation();
+					event.preventDefault();
+					event.target.value = match[2];
+				}
+			}
 		} );
 	},
 
 	/**
-	 * Status bar description output on hover enter.
+	 * Initializes counters.
 	 *
-	 * @since 2.6.0
+	 * @since 3.0.0
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
 	 * @return {undefined}
 	 */
-	statusBarHoverEnter: function( event ) {
+	_initCounters: function() {
 
-		let $this = jQuery( event.target ),
-			desc = $this.data( 'desc' );
+		if ( ! tsf.hasInput )
+			return;
 
-		if ( desc !== undefined && 0 === $this.find( 'div' ).length ) {
-			$this.append( '<div class="tsf-explanation-desc">' + desc + '<div></div></div>' );
+		/**
+		 * Updates the counter type.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const counterUpdate = function( event ) {
 
-			let height = $this.find( 'div.tsf-explanation-desc' ).height() + 28;
+			// Count up, reset to 0 if needed. We have 4 options: 0, 1, 2, 3
+			tsf.counterType = tsf.counterType + 1;
+			if ( tsf.counterType > 3 )
+				tsf.counterType = 0;
 
-			$this.find( 'div.tsf-explanation-desc' ).css( 'top', ( $this.position().top - height ) + 'px' );
+			//* Update counters locally.
+			updateCounterClasses();
+
+			let target = '.tsf-counter-wrap .tsf-ajax',
+				status = 0;
+
+			//* Reset ajax loader
+			tsf.resetAjaxLoader( target );
+
+			//* Set ajax loader.
+			tsf.setAjaxLoader( target );
+
+			//* Setup external update.
+			let settings = {
+				method: 'POST',
+				url: ajaxurl,
+				datatype: 'json',
+				data: {
+					'action' : 'the_seo_framework_update_counter',
+					'nonce' : tsf.nonces['edit_posts'],
+					'val' : tsf.counterType,
+				},
+				async: true,
+				success: function( response ) {
+
+					response = tsf.convertJSONResponse( response );
+
+					//* I could do value check, but that will simply lag behind. Unless an annoying execution delay is added.
+					if ( 'success' === response.type )
+						status = 1;
+
+					switch ( status ) {
+						case 0:
+							tsf.unsetAjaxLoader( target, false );
+							break;
+						case 1:
+							tsf.unsetAjaxLoader( target, true );
+							break;
+						default:
+							tsf.resetAjaxLoader( target );
+							break;
+					}
+				},
+			}
+
+			jQuery.ajax( settings );
 		}
-	},
+		jQuery( '.tsf-counter' ).on( 'click', counterUpdate );
 
-	/**
-	 * Status bar description output on hover move.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	statusBarHoverMove: function( event ) {
+		/**
+		 * Corrects counter type variable and updates all counters.
+		 * Also sets up browser caches correctly.
+		 *
+		 * @function
+		 * @return {undefined}
+		 */
+		const updateCounterClasses = function() {
 
-		var $this = jQuery( event.target ),
-			pagex = event.pageX,
-			mousex = pagex - $this.closest( '.tsf-seo-bar-inner-wrap' ).offset().left - 11, // 22px width of arrow / 2 = 11 middle
-			$balloon = $this.find( '.tsf-explanation-desc' ),
-			$arrow = $balloon.find( 'div' );
+			tsf.counterType = +tsf.counterType;
+			if ( tsf.counterType > 3 ) {
+				tsf.counterType = 0;
+			}
 
-		if ( mousex < 1 ) {
-			$arrow.css( 'left', 0 + "px" );
-		} else if ( $balloon.offset() !== undefined ) {
-			let width = $balloon.width(),
-				maxOffset = $balloon.offset().left + width + 11;
+			// Promise loop? :) ES6...
+			tsf._triggerCounterUpdate();
+		}
 
-			if ( pagex > maxOffset ) {
-				$arrow.css( 'left', width + "px" );
+		/**
+		 * Triggers displaying/hiding of character counters.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const toggleCharacterCounterDisplay = function( event ) {
+			if ( jQuery( event.target ).is( ':checked' ) ) {
+				jQuery( '.tsf-counter-wrap' ).show();
 			} else {
-				$arrow.css( 'left', mousex + "px" );
+				jQuery( '.tsf-counter-wrap' ).hide();
 			}
 		}
-	},
+		jQuery( '#autodescription-site-settings\\[display_character_counter\\]' ).on( 'click', toggleCharacterCounterDisplay );
 
-	/**
-	 * Status bar description removal on hover leave.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	statusBarHoverLeave: function( event ) {
-		jQuery( event.target ).find( 'div.tsf-explanation-desc' ).remove();
-	},
-
-	/**
-	 * Remove Status bar desc if clicked outside (touch support).
-	 *
-	 * @since 2.9.3
-	 *
-	 * @function
-	 * @param {jQuery.event} event jQuery event
-	 */
-	touchRemoveDesc: function( event ) {
-
-		let $target = jQuery( event.target ),
-			hasBalloon = $target.closest( '.tsf-seo-bar-inner-wrap a' ).length;
-
-		if ( ! hasBalloon ) {
-			$target.closest( '.tsf-seo-bar-inner-wrap a' ).find( 'div.tsf-explanation-desc' ).remove();
+		/**
+		 * Triggers displaying/hiding of character counters.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const togglePixelCounterDisplay = function( event ) {
+			if ( jQuery( event.target ).is( ':checked' ) ) {
+				jQuery( '.tsf-pixel-counter-wrap' ).show();
+				//= Pixels couldn't be counted when it was hidden.
+				tsf._triggerCounterUpdate();
+			} else {
+				jQuery( '.tsf-pixel-counter-wrap' ).hide();
+			}
 		}
+		jQuery( '#autodescription-site-settings\\[display_pixel_counter\\]' ).on( 'click', togglePixelCounterDisplay );
 	},
 
 	/**
@@ -562,37 +1984,71 @@ window.tsf = {
 	 *
 	 * @function
 	 * @param {!jQuery.Event} event
+	 * @param {undefined|true} onload
 	 * @return {(undefined|null)}
 	 */
-	tabToggle: function( event ) {
+	tabToggle: function( event, onload ) {
 
-		let $this = jQuery( event.target );
+		let $currentToggle = jQuery( event.target );
 
-		if ( ! $this.is( ':checked' ) )
-			return;
+		if ( ! $currentToggle.is( ':checked' ) ) return;
 
-		let target = $this.prop( 'id' ),
-			name = $this.prop( 'name' );
+		onload = typeof onload === 'boolean' ? onload : false;
 
-		if ( typeof name !== 'undefined' ) {
-			let activeClass = 'tsf-active-tab-content',
-				$newContent = jQuery( '#' + target + '-content' ),
-				$previousContent = jQuery( '.' + activeClass );
+		let toggleId   = event.target.id,
+			toggleName = event.target.name;
 
-			//* Only parse if old content isn't the new.
-			if ( ! $newContent.is( $previousContent ) && typeof $newContent !== 'undefined' ) {
-				let $allContent = jQuery( '.' + name + '-content' );
+		let activeClass = 'tsf-active-tab-content',
+			toggleActiveClass = 'tsf-tab-active',
+			$previousContent = jQuery( '.' + activeClass ),
+			$previousToggle = $currentToggle.closest( '.tsf-nav-tab-wrapper' ).find( '.' + toggleActiveClass );
 
-				$allContent.fadeOut( 150, function() {
-					jQuery( this ).removeClass( activeClass );
-				} );
-				setTimeout( function() {
-					$newContent.addClass( activeClass ).fadeIn( 250 );
-				}, 150 );
-				setTimeout( function() {
-					jQuery( '#' + target ).trigger( 'tsf-tab-toggled' );
-				}, 175 );
+		//* Perform validity check, this prevents hidden browser validation errors.
+		let $invalidInput = $previousContent.find( 'input:invalid, select:invalid, textarea:invalid' );
+		if ( $invalidInput.length ) {
+			try {
+				$invalidInput[0].reportValidity();
+			} catch ( err ) {
+				// Internet explorer.... polyfill
+				let $submit = jQuery( event.target.form )
+					.find( 'input[type=submit]' )
+					.not( '.autodescription-site-settings\\[tsf-settings-reset\\]' );
+				if ( $submit.length ) $submit[0].click();
 			}
+
+			$previousToggle.prop( 'checked', true );
+			$currentToggle.prop( 'checked', false );
+			event.stopPropagation();
+			event.preventDefault();
+			return false; // stop propagation in jQuery.
+		}
+
+		let $newContent = jQuery( '#' + toggleId + '-content' );
+
+		//= Previous active-state logger.
+		$previousToggle.removeClass( toggleActiveClass );
+		$previousToggle.siblings( 'label' ).removeClass( 'tsf-no-focus-ring' );
+		$currentToggle.addClass( toggleActiveClass );
+
+		//* Only parse if old content isn't the new.
+		if ( onload ) {
+			let $allContent = jQuery( '.' + toggleName + '-content' );
+			$allContent.removeClass( activeClass ).hide();
+			$newContent.addClass( activeClass ).show();
+			jQuery( '#' + toggleId ).trigger( 'tsf-tab-toggled' );
+		} else if ( $newContent.length && ! $newContent.is( $previousContent ) ) {
+			let $allContent = jQuery( '.' + toggleName + '-content' );
+
+			// Promises dont always complete, making for extraneous display.
+			$allContent.fadeOut( 150, function() {
+				jQuery( this ).removeClass( activeClass );
+			} );
+			setTimeout( () => {
+				$newContent.addClass( activeClass ).fadeIn( 250 );
+			}, 150 );
+			setTimeout( () => {
+				jQuery( '#' + toggleId ).trigger( 'tsf-tab-toggled' );
+			}, 175 );
 		}
 	},
 
@@ -600,48 +2056,98 @@ window.tsf = {
 	 * Refines Styling for the navigation tabs on the settings pages
 	 *
 	 * @since 2.9.0
-	 * @todo merge with tabTobble or a collective method?
+	 * @todo merge with tabToggle or a collective method?
+	 *
+	 * @function
+	 * @param {!jQuery.Event} event
+	 * @param {undefined|true} onload
+	 * @return {(undefined|null)}
+	 */
+	flexTabToggle: function( event, onload ) {
+
+		let $currentToggle = jQuery( event.target );
+
+		if ( ! $currentToggle.is( ':checked' ) ) return;
+
+		onload = typeof onload === 'boolean' ? onload : false;
+
+		let toggleId   = event.target.id,
+			toggleName = event.target.name;
+
+		let activeClass = 'tsf-flex-tab-content-active',
+			toggleActiveClass = 'tsf-flex-tab-active',
+			$previousContent = jQuery( '.' + activeClass ),
+			$previousToggle = $currentToggle.closest( '.tsf-flex-nav-tab-wrapper' ).find( '.' + toggleActiveClass );
+
+		//* Perform validity check, this prevents hidden browser validation errors.
+		let $invalidInput = $previousContent.find( 'input:invalid, select:invalid, textarea:invalid' );
+		if ( $invalidInput.length ) {
+			try {
+				$invalidInput[0].reportValidity();
+			} catch ( err ) {
+				// Internet explorer.... polyfill
+				let $submit = jQuery( event.target.form )
+					.find( '#publishing-action input[type="submit"], #save-action input[type="submit"]' );
+				if ( $submit.length ) $submit[0].click();
+			}
+
+			$previousToggle.prop( 'checked', true );
+			$currentToggle.prop( 'checked', false );
+			event.stopPropagation();
+			event.preventDefault();
+			return false; // stop propagation in jQuery.
+		}
+
+		let $newContent = jQuery( '#' + toggleId + '-content' );
+
+		//= Previous active-state logger.
+		$previousToggle.removeClass( toggleActiveClass );
+		$previousToggle.siblings( 'label' ).removeClass( 'tsf-no-focus-ring' );
+		$currentToggle.addClass( toggleActiveClass );
+
+		//* Only parse if old content isn't the new.
+		if ( onload ) {
+			let $allContent = jQuery( '.' + toggleName + '-content' );
+			$allContent.removeClass( activeClass ).hide();
+			$newContent.addClass( activeClass ).show();
+			jQuery( '#' + toggleId ).trigger( 'tsf-flex-tab-toggled' );
+		} else if ( $newContent.length && ! $newContent.is( $previousContent ) ) {
+			let $allContent = jQuery( '.' + toggleName + '-content' );
+
+			// Promises dont always complete, making for extraneous display.
+			$allContent.fadeOut( 150, function() {
+				jQuery( this ).removeClass( activeClass );
+			} );
+			setTimeout( () => {
+				$newContent.addClass( activeClass ).fadeIn( 250 );
+			}, 150 );
+			setTimeout( () => {
+				jQuery( '#' + toggleId ).trigger( 'tsf-flex-tab-toggled' );
+			}, 175 );
+		}
+	},
+
+	/**
+	 * Sets a class to the active element which helps excluding focus rings.
+	 *
+	 * @since 3.1.0
+	 * @see tsf.tabToggle Handles this class.
+	 * @see tsf.flexTabToggle Handles this class.
 	 *
 	 * @function
 	 * @param {!jQuery.Event} event
 	 * @return {(undefined|null)}
 	 */
-	flexTabToggle : function( event ) {
-
-		let $this = jQuery( event.target );
-
-		if ( ! $this.is( ':checked' ) )
-			return;
-
-		let target = $this.prop( 'id' ),
-			name = $this.prop( 'name' );
-
-		if ( typeof name !== 'undefined' ) {
-			let activeClass = 'tsf-flex-tab-content-active',
-				$newContent = jQuery( '#' + target + '-content' ),
-				$previousContent = jQuery( '.' + activeClass );
-
-			//* Only parse if old content isn't the new.
-			if ( ! $newContent.is( $previousContent ) && typeof $newContent !== 'undefined' ) {
-				let $allContent = jQuery( '.' + name + '-content' );
-
-				$allContent.fadeOut( 150, function() {
-					jQuery( this ).removeClass( activeClass );
-				} );
-				setTimeout( function() {
-					$newContent.addClass( activeClass ).fadeIn( 250 );
-				}, 150 );
-				setTimeout( function() {
-					jQuery( '#' + target ).trigger( 'tsf-flex-tab-toggled' );
-				}, 175 );
-			}
-		}
+	addNoFocusClass: function( event ) {
+		/*! 'this' because of event capturing issues */
+		this.classList.add( 'tsf-no-focus-ring' );
 	},
 
 	/**
 	 * Sets the navigation tabs content equal to the buttons.
 	 *
 	 * @since 2.9.0
+	 * @since 3.0.4 Added inpost flex nav trigger.
 	 * @see tsf.tabToggle
 	 *
 	 * @function
@@ -649,63 +2155,71 @@ window.tsf = {
 	 */
 	setTabsOnload: function() {
 
-		if ( tsf.hasInput ) {
-			if ( tsf.states['isSettingsPage'] ) {
-				let $buttons = jQuery( '.tsf-nav-tab-wrapper .tsf-tab:nth-of-type(n+2) input:checked' );
+		if ( ! tsf.hasInput ) return;
 
-				// Select all second or later tabs that have attribute checked.
-				if ( $buttons.length ) {
-					$buttons.each( function( i ) {
-						let $this = jQuery( this ),
-							target = $this.prop( 'id' ),
-							name = $this.prop( 'name' );
+		if ( tsf.states.isPostEdit ) {
+			//= Triggers inpost change event for tabs. There's only one active tab.
+			jQuery( '.tsf-flex-nav-tab-radio:checked' ).trigger( 'change', [ true ] );
+		}
 
-						if ( typeof name !== 'undefined' ) {
-							let activeClass = 'tsf-active-tab-content',
-								$newContent = jQuery( '#' + target + '-content' );
-
-							//* Only parse if old content isn't the new.
-							if ( typeof $newContent !== 'undefined' ) {
-								let $allContent = jQuery( '.' + name + '-content' );
-
-								$allContent.removeClass( activeClass );
-								$newContent.addClass( activeClass );
-								setTimeout( function() {
-									jQuery( '#' + target ).trigger( 'tsf-tab-toggled' );
-								}, 20 );
-							}
-						}
-					} );
-				}
-			} else {
-				// WordPress resets radio buttons on inpost settings. Leave this open for "when".
-			}
+		if ( tsf.states.isSettingsPage ) {
+			//= Triggers SEO settings change event for all tabs.
+			jQuery( '.tsf-tabs-radio:checked' ).each( ( i, element ) => {
+				jQuery( element ).trigger( 'change', [ true ] );
+			} );
 		}
 	},
 
 	/**
-	 * Toggle tagline within the Left/Right example for the HomePage Title
+	 * Sets postbox toggle handlers.
 	 *
-	 * @since 2.2.4
+	 * @since 3.1.0
 	 *
 	 * @function
-	 * @param {!jQuery.Event} event
 	 * @return {undefined}
 	 */
-	taglineToggleTitle: function( event ) {
+	_initPostboxToggle: function() {
 
-		let $this = jQuery( event.target ),
-			$tag = jQuery( '.tsf-custom-blogname-js' );
+		let $handles;
 
-		if ( $this.is( ':checked' ) ) {
-			$tag.css( 'display', 'inline' );
-			tsf.titleTagline = true;
-		} else {
-			$tag.css( 'display', 'none' );
-			tsf.titleTagline = false;
+		if ( tsf.states.isSettingsPage ) {
+			$handles = jQuery( '.postbox[id^="autodescription-"]' ).find( '.hndle, .handlediv' );
+		} else if ( tsf.states.isPostEdit ) {
+			$handles = jQuery( '.postbox#tsf-inpost-box' ).find( '.hndle, .handlediv' );
 		}
+		if ( ! $handles || ! $handles.length ) return;
 
-		tsf.docTitles().trigger( 'keyup', tsf.updateCharacterCountTitle );
+		let $input;
+
+		const validate = () => {
+			try {
+				$input[0].reportValidity();
+			} catch ( err ) {
+				// Internet explorer.... polyfill
+				let $submit = jQuery( $input[0].form )
+					.find( 'input[type=submit]' )
+					.not( '.autodescription-site-settings\\[tsf-settings-reset\\]' );
+				if ( $submit.length ) $submit[0].click();
+			}
+		}
+		/**
+		 * HACK: Reopens a box if it contains invalid input values, and notifies the users thereof.
+		 * WordPress should implement this in a non-hacky way, so to give us more freedom.
+		 *
+		 * There are no needs for timeouts because this should always run later
+		 * than "postboxes.handle_click", as that script is loaded earlier.
+		 */
+		const handleClick = ( event ) => {
+			let $postbox = jQuery( event.target ).closest( '.postbox' );
+			if ( $postbox[0].classList.contains( 'closed' ) ) {
+				$input = $postbox.find( 'input:invalid, select:invalid, textarea:invalid' );
+				if ( $input.length ) {
+					jQuery( document ).one( 'postbox-toggled', validate );
+					jQuery( event.target ).trigger( 'click' );
+				}
+			}
+		}
+		$handles.on( 'click.tsfPostboxes', handleClick );
 	},
 
 	/**
@@ -726,51 +2240,6 @@ window.tsf = {
 			$tagDesc.css( 'display', 'inline' );
 		} else {
 			$tagDesc.css( 'display', 'none' );
-		}
-	},
-
-	/**
-	 * Toggle title additions location for the Title examples.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	titleLocationToggle: function( event ) {
-
-		let val = jQuery( event.target ).val(),
-			$titleExampleLeft = jQuery( '.tsf-title-additions-example-left' ),
-			$titleExampleRight = jQuery( '.tsf-title-additions-example-right' );
-
-		if ( 'right' === val ) {
-			$titleExampleLeft.css( 'display', 'none' );
-			$titleExampleRight.css( 'display', 'inline' );
-		} else {
-			$titleExampleLeft.css( 'display', 'inline' );
-			$titleExampleRight.css( 'display', 'none' );
-		}
-	},
-
-	/**
-	 * Toggle title prefixes for the Prefix Title example.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	titlePrefixToggle: function( event ) {
-
-		let $this = jQuery( event.target ),
-			$prefix = jQuery( '.tsf-title-prefix-example' );
-
-		if ( $this.is(':checked') ) {
-			$prefix.css( 'display', 'none' );
-		} else {
-			$prefix.css( 'display', 'inline' );
 		}
 	},
 
@@ -845,154 +2314,12 @@ window.tsf = {
 	},
 
 	/**
-	 * Change Home Page Title based on input of the Custom Title
-	 *
-	 * @since 2.2.4
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	titleProp: function( event ) {
-
-		let val = event.target.value || '',
-			$title = jQuery( '.tsf-custom-title-js' );
-
-		if ( 0 === val.length ) {
-			$title.text( tsf.params['siteTitle'] );
-		} else {
-			$title.text( val );
-		}
-	},
-
-	/**
-	 * Change Title based on input of the Custom Title
-	 *
-	 * @since 2.3.8
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	taglineProp: function( event ) {
-
-		var val = event.target.value || '',
-			$floatTag = jQuery( '.tsf-custom-tagline-js' ),
-			$target = jQuery( '#autodescription-site-settings\\[homepage_title\\]' ),
-			leftRight = jQuery( '#tsf-home-title-location input:checked' ).val(),
-			$toggle = jQuery( '#autodescription-site-settings\\[homepage_tagline\\]' ),
-			title = tsf.params['siteTitle'],
-			placeholder = title,
-			description = tsf.params['blogDescription'],
-			sep = tsf.getSep( 'title' );
-
-		if ( $toggle.is( ':checked' ) ) {
-
-			if ( val.length !== 0 ) {
-				description = val;
-			}
-
-			if ( leftRight.length !== 0 && 'left' === leftRight ) {
-				placeholder = title + ' ' + sep + ' ' + description;
-			} else {
-				placeholder = description + ' ' + sep + ' ' + title;
-			}
-		}
-
-		$floatTag.text( description );
-		$target.prop( 'placeholder', placeholder );
-
-		// Notify tagline has changed.
-		tsf.docTitles().trigger( 'input', tsf.updateCharacterCountTitle );
-	},
-
-	/**
-	 * Trigger input event for page titles.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	taglinePropTrigger: function() {
-
-		let settingsChangedCache = tsf.settingsChanged;
-
-		if ( tsf.states['isSettingsPage'] ) {
-			jQuery( "#autodescription-site-settings\\[homepage_title_tagline\\]" ).trigger( 'input', tsf.taglineProp );
-		} else {
-			jQuery( "#autodescription_title" ).trigger( 'input', tsf.taglineProp );
-		}
-
-		// Reset settingsChanged to previous value.
-		tsf.settingsChanged = settingsChangedCache;
-	},
-
-	/**
-	 * Triggers input event for titles in set intervals on window resize.
-	 *
-	 * This only happens if boundaries are surpassed to reduce CPU usage.
-	 * This boundary is 782 pixels, because that forces input fields to change.
-	 * in WordPress.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	taglinePropTriggerResize: function() {
-
-		let resizeTimeout = 0,
-			prevWidth = 0;
-
-		jQuery( window ).resize( function() {
-
-			clearTimeout( resizeTimeout );
-
-			resizeTimeout = setTimeout( function() {
-
-				let width = jQuery( window ).width();
-
-				if ( prevWidth < width ) {
-					if ( prevWidth <= 782 && width >= 782 ) {
-						tsf.taglinePropTrigger();
-					}
-				} else {
-					if ( prevWidth >= 782 && width <= 782 ) {
-						tsf.taglinePropTrigger();
-					}
-				}
-
-				prevWidth = width;
-			}, 250 );
-		} );
-	},
-
-	/**
-	 * Trigger Change on Left/Right selection of Global Title
-	 *
-	 * @since 2.5.2
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	titleToggle: function() {
-
-		let $this = jQuery( event.target ),
-			$tagDesc = jQuery( '.tsf-title-additions-js' );
-
-		if ( $this.is( ':checked' ) ) {
-			$tagDesc.css( 'display', 'none' );
-		} else {
-			$tagDesc.css( 'display', 'inline' );
-		}
-	},
-
-	/**
 	 * Have all form fields in The SEO Framework metaboxes set a dirty flag when changed.
 	 *
 	 * @since 2.0.0
 	 * @since 2.9.3 No longer heavily invokes change listeners after change has been set.
+	 * @since 3.1.0 1. Can now be recalled without memory leaks.
+	 *              2. Now no longer overrides and/or deletes other onbeforeunload events.
 	 *
 	 * @function
 	 * @return {undefined}
@@ -1002,32 +2329,58 @@ window.tsf = {
 		if ( ! tsf.hasInput )
 			return;
 
-		//= Self calling and cancelling function.
-		let setUnsetChange = (function( event ) {
-			tsf.settingsChanged || tsf.registerChange();
-			jQuery( input ).not( except ).off( event.type, setUnsetChange );
-		});
-
-		//= Mouse input
-		let input = '.tsf-metaboxes :input, #tsf-inpost-box .inside :input',
-			except = '.tsf-tab :input, .tsf-flex-nav-tab :input';
-		jQuery( input ).not( except ).on( 'change', setUnsetChange );
-
-		//= Text input
-		input = '.tsf-metaboxes input[type=text], .tsf-metaboxes textarea, #tsf-inpost-box .inside input[type=text], #tsf-inpost-box .inside textarea';
-		except = '.tsf-nav-tab-wrapper input, .tsf-flex-nav-tab-wrapper input';
-		jQuery( input ).not( except ).on( 'input', setUnsetChange );
-
-		//= Alert caller (doesn't work well when leave alerts have been disabled)
-		window.onbeforeunload = function() {
-			if ( tsf.settingsChanged ) {
-				return tsf.i18n['saveAlert'];
-			}
+		const disable = ( event ) => {
+			jQuery( event.data._input ).not( event.data._except ).off( event.type, setUnsetChange );
+		}
+		/**
+		 * This enables settingsChanged listener.
+		 * Then, it removes all listeners.
+		 * @param {!jQuery.Event} event
+		 */
+		const setUnsetChange = ( event ) => {
+			tsf.registerChange();
+			disable( event );
 		};
 
+		let input,
+			except = '.tsf-input-not-saved';
+
+		//= Mouse input
+		input = [
+			'.tsf-metaboxes :input',
+			'#tsf-inpost-box .inside :input'
+		].join( ', ' );
+		jQuery( input ).not( except )
+			.off( 'change.tsfChangeListener' )
+			.on( 'change.tsfChangeListener', { _input: input, _except: except }, setUnsetChange );
+
+		//= Text input
+		input = [
+			'.tsf-metaboxes input[type=text]',
+			'.tsf-metaboxes textarea',
+			'#tsf-inpost-box .inside input[type=text]',
+			'#tsf-inpost-box .inside textarea'
+		].join( ', ' );
+		jQuery( input ).not( except )
+			.off( 'input.tsfChangeListener' )
+			.on( 'input.tsfChangeListener', { _input: input, _except: except }, setUnsetChange );
+
+		//= Alert onbeforeunload
+		jQuery( window )
+			.off( 'beforeunload.tsfChangeListener' )
+			.on( 'beforeunload.tsfChangeListener', () => {
+				if ( tsf.settingsChanged )
+					return tsf.i18n['saveAlert'];
+			} );
+
 		//= Remove alert on saving object or delete calls.
-		jQuery( '.tsf-metaboxes input[type="submit"], #publishing-action input[type="submit"], #save-action input[type="submit"], a.submitdelete' ).click( function() {
-			window.onbeforeunload = null;
+		jQuery( [
+			'.tsf-metaboxes input[type="submit"]',
+			'#publishing-action input[type="submit"]',
+			'#save-action input[type="submit"]',
+			'a.submitdelete'
+		].join( ', ' ) ).off( 'click.tsfChangeListener' ).on( 'click.tsfChangeListener', () => {
+			tsf.settingsChanged = false;
 		} );
 	},
 
@@ -1053,236 +2406,6 @@ window.tsf = {
 	 */
 	confirmedReset: function() {
 		return confirm( tsf.i18n['confirmReset'] );
-	},
-
-	/**
-	 * Adds dynamic placeholder to Title input based on site settings.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {(!jQuery|undefined)}
-	 */
-	dynamicPlaceholder: function( event ) {
-
-		let hasAdditions = tsf.params['titleAdditions'].length,
-			$placeholder = jQuery( '#tsf-title-placeholder' );
-
-		// If hasAdditions is empty, there's nothing to do.
-		if ( ! hasAdditions ) {
-			// Empty the placeholder as we can't execute.
-			jQuery( event.target ).css( 'text-indent', "initial" );
-			return $placeholder.empty();
-		}
-
-		let after = false,
-			check = jQuery( '#tsf-home-title-location input:checked' ).val(),
-			rtl = tsf.states['isRTL'],
-			additions = '';
-
-		if ( typeof check !== 'undefined' && check.length !== 0 ) {
-			//* We're in SEO Settings page.
-
-			if ( rtl ) {
-				if ( 'right' === check ) {
-					after = true;
-				}
-			} else {
-				if ( 'left' === check ) {
-					after = true;
-				}
-			}
-		} else {
-			//* We're in post/page edit screen.
-
-			let titleLocation = tsf.params['titleLocation'];
-
-			// We're on post/page screen.
-			if ( tsf.states['isHome'] ) {
-				// Static Front page, switch check.
-				if ( tsf.titleTagline ) {
-					if ( rtl ) {
-						if ( 'right' === titleLocation ) {
-							after = true;
-						}
-					} else if ( 'left' === titleLocation ) {
-						after = true;
-					}
-				}
-			} else {
-				if ( rtl ) {
-					if ( 'left' === titleLocation ) {
-						after = true;
-					}
-				} else if ( 'right' === titleLocation ) {
-					after = true;
-				}
-			}
-		}
-
-		let $tagbox = jQuery( '#tsf-title-tagline-toggle :input' );
-
-		if ( typeof $tagbox !== "undefined" && $tagbox.length > 0 && ! $tagbox.is( ':checked' ) ) {
-			//* We're on SEO Settings Page now, and tagline has been disabled.
-			let $this = jQuery( event.target );
-
-			$this.css( 'text-indent', "initial" );
-			$placeholder.css( 'display', "none" );
-		} else {
-			var $this = jQuery( event.target ),
-				inputVal = $this.val(),
-				$offsetTest = jQuery( "#tsf-title-offset" );
-
-			let offsetWidth = 0,
-				outerWidth = $this.outerWidth(),
-				heightPad = ( $this.outerHeight( true ) - $this.height() ) / 2,
-				horPad = ( outerWidth - $this.innerWidth() ) / 2,
-				leftOffset = ( $this.outerWidth( true ) - $this.width() ) / 2,
-				taglineVal = jQuery( "#autodescription-site-settings\\[homepage_title_tagline\\]" ).val(),
-				pos = 'left',
-				separator = tsf.getSep( 'title' );
-
-			if ( rtl ) {
-				pos = 'right';
-			}
-
-			if ( typeof taglineVal !== "undefined" && taglineVal.length === 0) {
-				taglineVal = tsf.params['blogDescription'];
-			}
-
-			if ( after ) {
-				additions = " " + separator + " " + tsf.params['titleAdditions'];
-
-				// Exchange the placeholder value of the custom Tagline in the HomePage Metabox
-				if ( typeof taglineVal !== "undefined" && taglineVal.length > 0 ) {
-					additions = " " + separator + " " + taglineVal;
-				}
-
-				$this.css( 'text-indent', "initial" );
-			} else {
-				additions = tsf.params['titleAdditions'] + " " + separator + " ";
-
-				// Exchange the placeholder value of the custom Tagline in the HomePage Metabox
-				if ( typeof taglineVal !== "undefined" && taglineVal.length > 0 ) {
-					additions = taglineVal + " " + separator + " ";
-				}
-			}
-
-			// Width offset container, copy variables and remain hidden.
-			$offsetTest.text( inputVal );
-			$offsetTest.css({
-				'fontFamily' : $this.css( "fontFamily" ),
-				'fontWeight' : $this.css( "fontWeight" ),
-				'letterSpacing' : $this.css( "letterSpacing" ),
-				'fontSize' : $this.css( "fontSize" ),
-			});
-			offsetWidth = $offsetTest.width();
-
-			let maxWidth = $this.width() - horPad - offsetWidth;
-
-			if ( maxWidth < 0 )
-				maxWidth = 0;
-
-			// Moving Placeholder output
-			$placeholder.css({
-				'display': $this.css( "display" ),
-				'lineHeight': $this.css( "lineHeight" ),
-				'paddingTop': heightPad + "px",
-				'paddingBottom': heightPad + "px",
-				'fontFamily': $this.css( "fontFamily" ),
-				'fontWeight': $this.css( "fontWeight" ),
-				'fontSize': $this.css( "fontSize" ),
-				'letterSpacing': $this.css( "letterSpacing" ),
-				'maxWidth': maxWidth + "px",
-			});
-
-			//* Empty or fill placeholder and offsets.
-			if ( typeof inputVal === "undefined" || inputVal.length < 1 ) {
-
-				if ( ! after )
-					$this.css( 'text-indent', "initial" );
-
-				$placeholder.empty();
-			} else {
-				$placeholder.text( additions );
-
-				// Only calculate when context is present.
-				if ( outerWidth > leftOffset ) {
-					if ( after ) {
-						$placeholder.css( pos, horPad + leftOffset + $offsetTest.width() + "px" );
-					} else {
-						let indent = horPad + $placeholder.width();
-
-						if ( indent < 0 )
-							indent = 0;
-
-						$placeholder.css( pos, leftOffset + "px" );
-						$this.css( 'text-indent', indent + "px" );
-					}
-				}
-			}
-		}
-	},
-
-	/**
-	 * Makes user click act natural by selecting the parent Title text input.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	selectTitleInput: function() {
-
-		let $input = tsf.docTitles();
-
-		$input.focus();
-
-		if ( $input.setSelectionRange ) {
-			// Go to end times 2 if setSelectionRange exists.
-			let length = $input.val().length * 2;
-			$input.setSelectionRange( length, length );
-		} else {
-			// Replace value with itself.
-			$input.val( $input.val() ).focus();
-		}
-	},
-
-	/**
-	 * Triggers keyup on description input so the counter can colorize.
-	 *
-	 * @since 2.5.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	triggerDescriptionOnLoad: function() {
-
-		if ( ! tsf.hasInput )
-			return;
-
-		let $input = tsf.docDescriptions();
-
-		$input.trigger( 'input', tsf.updateCharacterCountDescription );
-	},
-
-	/**
-	 * Triggers keyup on title input so the counter can colorize.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	triggerTitleOnLoad: function() {
-
-		if ( ! tsf.hasInput )
-			return;
-
-		let $input = tsf.docTitles();
-
-		$input.trigger( 'input', tsf.updateCharacterCountTitle );
 	},
 
 	/**
@@ -1340,14 +2463,14 @@ window.tsf = {
 	unsetAjaxLoader: function( target, success ) {
 
 		let newclass = 'tsf-success',
-			fade = 2500;
+			fadeTime = 2500;
 
 		if ( ! success ) {
 			newclass = 'tsf-error';
-			fade = 5000;
+			fadeTime = 5000;
 		}
 
-		jQuery( target ).removeClass( 'tsf-loading' ).addClass( newclass ).fadeOut( fade );
+		jQuery( target ).removeClass( 'tsf-loading' ).addClass( newclass ).fadeOut( fadeTime );
 	},
 
 	/**
@@ -1362,635 +2485,6 @@ window.tsf = {
 	 */
 	resetAjaxLoader: function( target ) {
 		jQuery( target ).stop().empty().prop( 'class', 'tsf-ajax' ).css( 'opacity', '1' ).removeProp( 'style' );
-	},
-
-	/**
-	 * Updates the counter type.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	counterUpdate: function( event ) {
-
-		// Count up, reset to 0 if needed. We have 4 options: 0, 1, 2, 3
-		tsf.counterType = tsf.counterType + 1;
-		if ( tsf.counterType > 3 )
-			tsf.counterType = 0;
-
-		//* Update counters locally.
-		tsf.additionsClassInit();
-
-		let target = '.tsf-counter .tsf-ajax',
-			status = 0;
-
-		//* Reset ajax loader
-		tsf.resetAjaxLoader( target );
-
-		//* Set ajax loader.
-		tsf.setAjaxLoader( target );
-
-		//* Setup external update.
-		let settings = {
-			method: 'POST',
-			url: ajaxurl,
-			datatype: 'json',
-			data: {
-				'action' : 'the_seo_framework_update_counter',
-				'nonce' : tsf.nonces['edit_posts'],
-				'val' : tsf.counterType,
-			},
-			async: true,
-			success: function( response ) {
-
-				/**
-				 * @TODO convert to json header and/or test for availability of response.type before parsing?
-				 * @see convertJSONResponse() @ https://github.com/sybrew/The-SEO-Framework-Extension-Manager/blob/master/lib/js/tsfem.js
-				 * @see send_json() @ https://github.com/sybrew/The-SEO-Framework-Extension-Manager/blob/master/inc/classes/core.class.php
-				 */
-				response = jQuery.parseJSON( response );
-
-				//* I could do value check, but that will simply lag behind. Unless an annoying execution delay is added.
-				if ( 'success' === response.type )
-					status = 1;
-
-				tsf.counterUpdatedResponse( target, status );
-			},
-		}
-
-		jQuery.ajax( settings );
-	},
-
-	/**
-	 * Visualizes the AJAX response to the user.
-	 *
-	 * @since 2.7.0
-	 *
-	 * @function
-	 * @param {String} target
-	 * @param {Number} success
-	 * @return {undefined}
-	 */
-	counterUpdatedResponse: function( target, success ) {
-		switch ( success ) {
-			case 0:
-				tsf.unsetAjaxLoader( target, false );
-				break;
-			case 1:
-				tsf.unsetAjaxLoader( target, true );
-				break;
-			default:
-				tsf.resetAjaxLoader( target );
-				break;
-		}
-	},
-
-	/**
-	 * Sets up additionsClass variable.
-	 * Also sets up browser caches correctly.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	additionsClassInit: function() {
-
-		if ( ! tsf.hasInput )
-			return;
-
-		let counterType = tsf.counterType,
-			settingsChangedCache = tsf.settingsChanged;
-
-		if ( 1 == counterType ) {
-			tsf.additionsClass = 'tsf-counter-one';
-			tsf.counterType = 1;
-		} else if ( 2 == counterType ) {
-			tsf.additionsClass = 'tsf-counter-two';
-			tsf.counterType = 2;
-		} else if ( 3 == counterType ) {
-			tsf.additionsClass = 'tsf-counter-three';
-			tsf.counterType = 3;
-		} else {
-			tsf.additionsClass = 'tsf-counter-zero';
-			tsf.counterType = 0;
-		}
-
-		tsf.updateCounters();
-
-		// Reset settingsChanged to previous value.
-		tsf.settingsChanged = settingsChangedCache;
-	},
-
-	/**
-	 * Update counters.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @return {undefined}
-	 */
-	updateCounters: function() {
-		tsf.triggerTitleOnLoad();
-		tsf.triggerDescriptionOnLoad();
-	},
-
-	/**
-	 * Returns counter name.
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {String} type
-	 * @return {String} name Human readable counter name.
-	 */
-	getCounterName: function( type ) {
-		return tsf.i18n[ type ];
-	},
-
-	/**
-	 * Returns converted HTML title/description separator.
-	 *
-	 * @since 2.7.0
-	 * @since 2.9.0 Added caching.
-	 *
-	 * @function
-	 * @param {String} type
-	 * @return {String} sep The converted separator.
-	 */
-	getSep: function( type ) {
-
-		let sep = '',
-			retVal = '';
-
-		if ( 'title' === type ) {
-			sep = tsf.titleSeparator;
-		} else {
-			sep = tsf.descriptionSeparator;
-		}
-
-		/** Concept:
-		if ( this.getSep.cachedSep && this.getSep.cachedSep.hasOwnProperty( type ) && sep === this.getSep.cachedSep[ type ]['sep'] ) {
-			return this.getSep.cachedSep[ type ]['retVal'];
-		} else {
-			//* Setup main cache container.
-			if ( ! this.getSep.cachedSep )
-				this.getSep.cachedSep = {};
-
-			//* Set up secondary cache container.
-			if ( ! this.getSep.cachedSep[ type ] )
-				this.getSep.cachedSep[ type ] = {};
-
-			//* Setup cache listener.
-			this.getSep.cachedSep[ type ]['sep'] = sep;
-		}
-		*/
-
-		if ( 'pipe' === sep || '|' === sep ) {
-			retVal = ( "|" );
-		} else if ( 'dash' === sep || '-' === sep ) {
-			retVal = ( "-" );
-		} else if ( sep.charCodeAt(0) < 123 ) {
-			//* Checked for UTF-8 conversion.
-			// Create a memory div to store the html in, convert to text to append in $placeholder
-			retVal = jQuery.trim( sep );
-			if ( '&' === sep.charAt(0) && ';' === sep.slice(-1) )
-				sep = sep.substr(1).slice(0, -1);
-
-			retVal = jQuery( '<div/>' ).html( "&" + sep + ";" ).text();
-		}
-
-		/** Concept:
-		return this.getSep.cachedSep[ type ]['retVal'] = retVal;
-		*/
-
-		//* Setup cache listener and return val.
-		return retVal;
-	},
-
-	/**
-	 * Opens the image editor on request.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event jQuery event
-	 * @return {(undefined|null)}
-	 */
-	openImageEditor: function( event ) {
-
-		if ( jQuery( event.target ).prop( 'disabled' ) || 'undefined' === typeof wp.media ) {
-			//* TODO error handling?
-			event.preventDefault();
-			event.stopPropagation();
-			return;
-		}
-
-		var $target = jQuery( event.target ),
-			inputID = $target.data( 'inputid' ),
-			frame;
-
-		if ( frame ) {
-			frame.open();
-			return;
-		}
-
-		event.preventDefault();
-		event.stopPropagation();
-
-		//* Init extend cropper.
-		tsf.extendCropper();
-
-		frame = wp.media( {
-			button : {
-				'text' : tsf.other[ inputID ]['frame_button'],
-				'close' : false,
-			},
-			states: [
-				new wp.media.controller.Library( {
-					'title' : tsf.other[ inputID ]['frame_title'],
-					'library' : wp.media.query({ 'type' : 'image' }),
-					'multiple' : false,
-					'date' : false,
-					'priority' : 20,
-					'suggestedWidth' : 1200,
-					'suggestedHeight' : 630
-				} ),
-				new tsf.cropper( {
-					'imgSelectOptions' : tsf.calculateImageSelectOptions
-				} ),
-			],
-		} );
-
-		let selectFunc = (function() {
-				frame.setState( 'cropper' );
-			} );
-		frame.off( 'select', selectFunc );
-		frame.on( 'select', selectFunc );
-
-		let croppedFunc = (function( croppedImage ) {
-				let url = croppedImage.url,
-					attachmentId = croppedImage.id,
-					w = croppedImage.width,
-					h = croppedImage.height;
-
-				// Send the attachment id to our hidden input. URL to explicit output.
-				jQuery( '#' + inputID + '-url' ).val( url );
-				jQuery( '#' + inputID + '-id' ).val( attachmentId );
-			} );
-		frame.off( 'cropped', croppedFunc );
-		frame.on( 'cropped', croppedFunc );
-
-		let skippedcropFunc = (function( selection ) {
-				let url = selection.get( 'url' ),
-					attachmentId = selection.get( 'id' ),
-					w = selection.get( 'width' ),
-					h = selection.get( 'height' );
-
-				// Send the attachment id to our hidden input. URL to explicit output.
-				jQuery( '#' + inputID + '-url' ).val( url );
-				jQuery( '#' + inputID + '-id' ).val( attachmentId );
-			} );
-		frame.off( 'skippedcrop', skippedcropFunc );
-		frame.on( 'skippedcrop', skippedcropFunc );
-
-		let doneFunc = (function( imageSelection ) {
-				jQuery( '#' + inputID + '-select' ).text( tsf.other[ inputID ]['change'] );
-				jQuery( '#' + inputID + '-url' ).prop( 'readonly', true ).css( 'opacity', 0 ).animate(
-					{ 'opacity' : 1 },
-					{ 'queue' : true, 'duration' : 1000 },
-					'swing'
-				);
-
-				tsf.appendRemoveButton( $target, inputID, true );
-				tsf.registerChange();
-			} );
-		frame.off( 'skippedcrop cropped', doneFunc );
-		frame.on( 'skippedcrop cropped', doneFunc );
-
-		frame.open();
-	},
-
-	/**
-	 * Removes the image editor image on request.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @param {!jQuery.event.target} target jQuery event.target
-	 * @param {string} inputID The input ID.
-	 * @return {(undefined|null)}
-	 */
-	appendRemoveButton: function( target, inputID, animate ) {
-
-		if ( target && inputID ) {
-			if ( ! jQuery( '#' + inputID + '-remove' ).length ) {
-				target.after(
-					'<a href="javascript:void(0)" id="'
-						+ inputID + '-remove" class="tsf-remove-social-image button button-small" data-inputid="'
-						+ inputID +
-					'" title="' + tsf.other[ inputID ]['remove_title'] + '">' + tsf.other[ inputID ]['remove'] + '</a>'
-				);
-				if ( animate ) {
-					jQuery( '#' + inputID + '-remove' ).css( 'opacity', 0 ).animate(
-						{ 'opacity' : 1 },
-						{ 'queue' : true, 'duration' : 1000 },
-						'swing'
-					);
-				}
-			}
-		}
-
-		//* Reset cache.
-		tsf.resetImageEditorActions();
-	},
-
-	/**
-	 * Removes the image editor image on request.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event jQuery event
-	 * @return {(undefined|null)}
-	 */
-	removeEditorImage: function( event ) {
-
-		var $target = jQuery( event.target ),
-			inputID = $target.data( 'inputid' );
-
-		if ( jQuery( '#' + inputID + '-select' ).prop( 'disabled' ) )
-			return;
-
-		jQuery( '#' + inputID + '-select' ).addClass( 'disabled' ).prop( 'disabled', true );
-
-		//* target.event.id === '#' + inputID + '-remove'.
-		jQuery( '#' + inputID + '-remove' ).addClass( 'disabled' ).prop( 'disabled', true ).fadeOut( 500, function() {
-			jQuery( this ).remove();
-			jQuery( '#' + inputID + '-select' ).text( tsf.other[ inputID ]['select'] ).removeClass( 'disabled' ).removeProp( 'disabled' );
-		} );
-
-		jQuery( '#' + inputID + '-url' ).val( '' ).removeProp( 'readonly' ).css( 'opacity', 0 ).animate(
-			{ 'opacity' : 1 },
-			{ 'queue' : true, 'duration' : 500 },
-			'swing'
-		);
-
-		jQuery( '#' + inputID + '-id' ).val( '' );
-
-		tsf.registerChange();
-	},
-
-	/**
-	 * Builds constructor for media cropper.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	extendCropper: function() {
-
-		if ( 'undefined' !== typeof tsf.cropper.control )
-			return;
-
-		/**
-		 * tsf.extendCropper => wp.media.controller.TSFCropper
-		 *
-		 * A state for cropping an image.
-		 *
-		 * @class
-		 * @augments wp.media.controller.Cropper
-		 * @augments wp.media.controller.State
-		 * @augments Backbone.Model
-		 */
-		var TSFCropper;
-		let Controller = wp.media.controller;
-
-		TSFCropper = Controller.Cropper.extend( {
-			doCrop: function( attachment ) {
-				var cropDetails = attachment.get( 'cropDetails' ),
-					control = tsf.cropper.control;
-
-				// Use crop measurements when flexible in both directions.
-				if ( control.params.flex_width && control.params.flex_height ) {
-					// Square
-					if ( cropDetails.width === cropDetails.height ) {
-						if ( cropDetails.width > control.params.flex_width ) {
-							cropDetails.dst_width = cropDetails.dst_height = control.params.flex_width;
-						}
-					// Landscape/Portrait
-					} else {
-						// Resize to flex width/height
-						if ( cropDetails.width > control.params.flex_width || cropDetails.height > control.params.flex_height ) {
-							// Landscape
-							if ( cropDetails.width > cropDetails.height ) {
-								var _ratio = cropDetails.width / control.params.flex_width;
-
-								cropDetails.dst_width  = control.params.flex_width;
-								cropDetails.dst_height = Math.round( cropDetails.height / _ratio );
-							// Portrait
-							} else {
-								var _ratio = cropDetails.height / control.params.flex_height;
-
-								cropDetails.dst_height = control.params.flex_height;
-								cropDetails.dst_width  = Math.round( cropDetails.width / _ratio );
-							}
-						}
-					}
-				}
-
-				// Nothing happened. Set destination to 0 and let PHP figure it out.
-				if ( 'undefined' === typeof cropDetails.dst_width ) {
-					cropDetails.dst_width  = 0;
-					cropDetails.dst_height = 0;
-				}
-
-				return wp.ajax.post( 'tsf-crop-image', {
-					'nonce' : tsf.nonces['upload_files'],
-					'id' : attachment.get( 'id' ),
-					'context' : 'tsf-image',
-					'cropDetails' : cropDetails
-				} );
-			}
-		} );
-
-		TSFCropper.prototype.control = {};
-		TSFCropper.control = {
-			'params' : {
-				'flex_width' : 4096,
-				'flex_height' : 4096,
-				'width' : 1200,
-				'height' : 630,
-			},
-		};
-
-		tsf.cropper = TSFCropper;
-
-		return;
-	},
-
-	/**
-	 * Returns a set of options, computed from the attached image data and
-	 * control-specific data, to be fed to the imgAreaSelect plugin in
-	 * wp.media.view.Cropper.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @param {wp.media.model.Attachment} attachment
-	 * @param {wp.media.controller.Cropper} controller
-	 * @return {Object} imgSelectOptions
-	 */
-	calculateImageSelectOptions: function( attachment, controller ) {
-
-		let control = tsf.cropper.control;
-
-		var flexWidth  = !! parseInt( control.params.flex_width, 10 ),
-			flexHeight = !! parseInt( control.params.flex_height, 10 ),
-			xInit = parseInt( control.params.width, 10 ),
-			yInit = parseInt( control.params.height, 10 );
-
-		let realWidth  = attachment.get( 'width' ),
-			realHeight = attachment.get( 'height' ),
-			ratio = xInit / yInit,
-			xImg  = xInit,
-			yImg  = yInit,
-			x1,
-			y1,
-			imgSelectOptions;
-
-		controller.set( 'control', control.params );
-		controller.set( 'canSkipCrop', ! tsf.mustBeCropped( control.params.flex_width, control.params.flex_height, realWidth, realHeight ) );
-
-		if ( realWidth / realHeight > ratio ) {
-			yInit = realHeight;
-			xInit = yInit * ratio;
-		} else {
-			xInit = realWidth;
-			yInit = xInit / ratio;
-		}
-
-		x1 = ( realWidth - xInit ) / 2;
-		y1 = ( realHeight - yInit ) / 2;
-
-		imgSelectOptions = {
-			'handles' : true,
-			'keys' : true,
-			'instance' : true,
-			'persistent' : true,
-			'imageWidth' : realWidth,
-			'imageHeight' : realHeight,
-			'minWidth' : xImg > xInit ? xInit : xImg,
-			'minHeight' : yImg > yInit ? yInit : yImg,
-			'x1' : x1,
-			'y1' : y1,
-			'x2' : xInit + x1,
-			'y2' : yInit + y1
-		};
-
-		if ( false === flexHeight && false === flexWidth ) {
-			imgSelectOptions.aspectRatio = xInit + ':' + yInit;
-		}
-
-		// @TODO Convert set img min-width/height to output ratio.
-		// i.e. 200x2000 will become x = 1500/2000*200 = 150px, which is too small.
-		//= Unlikely...
-
-		if ( true === flexHeight ) {
-			imgSelectOptions.minHeight = 200;
-			imgSelectOptions.maxWidth = realWidth;
-		}
-
-		if ( true === flexWidth ) {
-			imgSelectOptions.minWidth = 200;
-			imgSelectOptions.maxHeight = realHeight;
-		}
-
-		return imgSelectOptions;
-	},
-
-	/**
-	 * Return whether the image must be cropped, based on required dimensions.
-	 * Disregards flexWidth/Height.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @param {Number} dstW
-	 * @param {Number} dstH
-	 * @param {Number} imgW
-	 * @param {Number} imgH
-	 * @return {Boolean}
-	 */
-	mustBeCropped: function( dstW, dstH, imgW, imgH ) {
-
-		if ( imgW <= dstW && imgH <= dstH )
-			return false;
-
-		return true;
-	},
-
-	/**
-	 * Resets jQuery image editor cache.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	resetImageEditorActions: function() {
-		jQuery( '.tsf-remove-social-image' ).off( 'click', tsf.removeEditorImage );
-		jQuery( '.tsf-remove-social-image' ).on( 'click', tsf.removeEditorImage );
-	},
-
-	/**
-	 * Sets up jQuery image editor cache.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	setupImageEditorActions: function() {
-		jQuery( '.tsf-set-social-image' ).off( 'click', tsf.openImageEditor );
-		jQuery( '.tsf-remove-social-image' ).off( 'click', tsf.removeEditorImage );
-		jQuery( '.tsf-set-social-image' ).on( 'click', tsf.openImageEditor );
-		jQuery( '.tsf-remove-social-image' ).on( 'click', tsf.removeEditorImage );
-	},
-
-	/**
-	 * Checks if input is filled in by image editor.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	checkImageEditorInput: function() {
-
-		let $buttons = jQuery( '.tsf-set-social-image' );
-
-		if ( $buttons.length ) {
-			let inputID = '',
-				$valID = '';
-
-			jQuery.each( $buttons, function( index, value ) {
-				inputID = jQuery( value ).data( 'inputid' );
-				$valID = jQuery( '#' + inputID + '-id' );
-
-				if ( $valID.length && $valID.val() > 0 ) {
-					jQuery( '#' + inputID + '-url' ).prop( 'readonly', true );
-					tsf.appendRemoveButton( jQuery( value ), inputID, false );
-				}
-
-				if ( jQuery( '#' + inputID + '-url' ).val() ) {
-					jQuery( '#' + inputID + '-select' ).text( tsf.other[ inputID ]['change'] );
-				}
-			} );
-		}
 	},
 
 	/**
@@ -2037,78 +2531,6 @@ window.tsf = {
 	},
 
 	/**
-	 * Sets up object parameters.
-	 *
-	 * @since 2.8.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	setupVars: function() {
-
-		//The current title separator.
-		tsf.titleSeparator = tsf.params['titleSeparator'];
-
-		//The current description separator.
-		tsf.descriptionSeparator = tsf.params['descriptionSeparator'];
-
-		// The current title tagline.
-		tsf.titleTagline = tsf.states['titleTagline'];
-
-		// The counter type. Mixed string and int (i10n is string, JS is int).
-		tsf.counterType = parseInt( tsf.states['counterType'] );
-
-		// Determines if the current page has input boxes for The SEO Framework.
-		tsf.hasInput = tsf.states['hasInput'];
-	},
-
-	/**
-	 * Registers title prop listeners.
-	 *
-	 * @since 2.9.0
-	 *
-	 * @function
-	 * @return {(undefined|null)}
-	 */
-	_initTitlepropListener: function() {
-
-		if ( tsf.hasInput ) {
-			let jQ = jQuery;
-
-			//* Trigger directly on call load.
-			//tsf.taglinePropTrigger();
-
-			// Toggle Title tagline aditions removal.
-			jQ( '#tsf-title-tagline-toggle :input' ).on( 'click', tsf.taglineToggleTitle );
-			// Toggle Title additions location.
-			jQ( '#tsf-title-location input' ).on( 'click', tsf.titleLocationToggle );
-			// Toggle Title prefixes display.
-			jQ( '#title-prefixes-toggle :input' ).on( 'click', tsf.titlePrefixToggle );
-
-			// Change Home Page Title Example prop on input changes.
-			jQ( '#autodescription-site-settings\\[homepage_title\\]' ).on( 'input', tsf.titleProp );
-			jQ( '#tsf-home-title-location :input, #tsf-title-tagline-toggle :input, #tsf-title-separator input' ).on( 'click', tsf.taglinePropTrigger );
-			jQ( '#autodescription-site-settings\\[homepage_title_tagline\\]' ).on( 'input', tsf.taglineProp );
-
-			// Make sure the titleProp is correctly rendered when revealed after being hidden.
-			jQ( '#homepage-tab-general' ).on( 'tsf-tab-toggled', tsf.taglinePropTrigger );
-			jQ( '#autodescription-homepage-settings > button' ).on( 'click', tsf.taglinePropTrigger );
-			jQ( '#tsf-inpost-box > button' ).on( 'click', tsf.taglinePropTrigger );
-
-			// Change Global Title Example prop on input changes.
-			jQ( '#autodescription-site-settings\\[title_rem_additions\\]' ).on( 'click', tsf.titleToggle );
-
-			// Dynamic Placeholder, acts on keydown for a11y, although more cpu intensive. Acts on keyup for perfect output.
-			tsf.docTitles().on( 'input', tsf.dynamicPlaceholder );
-
-			// Move click on dynamic additions to focus input behind.
-			jQ( '#tsf-title-placeholder' ).on( 'click', tsf.selectTitleInput );
-
-			jQ( window ).resize( tsf.taglinePropTriggerResize );
-		}
-	},
-
-	/**
 	 * Registers on resize/orientationchange listeners and debounces to only run
 	 * at intervals.
 	 *
@@ -2127,14 +2549,15 @@ window.tsf = {
 		//* Set event listeners.
 		tsf._setResizeListeners();
 
-		var resizeTimeout = 0,
+		let resizeTimeout = 0,
 			$lastWidth = {},
 			timeOut = 0;
 
 		// Warning: Only checks for the first item existence.
-		var $tabWrapper = jQuery( '.tsf-flex-nav-tab-wrapper' );
+		let $tabWrapper = jQuery( '.tsf-flex-nav-tab-wrapper' ),
+			$window = jQuery( window );
 
-		jQuery( window ).on( 'tsf-flex-resize', function() {
+		$window.on( 'tsf-flex-resize', function() {
 
 			clearTimeout( resizeTimeout );
 
@@ -2200,7 +2623,7 @@ window.tsf = {
 		} );
 
 		//* Trigger after setup.
-		jQuery( window ).trigger( 'tsf-flex-resize' );
+		$window.trigger( 'tsf-flex-resize' );
 	},
 
 	/**
@@ -2231,7 +2654,19 @@ window.tsf = {
 	},
 
 	/**
-	 * Sets tsf.ready action.
+	 * Triggers counter update event.
+	 *
+	 * @since 3.0.0
+	 *
+	 * @function
+	 * @return {(undefined|null)}
+	 */
+	_triggerCounterUpdate: function() {
+		jQuery( window ).trigger( 'tsf-counter-updated' );
+	},
+
+	/**
+	 * Sets tsf-ready action.
 	 *
 	 * Example: jQuery( document.body ).on( 'tsf-ready', myFunc );
 	 *
@@ -2245,6 +2680,93 @@ window.tsf = {
 	},
 
 	/**
+	 * Sets 'tsf-onload' action.
+	 *
+	 * Example: jQuery( document.body ).on( 'tsf-onload, myFunc );
+	 *
+	 * @since 3.1.0
+	 * @access private
+	 *
+	 * @function
+	 */
+	_triggerOnLoad: function() {
+		jQuery( document.body ).trigger( 'tsf-onload' );
+	},
+
+	/**
+	 * Runs document-on-ready actions.
+	 *
+	 * @since 3.0.0
+	 * @access private
+	 *
+	 * @function
+	 */
+	_doReady: function() {
+
+		// Triggers tsf-onload event.
+		tsf._triggerOnLoad();
+
+		// Add counter listeners.
+		tsf._initCounters();
+
+		// Add title prop listeners. Must load before setTabsOnload to work.
+		tsf._initTitleInputs();
+		tsf._initUnboundTitleSettings();
+		tsf._initSocialTitleInputs();
+
+		// Add description prop listeners. Must load before setTabsOnload to work.
+		tsf._initDescInputs();
+		tsf._initSocialDescInputs();
+
+		tsf._initWebmastersInput();
+
+		// Sets tabs to correct radio button on load.
+		tsf.setTabsOnload();
+
+		// Sets postbox toggles on load.
+		tsf._initPostboxToggle();
+
+		// Check if the Title Tagline or Description Additions should be removed when page is loaded.
+		tsf.taglineToggleOnload();
+
+		// Correct Color Picker input
+		tsf.setColorOnload();
+
+		// #== End Before Change listener
+
+		// Initialise form field changing flag.
+		tsf.attachUnsavedChangesListener();
+
+		// Deregister changes.
+		tsf.onLoadUnregisterChange();
+
+		// Do flex resize functionality.
+		tsf._doFlexResizeListener();
+
+		// Trigger tsf-ready event.
+		tsf._triggerReady();
+
+		// #== Start After Change listener
+	},
+
+	/**
+	 * Sets up object parameters.
+	 *
+	 * @since 2.8.0
+	 *
+	 * @function
+	 * @return {(undefined|null)}
+	 */
+	setupVars: function() {
+
+		// The counter type. Mixed string and int (i10n is string, JS is int).
+		tsf.counterType = parseInt( tsf.states.counterType );
+
+		// Determines if the current page has input boxes for The SEO Framework.
+		tsf.hasInput = tsf.states.hasInput;
+	},
+
+	/**
 	 * Initialises all aspects of the scripts.
 	 *
 	 * Generally ordered with stuff that inserts new elements into the DOM first,
@@ -2255,91 +2777,37 @@ window.tsf = {
 	 * @since 2.2.4
 	 * @since 2.7.0 jQuery object is now passed.
 	 *
-	 * @todo setup ready action list and action callers. Now it's ravioli that's
-	 *       dependent on eachother.
-	 *
 	 * @function
-	 * @param {!jQuery} jQ jQuery
+	 * @param {!jQuery} $ jQuery
 	 * @return {undefined}
 	 */
-	ready: function( jQ ) {
+	ready: function( $ ) {
+
+		// Move the page updates notices below the tsf-top-wrap.
+		$( '.updated, .error, .notice-error, .notice-warning' ).insertAfter( '.tsf-top-wrap' );
 
 		// Set up object parameters.
 		tsf.setupVars();
 
-		// Move the page updates notices below the tsf-top-wrap.
-		jQ( 'div.updated, div.error, div.notice-warning' ).insertAfter( 'div.tsf-top-wrap' );
-
-		// Add title prop listeners. Must load before setTabsOnload to work.
-		jQ( document.body ).ready( tsf._initTitlepropListener );
-
-		// Sets tabs to correct radio button on load.
-		jQ( document.body ).ready( tsf.setTabsOnload );
-
-		// Set up additions classes.
-		jQ( document.body ).ready( tsf.additionsClassInit );
-
-		// Check if the Title Tagline or Description Additions should be removed when page is loaded.
-		jQ( document.body ).ready( tsf.taglineToggleOnload );
-
-		// Initialize the status bar hover balloon.
-		jQ( document.body ).ready( tsf.statusBarHover );
-
-		// Initialize image uploader button cache.
-		jQ( document.body ).ready( tsf.setupImageEditorActions );
-
-		// Determine image editor button input states.
-		jQ( document.body ).ready( tsf.checkImageEditorInput );
-
-		// Correct Color Picker input
-		jQ( document.body ).ready( tsf.setColorOnload );
-
-		// #== End Before Change listener
-
-		// Initialise form field changing flag.
-		jQ( document.body ).ready( tsf.attachUnsavedChangesListener );
-
-		// Deregister changes.
-		jQ( document.body ).ready( tsf.onLoadUnregisterChange );
-
-		// Trigger tsf-ready event.
-		jQ( document.body ).ready( tsf._triggerReady );
-
-		// #== Start After Change listener
-
-		// Do flex resize functionality.
-		jQ( document.body ).ready( tsf._doFlexResizeListener );
-
-		// Initialize status bar removal hover for touch screens.
-		jQ( document.body ).on( 'click touchstart MSPointerDown', tsf.touchRemoveDesc );
-
-		// Bind character counters.
-		tsf.docDescriptions().on( 'input', tsf.updateCharacterCountDescription );
-		tsf.docTitles().on( 'input', tsf.updateCharacterCountTitle );
-
-		// Allow the title separator to be changed dynamically.
-		jQ( '#tsf-title-separator input' ).on( 'click', tsf.separatorSwitchTitle );
-		// Allow description separator to be changed dynamically.
-		jQ( '#tsf-description-separator input' ).on( 'click', tsf.separatorSwitchDesc );
-
 		// Bind reset confirmation.
-		jQ( '.tsf-js-confirm-reset' ).on( 'click', tsf.confirmedReset );
+		$( '.tsf-js-confirm-reset' ).on( 'click', tsf.confirmedReset );
 
 		// Toggle Tabs in the SEO settings page.
-		jQ( '.tsf-tabs-radio' ).on( 'change', tsf.tabToggle );
+		$( '.tsf-tabs-radio' ).on( 'change', tsf.tabToggle );
+		$( '.tsf-tab' ).on( 'click', '.tsf-nav-tab', tsf.addNoFocusClass );
 
 		// Toggle Tabs for the inpost Flex settings.
-		jQ( '.tsf-flex-nav-tab-radio' ).on( 'change', tsf.flexTabToggle );
+		$( '.tsf-flex-nav-tab-radio' ).on( 'change', tsf.flexTabToggle );
+		$( '.tsf-flex-nav-tab' ).on( 'click', '.tsf-flex-nav-tab-label', tsf.addNoFocusClass );
 
 		// Toggle Description additions removal.
-		jQ( '#tsf-description-onblogname-toggle :input' ).on( 'click', tsf.taglineToggleDesc );
-		jQ( '#tsf-description-additions-toggle :input' ).on( 'click', tsf.additionsToggleDesc );
+		$( '#tsf-description-onblogname-toggle :input' ).on( 'click', tsf.taglineToggleDesc );
+		$( '#tsf-description-additions-toggle :input' ).on( 'click', tsf.additionsToggleDesc );
 
 		// Dismiss notices.
-		jQ( '.tsf-dismiss' ).on( 'click', tsf.dismissNotice );
+		$( '.tsf-dismiss' ).on( 'click', tsf.dismissNotice );
 
-		// AJAX counter
-		jQ( '.tsf-counter' ).on( 'click', tsf.counterUpdate );
+		$( document.body ).ready( tsf._doReady );
 	}
 };
 jQuery( tsf.ready );

@@ -17,9 +17,9 @@ function theme_back_enqueue_script()
 		}
 		
 		//including floating option css
-		$option5=  unserialize(get_option('sfsi_section5_options',false));
+		$option9=  unserialize(get_option('sfsi_section9_options',false));
 		
-		if($option5['sfsi_disable_floaticons'] == 'yes')
+		if($option9['sfsi_disable_floaticons'] == 'yes')
 		{
 			wp_enqueue_style("disable_sfsi", SFSI_PLUGURL . 'css/disable_sfsi.css' );
 		}
@@ -86,8 +86,8 @@ function theme_front_enqueue_script()
 		wp_enqueue_style("SFSImainCss", SFSI_PLUGURL . 'css/sfsi-style.css', true);
 		
 		//including floating option css
-		$option5=  unserialize(get_option('sfsi_section5_options',false));
-		if($option5['sfsi_disable_floaticons'] == 'yes')
+		$option9=  unserialize(get_option('sfsi_section9_options',false));
+		if($option9['sfsi_disable_floaticons'] == 'yes')
 		{
 			wp_enqueue_style("disable_sfsi", SFSI_PLUGURL . 'css/disable_sfsi.css' );
 		}

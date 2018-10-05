@@ -141,4 +141,13 @@ var Custom = {
 		}
 	}
 }
-window.onload = Custom.init;
+
+var prev_onload = window.onload;
+
+
+if('function' === typeof prev_onload){
+    prev_onload(),Custom.init(); 
+}
+else{
+    Custom.init();
+}

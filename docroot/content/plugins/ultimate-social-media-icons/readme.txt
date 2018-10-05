@@ -2,8 +2,8 @@
 Contributors: socialdude
 Tags: social media, share, buttons, social widget, icons, share icons, share buttons, sharing icons, sharing buttons, social share, sharing, social sharing
 Requires at least: 2.8
-Tested up to: 4.9.4
-Stable tag: 1.9.8
+Tested up to: 4.9.8
+Stable tag: 2.0.6
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,7 +44,7 @@ The social media plugin is very easy to use as it takes you through all the step
 - Step 7: Add a customized pop-up asking people to follow or share (optional)
 - Step 8: Add a subscription form on your site (optional)
 
-In case of issues or questions please ask in the [Support forum] (https://wordpress.org/support/plugin/ultimate-social-media-icons).
+In case of issues or questions please ask in the [Support forum](https://wordpress.org/support/plugin/ultimate-social-media-icons).
 
 We hope you enjoy the free social media plugin! 
 
@@ -65,7 +65,7 @@ We released a Premium Plugin with many more exciting features:
 - **Friendly support** in case you're stuck
 - **Many more settings and options** for your social media network icons
 
-Have a look at the [Premium Plugin features] (https://www.ultimatelysocial.com/usm-premium/)
+Have a look at the [Premium Plugin features](https://www.ultimatelysocial.com/usm-premium/)
 
 
 == Installation ==
@@ -275,7 +275,27 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 == Changelog ==
 
-= 1.9.8 =
+= 2.0.6 =
+* Fixed bug that sometimes banner didn't disappear
+* Links in review message updated 
+
+= 2.0.5 =
+* Issue with click on icons on mobile fixed
+
+= 2.0.4 =
+* Corrected missing ? in shortcode
+
+= 2.0.3 =
+* Optimized texts
+
+= 2.0.2 =
+* Addthis removed due to GDPR
+* New option to switch debugging mode on/off
+
+= 2.0.1 =
+* Issue of window.onscroll function overriding and breaking other plugins/themes fixed
+
+= 2.0.0 =
 * New question 3 to facilitate placement of icons
 
 = 1.9.7 =
@@ -699,5 +719,5 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 == Upgrade Notice ==
 
-= 1.9.8 =
+= 2.0.6 =
 Please upgrade

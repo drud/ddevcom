@@ -290,7 +290,7 @@ function sfsi_UploadIcons()
 					$icons[] = $AccressImagePath;
 					
 					$sec_options['sfsi_custom_files'] = serialize($icons);
-					$total_uploads = count($icons); end($icons); $key = key($icons);
+					$total_uploads = ( isset($icons) && is_array($icons) )?count($icons):0; end($icons); $key = key($icons);
 					update_option('sfsi_section1_options',serialize($sec_options));
 					die(json_encode(array('res'=>'success','img_path'=>$AccressImagePath,'element'=>$total_uploads,'key'=>$key)));
 	   }
@@ -346,7 +346,7 @@ function sfsi_deleteIcons()
          
         end($up_icons);
         $key=(key($up_icons))? key($up_icons) :$custom_icon[1] ;
-        $total_uploads=count($up_icons);
+        $total_uploads=(isset($up_icons) && is_array($up_icons))?count($up_icons):0;
          
         update_option('sfsi_section1_options',serialize($sec_options1));
         update_option('sfsi_section2_options',serialize($sec_options2));

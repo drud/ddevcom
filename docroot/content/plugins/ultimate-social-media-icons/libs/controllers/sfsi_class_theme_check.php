@@ -31,13 +31,13 @@ class sfsi_ThemeCheck
 	    $keywordEnglish = array_map("str_getcsv", explode("\n", $keywordData));
 	    $themeDataArr = array();
 
-	    if(isset($keywordEnglish) && count($keywordEnglish)>0){
+	    if(isset($keywordEnglish) && is_array($keywordEnglish) && count($keywordEnglish)>0){
 
 	    	unset($keywordEnglish[0]);
 
 		    $finalArr = array_filter(array_values($keywordEnglish));
 
-		    if(isset($finalArr) && count($finalArr)>0){
+		    if(isset($finalArr) && is_array($finalArr) && count($finalArr)>0){
 			    
 			    for($i=0;$i<count($finalArr);$i++) {
 			              
@@ -77,7 +77,7 @@ class sfsi_ThemeCheck
 
 		$strRegex = "";
 
-		if(isset($arrKeyWords) && count($arrKeyWords)>0 && is_array($arrKeyWords)){
+		if(isset($arrKeyWords) && is_array($arrKeyWords) && count($arrKeyWords)>0 && is_array($arrKeyWords)){
 
 			$count = count($arrKeyWords);
 
@@ -108,7 +108,7 @@ class sfsi_ThemeCheck
 
 	      $strRegex = "";
 
-	      if(isset($arrKeyWords) && count($arrKeyWords)>0 && is_array($arrKeyWords)){
+	      if(isset($arrKeyWords) && is_array($arrKeyWords) && count($arrKeyWords)>0 && is_array($arrKeyWords)){
 
 	            $count = count($arrKeyWords);
 
@@ -289,7 +289,7 @@ class sfsi_ThemeCheck
 
 	    $bflag = false;
 
-	    if(isset($arrNoBrainerKeywords) && count($arrNoBrainerKeywords)>0 && is_array($arrNoBrainerKeywords)>0){
+	    if(isset($arrNoBrainerKeywords) && is_array($arrNoBrainerKeywords) && count($arrNoBrainerKeywords)>0 && is_array($arrNoBrainerKeywords)>0){
 	    	
 	    	if(preg_match($this->sfsi_plus_regex_for_keywords($arrNoBrainerKeywords), $domainname)){
 	        	$bflag = true;
@@ -303,13 +303,13 @@ class sfsi_ThemeCheck
 
 	    $flag = false;
 
-		    if(is_array($arrNoBrainerAndSeparateKeywords) && isset($arrNoBrainerAndSeparateKeywords) && count($arrNoBrainerAndSeparateKeywords)>0){
+		    if(isset($arrNoBrainerAndSeparateKeywords) && is_array($arrNoBrainerAndSeparateKeywords) && count($arrNoBrainerAndSeparateKeywords)>0){
 
 		        if(preg_match($this->sfsi_plus_regex_for_keywords($arrNoBrainerAndSeparateKeywords), $domainname))
 		        {
 		            if(!empty($domainname))
 		            {
-		                if(is_array($arrNegativeKeywords) && isset($arrNegativeKeywords) && count($arrNegativeKeywords)){
+		                if(isset($arrNegativeKeywords) && is_array($arrNegativeKeywords) && count($arrNegativeKeywords)){
 		                    $domainname = preg_replace($this->sfsi_plus_regex_forNegative_keywords($arrNegativeKeywords), '', $domainname);              
 		                    $explode    = explode(".", $domainname);
 		                    $domainname = @$explode[0];                    
