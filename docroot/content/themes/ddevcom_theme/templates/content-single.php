@@ -12,8 +12,8 @@
                   <?php get_template_part('templates/entry-meta'); ?>
                 </div>
               </header>
-              <?php if(get_the_post_thumbnail()): ?>
-                <img class="img-fluid mb-4 d-block" src="<?php the_post_thumbnail_url(); ?>" alt="<?php the_title(); ?>">
+              <?php if ($img = get_the_post_thumbnail(get_the_ID(), 'post-thumbnail', ['class' => 'img-fluid mb-4 d-block'])) : ?>
+                <?= $img; ?>
               <?php endif; ?>
               <div class="entry-content">
                 <div class="wysiwyg">
