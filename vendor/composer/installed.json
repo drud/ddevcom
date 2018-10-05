@@ -554,6 +554,28 @@
         "homepage": "https://wordpress.org/plugins/wp-mail-smtp/"
     },
     {
+        "name": "wpackagist-plugin/wp-super-cache",
+        "version": "1.6.4",
+        "version_normalized": "1.6.4.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/wp-super-cache/",
+            "reference": "tags/1.6.4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/wp-super-cache.1.6.4.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/wp-super-cache/"
+    },
+    {
         "name": "wpackagist-plugin/wpmandrill",
         "version": "1.33",
         "version_normalized": "1.33.0.0",
