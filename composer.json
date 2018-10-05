@@ -70,7 +70,8 @@
     "wpackagist-plugin/simple-301-redirects": "^1.07",
     "wpackagist-plugin/wpmandrill": "^1.33",
     "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
-    "wpackagist-plugin/wpremote": "2.8.4.1"
+    "wpackagist-plugin/wpremote": "2.8.4.1",
+    "wpackagist-plugin/classic-editor": "^0.4.0"
   },
   "extra": {
     "installer-paths": {
