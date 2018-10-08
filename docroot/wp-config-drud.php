@@ -30,3 +30,6 @@ define('WP_DEBUG', false);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
+
+/** Enable W3 Total Cache */
+define('WP_CACHE', true); // Added by W3 Total Cache
