@@ -445,16 +445,16 @@
     },
     {
         "name": "wpackagist-plugin/the-events-calendar",
-        "version": "4.6.24",
-        "version_normalized": "4.6.24.0",
+        "version": "4.6.24.1",
+        "version_normalized": "4.6.24.1",
         "source": {
             "type": "svn",
             "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-            "reference": "tags/4.6.24"
+            "reference": "tags/4.6.24.1"
         },
         "dist": {
             "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/the-events-calendar.4.6.24.zip",
+            "url": "https://downloads.wordpress.org/plugin/the-events-calendar.4.6.24.1.zip",
             "reference": null,
             "shasum": null
         },
@@ -486,6 +486,28 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/ultimate-social-media-icons/"
+    },
+    {
+        "name": "wpackagist-plugin/w3-total-cache",
+        "version": "0.9.7",
+        "version_normalized": "0.9.7.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/w3-total-cache/",
+            "reference": "tags/0.9.7"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/w3-total-cache.0.9.7.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/w3-total-cache/"
     },
     {
         "name": "wpackagist-plugin/wordpress-importer",
@@ -552,28 +574,6 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/wp-mail-smtp/"
-    },
-    {
-        "name": "wpackagist-plugin/wp-super-cache",
-        "version": "1.6.4",
-        "version_normalized": "1.6.4.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/wp-super-cache/",
-            "reference": "tags/1.6.4"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/wp-super-cache.1.6.4.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/wp-super-cache/"
     },
     {
         "name": "wpackagist-plugin/wpmandrill",
