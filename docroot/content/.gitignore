@@ -1,4 +1,5 @@
 .git
 */.git
 **/.git
-cache
+cache/*
+!cache/.gitkeep
