@@ -1,5 +1,5 @@
 APIVersion: v1.2.0-29-g4f19019e
-name: ddevwebsite
+name: drud-com
 type: wordpress
 docroot: docroot
 php_version: "7.1"
@@ -9,13 +9,13 @@ router_https_port: "443"
 xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
-provider: default
+provider: drud-s3
 hooks:
   post-import-db:
-  - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
+    - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
+upload_dir: content/uploads
 
-
-# This config.yaml was created with ddev version v1.2.0-29-g4f19019e 
+# This config.yaml was created with ddev version v1.2.0-29-g4f19019e
 # webimage: drud/ddev-webserver:20180925_php_ini_disable_functions
 # dbimage: drud/ddev-dbserver:20180929_mariadb_stderr
 # dbaimage: drud/phpmyadmin:v1.2.0
