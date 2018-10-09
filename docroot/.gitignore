@@ -3,7 +3,7 @@
 /wp-config-ddev.php
 /ddev_drush_settings.php
 content/w3tc-config
-content/advanced-cache.php
-content/db.php
-content/db-cluster-config.php
-content/object-cache.php
+# content/advanced-cache.php
+# content/db.php
+# content/db-cluster-config.php
+# content/object-cache.php

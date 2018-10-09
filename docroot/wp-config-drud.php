@@ -35,7 +35,7 @@ define('DISALLOW_FILE_MODS', true);
 define('WP_CACHE', true); // Added by W3 Total Cache
 define('W3TC_CACHE_DIR', '/temp/cache');
 define('W3TC_CONFIG_DIR', '/temp/w3tc-config');
-define('W3TC_ADDIN_FILE_ADVANCED_CACHE', '/temp/advanced-cache.php');
-define('W3TC_ADDIN_FILE_DB', '/temp/db.php');
-define('W3TC_FILE_DB_CLUSTER_CONFIG', '/temp/db-cluster-config.php');
-define('W3TC_ADDIN_FILE_OBJECT_CACHE', '/temp/object-cache.php');
+// define('W3TC_ADDIN_FILE_ADVANCED_CACHE', '/temp/advanced-cache.php');
+// define('W3TC_ADDIN_FILE_DB', '/temp/db.php');
+// define('W3TC_FILE_DB_CLUSTER_CONFIG', '/temp/db-cluster-config.php');
+// define('W3TC_ADDIN_FILE_OBJECT_CACHE', '/temp/object-cache.php');
