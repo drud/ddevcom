@@ -30,3 +30,12 @@ define('WP_DEBUG', false);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
+
+/** Enable W3 Total Cache */
+define('WP_CACHE', true); // Added by W3 Total Cache
+define('W3TC_CACHE_DIR', WP_CONTENT_DIR .  '/uploads/cache');
+define('W3TC_CONFIG_DIR', WP_CONTENT_DIR .  '/uploads/w3tc-config');
+define('W3TC_ADDIN_FILE_ADVANCED_CACHE', WP_CONTENT_DIR .  '/uploads/advanced-cache.php');
+define('W3TC_ADDIN_FILE_DB', WP_CONTENT_DIR .  '/uploads/db.php');
+define('W3TC_FILE_DB_CLUSTER_CONFIG', WP_CONTENT_DIR .  '/uploads/db-cluster-config.php');
+define('W3TC_ADDIN_FILE_OBJECT_CACHE', WP_CONTENT_DIR .  '/uploads/object-cache.php');
