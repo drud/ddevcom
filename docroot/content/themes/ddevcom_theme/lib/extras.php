@@ -43,19 +43,22 @@ add_action('wp_enqueue_scripts', function () {
  * for content images
  * @return string A source size value for use in a content image 'sizes' attribute.
  */
-function content_image_sizes_attr($sizes, $size)
+function content_image_sizes_attr($sizes, $size, $image_src, $image_meta)
 {
     $width = $size[0];
 
     840 <= $width && $sizes = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 1362px) 62vw, 840px';
 
-    if ('page' === get_post_type()) {
+    if (is_front_page()) {
+        840 <= $width && $sizes = '(max-width: 575px) 95vw, (max-width: 909px) 27vw, (max-width: 1362px) 30vw, 575px';
+        840 > $width && $sizes = '(max-width: ' . $width . 'px) 30vw, ' . $width . 'px';
+    } elseif ('page' === get_post_type()) {
         840 > $width && $sizes = '(max-width: ' . $width . 'px) 85vw, ' . $width . 'px';
     } else {
         840 > $width && 600 <= $width && $sizes = '(max-width: 709px) 85vw, (max-width: 909px) 67vw, (max-width: 984px) 61vw, (max-width: 1362px) 45vw, 600px';
         600 > $width && $sizes = '(max-width: ' . $width . 'px) 85vw, ' . $width . 'px';
     }
 
-    return$sizes;
+    return $sizes;
 }
-add_filter('wp_calculate_image_sizes', __NAMESPACE__ . '\\content_image_sizes_attr', 10, 2);
+add_filter('wp_calculate_image_sizes', __NAMESPACE__ . '\\content_image_sizes_attr', 10, 4);

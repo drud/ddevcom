@@ -20,9 +20,7 @@ section.front-page-jumbotron .jumbotron {
   }
 }
 
-
 section.front-page-jumbotron .jumbotron h1 {
-
   @include media-breakpoint-up(lg) {
     font-size: 3.5rem;
   }
@@ -41,4 +39,20 @@ section.persona-type-jumbotron .jumbotron h1 {
 .drupalcon-cta {
   position: relative;
   top: 0.25rem;
+}
+
+section.front-page-recent-posts {
+  img.card-img-top {
+    min-width: 100%;
+    height: 320px;
+    @include media-breakpoint-up(md) {
+      height: 100px;
+    }
+    @include media-breakpoint-up(lg) {
+      height: 240px;
+    }
+    @include media-breakpoint-up(xl) {
+      height: 320px;
+    }
+  }
 }

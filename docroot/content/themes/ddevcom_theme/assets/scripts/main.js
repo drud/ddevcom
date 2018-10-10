@@ -44,7 +44,7 @@
 
         $('#modal-video').on('hidden.bs.modal', function() {
           $(this).find('iframe').attr('src', '');
-        })
+        });
 
       },
       finalize: function() {
