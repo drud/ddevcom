@@ -37,7 +37,7 @@
     </div>
   </div>
 </section>
-<?php if(get_field('product_headline_header') && get_field('product_headline_content') ): ?>
+<?php if (get_field('product_headline_header') && get_field('product_headline_content')): ?>
 <section class="product-headline">
   <div class="container-fluid py-1 bg-secondary"></div>
   <div class="container-fluid py-5">
@@ -62,9 +62,9 @@
   <div class="container-fluid mb-5">
 
     <?php
-      if( have_rows('product_alternating_sections') ):
-          while ( have_rows('product_alternating_sections') ) : the_row();
-              if( get_row_layout() == 'image_left' ): ?>
+      if (have_rows('product_alternating_sections')):
+          while (have_rows('product_alternating_sections')) : the_row();
+              if (get_row_layout() == 'image_left'): ?>
 
                 <div class="row">
                   <div class="col-lg-12 col-xl-10 mx-auto">
@@ -80,7 +80,7 @@
                             <?php the_sub_field('content'); ?>
                           </div>
                           <?php $section_left_link = get_sub_field('link'); ?>
-                          <?php if($section_left_link): ?>
+                          <?php if ($section_left_link): ?>
                             <a href="<?= $section_left_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
                               <?= $section_left_link['title']; ?>
                             </a>
@@ -91,7 +91,7 @@
                   </div>
                 </div>
 
-                <?php elseif( get_row_layout() == 'image_right' ): ?>
+                <?php elseif (get_row_layout() == 'image_right'): ?>
                 <div class="row">
                   <div class="col-lg-12 col-xl-10 mx-auto">
                     <div class="row">
@@ -106,7 +106,7 @@
                             <?php the_sub_field('content'); ?>
                           </div>
                           <?php $section_right_link = get_sub_field('link'); ?>
-                          <?php if($section_right_link): ?>
+                          <?php if ($section_right_link): ?>
                             <a href="<?= $section_right_link['url']; ?>" class="btn btn-outline-primary-light btn-lg mb-4 mb-lg-0">
                               <?= $section_right_link['title']; ?>
                             </a>
@@ -141,7 +141,7 @@
 <section class="product-recent-posts">
   <div class="container-fluid py-5">
     <div class="row">
-      <?php $slug = get_post_field( 'post_name', get_post() ); ?>
+      <?php $slug = get_post_field('post_name', get_post()); ?>
       <div class="col-lg-12 mx-auto">
         <h2 class="text-primary text-center mb-4">Related Posts</h2>
         <div class="card-deck">
@@ -154,7 +154,7 @@
             $query = new WP_Query($args);
           ?>
 
-          <?php if ( $query->have_posts() ) : while ( $query->have_posts() ) : $query->the_post(); ?>
+          <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
             <?php get_template_part('templates/content', 'card'); ?>
 
