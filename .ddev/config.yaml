@@ -1,4 +1,4 @@
-APIVersion: v1.2.0-29-g4f19019e
+APIVersion: v1.3.0-10-g53fc669c
 name: drud-com
 type: wordpress
 docroot: docroot
@@ -12,13 +12,14 @@ additional_fqdns: []
 provider: drud-s3
 hooks:
   post-import-db:
-    - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
+  - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
 upload_dir: content/uploads
 
-# This config.yaml was created with ddev version v1.2.0-29-g4f19019e
-# webimage: drud/ddev-webserver:20180925_php_ini_disable_functions
-# dbimage: drud/ddev-dbserver:20180929_mariadb_stderr
-# dbaimage: drud/phpmyadmin:v1.2.0
+
+# This config.yaml was created with ddev version v1.3.0-10-g53fc669c 
+# webimage: drud/ddev-webserver:20181017_add_ssh
+# dbimage: drud/ddev-dbserver:v1.3.0
+# dbaimage: drud/phpmyadmin:v1.3.0
 # However we do not recommend explicitly wiring these images into the
 # config.yaml as they may break future versions of ddev.
 # You can update this config.yaml using 'ddev config'.
@@ -72,7 +73,6 @@ upload_dir: content/uploads
 # information on the commands that can be extended and the tasks you can define
 # for them. Example:
 #hooks:
-# Un-comment and enter the production url and local url
-# to replace in your database after import.
-#  post-import-db:
-#    - exec: wp search-replace <production-url> <local-url>
+# Un-comment to emit the WP CLI version after ddev start.
+#  post-start:
+#    - exec: wp cli version
