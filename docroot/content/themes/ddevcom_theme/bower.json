@@ -2,29 +2,18 @@
   "name": "sage",
   "description": "",
   "main": "",
-  "authors": [
-    "Ben Word <ben@benword.com>"
-  ],
+  "authors": ["Ben Word <ben@benword.com>"],
   "license": "MIT",
   "homepage": "https://github.com/drud/ddevcom",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "test",
-    "tests"
-  ],
+  "ignore": ["**/.*", "node_modules", "bower_components", "test", "tests"],
   "dependencies": {
-    "bootstrap": "git://github.com/twbs/bootstrap.git#v4.0.0-beta",
+    "bootstrap": "git://github.com/twbs/bootstrap.git#v4.1.3",
     "prism": "Prism#^1.13.0",
     "font-awesome": "^4.7.0"
   },
   "overrides": {
     "font-awesome": {
-      "main": [
-        "./scss/font-awesome.scss",
-        "./fonts/*"
-      ]
+      "main": ["./scss/font-awesome.scss", "./fonts/*"]
     }
   }
 }
