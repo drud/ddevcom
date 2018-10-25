@@ -104,7 +104,7 @@
         </div>
       </div>
       <div class="col-md-4 mb-4">
-        <div class="card h-100 coming-soon">
+        <div class="card h-100">
           <div class="row no-gutters h-100">
             <div class="col-4 rounded-left p-3 text-center" style="background-color: #CFDE56;">
               <img src="<?= get_stylesheet_directory_uri(); ?>/dist/images/Backdrop.png"
@@ -123,7 +123,7 @@
         </div>
       </div>
       <div class="col-md-4 mb-4">
-        <div class="card h-100 coming-soon">
+        <div class="card h-100">
           <div class="row no-gutters h-100">
             <div class="col-4 rounded-left p-3 text-center" style="background-color: #EF533F;">
               <img src="<?= get_stylesheet_directory_uri(); ?>/dist/images/Laravel.png"
@@ -142,7 +142,7 @@
         </div>
       </div>
       <div class="col-md-4 mb-4">
-        <div class="card h-100 coming-soon">
+        <div class="card h-100">
           <div class="row no-gutters h-100">
             <div class="col-4 rounded-left p-3" style="background-color: #000000;">
               <img src="<?= get_stylesheet_directory_uri(); ?>/dist/images/Symfony.png"

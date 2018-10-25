@@ -61,6 +61,22 @@ section.front-page-recent-posts {
 // Landing Pages
 
 .page-template-template-landing-page {
+  .coming-soon {
+    // display: table;
+    &:before {
+      content: "Coming Soon";
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background: rgba($color: #000000, $alpha: 0.8);
+      z-index: 20;
+      border-radius: 0.25rem;
+      color: $white;
+      text-align: center;
+      // display: table-cell;
+      vertical-align: middle;
+    }
+  }
   .rounded-circle {
     height: 60px;
     width: 60px;
