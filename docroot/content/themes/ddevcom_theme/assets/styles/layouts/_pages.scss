@@ -62,19 +62,33 @@ section.front-page-recent-posts {
 
 .page-template-template-landing-page {
   .coming-soon {
-    // display: table;
+    position: relative;
     &:before {
       content: "Coming Soon";
-      height: 100%;
-      width: 100%;
-      position: absolute;
       background: rgba($color: #000000, $alpha: 0.8);
       z-index: 20;
       border-radius: 0.25rem;
       color: $white;
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       text-align: center;
-      // display: table-cell;
-      vertical-align: middle;
+      height: 100%;
+      width: 100%;
+    }
+  }
+  .more-to-come {
+    position: relative;
+    &:before {
+      content: "Laravel, Symfony, and other PHP applications coming soon!";
+      position: absolute;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: center;
+      height: 100%;
+      padding: 5rem;
     }
   }
   .rounded-circle {
