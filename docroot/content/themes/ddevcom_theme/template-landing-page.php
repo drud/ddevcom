@@ -336,20 +336,87 @@
 
 <section class="product-headline">
   <div class="container-fluid py-1 bg-secondary"></div>
-  <div class="container-fluid py-5">
+  <div class="container py-5">
     <div class="row">
-      <div class="col-lg-9 mx-auto text-center text-primary">
-        <div class="py-lg-4">
-          <h2 class="mb-4"><?php the_field('product_headline_header'); ?></h2>
-          <div class="row">
-            <div class="col-lg-8 mx-auto">
-              <div class="text-muted">
-                <?php the_field('product_headline_content'); ?>
-              </div>
-            </div>
-          </div>
+        <div class="col-md-6 offset-md-1">
+            <h2 class="mb-3"><small>Open Source</small><br> Cloud-Native</h2>
+            <p>DDEV is a Cloud-Native-Foundation-friendly, best-of-breed platform, built on the shoulders of giants using open source technologies backed by active open source communities. The DDEV dev-to-deploy toolset is licensed under the open source Apache 2.0 license.</p>
+
+            <p class="text-center py-5"><img class="img-fluid" src="<?= get_stylesheet_directory_uri(); ?>/dist/images/CNCF-project-icons.png" alt=""></p>
+
+        </div>
+
+        <div class="col-md-5 offest-md-1">
+            <h2 class="mb-3">Built & Guaranteed<br> <small>by DRUD Tech</small></h2>
+            <p><b>24x7 Service and Support SLAs</b> guarantee your success on our platform. DRUD Tech has deep expertise and experience in digital agencies and open source CMS communities.</p>
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item mx-2">
+                <h5>
+                  <span class="rounded-circle bg-secondary">
+                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                  </span>
+                  99.90% proactive uptime guarantee:
+                </h5>
+                <p>We fix issues before they become your problem.</p>
+              </li>
+              <li class="list-group-item mx-2">
+                <h5>
+                  <span class="rounded-circle bg-secondary">
+                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                  </span>
+                  Dedicated TAMs:
+                </h5>
+                <p>Technical Account Managers know your projects and provide direct product usage and problem resolution support.</p>
+              </li>
+              <li class="list-group-item mx-2">
+                <h5>
+                  <span class="rounded-circle bg-secondary">
+                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                  </span>
+                  Production support
+                </h5>
+                <p>for our managed hosting offerings. Engineering support of our platform and products. Consultative support for tuning, best practice recommendations, code reviews, issues relating to a specific deployment, & CI/CD processes and workflows.</p>
+              </li>
+              <li class="list-group-item mx-2">
+                <h5>
+                  <span class="rounded-circle bg-secondary">
+                    <i class="fa fa-desktop" aria-hidden="true"></i>
+                  </span>
+                  Training and Professional Services:
+                </h5>
+                <p>DevOps, workflows, custom integrations, OEM versions, and more.</p>
+              </li>
+            </ul>
+        </div>
+    </div>
+  </div>
+  <a name="signup">
+</section>
+
+
+
+
+
+
+<section class="early-access-signup bg-light">
+  <div class="container-fluid py-1 bg-secondary"></div>
+  <div class="container py-5">
+      <div class="row">
+        <div class="col-md-5">
+          <h2>Sign Up for Early Access Today!</h2>
+          <p>You’re invited to apply for early adopter access to try our full local-to-live, dev-to-deploy platform.</p>
+          <?php gravity_form(3, false, false, false); ?>
+        </div>
+
+        <div class="col-md-6 offset-md-1">
+          <p class="text-center pt-5 pb-2">
+            <img class="img-fluid" src="<?= get_stylesheet_directory_uri(); ?>/dist/images/GoldenTicket.jpg" alt="DDEV-Live Golden Ticket">
+          </p>
+          <h4 class="mb-3">Did you get a DDEV-Live early adopter access Golden Ticket recently?</h4>
+          <h6 class="mb-3">DDEV-Live hosting is coming and we have great things in store for you!</h6>
+          <p class="small">Try DDEV-Live in production on us. For early adopters, we will host one production installation of a supported CMS (at our discretion, technical limitations apply) on DDEV-Live, up to a value of $150 US dollars. We’ll extend your early access a further $150 in value if you file a support ticket, referring a friend or colleague who signs up for our trial, or if you contribute to our DDEV open source tooling and/or the improvement of our platform in the form of patches, pull requests, bug reports, or feature requests.</p>
+          <p class="small">We’ll give you a hand getting started. Ticket-based migration, onboarding assistance, and support included.</p>
         </div>
       </div>
-    </div>
   </div>
 </section>
