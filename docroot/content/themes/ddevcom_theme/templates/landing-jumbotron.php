@@ -8,10 +8,6 @@
               <?php the_field('product_jumbotron_header'); ?>
             </h1>
           </header>
-          <div class="text-white mb-5 lead">
-            <?php the_field('product_jumbotron_content'); ?>
-          </div>
-
           <?php $button_1_link = get_field('product_jumbotron_button_1_link'); ?>
           <?php if ($button_1_link) : ?>
           <a href="<?= $button_1_link['url']; ?>" class="btn btn-outline-secondary btn-lg my-1 px-5">
