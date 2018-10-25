@@ -2,7 +2,7 @@
   <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
     <div class="container-fluid pt-5 pb-3">
       <div class="row">
-        <div class="col-lg-9 col-xl-8 mx-auto text-center">
+        <div class="col-lg-7 col-xl-6 mx-auto text-center">
           <header>
             <h1 class="text-white mb-5">
               <?php the_field('product_jumbotron_header'); ?>
