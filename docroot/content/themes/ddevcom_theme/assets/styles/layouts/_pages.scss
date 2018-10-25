@@ -67,5 +67,20 @@ section.front-page-recent-posts {
     display: inline-block;
     line-height: 60px;
     text-align: center;
+    vertical-align: middle;
+  }
+  .landing-open-source {
+    .rounded-circle {
+      height: 40px;
+      width: 40px;
+      line-height: 35px;
+      i {
+        font-size: 1rem;
+        vertical-align: middle;
+      }
+    }
+    h2 > small {
+      font-size: 0.8rem;
+    }
   }
 }
