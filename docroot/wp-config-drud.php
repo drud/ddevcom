@@ -26,7 +26,7 @@ define('WP_ENV', getenv('DDEV_ENV_NAME') ? getenv('DDEV_ENV_NAME') : 'production
 define('FORCE_SSL_ADMIN', false);
 
 // turn off debugging
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
