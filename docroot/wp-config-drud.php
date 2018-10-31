@@ -23,7 +23,7 @@ define('WP_CONTENT_URL', WP_HOME . '/content');
 define('WP_ENV', getenv('DDEV_ENV_NAME') ? getenv('DDEV_ENV_NAME') : 'production');
 
 // force SSL for admin
-define('FORCE_SSL_ADMIN', true);
+define('FORCE_SSL_ADMIN', false);
 
 // turn off debugging
 define('WP_DEBUG', false);
