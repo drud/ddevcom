@@ -53,11 +53,11 @@
           <div class="row no-gutters h-100">
             <div class="col-4 rounded-left p-3 text-center" style="background-color: #F49800;">
               <img src="<?= get_stylesheet_directory_uri(); ?>/dist/images/Typo3.png"
-                class="img-fluid" alt="Typo3">
+                class="img-fluid" alt="TYPO3">
             </div>
             <div class="col-8">
               <div class="card-block px-3 py-3">
-                <h5 class="card-title">Typo3 CMS</h5>
+                <h5 class="card-title">TYPO3 CMS</h5>
                 <p class="card-text small">TYPO3 CMS is an Open Source Enterprise Content Management System with a
                   large global community, backed by the approximately 900 members of the TYPO3 Association.</p>
               </div>
