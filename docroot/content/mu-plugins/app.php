@@ -20,19 +20,34 @@
 /**
  * Place ACF JSON in field-groups directory
  */
-add_filter('acf/settings/save_json', function($path) {
+add_filter('acf/settings/save_json', function ($path) {
     return dirname(__FILE__) . '/app/field-groups';
 });
-add_filter('acf/settings/load_json', function($paths) {
+add_filter('acf/settings/load_json', function ($paths) {
     unset($paths[0]);
     $paths[] = dirname(__FILE__) . '/app/field-groups';
     return $paths;
 });
 
-add_filter('tribe_events_register_event_type_args', function($args){
-  $args['has_archive'] = false;
-  return $args;
+add_filter('tribe_events_register_event_type_args', function ($args) {
+    $args['has_archive'] = false;
+    return $args;
 });
 
 // remove robots.txt creation
 remove_filter('robots_txt', 'The_SEO_Framework\Init\robots_txt', 10, 2);
+
+
+// fix admin issue with WYSIWYG and Cloudfront
+// - https://wordpress.org/support/topic/visual-editor-not-showing-7/
+add_filter('user_can_richedit', function ($wp_rich_edit) {
+    if (!$wp_rich_edit
+         && (get_user_option('rich_editing') == 'true' || !is_user_logged_in())
+         && isset($_SERVER[ 'HTTP_USER_AGENT' ])
+         && stripos($_SERVER[ 'HTTP_USER_AGENT' ], 'amazon cloudfront') !== false
+    ) {
+        return true;
+    }
+
+    return $wp_rich_edit;
+});
