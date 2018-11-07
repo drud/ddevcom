@@ -62,5 +62,5 @@
       </div>
     </div>
   </div>
-  <a name="signup">
+  <a name="signup" />
 </section>
