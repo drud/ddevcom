@@ -1,5 +1,3 @@
 .git
 */.git
 **/.git
-cache/wp-rocket/*
-!cache/wp-rocket/.gitkeep

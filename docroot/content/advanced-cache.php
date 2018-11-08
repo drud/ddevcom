@@ -2,7 +2,7 @@
 defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 define( 'WP_ROCKET_ADVANCED_CACHE', true );
-$rocket_cache_path  = '/var/www/html/docroot/content/cache/wp-rocket/';
+$rocket_cache_path  = '/var/www/html/docroot/content/uploads/cache/wp-rocket/';
 $rocket_config_path = '/var/www/html/docroot/content/wp-rocket-config/';
 
 if ( file_exists( '/var/www/html/docroot/content/plugins/wp-rocket/inc/front/process.php' ) && version_compare( phpversion(), '5.4' ) >= 0 ) {
