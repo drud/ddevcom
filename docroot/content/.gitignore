@@ -1,5 +1,5 @@
 .git
 */.git
 **/.git
-cache/*
-!cache/.gitkeep
+cache/wp-rocket/*
+!cache/wp-rocket/.gitkeep

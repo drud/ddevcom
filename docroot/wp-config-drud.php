@@ -30,3 +30,7 @@ define('WP_DEBUG', false);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
+
+/** Enable Cache by WP Rocket */
+define( 'WP_CACHE', true );
+

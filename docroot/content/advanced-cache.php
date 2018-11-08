@@ -1,40 +1,36 @@
 <?php
+defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
-/**
- * W3 Total Cache advanced cache module
- */
-if ( !defined( 'ABSPATH' ) ) {
-	die();
-}
+define( 'WP_ROCKET_ADVANCED_CACHE', true );
+$rocket_cache_path  = '/var/www/html/docroot/content/cache/wp-rocket/';
+$rocket_config_path = '/var/www/html/docroot/content/wp-rocket-config/';
 
-global $w3tc_start_microtime;
-$w3tc_start_microtime = microtime( true );
+if ( file_exists( '/var/www/html/docroot/content/plugins/wp-rocket/inc/front/process.php' ) && version_compare( phpversion(), '5.4' ) >= 0 ) {
 
-/**
- * Abort W3TC loading if WordPress is upgrading
- */
-if ( defined( 'WP_INSTALLING' ) && WP_INSTALLING )
-	return;
+	spl_autoload_register( function( $class ) {
+		$rocket_path    = '/var/www/html/docroot/content/plugins/wp-rocket/';
+		$rocket_classes = [
+			'WP_Rocket\\Logger\\Logger'         => $rocket_path . 'inc/classes/logger/class-logger.php',
+			'WP_Rocket\\Logger\\HTML_Formatter' => $rocket_path . 'inc/classes/logger/class-html-formatter.php',
+			'WP_Rocket\\Logger\\Stream_Handler' => $rocket_path . 'inc/classes/logger/class-stream-handler.php',
+		];
 
-if ( !defined( 'W3TC_IN_MINIFY' ) ) {
-	if ( !defined( 'W3TC_DIR' ) ) {
-		define( 'W3TC_DIR', ( defined( 'WP_PLUGIN_DIR' ) ? WP_PLUGIN_DIR : WP_CONTENT_DIR . '/plugins' ) . '/w3-total-cache' );
-	}
-
-	if ( !@is_dir( W3TC_DIR ) || !file_exists( W3TC_DIR . '/w3-total-cache-api.php' ) ) {
-		if ( defined( 'WP_ADMIN' ) ) { // lets don't show error on front end
-			echo sprintf( '<strong>W3 Total Cache Error:</strong> some files appear to be missing or out of place. Please re-install plugin or remove <strong>%s</strong>. <br />', __FILE__ );
+		if ( isset( $rocket_classes[ $class ] ) ) {
+			$file = $rocket_classes[ $class ];
+		} elseif ( strpos( $class, 'Monolog\\' ) === 0 ) {
+			$file = $rocket_path . 'vendor/monolog/monolog/src/' . str_replace( '\\', '/', $class ) . '.php';
+		} elseif ( strpos( $class, 'Psr\\Log\\' ) === 0 ) {
+			$file = $rocket_path . 'vendor/psr/log/' . str_replace( '\\', '/', $class ) . '.php';
+		} else {
+			return;
 		}
-	} else {
-		require_once W3TC_DIR . '/w3-total-cache-api.php';
 
-		$w3tc_redirect = \W3TC\Dispatcher::component( 'Mobile_Redirect' );
-		$w3tc_redirect->process();
-
-		$w3tc_config = \W3TC\Dispatcher::config();
-		if ( $w3tc_config->get_boolean( 'pgcache.enabled' ) ) {
-			$o = \W3TC\Dispatcher::component( 'PgCache_ContentGrabber' );
-			$o->process();
+		if ( file_exists( $file ) ) {
+			require $file;
 		}
-	}
+	} );
+
+	include '/var/www/html/docroot/content/plugins/wp-rocket/inc/front/process.php';
+} else {
+	define( 'WP_ROCKET_ADVANCED_CACHE_PROBLEM', true );
 }
