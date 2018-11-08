@@ -30,8 +30,3 @@ define('WP_DEBUG', false);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
-
-/** Enable W3 Total Cache */
-define('WP_CACHE', true); // Added by W3 Total Cache
-define('W3TC_CACHE_DIR', WP_CONTENT_DIR .  '/uploads/cache');
-define('W3TC_CONFIG_DIR', WP_CONTENT_DIR .  '/uploads/w3tc-config');
