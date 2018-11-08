@@ -172,7 +172,7 @@ class Page {
                             <?php if ($plugin['supported']) : ?>
                                 <?php if (empty($notices)) : ?>
                                     <div class="wpgdprc-checkbox">
-                                        <input type="checkbox" name="<?php echo $optionName; ?>" id="<?php echo $optionName; ?>" value="1" tabindex="1" data-type="save_setting" data-option="<?php echo $optionName; ?>" <?php checked(true, $checked); ?> />
+                                        <input type="checkbox" name="<?php echo $optionName; ?>" id="<?php echo $optionName; ?>" value="1" tabindex="1" data-option="<?php echo $optionName; ?>" <?php checked(true, $checked); ?> />
                                         <label for="<?php echo $optionName; ?>"><?php echo $plugin['name']; ?></label>
                                         <span class="wpgdprc-instructions"><?php _e('Enable:', WP_GDPR_C_SLUG); ?></span>
                                         <div class="wpgdprc-switch" aria-hidden="true">
@@ -250,7 +250,7 @@ class Page {
                 ?>
                 <li class="wpgdprc-clearfix">
                     <div class="wpgdprc-checkbox">
-                        <input type="checkbox" name="<?php echo $optionName; ?>" id="<?php echo $id; ?>" value="1" tabindex="1" data-type="save_setting" data-option="<?php echo $optionName; ?>" <?php checked(true, $checked); ?> />
+                        <input type="checkbox" name="<?php echo $optionName; ?>" id="<?php echo $id; ?>" value="1" tabindex="1" data-option="<?php echo $optionName; ?>" <?php checked(true, $checked); ?> />
                         <label for="<?php echo $id; ?>"><?php echo $check['label']; ?></label>
                         <div class="wpgdprc-switch wpgdprc-switch--reverse" aria-hidden="true">
                             <div class="wpgdprc-switch-label">

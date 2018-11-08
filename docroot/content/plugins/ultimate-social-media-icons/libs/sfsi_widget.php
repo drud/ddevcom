@@ -401,23 +401,26 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
 
 	$current_url = sfsi_get_current_page_url();
 
-	$url = "#";
-    $cmcls = '';
-    $toolClass = '';
+	$url 		= "#";
+    $cmcls 		= '';
+    $toolClass  = '';
+
+	$socialObj = new sfsi_SocialHelper(); /* global object to access 3rd party icon's actions */	
     
 	switch($icon_name)
     {
         case "rss" :
-			 $socialObj = new sfsi_SocialHelper(); /* global object to access 3rd party icon's actions */	
-		     $url =  isset($sfsi_section2_options['sfsi_rss_url']) && !empty($sfsi_section2_options['sfsi_rss_url'])? $sfsi_section2_options['sfsi_rss_url'] : 'javascript:void(0);';
-             $toolClass = "rss_tool_bdr";
-		     $hoverdiv = '';
+
+		     $url 		=  isset($sfsi_section2_options['sfsi_rss_url']) && !empty($sfsi_section2_options['sfsi_rss_url'])? $sfsi_section2_options['sfsi_rss_url'] : 'javascript:void(0);';
+
+             $toolClass   = "rss_tool_bdr";
+		     $hoverdiv    = '';
 		     $arrow_class = "bot_rss_arow";
 		     
 			 /* fecth no of counts if active in admin section */
 			 if($sfsi_section4_options['sfsi_rss_countsDisplay']=="yes" && $sfsi_section4_options['sfsi_display_counts']=="yes")
 			 {
-				 $counts=$socialObj->format_num($sfsi_section4_options['sfsi_rss_manualCounts']);
+				 $counts = $socialObj->format_num($sfsi_section4_options['sfsi_rss_manualCounts']);
 			 }
 			 
 			 if(!empty($sfsi_section5_options['sfsi_rss_MouseOverText'])) 
@@ -450,11 +453,14 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
         break;
         
 		case "email" :
-			   $socialObj = new sfsi_SocialHelper();  /* global object to access 3rd party icon's actions */	
-		       $hoverdiv = '';
+			   
+		       $hoverdiv  = '';
+			   
 			   $sfsi_section2_options['sfsi_email_url'];
+
 			   $url = (isset($sfsi_section2_options['sfsi_email_url'])) ? $sfsi_section2_options['sfsi_email_url'] : 'javascript:void(0);';
-			   $toolClass = "email_tool_bdr";
+
+			   $toolClass   = "email_tool_bdr";
 		       $arrow_class = "bot_eamil_arow";
 		       
 			   /* fecth no of counts if active in admin section */
@@ -510,31 +516,36 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
 			}
 			else
 			{
-				//$icon=($sfsi_section2_options['sfsi_rss_icons']=="sfsi") ? $icons_baseUrl.$active_theme."_sf.png" : $icons_baseUrl.$active_theme."_email.png";
 
 				$rss_icons = isset($sfsi_section2_options['sfsi_rss_icons']) && !empty($sfsi_section2_options['sfsi_rss_icons']) ? $sfsi_section2_options['sfsi_rss_icons'] : false;
 
-				if(false != $rss_icons){
+				switch ($rss_icons) {
 
-					if($rss_icons=="sfsi")
-					{
-						$icon = $icons_baseUrl.$active_theme."_sf.png";					
-					}
-					elseif($rss_icons=="email")
-					{
-						$icon = $icons_baseUrl.$active_theme."_email.png";
-					}					
+					case 'email':
+						$image = "_email.png";
+						break;
+
+					case 'subscribe':
+						$image = "_subscribe.png";
+						break;
+
+					case 'sfsi':
+						$image = "_sf.png";	
+						break;
+					
+					default:
+						$image = "_subscribe.png";
+						break;
 				}
-				else
-				{
-					$icon = $icons_baseUrl.$active_theme."_subscribe.png";
-				}
+
+				$icon = $icons_baseUrl.$active_theme.$image;
 			}
+
+
         break;
         
 		case "facebook" :
 
-			$socialObj 	 = new sfsi_SocialHelper();
 			$width 		 = 62;
 		    $totwith 	 = $width+28+$icons_space;
 		    $twt_margin  = $totwith/2;
@@ -640,7 +651,6 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
         case "google" :                    
 				$toolClass   = "gpls_tool_bdr";
 				$arrow_class = "bot_gpls_arow";
-				$socialObj   = new sfsi_SocialHelper();
 				$width 		 = 76;
 				$totwith 	 = $width+28+$icons_space;
 				$twt_margin  = $totwith/2;
@@ -736,7 +746,6 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
 		case "twitter" :
 				$toolClass 	 = "twt_tool_bdr";
 				$arrow_class = "bot_twt_arow";
-				$socialObj 	 = new sfsi_SocialHelper();
 				
 				$url = isset($sfsi_section2_options['sfsi_twitter_pageURL']) && !empty($sfsi_section2_options['sfsi_twitter_pageURL']) ? $sfsi_section2_options['sfsi_twitter_pageURL'] : 'javascript:void(0);';
 
@@ -832,10 +841,8 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
         break;
         
 		case "youtube" :
-				$socialObj = new sfsi_SocialHelper();
 				$toolClass = "utube_tool_bdr";
 				$arrow_class = "bot_utube_arow";
-				$socialObj = new sfsi_SocialHelper();
 				$width = 96;
 				$totwith = $width+28+$icons_space;
 				$twt_margin = $totwith/2;
@@ -922,7 +929,6 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
 				$width 		 = 73;
 				$totwith 	 = $width+28+$icons_space;
 				$twt_margin  = $totwith/2;
-				$socialObj   = new sfsi_SocialHelper();			 
 				$toolClass   = "printst_tool_bdr";
 				$arrow_class = "bot_pintst_arow";
 				
@@ -1012,7 +1018,6 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
 		case "instagram" :		 
 				$toolClass = "instagram_tool_bdr";
 				$arrow_class = "bot_pintst_arow";
-				$socialObj = new sfsi_SocialHelper();
 				
 				$url = (isset($sfsi_section2_options['sfsi_instagram_pageUrl'])) ? $sfsi_section2_options['sfsi_instagram_pageUrl'] : 'javascript:void(0);';
 				
@@ -1075,7 +1080,6 @@ function sfsi_prepairIcons($icon_name,$is_front=0)
         
 		case "linkedin" :
 				$width = 66;
-				$socialObj = new sfsi_SocialHelper();		
 				$toolClass = "linkedin_tool_bdr";
 				$arrow_class = "bot_linkedin_arow";                
 				

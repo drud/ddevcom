@@ -1,9 +1,9 @@
 === Social Media Share Buttons & Social Sharing Icons ===
 Contributors: socialdude
 Tags: social media, share, buttons, social widget, icons, share icons, share buttons, sharing icons, sharing buttons, social share, sharing, social sharing
-Requires at least: 2.8
+Requires at least: 3.0
 Tested up to: 4.9.8
-Stable tag: 2.0.6
+Stable tag: 2.0.8
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -100,14 +100,14 @@ Either de-activate those extensions or try it in a different browser.
 
 If the plugin setting's area looks 'funny' after an upgrade then please clear your cache with String+F5 (PC) or Command+R (Mac).
 
-If you get the error message ìAre you sure you want to do this? / Please try againî when uploading the socialsharing plugin: Some servers may have a low limits with respect to permitted upload times. Please set the values in the ìphp.iniî file to:
+If you get the error message ‚ÄúAre you sure you want to do this? / Please try again‚Äù when uploading the socialsharing plugin: Some servers may have a low limits with respect to permitted upload times. Please set the values in the ‚Äúphp.ini‚Äù file to:
 
 max_execution_time 90
 post_max_size 48M
 
-If you donít know how to do it, please contact your server support / hosting company for that. Tell them you need it for a social sharing plugin on WordPress which may take longer to upload.  
+If you don‚Äôt know how to do it, please contact your server support / hosting company for that. Tell them you need it for a social sharing plugin on WordPress which may take longer to upload.  
 
-If your issue is still not fixed after youíve followed the steps above, we can provide support as part of our share to social Premium Plugin: https://www.ultimatelysocial.com/usm-premium/.
+If your issue is still not fixed after you‚Äôve followed the steps above, we can provide support as part of our share to social Premium Plugin: https://www.ultimatelysocial.com/usm-premium/.
 
 = I get error messages 'Error : 7', 'Error : 56', 'Error : 6' etc. =
 
@@ -274,6 +274,14 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 
 == Changelog ==
+
+= 2.0.8 =
+* Solved: Notification bar cannot be seen anymore
+* Solved: cleared the float elements after notice.
+
+= 2.0.7 =
+* Round green follow button doesn't show - fixed
+* Footer optimized
 
 = 2.0.6 =
 * Fixed bug that sometimes banner didn't disappear
@@ -719,5 +727,5 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 == Upgrade Notice ==
 
-= 2.0.6 =
+= 2.0.8 =
 Please upgrade

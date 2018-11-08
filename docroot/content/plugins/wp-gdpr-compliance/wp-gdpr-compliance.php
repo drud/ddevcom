@@ -4,7 +4,7 @@
  Plugin Name: WP GDPR Compliance
  Plugin URI:  https://www.wpgdprc.com/
  Description: This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. By May 24th, 2018 your website or shop has to comply to avoid large fines.
- Version:     1.4.2
+ Version:     1.4.3
  Author:      Van Ons
  Author URI:  https://www.van-ons.nl/
  License:     GPL2
@@ -30,6 +30,7 @@ along with this program. If not, see http://www.gnu.org/licenses.
 
 namespace WPGDPRC;
 
+use WPGDPRC\Includes\AccessRequest;
 use WPGDPRC\Includes\Action;
 use WPGDPRC\Includes\Ajax;
 use WPGDPRC\Includes\Consent;
@@ -93,8 +94,9 @@ class WPGDPRC {
         add_action('wp_enqueue_scripts', array($this, 'loadAssets'), 999);
         add_action('admin_enqueue_scripts', array($this, 'loadAdminAssets'), 999);
         add_action('core_version_check_query_args', array(Action::getInstance(), 'onlySendEssentialDataDuringUpdateCheck'));
-        add_action('wp_ajax_nopriv_wpgdprc_process_action', array(Ajax::getInstance(), 'processAction'));
+        add_action('wp_ajax_wpgdprc_process_settings', array(Ajax::getInstance(), 'processSettings'));
         add_action('wp_ajax_wpgdprc_process_action', array(Ajax::getInstance(), 'processAction'));
+        add_action('wp_ajax_nopriv_wpgdprc_process_action', array(Ajax::getInstance(), 'processAction'));
         add_action('update_option_wpgdprc_settings_enable_access_request', array(Action::getInstance(), 'processToggleAccessRequest'));
         Integration::getInstance();
         if (Helper::isEnabled('enable_access_request', 'settings')) {
@@ -130,7 +132,7 @@ class WPGDPRC {
 
     public static function handleDatabaseTables() {
         $dbVersion = get_option('wpgdprc_db_version', 0);
-        if (version_compare($dbVersion, '1.2', '==')) {
+        if (version_compare($dbVersion, '1.3', '==')) {
             return;
         }
 
@@ -172,6 +174,14 @@ class WPGDPRC {
             $wpdb->query($query);
             update_option('wpgdprc_db_version', '1.2');
         }
+
+        // Add column 'token' to 'Access Requests' table
+        if (version_compare($dbVersion, '1.3', '<')) {
+            $query = "ALTER TABLE `" . AccessRequest::getDatabaseTableName() . "`
+            ADD column `token` text NOT NULL AFTER `ip_address`;";
+            $wpdb->query($query);
+            update_option('wpgdprc_db_version', '1.3');
+        }
     }
 
     /**
@@ -198,7 +208,7 @@ class WPGDPRC {
             'ajaxSecurity' => wp_create_nonce('wpgdprc'),
         );
         if (!empty($_REQUEST['wpgdprc'])) {
-            $data['session'] = esc_html($_REQUEST['wpgdprc']);
+            $data['token'] = esc_html(urldecode($_REQUEST['wpgdprc']));
         }
         wp_localize_script('wpgdprc.js', 'wpgdprcData', $data);
     }

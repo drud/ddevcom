@@ -5,7 +5,7 @@ Tags: SEO, XML Sitemap, Google, Open Graph, Schema.org, Twitter
 Requires at least: 4.6.0
 Tested up to: 4.9.6
 Requires PHP: 5.4.0
-Stable tag: 3.1.3
+Stable tag: 3.1.4
 License: GPLv3
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
 
@@ -226,6 +226,10 @@ All The SEO Framework's metadata is put into Object cache when a caching plugin 
 Please be sure to clear your cache or adjust the plugin's caching settings if deemed necessary.
 
 == Changelog ==
+
+= 3.1.4 =
+
+This update brings improved compatibility with WooCommerce, adds a few filters, and fixes [various logic issues](https://theseoframework.com/?p=2709).
 
 = 3.1.3 =
 

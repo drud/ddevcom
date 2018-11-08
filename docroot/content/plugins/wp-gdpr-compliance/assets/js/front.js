@@ -285,7 +285,7 @@
                             security: ajaxSecurity,
                             data: {
                                 type: 'delete_request',
-                                session: wpgdprcData.session,
+                                token: wpgdprcData.token,
                                 settings: JSON.parse($this.dataset.wpgdprc)
                             }
                         };

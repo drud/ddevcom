@@ -38,7 +38,7 @@ class User {
 
     public function load() {
         global $wpdb;
-        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `ID` = '%d'";
+        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `ID` = %d";
         $row = $wpdb->get_row($wpdb->prepare($query, $this->getId()));
         if ($row !== null) {
             $this->loadByRow($row);
@@ -68,7 +68,7 @@ class User {
     public function getMetaDataByUserId($userId = 0) {
         global $wpdb;
         $output = array();
-        $query = "SELECT * FROM `" . $wpdb->usermeta . "` WHERE `user_id` = '%d'";
+        $query = "SELECT * FROM `" . $wpdb->usermeta . "` WHERE `user_id` = %d";
         $results = $wpdb->get_results($wpdb->prepare($query, $userId));
         if ($results !== null) {
             foreach ($results as $row) {

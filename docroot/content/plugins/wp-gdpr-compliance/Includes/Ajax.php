@@ -10,6 +10,74 @@ class Ajax {
     /** @var null */
     private static $instance = null;
 
+    public function processSettings() {
+        check_ajax_referer('wpgdprc', 'security');
+
+        $output = array(
+            'message' => '',
+            'error' => '',
+        );
+        $data = (isset($_POST['data']) && (is_array($_POST['data']) || is_string($_POST['data']))) ? $_POST['data'] : false;
+        if (is_string($data)) {
+            $data = json_decode(stripslashes($data), true);
+        }
+
+        if (!$data) {
+            $output['error'] = __('Missing data.', WP_GDPR_C_SLUG);
+        }
+
+        if (empty($output['error'])) {
+            $option = (isset($data['option']) && is_string($data['option'])) ? esc_html($data['option']) : false;
+            $value = (isset($data['value'])) ? self::sanitizeValue($data['value']) : false;
+            $enabled = (isset($data['enabled'])) ? filter_var($data['enabled'], FILTER_VALIDATE_BOOLEAN) : false;
+            $append = (isset($data['append'])) ? filter_var($data['append'], FILTER_VALIDATE_BOOLEAN) : false;
+
+            if (!$option) {
+                $output['error'] = __('Missing option name.', WP_GDPR_C_SLUG);
+            }
+
+            if (!current_user_can('manage_options')) {
+                $output['error'] = __('You\'re not allowed to manage settings.', WP_GDPR_C_SLUG);
+            }
+
+            if (!in_array($option, Helper::getAvailableOptions())) {
+                $output['error'] = __('You\'re not allowed to manage this setting.', WP_GDPR_C_SLUG);
+            }
+
+            if (!isset($data['value'])) {
+                $output['error'] = __('Missing value.', WP_GDPR_C_SLUG);
+            }
+
+            // Let's do this!
+            if (empty($output['error'])) {
+                if ($append) {
+                    $values = (array)get_option($option, array());
+                    if ($enabled) {
+                        if (!in_array($value, $values)) {
+                            $values[] = $value;
+                        }
+                    } else {
+                        $index = array_search($value, $values);
+                        if ($index !== false) {
+                            unset($values[$index]);
+                        }
+                    }
+                    $value = $values;
+                } else {
+                    if (isset($data['enabled'])) {
+                        $value = $enabled;
+                    }
+                }
+                update_option($option, $value);
+                do_action($option, $value);
+            }
+        }
+
+        header('Content-type: application/json');
+        echo json_encode($output);
+        die();
+    }
+
     public function processAction() {
         check_ajax_referer('wpgdprc', 'security');
 
@@ -33,44 +101,6 @@ class Ajax {
 
         if (empty($output['error'])) {
             switch ($type) {
-                case 'save_setting' :
-                    $option = (isset($data['option']) && is_string($data['option'])) ? esc_html($data['option']) : false;
-                    $value = (isset($data['value'])) ? self::sanitizeValue($data['value']) : false;
-                    $enabled = (isset($data['enabled'])) ? filter_var($data['enabled'], FILTER_VALIDATE_BOOLEAN) : false;
-                    $append = (isset($data['append'])) ? filter_var($data['append'], FILTER_VALIDATE_BOOLEAN) : false;
-
-                    if (!$option) {
-                        $output['error'] = __('Missing option name.', WP_GDPR_C_SLUG);
-                    }
-
-                    if (!isset($data['value'])) {
-                        $output['error'] = __('Missing value.', WP_GDPR_C_SLUG);
-                    }
-
-                    // Let's do this!
-                    if (empty($output['error'])) {
-                        if ($append) {
-                            $values = (array)get_option($option, array());
-                            if ($enabled) {
-                                if (!in_array($value, $values)) {
-                                    $values[] = $value;
-                                }
-                            } else {
-                                $index = array_search($value, $values);
-                                if ($index !== false) {
-                                    unset($values[$index]);
-                                }
-                            }
-                            $value = $values;
-                        } else {
-                            if (isset($data['enabled'])) {
-                                $value = $enabled;
-                            }
-                        }
-                        update_option($option, $value);
-                        do_action($option, $value);
-                    }
-                    break;
                 case 'access_request' :
                     if (Helper::isEnabled('enable_access_request', 'settings')) {
                         $emailAddress = (isset($data['email']) && is_email($data['email'])) ? $data['email'] : false;
@@ -92,6 +122,7 @@ class Ajax {
                                 $request->setEmailAddress($emailAddress);
                                 $request->setSessionId(SessionHelper::getSessionId());
                                 $request->setIpAddress(Helper::getClientIpAddress());
+                                $request->setToken(substr(md5(openssl_random_pseudo_bytes(20)), -32));
                                 $request->setExpired(0);
                                 $id = $request->save();
                                 if ($id !== false) {
@@ -101,10 +132,7 @@ class Ajax {
                                             '<a target="_blank" href="%s">%s</a>',
                                             add_query_arg(
                                                 array(
-                                                    'wpgdprc' => base64_encode(serialize(array(
-                                                        'email' => $request->getEmailAddress(),
-                                                        'sId' => $request->getSessionId()
-                                                    )))
+                                                    'wpgdprc' => urlencode($request->getToken())
                                                 ),
                                                 get_permalink($page)
                                             ),
@@ -159,13 +187,13 @@ class Ajax {
                     break;
                 case 'delete_request' :
                     if (Helper::isEnabled('enable_access_request', 'settings')) {
-                        $session = (isset($data['session'])) ? esc_html($data['session']) : '';
+                        $token = (isset($data['token'])) ? esc_html(urldecode($data['token'])) : false;
                         $settings = (isset($data['settings']) && is_array($data['settings'])) ? $data['settings'] : array();
                         $type = (isset($settings['type']) && in_array($settings['type'], Data::getPossibleDataTypes())) ? $settings['type'] : '';
                         $value = (isset($data['value']) && is_numeric($data['value'])) ? (int)$data['value'] : 0;
 
-                        if (empty($session)) {
-                            $output['error'] = __('Missing session.', WP_GDPR_C_SLUG);
+                        if (empty($token)) {
+                            $output['error'] = __('Missing token.', WP_GDPR_C_SLUG);
                         }
 
                         if (empty($type)) {
@@ -178,8 +206,7 @@ class Ajax {
 
                         // Let's do this!
                         if (empty($output['error'])) {
-                            $accessRequest = unserialize(base64_decode($session));
-                            $accessRequest = (!empty($accessRequest)) ? AccessRequest::getInstance()->getByEmailAddressAndSessionId($accessRequest['email'], $accessRequest['sId']) : false;
+                            $accessRequest = ($token !== false) ? AccessRequest::getInstance()->getByToken($token) : false;
                             if ($accessRequest !== false) {
                                 if (
                                     SessionHelper::checkSession($accessRequest->getSessionId()) &&

@@ -169,7 +169,7 @@ class Consent {
 
     public function load() {
         global $wpdb;
-        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = '%d'";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = %d";
         $row = $wpdb->get_row($wpdb->prepare($query, $this->getId()));
         if ($row !== null) {
             $this->loadByRow($row);
@@ -184,7 +184,7 @@ class Consent {
         global $wpdb;
         $row = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = '%d'",
+                "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = %d",
                 intval($id)
             )
         );

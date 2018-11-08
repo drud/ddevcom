@@ -48,10 +48,10 @@ class DeleteRequest {
     public function getByTypeAndDataIdAndAccessRequestId($type = '', $dataId = 0, $accessRequestId = 0) {
         global $wpdb;
         $query = "SELECT `ID` FROM `" . self::getDatabaseTableName() . "`";
-        $query .= " WHERE `type` = '%s'";
-        $query .= " AND `data_id` = '%d'";
-        $query .= " AND `access_request_id` = '%d'";
-        $query .= " AND `site_id` = '%d'";
+        $query .= " WHERE `type` = %s";
+        $query .= " AND `data_id` = %d";
+        $query .= " AND `access_request_id` = %d";
+        $query .= " AND `site_id` = %d";
         $result = $wpdb->get_row($wpdb->prepare($query, $type, $dataId, $accessRequestId, get_current_blog_id()));
         if ($result !== null) {
             return new self($result->ID);
@@ -66,9 +66,9 @@ class DeleteRequest {
     public function getAmountByAccessRequestId($accessRequestId = 0) {
         global $wpdb;
         $query = "SELECT COUNT(`ID`) FROM `" . self::getDatabaseTableName() . "`";
-        $query .= " WHERE `access_request_id` = '%d'";
+        $query .= " WHERE `access_request_id` = %d";
         $query .= " AND `processed` = '0'";
-        $query .= " AND `site_id` = '%d'";
+        $query .= " AND `site_id` = %d";
         $result = $wpdb->get_var($wpdb->prepare($query, intval($accessRequestId), get_current_blog_id()));
         if ($result !== null) {
             return absint($result);
@@ -136,7 +136,7 @@ class DeleteRequest {
 
     public function load() {
         global $wpdb;
-        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = '%d'";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = %d";
         $row = $wpdb->get_row($wpdb->prepare($query, $this->getId()));
         if ($row !== null) {
             $this->loadByRow($row);
@@ -151,7 +151,7 @@ class DeleteRequest {
         global $wpdb;
         $row = $wpdb->get_row(
             $wpdb->prepare(
-                "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = '%d'",
+                "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE `ID` = %d",
                 intval($id)
             )
         );

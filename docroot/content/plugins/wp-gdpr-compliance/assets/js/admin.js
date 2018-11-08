@@ -54,7 +54,7 @@
          * @param $element
          * @private
          */
-        _doProcessAction = function ($element) {
+        _doProcessSettings = function ($element) {
             $element.addClass('processing');
             var $checkboxContainer = $element.closest('.wpgdprc-checkbox'),
                 $checkboxData = ($checkboxContainer.length) ? $checkboxContainer.next('.wpgdprc-checkbox-data') : false;
@@ -63,26 +63,28 @@
                 type: 'POST',
                 dataType: 'JSON',
                 data: {
-                    action: 'wpgdprc_process_action',
+                    action: 'wpgdprc_process_settings',
                     security: ajaxSecurity,
                     data: _getElementAjaxData($element)
                 },
                 success: function (response) {
                     if (response) {
-                        if ($checkboxData.length) {
-                            if ($element.is(':checked')) {
-                                $checkboxData.stop(true, true).slideDown('fast');
-                            } else {
-                                $checkboxData.stop(true, true).slideUp('fast');
-                            }
-                        }
-
                         if (response.error) {
+                            if ($element.is(':checked')) {
+                                $element.prop('checked', false);
+                            }
                             $element.addClass('alert');
-                        }
-
-                        if (response.redirect) {
-                            document.location.href = currentPage;
+                        } else {
+                            if ($checkboxData.length) {
+                                if ($element.is(':checked')) {
+                                    $checkboxData.stop(true, true).slideDown('fast');
+                                } else {
+                                    $checkboxData.stop(true, true).slideUp('fast');
+                                }
+                            }
+                            if (response.redirect) {
+                                document.location.href = currentPage;
+                            }
                         }
                     }
                 },
@@ -143,9 +145,9 @@
                 return;
             }
             $checkbox.on('change', function (e) {
-                if ($(this).data('type')) {
+                if ($(this).data('option')) {
                     e.preventDefault();
-                    _doProcessAction($(this));
+                    _doProcessSettings($(this));
                 }
             });
         },

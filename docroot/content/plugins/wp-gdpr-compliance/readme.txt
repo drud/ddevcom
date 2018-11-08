@@ -4,7 +4,7 @@ Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protec
 Requires at least: 4.5
 Tested up to: 4.9.4
 Requires PHP: 5.3
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -38,6 +38,12 @@ You'll find answers to many of your questions on [wpgdprc.com](https://www.wpgdp
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.4.3 =
+*Release date: November 7th, 2018*
+* Security fix: Removed base64_decode() function.
+* Security fix: Correctly escape input in $wpdb->prepare() function.
+* Security fix: Only allow modifying WordPress options used by the plugin and by the user capabilities.
 
 = 1.4.2 =
 *Release date: July 6th, 2018*

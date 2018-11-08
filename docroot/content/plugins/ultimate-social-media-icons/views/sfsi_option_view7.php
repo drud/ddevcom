@@ -202,10 +202,12 @@ $option7['sfsi_Shown_popupOnceTime'] 	= (isset($option7['sfsi_Shown_popupOnceTim
 					
 					foreach( $get_pages as $page )
 					{
+                        			$attr = is_array($select) && in_array( $page->ID, $select) ? 'selected="selected" class="sel-active"' : '';
+
 						printf(
 							'<option value="%s"  %s style="margin-bottom:3px;">%s</option>',
 							$page->ID,
-							in_array( $page->ID, $select) ? 'selected="selected" class="sel-active"' : '',
+							$attr,
 							$page->post_title
 						);
 					}

@@ -5,7 +5,7 @@ Plugin URI: http://ultimatelysocial.com
 Description: Easy to use and 100% FREE social media plugin which adds social media icons to your website with tons of customization features!. 
 Author: UltimatelySocial
 Author URI: http://ultimatelysocial.com
-Version: 2.0.6
+Version: 2.0.8
 License: GPLv2 or later
 */
 
@@ -57,7 +57,7 @@ register_activation_hook(__FILE__, 'sfsi_activate_plugin' );
 register_deactivation_hook(__FILE__, 'sfsi_deactivate_plugin');
 register_uninstall_hook(__FILE__, 'sfsi_Unistall_plugin');
 
-if(!get_option('sfsi_pluginVersion') || get_option('sfsi_pluginVersion') < 2.06)
+if(!get_option('sfsi_pluginVersion') || get_option('sfsi_pluginVersion') < 2.08)
 {
 	add_action("init", "sfsi_update_plugin");
 }
@@ -453,46 +453,42 @@ function sfsi_admin_notice()
 	// 	$style = "overflow: hidden;"; 
 	// }
 	
-	$style = "overflow: hidden;"; 
+	// $style = "overflow: hidden;"; 
 
-	/**
-	 * if wordpress uses other language
-	 */
-	if(
-		!empty($language) &&
-		isset($_GET['page']) &&
-		$_GET['page'] == "sfsi-options" &&
-		get_option("sfsi_languageNotice") == "yes"
-	)
-	{
-		?>
-		<style type="text/css">
-			form.sfsi_languageNoticeDismiss{
-			    display: inline-block;
-			    margin: 5px 0 0;
-			    vertical-align: middle;
-			}
-			.sfsi_languageNoticeDismiss input[type='submit']{
-				background-color: transparent;
-			    border: medium none;
-			    margin: 0;
-			    padding: 0;
-			    cursor: pointer;
-			}
-		</style>
-		<div class="updated" style="<?php echo $style; ?>">
-			<div class="alignleft" style="margin: 9px 0;">
-				We detected that you're using a language other than English in Wordpress. We created also the <a target="_blank" href="https://wordpress.org/plugins/ultimate-social-media-plus/">Ultimate Social Media PLUS</a> plugin (still FREE) which allows you to select buttons in non-English languages (under question 6).
-			</div>
-			<div class="alignright">
-				<form method="post" class="sfsi_languageNoticeDismiss">
-					<input type="hidden" name="sfsi-dismiss-languageNotice" value="true">
-					<input type="submit" name="dismiss" value="Dismiss" />
-				</form>
-			</div>
-		</div>
-		<?php 
-	}
+	// /**
+	//  * if wordpress uses other language
+	//  */
+	// if(!empty($language) && isset($_GET['page']) && $_GET['page'] == "sfsi-options" && 
+	// 	get_option("sfsi_languageNotice") == "yes")
+	// {
+	// 	?>
+<!-- 	// 	<style type="text/css">
+	// 		form.sfsi_languageNoticeDismiss{
+	// 		    display: inline-block;
+	// 		    margin: 5px 0 0;
+	// 		    vertical-align: middle;
+	// 		}
+	// 		.sfsi_languageNoticeDismiss input[type='submit']{
+	// 			background-color: transparent;
+	// 		    border: medium none;
+	// 		    margin: 0;
+	// 		    padding: 0;
+	// 		    cursor: pointer;
+	// 		}
+	// 	</style>
+	// 	<div class="updated" style="<?php //echo $style; ?>">
+	// 		<div class="alignleft" style="margin: 9px 0;">
+	// 			We detected that you're using a language other than English in Wordpress. We created also the <a target="_blank" href="https://wordpress.org/plugins/ultimate-social-media-plus/">Ultimate Social Media PLUS</a> plugin (still FREE) which allows you to select buttons in non-English languages (under question 6).
+	// 		</div>
+	// 		<div class="alignright">
+	// 			<form method="post" class="sfsi_languageNoticeDismiss">
+	// 				<input type="hidden" name="sfsi-dismiss-languageNotice" value="true">
+	// 				<input type="submit" name="dismiss" value="Dismiss" />
+	// 			</form>
+	// 		</div>
+	// 	</div> -->
+	 	<?php 
+	// }
 
 	/**
 	 * Premium Notification
@@ -515,6 +511,17 @@ function sfsi_admin_notice()
 	{
 		?>
 		<style type="text/css">
+			
+			div.sfsi_show_premium_notification{
+				float: left;
+    			width: 94.2%;
+    			margin-left: 37px;
+    			margin-top: 15px;
+    			padding: 8px;
+				background-color: #38B54A;
+				color: #fff;
+				font-size: 18px;
+			}    					
 			.sfsi_show_premium_notification a{
 			   	color: #fff;
 			}
@@ -532,7 +539,7 @@ function sfsi_admin_notice()
 			    cursor: pointer;
 			}
 		</style>
-	    <div class="updated sfsi_show_premium_notification" style="<?php echo $style; ?>background-color: #38B54A; color: #fff; font-size: 18px;">
+	    <div class="updated sfsi_show_premium_notification" style="<?php //echo $style; ?>">
 			<div class="alignleft" style="margin: 9px 0;">
 				BIG NEWS : There is now a <b><a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=notification_banner&utm_medium=banner" target="_blank">Premium Ultimate Social Media Plugin</a></b> available with many more cool features : <a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=notification_banner&utm_medium=banner" target="_blank">Check it out</a>
 			</div>
@@ -553,8 +560,20 @@ function sfsi_admin_notice()
 		{
 			?>
 			<style type="text/css">
+				div.sfsi_show_premium_cumulative_count_notification{
+				   	color: #fff;
+				   	float: left;
+	    			width: 94.2%;
+	    			margin-left: 37px;
+	    			margin-top: 15px;
+	    			padding: 8px;
+					background-color: #38B54A;
+					color: #fff;
+					font-size: 18px;
+				}
 				.sfsi_show_premium_cumulative_count_notification a{
 				   	color: #fff;
+
 				}
 				form.sfsi_premiumCumulativeCountNoticeDismiss {
 				    display: inline-block;
@@ -570,7 +589,7 @@ function sfsi_admin_notice()
 				    cursor: pointer;
 				}
 			</style>
-		    <div class="updated sfsi_show_premium_cumulative_count_notification" style="<?php echo $style; ?>background-color: #38B54A; color: #fff; font-size: 18px;">
+		    <div class="updated sfsi_show_premium_cumulative_count_notification">
 				<div class="alignleft" style="margin: 9px 0;">
 					<b>Recently switched to https?</b> If you don’t want to lose the Facebook share & like counts <a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=https_share_counts&utm_medium=banner" target="_blank">have a look at our Premium Plugin</a>, we found a fix for that: <a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=https_share_counts&utm_medium=banner" target="_blank">Check it out</a>
 				</div>
@@ -580,6 +599,7 @@ function sfsi_admin_notice()
 						<input type="submit" name="dismiss" value="Dismiss" />
 					</form>
 				</div>
+				<div style=”clear:both”></div>
 			</div>
 			<?php
 		} 
@@ -611,7 +631,7 @@ function sfsi_admin_notice()
 					cursor: pointer;
 				}
 			</style>
-		<!-- <div class="updated sfsi_show_mobile_notification" style="<?php echo $style; ?>background-color: #38B54A; color: #fff; font-size: 18px;">
+		<!-- <div class="updated sfsi_show_mobile_notification" style="<?php //echo $style; ?>background-color: #38B54A; color: #fff; font-size: 18px;">
 				<div class="alignleft" style="margin: 9px 0;line-height: 24px;width: 95%;">
 					<b>Over 50% of visitors are mobile visitors.</b> Make sure your social media icons look good on mobile too, so that people like & share your site. With the premium plugin you can define the location of the icons separately on mobile:<a href="https://www.ultimatelysocial.com/usm-premium/?utm_source=usmi_settings_page&utm_campaign=check_mobile&utm_medium=banner" target="_blank">Check it out</a>
 				</div>
@@ -634,7 +654,8 @@ function sfsi_admin_notice()
 		{
 
 		?>
-         	<style type="text/css">
+        
+        <style type="text/css">
 			.sfsi_show_phperror_notification {
 			   	color: #fff;
 			   	text-decoration: underline;
@@ -657,8 +678,10 @@ function sfsi_admin_notice()
 			p.sfsi_show_notifictaionpragraph{padding: 0 !important;font-size: 18px;}
 			
 		</style>
+
 	     <div class="updated sfsi_show_phperror_notification" style="<?php echo $style; ?>background-color: #D22B2F; color: #fff; font-size: 18px; border-left-color: #D22B2F;">
 			<div class="alignleft" style="margin: 9px 0;">
+
 				<p class="sfsi_show_notifictaionpragraph">
 					We noticed you are running your site on a PHP version older than 5.4. Please upgrade to a more recent version. This is not only important for running the Ultimate Social Media Plugin, but also for security reasons in general.
 					<br>
@@ -678,12 +701,192 @@ function sfsi_admin_notice()
 		}
 	}
 
+    sfsi_get_language_detection_notice();
+
     sfsi_language_notice();
     
     sfsi_addThis_removal_notice();
 
 	sfsi_error_reporting_notice();
 }
+
+function sfsi_get_language_detection_notice(){
+
+    $currLang = get_locale();
+    $text     = '';
+
+    switch ($currLang) {
+
+        // Arabic
+        // case 'ar':
+            
+        //     $text = "";
+        //     break;
+
+        // Chinese - simplified
+        case 'zh-Hans':
+            
+            $text = "似乎你的WordPress仪表盘使用的是法语。你知道 终极社交媒体插件 也支持法语吗？ <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'><b>请点击此处</b></a>";
+            break;
+
+        // Chinese - traditional
+        // case 'zh-Hant':
+            
+        //     $text = "";
+        //     break;
+
+        // Dutch, Dutch (Belgium)
+        // case 'nl_NL': case 'nl_BE':                
+        //     $text = "";
+        //     break;
+
+        // French (Belgium), French (France)
+        case 'fr_BE': case 'fr_FR':
+            
+            $text = "Il semblerait que votre tableau de bord Wordpress soit en Français. Saviez-vous que l'extension Ultimate  Social Media est aussi disponible en Français? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Cliquez ici</a>";
+            break;
+
+        // German, German (Switzerland)
+        case 'de': case 'de_CH':
+
+            $text = "Dein Wordpress-Dashboard scheint auf deutsch zu sein. Wusstest Du dass das Ultimate Social Media Plugin auch auf deutsch verfügbar ist? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Klicke hier</a>"; 
+            break;
+
+        // Greek
+        // case 'el':
+            
+        //     $text = "";
+        //     break;
+
+        // Hebrew
+        case 'he_IL':
+
+            $text = "נדמה שלוח הבקרה שלך הוא בעברית. האם ידעת שהתוסף זמין גם בשפה העברית? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>לחץ כאן</a>";
+            break;
+
+        // Hindi
+        // case 'hi_IN':
+            
+        //     $text = ""; 
+        //     break;
+
+        // Indonesian
+        // case 'id':
+            
+        //     $text = "";
+
+        //     break;
+
+        // Italian
+        case 'it_IT':
+            
+           $text = "Semberebbe che la tua bacheca di WordPress sia in Italiano.Lo sapevi che il plugin Ultimate Social Media è anche dispoinibile in Italiano? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Fai click qui</a>";
+            
+            break;                   
+
+        // Japanese
+        // case 'ja':
+            
+        //     $text = "";
+
+        //     break;                       
+
+        // Korean
+        // case 'ko_KR ':
+
+        //     $text = ""; 
+
+        //     break;                       
+
+        // Persian, Persian (Afghanistan)
+        // case 'fa_IR':case 'fa_AF':
+            
+        //     $text = "";
+            
+        //     break;                       
+
+        // Polish
+
+        // case 'pl_PL':
+        //     $text = "";
+        //     break;
+
+        //Portuguese (Brazil), Portuguese (Portugal)
+
+        case 'pt_BR': case 'pt_PT':
+
+            $text = "Parece que seu painel Wordpress está em português. Você sabia que o plugin Ultimate Social Media também está disponível em português? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Clique aqui</a>";
+
+            break;                       
+
+        // Russian, Russian (Ukraine)
+        case 'ru_RU': case 'ru_UA': 
+
+            $text = "Ты говоришь по-русски? Если у вас есть вопросы о плагине Ultimate Social Media, задайте свой вопрос в форуме поддержки, мы постараемся ответить на русский: <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Нажмите здесь</a>";
+            
+            break;                       
+        
+        /* Spanish (Argentina), Spanish (Chile), Spanish (Colombia), Spanish (Mexico),
+            Spanish (Peru), Spanish (Puerto Rico), Spanish (Spain), Spanish (Venezuela) */
+
+        case 'es_AR': case 'es_CL': case 'es_CO': case 'es_MX':case 'es_PE':case 'es_PR':
+        case 'es_ES': case 'es_VE':
+
+            $text = "Al parecer, tu dashboard en Wordpress está en Francés/ ¿Sabías que el complemento Ultimate Social Media está también disponible en Francés? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Haz clic aquí</a>";
+            break;                       
+
+        //  Swedish
+
+        // case 'sv_SE':
+            
+        //     $text = "<a target='_blank' href='https://goo.gl/ZiFsAF#no-topic-0'>Klicka här</a>";
+        //     break;                       
+
+        //  Turkish
+
+        case 'tr_TR':
+            $text = "Wordpress gösterge panelinizin dili Türkçe olarak görünüyor. Ultimate Social Media eklentisinin Türkçe için de mevcut olduğunu biliyor musunuz? <a target='_blank' href='https://wordpress.org/plugins/ultimate-social-media-plus/'>Buraya tıklayın</a>";
+            break;                       
+
+        //  Ukrainian
+
+        // case 'uk':
+        //     $text = "<a target='_blank' href='https://goo.gl/ZiFsAF#no-topic-0'>натисніть тут</a>";
+        //     break;                       
+
+        //  Vietnamese
+
+        case 'vi':
+            $text = 'Có vẻ như bảng điều khiển Wordpress của bạn đang hiển thị "tiếng Việt". Bạn có biết rằng Ultimate Social Media plugin cũng hỗ trợ tiếng Việt? <a target="_blank" href="https://wordpress.org/plugins/ultimate-social-media-plus/">Hãy nhấn vào đây</a>';
+            break;    
+    }
+
+	$style = "overflow: hidden;padding:8px;margin:15px 15px 15px 0px !important";
+
+	if(!empty($text) && isset($_GET['page']) 
+		&& ("sfsi-options" == $_GET['page']) && ("yes" == get_option("sfsi_languageNotice") ) ) {
+	 ?>
+
+		<style type="text/css">
+			form.sfsi_languageNoticeDismiss{display: inline-block;margin: 5px 0 0;vertical-align: middle;}
+			.sfsi_languageNoticeDismiss input[type='submit']{background-color: transparent;border: medium none;margin: 0 5px 0 0px;padding: 0;cursor: pointer;font-size: 22px;}
+		</style>
+		<div class="notice notice-info" style="<?php echo $style; ?>">
+			<div class="alignleft" style="margin: 9px 0;">
+				<?php echo $text; ?>
+			</div>
+			<div class="alignright">
+				<form method="post" class="sfsi_languageNoticeDismiss">
+					<input type="hidden" name="sfsi-dismiss-languageNotice" value="true">
+					<input type="submit" name="dismiss" value="&times;" />
+				</form>
+			</div>
+		</div>
+		
+	<?php }
+}
+
+
 add_action('admin_init', 'sfsi_dismiss_admin_notice');
 function sfsi_dismiss_admin_notice()
 {

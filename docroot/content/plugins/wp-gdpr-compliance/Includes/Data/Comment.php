@@ -37,7 +37,7 @@ class Comment {
 
     public function load() {
         global $wpdb;
-        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `ID` = '%d'";
+        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `ID` = %d";
         $row = $wpdb->get_row($wpdb->prepare($query, $this->getId()));
         if ($row !== null) {
             $this->loadByRow($row);

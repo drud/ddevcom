@@ -15,8 +15,8 @@ class Shortcode {
      */
     private static function getAccessRequestData() {
         $output = '';
-        $request = (isset($_REQUEST['wpgdprc'])) ? unserialize(base64_decode(esc_html($_REQUEST['wpgdprc']))) : false;
-        $request = (!empty($request)) ? AccessRequest::getInstance()->getByEmailAddressAndSessionId($request['email'], $request['sId']) : false;
+        $token = (isset($_REQUEST['wpgdprc'])) ? esc_html(urldecode($_REQUEST['wpgdprc'])) : false;
+        $request = ($token !== false) ? AccessRequest::getInstance()->getByToken($token) : false;
         if ($request !== false) {
             if (
                 SessionHelper::checkSession($request->getSessionId()) &&

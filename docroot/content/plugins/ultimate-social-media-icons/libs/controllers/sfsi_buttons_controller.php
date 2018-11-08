@@ -926,8 +926,8 @@ if(@!function_exists("sfsi_sanitize_hex_color"))
         if ( '' === $color )
             return '';
      
-        // 3 or 6 hex digits, or the empty string.
-        if ( preg_match('|^#([A-Fa-f0-9]{3}){1,2}$|', $color ) )
+        // 3 or 6 hex digits, or the empty string with or without !important
+        if ( preg_match('(^#([A-Fa-f0-9]{3}){1,2}$|^#([A-Fa-f0-9]{3}){1,2}\s*!important$|^$)', $color ) )
             return $color;
     }
 }

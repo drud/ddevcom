@@ -190,7 +190,7 @@ class Data {
     public function getUsers() {
         global $wpdb;
         $output = array();
-        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `user_email` = '%s'";
+        $query = "SELECT * FROM `" . $wpdb->users . "` WHERE `user_email` = %s";
         $results = $wpdb->get_results($wpdb->prepare($query, $this->getEmailAddress()));
         if ($results !== null) {
             foreach ($results as $row) {
@@ -207,7 +207,7 @@ class Data {
     public function getComments() {
         global $wpdb;
         $output = array();
-        $query = "SELECT * FROM " . $wpdb->comments . " WHERE `comment_author_email` = '%s'";
+        $query = "SELECT * FROM " . $wpdb->comments . " WHERE `comment_author_email` = %s";
         $results = $wpdb->get_results($wpdb->prepare($query, $this->getEmailAddress()));
         if ($results !== null) {
             foreach ($results as $row) {
@@ -225,7 +225,7 @@ class Data {
     public function getWooCommerceOrders() {
         global $wpdb;
         $output = array();
-        $query = "SELECT * FROM " . $wpdb->postmeta . " WHERE `meta_key` = '_billing_email' AND `meta_value` = '%s'";
+        $query = "SELECT * FROM " . $wpdb->postmeta . " WHERE `meta_key` = '_billing_email' AND `meta_value` = %s";
         $results = $wpdb->get_results($wpdb->prepare($query, $this->getEmailAddress()));
         if ($results !== null) {
             foreach ($results as $row) {

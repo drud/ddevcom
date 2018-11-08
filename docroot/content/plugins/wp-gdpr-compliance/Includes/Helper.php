@@ -486,6 +486,57 @@ class Helper {
     }
 
     /**
+     * This function returns all available options used by the WPGDPRC plugin.
+     * NOTE: Keep this list updated in case of newly added/updated options.
+     *
+     * @return array
+     */
+    public static function getAvailableOptions() {
+        $output = array();
+
+        // Settings for activated plugins
+        $activatedPlugins = Helper::getActivatedPlugins();
+        foreach ($activatedPlugins as $plugin) {
+            $output[] = WP_GDPR_C_PREFIX . '_integrations_' . $plugin['id'];
+            $output[] = WP_GDPR_C_PREFIX . '_integrations_' . $plugin['id'] . '_form_text';
+            $output[] = WP_GDPR_C_PREFIX . '_integrations_' . $plugin['id'] . '_error_message';
+            switch ($plugin['id']) {
+                case 'gravity-forms' :
+                case 'contact-form-7' :
+                    $output[] = WP_GDPR_C_PREFIX . '_integrations_' . $plugin['id'] . '_forms';
+                    break;
+            }
+            switch ($plugin['id']) {
+                case 'gravity-forms' :
+                case 'woocommerce' :
+                case 'wordpress' :
+                    $output[] = WP_GDPR_C_PREFIX . '_integrations_' . $plugin['id'] . '_required_message';
+                    break;
+            }
+        }
+
+        // Settings for the checklist
+        foreach (Helper::getCheckList() as $id => $check) {
+            $output[] = WP_GDPR_C_PREFIX . '_general_' . $id;
+        }
+
+        // Settings for the general things
+        $output[] = WP_GDPR_C_PREFIX . '_settings_privacy_policy_page';
+        $output[] = WP_GDPR_C_PREFIX . '_settings_privacy_policy_text';
+        $output[] = WP_GDPR_C_PREFIX . '_settings_enable_access_request';
+        if (Helper::isEnabled('enable_access_request', 'settings')) {
+            $output[] = WP_GDPR_C_PREFIX . '_settings_access_request_page';
+            $output[] = WP_GDPR_C_PREFIX . '_settings_access_request_form_checkbox_text';
+            $output[] = WP_GDPR_C_PREFIX . '_settings_delete_request_form_explanation_text';
+        }
+        $output[] = WP_GDPR_C_PREFIX . '_settings_consents_modal_title';
+        $output[] = WP_GDPR_C_PREFIX . '_settings_consents_modal_explanation_text';
+        $output[] = WP_GDPR_C_PREFIX . '_settings_consents_bar_explanation_text';
+
+        return $output;
+    }
+
+    /**
      * @return bool|\WP_Post
      */
     public static function getAccessRequestPage() {
