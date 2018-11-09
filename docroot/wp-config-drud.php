@@ -32,6 +32,7 @@ define('WP_DEBUG', true);
 define('DISALLOW_FILE_MODS', true);
 
 /** Enable Cache by WP Rocket */
-// define('WP_CACHE', false);
-// define('WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/');
-// define('WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/');
+define('WP_CACHE', true);
+define('WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/');
+define('WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/');
+define('WP_ROCKET_CONFIG_PATH', WP_CONTENT_DIR . '/uploads/wp-rocket-config/');
