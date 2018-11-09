@@ -26,7 +26,7 @@ define('WP_ENV', 'production');
 define('FORCE_SSL_ADMIN', false);
 
 // turn off debugging
-define('WP_DEBUG', true);
+define('WP_DEBUG', false);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
