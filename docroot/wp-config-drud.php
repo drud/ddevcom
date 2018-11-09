@@ -26,13 +26,12 @@ define('WP_ENV', 'production');
 define('FORCE_SSL_ADMIN', false);
 
 // turn off debugging
-define('WP_DEBUG', false);
+define('WP_DEBUG', true);
 
 // dis-allow file editing from the admin
 define('DISALLOW_FILE_MODS', true);
 
 /** Enable Cache by WP Rocket */
-define( 'WP_CACHE', true );
-define( 'WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/' );
-define( 'WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/' );
-
+define('WP_CACHE', true);
+define('WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/');
+define('WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/');
