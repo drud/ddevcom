@@ -3,9 +3,12 @@
   <div class="container py-5">
     <div class="row py-5">
       <div class="col-md-5">
-        <h2>Sign Up for Early Access Today!</h2>
-        <p>You’re invited to apply for early adopter access to try our full local-to-live, dev-to-deploy platform.</p>
-        <?php gravity_form(3, false, false, false); ?>
+        <h2>Thank you for your all your interest, but we've closed Early Access for now!</h2>
+        <p>Join our newsletter and keep an eye out as we will be opening up access soon.</p>
+        <p><a href="/contact/">Contact</a> us today if you would like to see a demo.</p>
+        <a href="/contact/" class="my-4 btn btn-primary">Contact Us</a>
+        <!-- <p>You’re invited to apply for early adopter access to try our full local-to-live, dev-to-deploy platform.</p> -->
+        <?php //gravity_form(3, false, false, false);?>
       </div>
       <div class="col-md-6 offset-md-1">
         <p class="text-center pb-2">
