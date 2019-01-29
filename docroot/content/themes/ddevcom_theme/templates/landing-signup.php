@@ -3,28 +3,12 @@
   <div class="container py-5">
     <div class="row py-5">
       <div class="col-md-5">
-        <h2>Thank you for your all your interest, but we've closed Early Access for now!</h2>
-        <p>Join our newsletter and keep an eye out as we will be opening up access soon.</p>
-        <p><a href="/contact/">Contact</a> us today if you would like to see a demo.</p>
-        <a href="/contact/" class="my-4 btn btn-primary">Contact Us</a>
-        <!-- <p>You’re invited to apply for early adopter access to try our full local-to-live, dev-to-deploy platform.</p> -->
-        <?php //gravity_form(3, false, false, false);?>
+        <h2>Sign Up for the Latest DDEV News Today!</h2>
+        <p>Sign up for our newsletter and be one of the first to know about new DDEV features and releases when they happen, the next early-adopter opportunities for our local-to-live, dev-to-deploy platform, community success stories, and more.</p>
+        <p>When you sign up, we’ll send you a free copy of the latest edition of Mike Anello’s eBook <a href="https://www.amazon.com/Local-Development-Explained-Step-Step/dp/1731048858/ref=tmm_pap_swatch_0" target="_blank">Local Web Development With DDEV Explained: Your Step-by-Step Guide to Local Web Development With DDEV</a> and if you stop by our booth at DrupalCamp Florida, DrupalCamp London, or DrupalCon Seattle 2019, we’ll give you your very own DDEV t-shirt!</p>
       </div>
       <div class="col-md-6 offset-md-1">
-        <p class="text-center pb-2">
-          <img class="img-fluid" src="<?= get_stylesheet_directory_uri(); ?>/dist/images/GoldenTicket.jpg"
-            alt="DDEV-Live Golden Ticket">
-        </p>
-        <h4 class="mb-3">Did you get a DDEV-Live early adopter access Golden Ticket recently?</h4>
-        <h6 class="mb-3">DDEV-Live hosting is coming and we have great things in store for you!</h6>
-        <p class="small">Try DDEV-Live in production on us. For early adopters, we will host one production
-          installation of a supported CMS (at our discretion, technical limitations apply) on DDEV-Live, up to a value
-          of $150 US dollars. We’ll extend your early access a further $150 in value if you file a support ticket,
-          referring a friend or colleague who signs up for our trial, or if you contribute to our DDEV open source
-          tooling and/or the improvement of our platform in the form of patches, pull requests, bug reports, or feature
-          requests.</p>
-        <p class="small">We’ll give you a hand getting started. Ticket-based migration, onboarding assistance, and
-          support included.</p>
+        <?php gravity_form(4, false, false, false);?>
       </div>
     </div>
   </div>
