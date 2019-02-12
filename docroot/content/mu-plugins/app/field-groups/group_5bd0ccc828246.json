@@ -172,6 +172,89 @@
             "endpoint": 0
         },
         {
+            "key": "field_5c63069f50ead",
+            "label": "Newsletter Sales Copy",
+            "name": "product_newsletter_sales_copy",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_5c630499fbcc6",
+            "label": "Newsletter Form Text",
+            "name": "product_newsletter_form_text",
+            "type": "wysiwyg",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "basic",
+            "media_upload": 0,
+            "delay": 0
+        },
+        {
+            "key": "field_5c63062d50eac",
+            "label": "Newsletter Form ID",
+            "name": "product_newsletter_form_id",
+            "type": "number",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "min": "",
+            "max": "",
+            "step": ""
+        },
+        {
+            "key": "field_5c6308783ee42",
+            "label": "Newsletter Image",
+            "name": "product_newsletter_image",
+            "type": "image",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "preview_size": "thumbnail",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": "",
+            "max_height": "",
+            "max_size": "",
+            "mime_types": ""
+        },
+        {
             "key": "field_5bd0cccb5d055",
             "label": "Product - Newsletter CTA",
             "name": "product_newsletter_cta",
@@ -457,5 +540,5 @@
     ],
     "active": 1,
     "description": "",
-    "modified": 1540410591
+    "modified": 1549994158
 }

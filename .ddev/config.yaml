@@ -1,4 +1,4 @@
-APIVersion: v1.3.0-10-g53fc669c
+APIVersion: v1.3.0
 name: drud-com
 type: wordpress
 docroot: docroot
@@ -10,14 +10,9 @@ xdebug_enabled: false
 additional_hostnames: []
 additional_fqdns: []
 provider: drud-s3
-hooks:
-  post-import-db:
-  - exec: wp search-replace https://www.drud.com http://ddevwebsite.ddev.local
 upload_dir: content/uploads
-
-
-# This config.yaml was created with ddev version v1.3.0-10-g53fc669c 
-# webimage: drud/ddev-webserver:20181017_add_ssh
+# This config.yaml was created with ddev version v1.3.0
+# webimage: drud/ddev-webserver:v1.3.0
 # dbimage: drud/ddev-dbserver:v1.3.0
 # dbaimage: drud/phpmyadmin:v1.3.0
 # However we do not recommend explicitly wiring these images into the
