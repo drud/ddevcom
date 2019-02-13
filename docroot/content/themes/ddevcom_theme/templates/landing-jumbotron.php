@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-lg-7 col-xl-6 mx-auto text-center">
           <header>
-            <h1 class="text-white mb-5">
+            <h1 class="text-white mb-2">
               <?php the_field('product_jumbotron_header'); ?>
             </h1>
           </header>
