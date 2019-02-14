@@ -52,6 +52,9 @@ add_filter('user_can_richedit', function ($wp_rich_edit) {
     return $wp_rich_edit;
 });
 
+add_filter('gform_confirmation_anchor_3', function () {
+    return true;
+});
 add_filter('gform_confirmation_anchor_4', function () {
     return true;
 });
