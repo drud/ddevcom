@@ -31,4 +31,3 @@ assignees: ''
 - [ ] Builds without errors
 - [ ] Deployed on test environment
 - [ ] QA performed & issues resolved
-- [ ] Internal docs updated
