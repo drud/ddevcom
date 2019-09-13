@@ -2,7 +2,13 @@
 
 // site URL
 if (getenv('DDEV_ENV_NAME') == 'production') {
-    define('WP_HOME', 'https://www.drud.com');
+    if ($_SERVER['HTTP_HOST'] == 'drud') {
+        define('WP_HOME', 'https://www.drud.com');
+    } elseif ($_SERVER['HTTP_HOST'] == 'ddev') {
+        define('WP_HOME', 'https://www.ddev.com');
+    } else {
+        define('WP_HOME', 'https://www.drud.com');
+    }
 } else {
     define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
 }
