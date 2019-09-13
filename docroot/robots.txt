@@ -6,4 +6,4 @@ User-Agent: Googlebot
 Allow: .js
 Allow: .css
 
-Sitemap: https://www.drud.com/sitemap.xml
+Sitemap: https://www.ddev.com/sitemap.xml
