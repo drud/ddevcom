@@ -1,5 +1,4 @@
 <?php
-
 // site URL
 if (getenv('DDEV_ENV_NAME') == 'production') {
     if ($_SERVER['HTTP_HOST'] == 'drud') {
