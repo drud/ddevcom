@@ -1,9 +1,9 @@
 <?php
 // site URL
 if (getenv('DDEV_ENV_NAME') == 'production') {
-    if ($_SERVER['HTTP_HOST'] == 'drud') {
+    if (strpos($_SERVER['HTTP_HOST'], "drud") !== false) {
         define('WP_HOME', 'https://www.drud.com');
-    } elseif ($_SERVER['HTTP_HOST'] == 'ddev') {
+    } elseif (strpos($_SERVER['HTTP_HOST'], "ddev") !== false) {
         define('WP_HOME', 'https://www.ddev.com');
     } else {
         define('WP_HOME', 'https://www.drud.com');
