@@ -414,9 +414,18 @@ if ( ! class_exists( 'GF_Background_Process' ) ) {
 			do {
 				$batch = $this->get_batch();
 
-				if ( is_multisite() && get_current_blog_id() !== $batch->blog_id ) {
-					$this->spawn_multisite_child_process( $batch->blog_id );
-					wp_die();
+				if ( is_multisite() ) {
+					$current_blog_id = get_current_blog_id();
+					if ( $current_blog_id !== $batch->blog_id ) {
+						$this->spawn_multisite_child_process( $batch->blog_id );
+						if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+							// Switch back to the current blog and return so the other tasks queued in this process can be run.
+							switch_to_blog( $current_blog_id );
+							return;
+						} else {
+							wp_die();
+						}
+					}
 				}
 
 				GFCommon::log_debug( sprintf( '%s(): Processing batch for %s.', __METHOD__, $this->action ) );
@@ -456,7 +465,12 @@ if ( ! class_exists( 'GF_Background_Process' ) ) {
 				$this->complete();
 			}
 
-			wp_die();
+			if ( defined( 'DOING_CRON' ) && DOING_CRON ) {
+				// Return so the other tasks queued in this process can be run.
+				return;
+			} else {
+				wp_die();
+			}
 		}
 
 		/**
@@ -513,10 +527,40 @@ if ( ! class_exists( 'GF_Background_Process' ) ) {
 
 			if ( ! $memory_limit || -1 === intval( $memory_limit ) ) {
 				// Unlimited, set to 32GB.
-				$memory_limit = '32000M';
+				$memory_limit = '32G';
 			}
 
-			return intval( $memory_limit ) * 1024 * 1024;
+			return $this->convert_hr_to_bytes( $memory_limit );
+		}
+
+		/**
+		 * Converts a shorthand byte value to an integer byte value.
+		 *
+		 * @param string $value A (PHP ini) byte value, either shorthand or ordinary.
+		 *
+		 * @return int An integer byte value.
+		 */
+		protected function convert_hr_to_bytes( $value ) {
+
+			// Globally available in WordPress 4.6
+			if ( function_exists( 'wp_convert_hr_to_bytes' ) ) {
+				return wp_convert_hr_to_bytes( $value );
+			}
+
+			// Backwards compatible support for Wordpress 3.6 to 4.5
+			$value = strtolower( trim( $value ) );
+			$bytes = (int) $value;
+
+			if ( false !== strpos( $value, 'g' ) ) {
+				$bytes *= pow( 1024, 3 );
+			} elseif ( false !== strpos( $value, 'm' ) ) {
+				$bytes *= pow( 1024, 2 );
+			} elseif ( false !== strpos( $value, 'k' ) ) {
+				$bytes *= 1024;
+			}
+
+			// Deal with large (float) values which run into the maximum integer size.
+			return min( $bytes, PHP_INT_MAX );
 		}
 
 		/**
@@ -591,19 +635,17 @@ if ( ! class_exists( 'GF_Background_Process' ) ) {
 
 			if ( $this->is_process_running() ) {
 				// Background process already running.
-				exit;
+				return;
 			}
 
 
 			if ( $this->is_queue_empty() ) {
 				// No data to process.
 				$this->clear_scheduled_event();
-				exit;
+				return;
 			}
 
 			$this->handle();
-
-			exit;
 		}
 
 		/**

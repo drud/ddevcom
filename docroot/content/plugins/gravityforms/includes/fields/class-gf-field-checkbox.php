@@ -154,10 +154,6 @@ class GF_Field_Checkbox extends GF_Field {
 
 				$input_value = rgpost( 'input_' . str_replace( '.', '_', strval( $input['id'] ) ) );
 
-				if ( is_array( $input_value ) ) {
-					 $input_value = '';
-				}
-
 				$value[ strval( $input['id'] ) ] = $input_value;
 
 			} else {
@@ -282,7 +278,7 @@ class GF_Field_Checkbox extends GF_Field {
 							break;
 
 						default:
-							$items .= '<li>' . GFCommon::selection_display( $item, $this, $currency, $use_text ) . '</li>';
+							$items .= '<li>' . wp_kses_post( GFCommon::selection_display( $item, $this, $currency, $use_text ) ) . '</li>';
 							break;
 					}
 				}
@@ -600,8 +596,6 @@ class GF_Field_Checkbox extends GF_Field {
 					$checked = '';
 				}
 
-				$logic_event = $this->get_conditional_logic_event( 'click' );
-
 				$tabindex     = $this->get_tabindex();
 				$choice_value = $choice['value'];
 
@@ -612,7 +606,7 @@ class GF_Field_Checkbox extends GF_Field {
 
 				$choice_value  = esc_attr( $choice_value );
 				$choice_markup = "<li class='gchoice_{$id}'>
-								<input name='input_{$input_id}' type='checkbox' $logic_event value='{$choice_value}' {$checked} id='choice_{$id}' {$tabindex} {$disabled_text} />
+								<input name='input_{$input_id}' type='checkbox'  value='{$choice_value}' {$checked} id='choice_{$id}' {$tabindex} {$disabled_text} />
 								<label for='choice_{$id}' id='label_{$id}'>{$choice['text']}</label>
 							</li>";
 
@@ -842,9 +836,22 @@ class GF_Field_Checkbox extends GF_Field {
 		$value             = wp_kses_no_null( $value, array( 'slash_zero' => 'keep' ) );
 		$value             = wp_kses_hook( $value, 'post', $allowed_protocols );
 		$value             = wp_kses_split( $value, 'post', $allowed_protocols );
-
+		
 		return $value;
 
+	}
+
+	// # FIELD FILTER UI HELPERS ---------------------------------------------------------------------------------------
+
+	/**
+	 * Returns the filter operators for the current field.
+	 *
+	 * @since 2.4
+	 *
+	 * @return array
+	 */
+	public function get_filter_operators() {
+		return array( 'is' );
 	}
 
 }

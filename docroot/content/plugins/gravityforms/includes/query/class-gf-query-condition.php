@@ -105,6 +105,21 @@ class GF_Query_Condition {
 	const NCONTAINS = 'NCONTAINS';
 
 	/**
+	 * @const string The IS operator.
+	 */
+	const IS = 'IS';
+
+	/**
+	 * @const string The IS NOT operator.
+	 */
+	const ISNOT = 'IS NOT';
+
+	/**
+	 * @const string NULL.
+	 */
+	const NULL = 'NULL';
+
+	/**
 	 * A condition.
 	 *
 	 * @param GF_Query_Column|GF_Query_Call|GF_Query_Literal|null $left The left-hand expression.
@@ -115,7 +130,7 @@ class GF_Query_Condition {
 	 */
 	public function __construct( $left = null, $operator = null, $right = null ) {
 
-		$allowed_ops = array( self::LT, self::LTE, self::GT, self::GTE, self::EQ, self::NEQ, self::IN, self::NIN, self::LIKE, self::NLIKE, self::BETWEEN, self::NBETWEEN, self::CONTAINS, self::NCONTAINS );
+		$allowed_ops = array( self::LT, self::LTE, self::GT, self::GTE, self::EQ, self::NEQ, self::IN, self::NIN, self::LIKE, self::NLIKE, self::BETWEEN, self::NBETWEEN, self::CONTAINS, self::NCONTAINS, self::IS, self::ISNOT );
 
 		/**
 		 * Left-hand expression, non Series.
@@ -305,16 +320,6 @@ class GF_Query_Condition {
 					}
 				}
 
-				if ( $this->operator == self::EQ && $this->right->value == '' ) {
-					/**
-					 * Empty string comparisons need a NOT EXISTS clause to grab entries that don't have the value set.
-					 */
-					$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` = %%s AND `entry_id` = `%s`.`id`",
-						GFFormsModel::get_entry_meta_table_name(), $query->_alias( null, $this->left->source ) ), $this->left->field_id );
-					$not_exists = new self( new GF_Query_Call( 'NOT EXISTS', array( $subquery ) ) );
-					return $not_exists->sql( $query );
-				}
-
 				$compare_condition = self::_and(
 					new self(
 						new GF_Query_Column( 'meta_key', $this->left->source, $alias ),
@@ -328,9 +333,12 @@ class GF_Query_Condition {
 					)
 				);
 
-				if ( in_array( $this->operator, array( self::NIN, self::NBETWEEN, self::NEQ ) ) && ! empty( $this->right ) ) {
+				if ( ( in_array( $this->operator, array( self::NIN, self::NBETWEEN ) ) && ! in_array( new GF_Query_Literal(''), $this->right->values ) )
+				     || ( $this->operator == self::NEQ && ! $this->right->value == '')
+				     || ( $this->operator == self::EQ && $this->right->value == '' )
+				) {
 					/**
-					 * Negative comparisons need a NOT EXISTS clause to grab entries that
+					 * Empty string comparisons and negative comparisons need a NOT EXISTS clause to grab entries that
 					 *  don't have the value set in the first place.
 					 */
 					$subquery = $wpdb->prepare( sprintf( "SELECT 1 FROM `%s` WHERE `meta_key` = %%s AND `entry_id` = `%s`.`id`",
@@ -349,7 +357,16 @@ class GF_Query_Condition {
 
 				if ( $this->left instanceof GF_Query_Column && $this->left->is_nullable_entry_column() ) {
 					if ( ( $this->operator == self::EQ && empty ( $this->right->value ) ) || ( $this->operator == self::NEQ && ! empty ( $this->right->value ) ) ) {
-						$right .= ' OR ' . $left . ' IS NULL';
+						$right .= ' OR ' . $left . ' IS NULL)';
+						$left = "($left";
+					}
+				}
+
+				if ( $this->left instanceof GF_Query_Column && $this->left->is_entry_column() && $this->left->source ) {
+					if ( $query->is_multisource() && $this->left->field_id != 'form_id' ) {
+						$alias = $query->_alias( null, $this->left->source );
+						$left = "(`$alias`.`form_id` = {$this->left->source} AND $left";
+						$right .= ')';
 					}
 				}
 
@@ -376,7 +393,8 @@ class GF_Query_Condition {
 			( $expression instanceof GF_Query_Literal ) ||
 			( $expression instanceof GF_Query_Column ) ||
 			( $expression instanceof GF_Query_Series ) ||
-			( $expression instanceof GF_Query_Call )
+			( $expression instanceof GF_Query_Call ) ||
+			( $expression === self::NULL )
 		);
 	}
 
@@ -408,6 +426,12 @@ class GF_Query_Condition {
 			}
 
 			return $this->right->sql( $query, ' AND ' );
+		} elseif ( in_array( $this->operator, array( self::IS, self::ISNOT ) ) ) {
+			if ( $this->right !== self::NULL ) {
+				return '';
+			}
+
+			return self::NULL;
 		}
 
 		return $this->right->sql( $query );

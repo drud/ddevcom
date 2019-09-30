@@ -76,6 +76,45 @@ function _wprp_get_plugins() {
 }
 
 /**
+ * Wrap the Update Plugin function with a failsafe fallback
+ *
+ * @param $plugin_file
+ * @param $args
+ * @return array|bool|WP_Error
+ */
+function _wprp_update_plugin_wrap( $plugin_file, $args )
+{
+    @ignore_user_abort( true );
+
+    $response = false;
+    $is_active         = is_plugin_active( $plugin_file );
+    $is_active_network = is_plugin_active_for_network( $plugin_file );
+
+    try {
+        $response = _wprp_update_plugin($plugin_file, $args);
+    } catch (\Exception $exception) {}
+
+    // FALLBACK for when the plugin is deleted. Just re-install.
+    if ( ! file_exists(WP_PLUGIN_DIR . '/' . $plugin_file) ){
+        $plugin_slug = rtrim(plugin_dir_path($plugin_file), '/');
+
+        _wprp_install_plugin($plugin_slug);
+
+        if ($is_active) {
+            activate_plugin($plugin_file, '', $is_active_network, true);
+        }
+
+        $response = new WP_Error('rollback','Plugin update failed. Plugin has been re-installed.');
+    }
+
+    if ($response === false) {
+        return new WP_Error('update-failed', 'No message was set.');
+    }
+
+    return $response;
+}
+
+/**
  * Update a plugin
  *
  * @access private
@@ -91,7 +130,8 @@ function _wprp_update_plugin( $plugin_file, $args ) {
 
 	include_once ( ABSPATH . 'wp-admin/includes/admin.php' );
 	require_once ( ABSPATH . 'wp-admin/includes/class-wp-upgrader.php' );
-	require_once WPRP_PLUGIN_PATH . 'inc/class-wprp-plugin-upgrader-skin.php';
+    require_once WPRP_PLUGIN_PATH . 'inc/class-wprp-plugin-upgrader-skin.php';
+    require_once WPRP_PLUGIN_PATH . 'inc/class-wprp-automatic-upgrader-skin.php';
 
 	// check for filesystem access
 	if ( ! _wpr_check_filesystem_access() )
@@ -146,11 +186,24 @@ function _wprp_update_plugin( $plugin_file, $args ) {
 		wp_update_plugins();
 	}
 
-	// Do the upgrade
-	ob_start();
-	$result = $upgrader->upgrade( $plugin_file );
-	$data = ob_get_contents();
-	ob_clean();
+    // Remove the Language Upgrader
+    remove_action('upgrader_process_complete', array('Language_Pack_Upgrader', 'async_upgrade'), 20);
+
+    // Do the upgrade
+    ob_start();
+    $result = $upgrader->upgrade($plugin_file);
+    if ($data = ob_get_contents()) {
+        ob_end_clean();
+    }
+
+    // Run the language upgrader
+    ob_start();
+    $skin2 = new WPRP_Automatic_Upgrader_Skin();
+    $lang_upgrader = new Language_Pack_Upgrader($skin2);
+    $result2 = $lang_upgrader->upgrade($upgrader);
+    if ($data2 = ob_get_contents()) {
+        ob_end_clean();
+    }
 
 	if ( isset($manage_wp_plugin_update) && $manage_wp_plugin_update )
 		remove_filter( 'pre_site_transient_update_plugins', '_wprp_forcably_filter_update_plugins' );
