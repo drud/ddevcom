@@ -34,9 +34,9 @@
       "package": {
         "name": "gravityforms/gravityforms",
         "type": "wordpress-plugin",
-        "version": "2.3.2",
+        "version": "2.4.12",
         "dist": {
-          "url": "https://github.com/wp-premium/gravityforms/archive/2.3.2.zip",
+          "url": "https://github.com/wp-premium/gravityforms/archive/2.4.12.zip",
           "type": "zip"
         }
       }
@@ -46,9 +46,9 @@
       "package": {
         "name": "advanced-custom-fields/advanced-custom-fields-pro",
         "type": "wordpress-plugin",
-        "version": "5.7.6",
+        "version": "5.8.4",
         "dist": {
-          "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.7.6.zip",
+          "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.8.4.zip",
           "type": "zip"
         }
       }
@@ -59,19 +59,19 @@
     "johnpbloch/wordpress": "^4.9",
     "composer/installers": "^1.6",
     "vlucas/phpdotenv": "^2.5",
-    "gravityforms/gravityforms": "2.3.2",
-    "advanced-custom-fields/advanced-custom-fields-pro": "5.7.6",
-    "wpackagist-plugin/stream": "~3.2.0",
+    "gravityforms/gravityforms": "2.4.12",
+    "advanced-custom-fields/advanced-custom-fields-pro": "5.8.4",
+    "wpackagist-plugin/stream": "^3.4",
     "wpackagist-plugin/wordpress-importer": "~0.6",
-    "wpackagist-plugin/autodescription": "^3.1",
+    "wpackagist-plugin/autodescription": "^4.0",
     "wpackagist-plugin/google-sitemap-generator": "^4.0.8",
     "wpackagist-plugin/wp-mail-smtp": "^1.3",
     "wpackagist-plugin/the-events-calendar": "^4.6",
     "wpackagist-plugin/simple-301-redirects": "^1.07",
     "wpackagist-plugin/wpmandrill": "^1.33",
     "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
-    "wpackagist-plugin/wpremote": "2.8.4.1",
-    "wpackagist-plugin/classic-editor": "^0.4.0",
+    "wpackagist-plugin/wpremote": "2.8.4.3",
+    "wpackagist-plugin/classic-editor": "^1.5",
     "wpackagist-plugin/wp-gdpr-compliance": "^1.4"
   },
   "extra": {

@@ -4,14 +4,14 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "4aeea0d1dd2aac5745cebe9c833da972",
+    "content-hash": "ad4f29c35c28d132c2c4162d772aeec6",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
-            "version": "5.7.6",
+            "version": "5.8.4",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.7.6.zip"
+                "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/5.8.4.zip"
             },
             "type": "wordpress-plugin"
         },
@@ -139,10 +139,10 @@
         },
         {
             "name": "gravityforms/gravityforms",
-            "version": "2.3.2",
+            "version": "2.4.12",
             "dist": {
                 "type": "zip",
-                "url": "https://github.com/wp-premium/gravityforms/archive/2.3.2.zip"
+                "url": "https://github.com/wp-premium/gravityforms/archive/2.4.12.zip"
             },
             "type": "wordpress-plugin"
         },
@@ -385,15 +385,15 @@
         },
         {
             "name": "wpackagist-plugin/autodescription",
-            "version": "3.2.4",
+            "version": "4.0.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/autodescription/",
-                "reference": "tags/3.2.4"
+                "reference": "trunk"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/autodescription.3.2.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/autodescription.zip?timestamp=1568655698"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -403,15 +403,15 @@
         },
         {
             "name": "wpackagist-plugin/classic-editor",
-            "version": "0.4",
+            "version": "1.5",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/classic-editor/",
-                "reference": "tags/0.4"
+                "reference": "tags/1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/classic-editor.0.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/classic-editor.1.5.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -457,15 +457,15 @@
         },
         {
             "name": "wpackagist-plugin/stream",
-            "version": "3.2.3",
+            "version": "3.4.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stream/",
-                "reference": "tags/3.2.3"
+                "reference": "tags/3.4.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stream.3.2.3.zip"
+                "url": "https://downloads.wordpress.org/plugin/stream.3.4.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -583,15 +583,15 @@
         },
         {
             "name": "wpackagist-plugin/wpremote",
-            "version": "2.8.4.1",
+            "version": "2.8.4.3",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wpremote/",
-                "reference": "trunk"
+                "reference": "tags/2.8.4.3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpremote.zip?timestamp=1512225997"
+                "url": "https://downloads.wordpress.org/plugin/wpremote.2.8.4.3.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
