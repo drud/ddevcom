@@ -6,7 +6,15 @@ namespace Composer\Autoload;
 
 class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
 {
+    public static $files = array (
+        '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
+    );
+
     public static $prefixLengthsPsr4 = array (
+        'S' => 
+        array (
+            'Symfony\\Polyfill\\Ctype\\' => 23,
+        ),
         'D' => 
         array (
             'Dotenv\\' => 7,
@@ -18,6 +26,10 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
     );
 
     public static $prefixDirsPsr4 = array (
+        'Symfony\\Polyfill\\Ctype\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/polyfill-ctype',
+        ),
         'Dotenv\\' => 
         array (
             0 => __DIR__ . '/..' . '/vlucas/phpdotenv/src',
