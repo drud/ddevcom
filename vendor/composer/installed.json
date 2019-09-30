@@ -533,26 +533,6 @@
         "homepage": "https://wordpress.org/plugins/ultimate-social-media-icons/"
     },
     {
-        "name": "wpackagist-plugin/w3-total-cache",
-        "version": "0.9.7.5",
-        "version_normalized": "0.9.7.5",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/w3-total-cache/",
-            "reference": "tags/0.9.7.5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/w3-total-cache.0.9.7.5.zip"
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/w3-total-cache/"
-    },
-    {
         "name": "wpackagist-plugin/wordpress-importer",
         "version": "0.6.4",
         "version_normalized": "0.6.4.0",

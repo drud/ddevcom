@@ -72,8 +72,7 @@
     "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
     "wpackagist-plugin/wpremote": "2.8.4.1",
     "wpackagist-plugin/classic-editor": "^0.4.0",
-    "wpackagist-plugin/wp-gdpr-compliance": "^1.4",
-    "wpackagist-plugin/w3-total-cache": "^0.9.7"
+    "wpackagist-plugin/wp-gdpr-compliance": "^1.4"
   },
   "extra": {
     "installer-paths": {
