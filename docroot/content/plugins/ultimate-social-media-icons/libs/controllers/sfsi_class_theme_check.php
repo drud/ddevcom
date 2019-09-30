@@ -2,6 +2,7 @@
 
 class sfsi_ThemeCheck
 {
+	public $metaArray = null;
 	public function sfsi_plus_string_to_arr($str){
 
 		$arrSingleQuote = array();
@@ -41,20 +42,24 @@ class sfsi_ThemeCheck
 			    
 			    for($i=0;$i<count($finalArr);$i++) {
 			              
-			            if(is_array($finalArr[$i])){
+			            if( is_array($finalArr[$i]) 
 
-			                $arrVal = $finalArr[$i];
+			            	// Theme name should be non-empty
+			            	&& isset($finalArr[$i][0]) && !empty($finalArr[$i][0])
+			            ){
 
-			                    $themeArr 					   = array();
-			                    $themeArr['themeName']         = preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[0]));
-			                    $themeArr['noBrainerKeywords'] = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[1])));
-			                    $themeArr['separateKeywords']  = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[2])));
-			                    $themeArr['negativeKeywords']  = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[3])));
-			                    $themeArr['headline']          = (isset($arrVal[4]) && strlen(trim($arrVal[4]))==0)? "You like ".trim($arrVal[0])." ?" : trim($arrVal[4]);
-			                    $themeArr['themeLink']         = trim($arrVal[5]);
-			                    $themeArr['bottomtext']        = (isset($arrVal[6]) && strlen(trim($arrVal[6]))==0)? "See all ".strtolower(trim($arrVal[0]))."-themed-icons": trim($arrVal[6]);                   
+		                	$arrVal = $finalArr[$i];
 
-			                    array_push($themeDataArr, (object)$themeArr);
+		                    $themeArr 					   = array();
+		                    $themeArr['themeName']         = preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[0]));
+		                    $themeArr['noBrainerKeywords'] = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[1])));
+		                    $themeArr['separateKeywords']  = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[2])));
+		                    $themeArr['negativeKeywords']  = $this->sfsi_plus_string_to_arr(preg_replace('/^[,\s]+|[\s,]+$/', '', trim($arrVal[3])));
+		                    $themeArr['headline']          = (isset($arrVal[6]) && strlen(trim($arrVal[6]))==0)? "You like ".trim($arrVal[0])." ?" : trim($arrVal[6]);
+		                    $themeArr['themeLink']         = trim($arrVal[8]);
+		                    $themeArr['bottomtext']        = (isset($arrVal[10]) && strlen(trim($arrVal[10]))==0)? "See all ".strtolower(trim($arrVal[0]))."-themed-icons": trim($arrVal[10]);                   
+
+		                    array_push($themeDataArr, (object)$themeArr);
 			            } 
 			    }
 		    }	    	
@@ -71,8 +76,6 @@ class sfsi_ThemeCheck
 		$keywordEnglish = array_filter(array_map(sfsi_returningElement($element), $keywordEnglish)); 	    
 	    return $keywordEnglish;
 	}
-
-
 	public function sfsi_plus_regex_for_keywords($arrKeyWords){
 
 		$strRegex = "";
@@ -137,8 +140,6 @@ class sfsi_ThemeCheck
 	}
 
 	public function sfsi_plus_match_separate_word_with_csv_data($seprateWord,$domainname){
-
-
 	      $keywordEnglish = $this->sfsi_plus_get_keywordEnglish();
 
 	      $finalKeywordEnglish = array();
@@ -284,6 +285,114 @@ class sfsi_ThemeCheck
 	    return $boolSeparateWord;
 	}
 
+	public function sfsi_plus_MetaKeywordCheck($arrSeparateKeywords,$domainname){
+ 		$keywordInMeta = false;
+ 		$metaArray = $this->sfsi_plus_GetMetaName($domainname);
+ 		foreach($metaArray as $index=>$meta){
+ 			if($this->sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords, $domainname)){
+                $flag = true;	                
+            }
+            else if($this->sfsi_plus_SeparateKeywordCheck($arrSeparateKeywords,$domainname)){
+                $flag = true;
+            }
+ 		}
+ 		return $keywordInMeta;
+ 	}
+
+ 	public function sfsi_plus_GetMetaKeywords($domainname){
+ 		$url = get_bloginfo('url'); 
+ 		$res= wp_remote_get($url);
+ 		$meta_local = array("title"=>array(),"description"=>array(),"keyword"=>array());
+ 		if ( is_array( $res ) && ! is_wp_error( $res ) ) {
+		    $body    = $res['body']; // use the content
+			$meta = array();
+		    if(false==class_exists("DomDocument")) {
+		    	$metas=array();
+	    		preg_match_all( '/\<meta.+name="(\w*)".+content="(.*)"/i', $body, $metas);
+	    		preg_match_all( '/\<meta.+property="og:(\w*)".+content="(.*)"/i', $body, $metas2);
+	    		// $metas[1]=array_merge($metas[1],$metas2[1]);
+	    		// $metas[2]=array_merge($metas[2],$metas2[2]);
+		    	if(isset($metas)&&is_array($metas)&&isset($metas[1])&&isset($metas[2])){
+		    		foreach($metas[1] as $index=>$meta_name){
+		    			if($meta_name==="keywords" && isset($metas[2][$index])) {
+		    				$meta['keywords']=$metas[2][$index];
+		    			}
+		    			if($meta_name === "description" && isset($metas[2][$index])){
+		    				$meta['description']=$metas[2][$index];
+		    			}
+		    		}
+		    	}
+		    	if(isset($metas2)&&is_array($metas2)&&isset($metas2[1])&&isset($metas2[2])){
+		    		foreach($metas2[1] as $index=>$meta_name){
+		    			// var_dump($meta_name,$meta_name === "description" ,$metas2[2][$index]);
+		    			if($meta_name==="keywords" && isset($metas2[2][$index])) {
+		    				$meta[$meta_name]=$metas2[2][$index];
+		    			}
+		    			if($meta_name === "description" && isset($metas2[2][$index])&&!isset($meta[$meta_name])){
+		    				$meta[$meta_name]=$metas2[2][$index];
+		    			}
+		    		}
+		    	}
+		    	// var_dump($meta);die();
+		    	if(isset($meta['keywords'])){
+		    		$meta_local["keyword"]=array_filter(explode(',',$meta['keywords']),function($data){
+						return $data!=="";
+					});
+		    	}
+		    	if(isset($meta['description'])){
+		    		$meta['description']=preg_replace("/[^A-Za-z ]/", '', strtolower($meta['description']));
+		    		$meta_local["description"]=array_filter(explode( '\s+',$meta['description']),function($data){
+						return $data!=="";
+					});
+		    	}
+	    		$preg_res=preg_match("/<title>(.+)<\/title>/i", $body, $matches);
+	    		if($preg_res){
+					$meta['title']=preg_replace("/[^A-Za-z ]/", '', strtolower($matches[1]));
+					$meta_local["title"]=array_filter(explode('\s+',$meta['title']),function($data){
+						return $data!=="";
+					});
+				}
+				
+		    }else{
+				$doc = new \DOMDocument();
+				@$doc->loadHTML($body);
+				$nodes = $doc->getElementsByTagName('meta');
+				foreach($nodes as $index=>$node){
+					if(null!==$node->getAttribute('name')) {
+						$meta[$node->getAttribute('name')]=$node->getAttribute('content');
+					}elseif(null!==$node->getAttribute('property')){
+						$meta[$node->getAttribute('property')]=$node->getAttribute('content');
+					}
+				}
+				$meta['title'] = (null!==$doc->getElementsByTagName('title'))&&count($doc->getElementsByTagName('title'))>0?$doc->getElementsByTagName('title')->item(0)->nodeValue:'';
+				if(isset($meta['keywords'])) {
+					$meta_local["keyword"]=array_filter(explode(',',$meta['keywords']),function($data){
+						return $data!=="";
+					});
+				}
+				if(isset($meta['description'])){
+					$meta['description']=preg_replace("/[^A-Za-z ]/", '', strtolower($meta['description']));
+		    		$meta_local["description"]=array_filter(explode( '\s+',$meta['description']),function($data){
+						return $data!=="";
+					});
+				}
+				if(count($meta_local["description"])==0 && isset($meta['og:description'])){
+					$meta['description']=preg_replace("/[^A-Za-z ]/", '', strtolower($meta['og:description']));
+		    		$meta_local["description"]=array_filter(explode( '\s+',$meta['description']),function($data){
+						return $data!=="";
+					});
+				}
+				if(isset($meta['title'])){
+					$meta['title']=preg_replace("/[^A-Za-z ]/", '', strtolower($meta['title']));
+					// var_dump($meta['title']);die();
+					$meta_local["title"]= array_filter(explode('\s+',$meta['title']),function($data){
+						return $data!=="";
+					});
+				}
+			}
+		}
+		return $meta_local; 
+ 	}
 
 	public function sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords,$domainname){
 
@@ -297,7 +406,6 @@ class sfsi_ThemeCheck
 	    }
 	    return $bflag;		
 	}
-
 
 	public function sfsi_plus_check_type_of_websiteWithNoBrainerAndSeparateAndNegativeKeywords($strCheckForThemeType,$arrNoBrainerKeywords,$arrSeparateKeywords,$arrNoBrainerAndSeparateKeywords,$arrNegativeKeywords,$domainname){
 
@@ -314,7 +422,7 @@ class sfsi_ThemeCheck
 		                    $explode    = explode(".", $domainname);
 		                    $domainname = @$explode[0];                    
 		                }
-			            }
+			        }
 		               
 		            if($this->sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords, $domainname)){
 		                $flag = true;	                
@@ -322,9 +430,85 @@ class sfsi_ThemeCheck
 		            else if($this->sfsi_plus_SeparateKeywordCheck($arrSeparateKeywords,$domainname)){
 		                $flag = true;
 		            }
-		        }        
+		        } 
 		    }
 		    return ($flag)? $strCheckForThemeType:$flag;	    	
+	}
+
+	public function sfsi_plus_check_type_of_metaTitleWithNoBrainerAndSeparateAndNegativeKeywords($strCheckForThemeType,$arrNoBrainerKeywords,$arrSeparateKeywords,$arrNoBrainerAndSeparateKeywords,$arrNegativeKeywords,$domainname){
+		$flag = false;
+
+	    if(isset($arrNoBrainerAndSeparateKeywords) && is_array($arrNoBrainerAndSeparateKeywords) && count($arrNoBrainerAndSeparateKeywords)>0){
+
+            	if(null==$this->metaArray){
+            		$this->metaArray = $this->sfsi_plus_GetMetaKeywords($domainname);
+            	}
+            	foreach($this->metaArray["title"] as $index=>$keyword){
+            		if(!empty($keyword))
+		            {
+		                if(isset($arrNegativeKeywords) && is_array($arrNegativeKeywords) && count($arrNegativeKeywords)){
+		                    $keyword = preg_replace($this->sfsi_plus_regex_forNegative_keywords($arrNegativeKeywords), '', $keyword);
+		                }
+			        }
+            		if($this->sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords, $keyword)){
+		                $flag = true;
+		            }
+		            else if($this->sfsi_plus_SeparateKeywordCheck($arrSeparateKeywords,$keyword)){
+		                $flag = true;
+		            }
+            	}
+		    } 
+		    return ($flag)? $strCheckForThemeType:$flag;    
+	}
+	public function sfsi_plus_check_type_of_metaKeywordsWithNoBrainerAndSeparateAndNegativeKeywords($strCheckForThemeType,$arrNoBrainerKeywords,$arrSeparateKeywords,$arrNoBrainerAndSeparateKeywords,$arrNegativeKeywords,$domainname){
+		$flag = false;
+
+	    if(isset($arrNoBrainerAndSeparateKeywords) && is_array($arrNoBrainerAndSeparateKeywords) && count($arrNoBrainerAndSeparateKeywords)>0){
+
+            	if(null==$this->metaArray){
+            		$this->metaArray = $this->sfsi_plus_GetMetaKeywords($domainname);
+            	}
+            	foreach($this->metaArray["keyword"] as $index=>$keyword){
+            		if(!empty($keyword))
+		            {
+		                if(isset($arrNegativeKeywords) && is_array($arrNegativeKeywords) && count($arrNegativeKeywords)){
+		                    $keyword = preg_replace($this->sfsi_plus_regex_forNegative_keywords($arrNegativeKeywords), '', $keyword);
+		                }
+			        }
+            		if($this->sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords, $keyword)){
+		                $flag = true;
+		            }
+		            else if($this->sfsi_plus_SeparateKeywordCheck($arrSeparateKeywords,$keyword)){
+		                $flag = true;
+		            }
+            	}
+		    } 
+		    return ($flag)? $strCheckForThemeType:$flag;    
+	}
+	public function sfsi_plus_check_type_of_metaDescriptionWithNoBrainerAndSeparateAndNegativeKeywords($strCheckForThemeType,$arrNoBrainerKeywords,$arrSeparateKeywords,$arrNoBrainerAndSeparateKeywords,$arrNegativeKeywords,$domainname){
+		$flag = false;
+
+	    if(isset($arrNoBrainerAndSeparateKeywords) && is_array($arrNoBrainerAndSeparateKeywords) && count($arrNoBrainerAndSeparateKeywords)>0){
+
+            	if(null==$this->metaArray){
+            		$this->metaArray = $this->sfsi_plus_GetMetaKeywords($domainname);
+            	}
+            	foreach($this->metaArray["description"] as $index=>$keyword){
+            		if(!empty($keyword))
+		            {
+		                if(isset($arrNegativeKeywords) && is_array($arrNegativeKeywords) && count($arrNegativeKeywords)){
+		                    $keyword = preg_replace($this->sfsi_plus_regex_forNegative_keywords($arrNegativeKeywords), '', $keyword);
+		                }
+			        }
+            		if($this->sfsi_plus_noBrainerKeywordCheck($arrNoBrainerKeywords, $keyword)){
+		                $flag = true;
+		            }
+		            else if($this->sfsi_plus_SeparateKeywordCheck($arrSeparateKeywords,$keyword)){
+		                $flag = true;
+		            }
+            	}
+		    } 
+		    return ($flag)? $strCheckForThemeType:$flag;    
 	}
 
  	public function sfsi_plus_bannereHtml($title, $siteLink, $bannerImage, $buttonTitle)
@@ -340,7 +524,7 @@ class sfsi_ThemeCheck
 	            <a href="'.$siteLink.'" target="_blank">
 	                <div class="sfsi_new_notification_body_cat">
 	                    <div class="sfsi_new_notification_image_cat">
-	                        <img src="'.$bannerImage.'" id="newImg" />
+	                        <img src="'.$bannerImage.'" id="newImg" alt="Banner" />
 	                    </div>
 	                </div>
 	            </a>

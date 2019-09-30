@@ -8,7 +8,7 @@
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -31,6 +31,9 @@
  *    "transform-es2015-modules-commonjs"
  * IE11 supports everything else implemented, even if it has cost us headaches.
  * @see tsf.browseUnhappy
+ *
+ * Don't rely on the API: This code is quite anti-pattern. I will rewrite it in the future.
+ * It was never meant to become this big: "Serve JavaScript as an addition, not as a means."
  */
 
 /**
@@ -477,9 +480,12 @@ window.tsf = {
 		bar.classList.add( newClass );
 		sub.style.width = newWidth;
 
-		// Update tooltip.
+		// Update tooltip and ARIA label.
 		bar.dataset.desc = label;
-		bar.setAttribute( 'aria-label', label );
+		// Replace HTML with spaces. TODO see TSF's PHP-code `strip_tags_cs()` for a better solution.
+		// NOTE: Screen readers don't always read out HTML entities as intended. They should fix that, not us, as it's an escaping issue.
+		bar.setAttribute( 'aria-label', tsf.escapeString( label.replace( /(<([^>]+)?>?)/ig, ' ' ) ) );
+
 		tsfTT.triggerUpdate( bar );
 	},
 
@@ -736,7 +742,7 @@ window.tsf = {
 				$additionsElement.css( { 'maxWidth' : 'initial' } );
 
 				switch ( hoverAdditionsPlacement ) {
-					case 'before' :
+					case 'before':
 						let additionsWidth = $additionsElement[0].getBoundingClientRect().width;
 
 						additionsWidth = additionsMaxWidth < additionsWidth ? additionsMaxWidth : additionsWidth;
@@ -749,7 +755,7 @@ window.tsf = {
 						additionsOffset += leftOffset;
 						break;
 
-					case 'after' :
+					case 'after':
 						additionsOffset += leftOffset + textWidth + prefixMaxWidth;
 						break;
 				}
@@ -799,22 +805,22 @@ window.tsf = {
 
 			if ( _hasPrefixValue ) {
 				switch ( hoverPrefixPlacement ) {
-					case 'before' :
+					case 'before':
 						_placeholder = _hoverPrefixValue + _placeholder;
 						break;
 
-					case 'after' :
+					case 'after':
 						_placeholder = _placeholder + _hoverPrefixValue;
 						break;
 				}
 			}
 			if ( _hasAdditionsValue ) {
 				switch ( hoverAdditionsPlacement ) {
-					case 'before' :
+					case 'before':
 						_placeholder = _hoverAdditionsValue + _placeholder;
 						break;
 
-					case 'after' :
+					case 'after':
 						_placeholder = _placeholder + _hoverAdditionsValue;
 						break;
 				}
@@ -848,22 +854,22 @@ window.tsf = {
 			} else {
 				if ( hoverPrefixValue.length ) {
 					switch ( hoverPrefixPlacement ) {
-						case 'before' :
+						case 'before':
 							text = hoverPrefixValue + text;
 							break;
 
-						case 'after' :
+						case 'after':
 							text = text + hoverPrefixValue;
 							break;
 					}
 				}
 				if ( hoverAdditionsValue.length ) {
 					switch ( hoverAdditionsPlacement ) {
-						case 'before' :
+						case 'before':
 							text = hoverAdditionsValue + text;
 							break;
 
-						case 'after' :
+						case 'after':
 							text = text + hoverAdditionsValue;
 							break;
 					}
@@ -896,9 +902,9 @@ window.tsf = {
 			if ( ! pixels || ! reference ) return;
 
 			let test = {
-				'e': pixels,
-				'text' : tsf.unescapeString( reference.innerHTML ),
-				'guidelines' : tsf.params.inputGuidelines.title.search.pixels,
+				'e':          pixels,
+				'text':       tsf.unescapeString( reference.innerHTML ),
+				'guidelines': tsf.params.inputGuidelines.title.search.pixels,
 			};
 
 			tsf.updatePixelCounter( test );
@@ -984,40 +990,57 @@ window.tsf = {
 		jQuery( '#tsf-title-tagline-toggle :input' ).on( 'click', changeHomePageAdditionsVisibility );
 
 		/**
+		 * Updates private/protected title prefix upon Gutenberg's Post visibility switch.
+		 *
+		 * @function
+		 * @param {!jQuery.Event} event
+		 * @return {undefined}
+		 */
+		const updateVisibility = ( visibility ) => {
+
+			isPrivate = false;
+			isPasswordProtected = false;
+
+			switch ( visibility ) {
+				case 'password':
+					isPasswordProtected = true;
+					break;
+
+				case 'private':
+					isPrivate = true;
+					break;
+
+				default:
+				case 'public':
+					break;
+			}
+			setHoverPrefixValue();
+			enqueueTriggerInput();
+		}
+		jQuery( document ).on( 'tsf-updated-gutenberg-visibility', ( event, visibility ) => updateVisibility( visibility ) );
+
+		/**
 		 * Updates private/protected title prefix upon Post visibility switch.
 		 *
 		 * @function
 		 * @param {!jQuery.Event} event
 		 * @return {undefined}
 		 */
-		const updateVisibility = function( event ) {
+		const updateClassicVisibility = ( event ) => {
 			let value = jQuery( '#visibility' ).find( 'input:radio:checked' ).val();
 
-			isPrivate = false;
-			isPasswordProtected = false;
-
-			switch ( value ) {
-				case 'password' :
-					let p = jQuery( '#visibility' ).find( '#post_password' ).val();
-					// A falsy-password (like '0'), will return true in "SOME OF" WP's front-end PHP, false in WP's JS before submitting...
-					// It won't invoke WordPress' password protection. TODO FIXME: file WP Core bug report.
-					isPasswordProtected = p ? !! p.length : false;
-					break;
-
-				case 'private' :
-					isPrivate = true;
-					break;
-
-				default :
-				case 'public' :
-					break;
+			if ( 'password' === value ) {
+				let p = jQuery( '#visibility' ).find( '#post_password' ).val();
+				// A falsy-password (like '0'), will return true in "SOME OF" WP's front-end PHP, false in WP's JS before submitting...
+				// It won't invoke WordPress' password protection. TODO FIXME: file WP Core bug report.
+				let hasProtection = p ? !! p.length : false;
+				if ( ! hasProtection ) {
+					value = 'public';
+				}
 			}
-
-			//* @TODO move all of the above to a global state handler?
-			setHoverPrefixValue();
-			enqueueTriggerInput();
+			updateVisibility( value );
 		}
-		jQuery( '#visibility .save-post-visibility' ).on( 'click', updateVisibility );
+		jQuery( '#visibility .save-post-visibility' ).on( 'click', updateClassicVisibility );
 
 		/**
 		 * Updates used separator and all examples thereof.
@@ -1097,7 +1120,7 @@ window.tsf = {
 			unregisteredTriggerBuffer = setTimeout( triggerUnregisteredInput, 10 );
 		}
 		jQuery( window ).on( 'tsf-flex-resize', enqueueUnregisteredInputTrigger );
-		jQuery( '#homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
+		jQuery( '#tsf-homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
 		jQuery( '#tsf-flex-inpost-tab-general' ).on( 'tsf-flex-tab-toggled', enqueueUnregisteredInputTrigger );
 		enqueueUnregisteredInputTrigger();
 
@@ -1135,12 +1158,11 @@ window.tsf = {
 		 * Updates default title placeholder.
 		 *
 		 * @function
-		 * @param {!jQuery.Event} event
+		 * @param {string} value
 		 * @return {undefined}
 		 */
-		const updateDefaultTitle = function( event ) {
-			let val = event.target.value;
-			val = val.trim();
+		const updateDefaultTitle = function( val ) {
+			val = typeof val === 'string' && val.trim() || '';
 
 			if ( val.length ) {
 				defaultTitle = tsf.escapeString( stripTitleTags ? tsf.stripTags( val ) : val );
@@ -1152,7 +1174,8 @@ window.tsf = {
 		}
 		//= The home page listens to a static preset value. Update all others.
 		if ( ! tsf.states.isHome ) {
-			jQuery( '#edittag #name, #titlewrap #title' ).on( 'input', updateDefaultTitle );
+			jQuery( '#edittag #name, #titlewrap #title' ).on( 'input', event => updateDefaultTitle( event.target.value ) );
+			jQuery( document ).on( 'tsf-updated-gutenberg-title', ( event, title ) => updateDefaultTitle( title ) );
 		}
 
 		/**
@@ -1362,7 +1385,7 @@ window.tsf = {
 				$prefix.css( 'display', 'inline' );
 			}
 		}
-		jQuery( '#title-prefixes-toggle :input' ).on( 'click', adjustPrefixExample );
+		jQuery( '#tsf-title-prefixes-toggle :input' ).on( 'click', adjustPrefixExample );
 	},
 
 	/**
@@ -1378,42 +1401,13 @@ window.tsf = {
 
 		if ( ! tsf.hasInput ) return;
 
-		let $descriptions = jQuery( "#autodescription_description, #autodescription-meta\\[description\\], #autodescription-site-settings\\[homepage_description\\]" );
+		let $descriptions = jQuery( [
+			"#autodescription_description",
+			"#autodescription-meta\\[description\\]",
+			"#autodescription-site-settings\\[homepage_description\\]"
+		].join( ', ' ) );
 
 		if ( ! $descriptions.length ) return;
-
-		let separator = tsf.params.descriptionSeparator;
-
-		/**
-		 * Updates used separator and all examples thereof.
-		 *
-		 * @function
-		 * @param {!jQuery.Event} event
-		 * @return {undefined}
-		 */
-		const updateSeparator = function( event ) {
-			let val = jQuery( event.target ).val(),
-				newSep = '';
-
-			switch ( val ) {
-				case 'pipe' :
-					newSep = '|';
-					break;
-
-				case 'dash' :
-					newSep = '-';
-					break;
-
-				default :
-					newSep = jQuery( '<div/>' ).html( "&" + val + ";" ).text();
-					break;
-			}
-			separator = newSep;
-			jQuery( "#autodescription-descsep-js" ).text( ' ' + separator + ' ' );
-
-			enqueueTriggerInput();
-		}
-		jQuery( '#tsf-description-separator input' ).on( 'click', updateSeparator );
 
 		// TODO: We need to set a predicted description value, so we can toggle it.
 		// const updateAutodescription = function( event ) {
@@ -1442,8 +1436,8 @@ window.tsf = {
 
 			let test = {
 				'e': counter,
-				'text' : tsf.unescapeString( reference.innerHTML ),
-				'guidelines' : tsf.params.inputGuidelines.description.search.chars,
+				'text': tsf.unescapeString( reference.innerHTML ),
+				'guidelines': tsf.params.inputGuidelines.description.search.chars,
 			};
 
 			tsf.updateCharacterCounter( test );
@@ -1539,7 +1533,7 @@ window.tsf = {
 			clearTimeout( unregisteredTriggerBuffer );
 			unregisteredTriggerBuffer = setTimeout( triggerUnregisteredInput, 10 );
 		}
-		jQuery( '#homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
+		jQuery( '#tsf-homepage-tab-general' ).on( 'tsf-tab-toggled', enqueueUnregisteredInputTrigger );
 		jQuery( '#tsf-flex-inpost-tab-general' ).on( 'tsf-flex-tab-toggled', enqueueUnregisteredInputTrigger );
 		enqueueUnregisteredInputTrigger();
 
@@ -1560,6 +1554,13 @@ window.tsf = {
 			}
 		}
 		jQuery( document ).on( 'postbox-toggled', triggerPostboxSynchronousUnregisteredInput );
+
+		// const gbUpdated = function() {
+		// 	 jQuery( '#autodescription_description' ).attr( 'placeholder', tsf.gbData.descriptions.search );
+		// 	 enqueueTriggerInput();
+		// }
+		// jQuery( document ).on( 'tsf-updated-gutenberg-content', gbUpdated );
+		// jQuery( document ).on( 'tsf-updated-gutenberg-excerpt', gbUpdated );
 	},
 
 	/**
@@ -1598,21 +1599,21 @@ window.tsf = {
 			let val = '';
 			switchActive:
 			switch ( what ) {
-				case 'twitter' :
+				case 'twitter':
 					val = twTitleValue;
 					if ( twLocked || twPHLocked ) {
 						val = val.length ? val : $twTitle.prop( 'placeholder' );
 						break switchActive;
 					}
 					// get next if not set.
-				case 'og' :
+				case 'og':
 					val = val.length ? val : ogTitleValue;
 					if ( ogLocked || ogPHLocked ) {
 						val = val.length ? val : $ogTitle.prop( 'placeholder' );
 						break switchActive;
 					}
 					// get next if not set.
-				case 'reference' :
+				case 'reference':
 					val = val.length ? val : referenceValue;
 					break;
 			}
@@ -1720,21 +1721,21 @@ window.tsf = {
 			let val = '';
 			switchActive:
 			switch ( what ) {
-				case 'twitter' :
+				case 'twitter':
 					val = twDescValue;
 					if ( twLocked || twPHLocked ) {
 						val = val.length ? val : $twDesc.prop( 'placeholder' );
 						break switchActive;
 					}
 					// get next if not set.
-				case 'og' :
+				case 'og':
 					val = val.length ? val : ogDescValue;
 					if ( ogLocked || ogPHLocked ) {
 						val = val.length ? val : $ogDesc.prop( 'placeholder' );
 						break switchActive;
 					}
 					// get next if not set.
-				case 'reference' :
+				case 'reference':
 					if ( ! val.length ) {
 						if ( $descriptions.val().length ) {
 							val = referenceValue;
@@ -1808,6 +1809,27 @@ window.tsf = {
 		};
 		$ogDesc.on( 'input.tsfUpdateOgDesc', updateOgDesc );
 		$twDesc.on( 'input.tsfUpdateOgDesc', updateTwDesc );
+	},
+
+	/**
+	 * Initializes Canonical URL meta input.
+	 *
+	 * @since 3.2.0
+	 *
+	 * @function
+	 * @return {undefined}
+	 */
+	_initCanonicalInput: function() {
+
+		let canonicalInput = jQuery( '#autodescription_canonical' );
+
+		if ( ! canonicalInput ) return;
+
+		const updateCanonical = ( link ) => {
+			canonicalInput.attr( 'placeholder', link );
+		}
+
+		jQuery( document ).on( 'tsf-updated-gutenberg-link', ( event, link ) => updateCanonical( link ) );
 	},
 
 	/**
@@ -2223,48 +2245,6 @@ window.tsf = {
 	},
 
 	/**
-	 * Toggle tagline within the Description Example.
-	 *
-	 * @since 2.3.4
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	taglineToggleDesc: function( event ) {
-
-		let $this = jQuery( event.target ),
-			$tagDesc = jQuery( '#tsf-on-blogname-js' );
-
-		if ( $this.is(':checked') ) {
-			$tagDesc.css( 'display', 'inline' );
-		} else {
-			$tagDesc.css( 'display', 'none' );
-		}
-	},
-
-	/**
-	 * Toggle additions within Description example for the Example Description
-	 *
-	 * @since 2.6.0
-	 *
-	 * @function
-	 * @param {!jQuery.Event} event
-	 * @return {undefined}
-	 */
-	additionsToggleDesc: function( event ) {
-
-		let $this = jQuery( event.target ),
-			$tagDesc = jQuery( '#tsf-description-additions-js' );
-
-		if ( $this.is(':checked') ) {
-			$tagDesc.css( 'display', 'inline' );
-		} else {
-			$tagDesc.css( 'display', 'none' );
-		}
-	},
-
-	/**
 	 * Toggle tagline end examples within the Left/Right example for the
 	 * HomePage Title or Description.
 	 *
@@ -2280,10 +2260,6 @@ window.tsf = {
 
 		let $tagTitle = jQuery( '#tsf-title-tagline-toggle :input' ),
 			$title = jQuery( '.tsf-custom-blogname-js' ),
-			$tagDescAdditions = jQuery( '#tsf-description-additions-toggle :input' ),
-			$descAdditions = jQuery( '#tsf-description-additions-js' ),
-			$tagDescBlogname = jQuery( '#tsf-description-onblogname-toggle :input' ),
-			$descBlogname = jQuery( '#tsf-on-blogname-js' ),
 			$tagTitleAdditions = jQuery( '#tsf-title-additions-toggle :input' ),
 			$titleAdditions = jQuery( '.tsf-title-additions-js' );
 
@@ -2291,18 +2267,6 @@ window.tsf = {
 			$title.css( 'display', 'inline' );
 		} else {
 			$title.css( 'display', 'none' );
-		}
-
-		if ( $tagDescAdditions.is( ':checked' ) ) {
-			$descAdditions.css( 'display', 'inline' );
-		} else {
-			$descAdditions.css( 'display', 'none' );
-		}
-
-		if ( $tagDescBlogname.is( ':checked' ) ) {
-			$descBlogname.css( 'display', 'inline' );
-		} else {
-			$descBlogname.css( 'display', 'none' );
 		}
 
 		// Reverse option.
@@ -2353,6 +2317,13 @@ window.tsf = {
 		jQuery( input ).not( except )
 			.off( 'change.tsfChangeListener' )
 			.on( 'change.tsfChangeListener', { _input: input, _except: except }, setUnsetChange );
+
+		//= Gutenberg save.
+		jQuery( document )
+			.off( 'tsf-gutenberg-saved-document.tsfChangeListener' )
+			.on( 'tsf-gutenberg-saved-document.tsfChangeListener', () => {
+				tsf.settingsChanged = false;
+			} );
 
 		//= Text input
 		input = [
@@ -2718,6 +2689,8 @@ window.tsf = {
 		tsf._initDescInputs();
 		tsf._initSocialDescInputs();
 
+		tsf._initCanonicalInput();
+
 		tsf._initWebmastersInput();
 
 		// Sets tabs to correct radio button on load.
@@ -2799,10 +2772,6 @@ window.tsf = {
 		// Toggle Tabs for the inpost Flex settings.
 		$( '.tsf-flex-nav-tab-radio' ).on( 'change', tsf.flexTabToggle );
 		$( '.tsf-flex-nav-tab' ).on( 'click', '.tsf-flex-nav-tab-label', tsf.addNoFocusClass );
-
-		// Toggle Description additions removal.
-		$( '#tsf-description-onblogname-toggle :input' ).on( 'click', tsf.taglineToggleDesc );
-		$( '#tsf-description-additions-toggle :input' ).on( 'click', tsf.additionsToggleDesc );
 
 		// Dismiss notices.
 		$( '.tsf-dismiss' ).on( 'click', tsf.dismissNotice );

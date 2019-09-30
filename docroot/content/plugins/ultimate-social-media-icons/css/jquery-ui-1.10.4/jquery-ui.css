@@ -19,8 +19,6 @@
     font-style: normal;
 
 }
-
-
 .ui-helper-hidden {
 	display: none;
 }
@@ -69,15 +67,11 @@
 .ui-front {
 	z-index: 100;
 }
-
-
 /* Interaction Cues
 ----------------------------------*/
 .ui-state-disabled {
 	cursor: default !important;
 }
-
-
 /* Icons
 ----------------------------------*/
 
@@ -88,8 +82,6 @@
 	overflow: hidden;
 	background-repeat: no-repeat;
 }
-
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -872,8 +864,6 @@ body .ui-tooltip {
 	font-weight: normal;
 	color: #fff;
 }*/
-
-
 .ui-state-active,
 .ui-widget-content .ui-state-active,
 .ui-widget-header .ui-state-active {
@@ -881,8 +871,6 @@ body .ui-tooltip {
 	font-weight: normal;
 	color:#eeeeee;
 }
-
-
 
 .ui-state-active a,
 .ui-state-active a:link,
@@ -1155,8 +1143,6 @@ body .ui-tooltip {
 .ui-icon-grip-solid-horizontal { background-position: -48px -224px; }
 .ui-icon-gripsmall-diagonal-se { background-position: -64px -224px; }
 .ui-icon-grip-diagonal-se { background-position: -80px -224px; }
-
-
 /* Misc visuals
 ----------------------------------*/
 
@@ -1185,10 +1171,6 @@ body .ui-tooltip {
 .ui-corner-br {
 	border-bottom-right-radius: 0px;
 }
-
-
-
-
 #accordion h3 span,#accordion1 h3 span{ position: absolute; left:0px; top:0px; width:50px; height:49px; background:#31373d; line-height:50px; text-align: center; font-family: 'helveticaregular'; font-size:20px; color:#FFF;}
 
 #accordion h3:hover span, #accordion1 h3:hover span{ background:#b8262a; color:#eee;}

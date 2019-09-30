@@ -26,9 +26,11 @@ $wpdb->query("DELETE FROM `$wpdb->options` WHERE `option_name` LIKE 'wpgdprc\_%'
 $wpdb->query("DROP TABLE IF EXISTS `{$wpdb->base_prefix}wpgdprc_access_requests`");
 $wpdb->query("DROP TABLE IF EXISTS `{$wpdb->base_prefix}wpgdprc_delete_requests`");
 $wpdb->query("DROP TABLE IF EXISTS `{$wpdb->base_prefix}wpgdprc_consents`");
+$wpdb->query("DROP TABLE IF EXISTS `{$wpdb->base_prefix}wpgdprc_log`");
 
 // Cronjobs
 wp_clear_scheduled_hook('wpgdprc_deactivate_access_requests');
+wp_clear_scheduled_hook('wpgdprc_anonymise_requests');
 
 // Clear any cached data that has been removed
 wp_cache_flush();

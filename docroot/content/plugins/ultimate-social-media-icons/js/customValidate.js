@@ -58,18 +58,6 @@ function sfsi_validationStep2()
             return false;
         }    
   }
-  
-  /* goolge validation */
-    if(sfsi_validator(SFSI('input[name="sfsi_google_page"]'),'activte') && sfsi_validator(SFSI('input[name="sfsi_google_page"]'),'checked'))
-  {     
-       
-        if(!sfsi_validator(SFSI('input[name="sfsi_google_pageURL"]'),'blank') )
-        {   showErrorSuc("error","Error : Invalid Google+ page Url ",2);
-            SFSI('input[name="sfsi_google_pageURL"]').addClass('inputError');
-            
-            return false;
-        }    
-  }
   /* youtube validation */
     if(sfsi_validator(SFSI('input[name="sfsi_youtube_page"]'),'activte') && sfsi_validator(SFSI('input[name="sfsi_youtube_page"]'),'checked'))
   {     
@@ -230,29 +218,6 @@ function sfsi_validationStep4()
           if(!sfsi_validator(SFSI('input[name="sfsi_facebook_manualCounts"]'),'blank') && !sfsi_validator(SFSI('input[name="sfsi_facebook_manualCounts"]'),'url'))
             {   showErrorSuc("error","Error : Please Enter a valid facebook manual counts ",4);
                 SFSI('input[name="sfsi_facebook_manualCounts"]').addClass('inputError');
-                return false;
-            }      
-        }
-  }
-  /* validate google */
-  if(sfsi_validator(SFSI('input[name="sfsi_google_countsDisplay"]'),'activte') && sfsi_validator(SFSI('input[name="sfsi_google_countsDisplay"]'),'checked'))
-  {    
-        
-        if(SFSI('input[name="sfsi_google_countsFrom"]:checked').val()=='follower' )
-        {   
-            
-          if(!sfsi_validator(SFSI('input[name="sfsi_google_api_key"]'),'blank'))
-            {   showErrorSuc("error","Error : Please Enter a valid google api key",4);
-                SFSI('input[name="sfsi_google_api_key"]').addClass('inputError');
-                return false;
-            }      
-        }
-        if(SFSI('input[name="sfsi_google_countsFrom"]:checked').val()=='manual' )
-        {   
-            
-          if(!sfsi_validator(SFSI('input[name="sfsi_google_manualCounts"]'),'blank'))
-            {   showErrorSuc("error","Error : Please Enter google+ manual counts ",4);
-                SFSI('input[name="sfsi_google_manualCounts"]').addClass('inputError');
                 return false;
             }      
         }

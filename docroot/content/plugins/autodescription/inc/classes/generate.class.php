@@ -8,7 +8,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -42,11 +42,10 @@ class Generate extends User_Data {
 	 */
 	protected function fix_generation_args( &$args ) {
 		if ( is_array( $args ) ) {
-			$defaults = [
+			$args = array_merge( [
 				'id'       => 0,
 				'taxonomy' => '',
-			];
-			$args = array_merge( $defaults, $args );
+			], $args );
 		} elseif ( is_numeric( $args ) ) {
 			$args = [
 				'id'       => (int) $args,
@@ -82,7 +81,7 @@ class Generate extends User_Data {
 			'noarchive' => $this->get_option( 'site_noarchive' ) ? 'noarchive' : '',
 		];
 
-		//* Check home page SEO settings, set noindex, nofollow and noarchive
+		//* Check homepage SEO settings, set noindex, nofollow and noarchive
 		if ( $this->is_real_front_page() ) {
 			$meta['noindex']   = $this->get_option( 'homepage_noindex' ) ? 'noindex' : $meta['noindex'];
 			$meta['nofollow']  = $this->get_option( 'homepage_nofollow' ) ? 'nofollow' : $meta['nofollow'];
@@ -96,7 +95,7 @@ class Generate extends User_Data {
 
 			/**
 			 * Check for 404, or if archive is empty: set noindex for those.
-			 * Don't check this on the home page. The home page is sacred in this regard,
+			 * Don't check this on the homepage. The homepage is sacred in this regard,
 			 * because page builders and templates likely take over.
 			 * @since 2.2.8
 			 *

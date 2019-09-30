@@ -1,13 +1,15 @@
 <?php
 /**
- * @package The_SEO_Framework/Bootstrap
+ * @package The_SEO_Framework
+ * @subpackage Bootstrap
+ * No need to annotate namespacing here... there are only plain PHP queries.
  */
 
 defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2018 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published

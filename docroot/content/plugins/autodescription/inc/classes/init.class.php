@@ -8,7 +8,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -160,6 +160,7 @@ class Init extends Query {
 
 		//* Add plugin links to the plugin activation page.
 		\add_filter( 'plugin_action_links_' . THE_SEO_FRAMEWORK_PLUGIN_BASENAME, [ $this, '_add_plugin_action_links' ], 10, 2 );
+		\add_filter( 'plugin_row_meta', [ $this, '_add_plugin_row_meta' ], 10, 2 );
 
 		//* Initialize post states.
 		\add_action( 'current_screen', [ $this, 'post_state' ] );
@@ -385,7 +386,7 @@ class Init extends Query {
 			$output    = $this->object_cache_get( $cache_key );
 		} else {
 			$cache_key = '';
-			$output = false;
+			$output    = false;
 		}
 
 		if ( false === $output ) :
@@ -543,7 +544,7 @@ class Init extends Query {
 			exit;
 		}
 
-		\wp_redirect( $url, $redirect_type );
+		\wp_redirect( $url, $redirect_type ); // phpcs:ignore -- intended feature. Disable via $this->allow_external_redirect().
 		exit;
 	}
 

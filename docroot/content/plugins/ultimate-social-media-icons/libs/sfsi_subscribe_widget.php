@@ -46,11 +46,12 @@ class subscriber_widget extends WP_Widget {
 			$title = '';
 		}
 		?>
-		<p>
-			<label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label> 
-			<input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>" name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
-		</p>
-		<?php 
+<p>
+    <label for="<?php echo $this->get_field_id( 'title' ); ?>">Title:</label>
+    <input class="widefat" id="<?php echo $this->get_field_id( 'title' ); ?>"
+        name="<?php echo $this->get_field_name( 'title' ); ?>" type="text" value="<?php echo esc_attr( $title ); ?>" />
+</p>
+<?php 
 	}
 		
 	// Updating widget replacing old instances with new
@@ -69,16 +70,21 @@ function subscriber_load_widget()
 	register_widget( 'subscriber_widget' );
 }
 add_action( 'widgets_init', 'subscriber_load_widget' );
-?>
-<?php
+?><?php
 add_shortcode("USM_form", "sfsi_get_subscriberForm");
 function sfsi_get_subscriberForm()
 {
 	$option8 = unserialize(get_option('sfsi_section8_options',false));
 	$sfsi_feediid = sanitize_text_field(get_option('sfsi_feed_id'));
-	$url = "https://www.specificfeeds.com/widgets/subscribeWidget/";
+	if($sfsi_feediid == ""){
+		$url = "https://www.specificfeeds.com/subscribe?pub=boTZa2n0OIjC4D8PkiyzByH-uKEJSZgqMW-sJiFwbuEnoxENjKva2A";
+	}else{
+		$url = "https://www.specificfeeds.com/widgets/subscribeWidget/";
+		$url = $url.$sfsi_feediid.'/8/';	
+
+	}
+
 	$return = '';
-	$url = $url.$sfsi_feediid.'/8/';	
 	$return .= '<div class="sfsi_subscribe_Popinner">
 					<form method="post" onsubmit="return sfsi_processfurther(this);" target="popupwindow" action="'.$url.'">
 						<h5>'.trim(sanitize_text_field($option8['sfsi_form_heading_text'])).'</h5>
@@ -88,7 +94,7 @@ function sfsi_get_subscriberForm()
 						<div class="sfsi_subscription_form_field">
 							<input type="hidden" name="data[Widget][feed_id]" value="'.$sfsi_feediid.'">
 							<input type="hidden" name="data[Widget][feedtype]" value="8">
-							<input type="submit" name="subscribe" value="'.sanitize_text_field($option8['sfsi_form_button_text']).'" />
+							<input type="submit" name="subscribe" @click="sfsi_plus_handle_subscription_form" value="'.sanitize_text_field($option8['sfsi_form_button_text']).'" />
 						</div>
 					</form>
 				</div>';

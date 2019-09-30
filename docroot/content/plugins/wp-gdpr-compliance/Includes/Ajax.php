@@ -149,15 +149,15 @@ class Ajax {
                                         );
 
                                         $message = sprintf(
-                                            __('You have requested to access your data on %s.', WP_GDPR_C_SLUG),
-                                            sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
-                                        ) . '<br /><br />';
+                                                __('You have requested to access your data on %s.', WP_GDPR_C_SLUG),
+                                                sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
+                                            ) . '<br /><br />';
                                         $message .= sprintf(
-                                            __('Please visit this %s to view the data linked to the email address %s.', WP_GDPR_C_SLUG),
-                                            $deleteRequestPage,
-                                            $emailAddress
-                                        ) . '<br /><br />';
-                                        $message .= __('This page is available for 24 hours and can only be reached from the same device, IP address and browser session you requested from.', WP_GDPR_C_SLUG)  . '<br /><br />';
+                                                __('Please visit this %s to view the data linked to the email address %s.', WP_GDPR_C_SLUG),
+                                                $deleteRequestPage,
+                                                $emailAddress
+                                            ) . '<br /><br />';
+                                        $message .= __('This page is available for 24 hours and can only be reached from the same device, IP address and browser session you requested from.', WP_GDPR_C_SLUG) . '<br /><br />';
                                         $message .= sprintf(
                                             __('If your link is invalid you can fill in a new request after 24 hours: %s.', WP_GDPR_C_SLUG),
                                             sprintf(
@@ -238,9 +238,9 @@ class Ajax {
                                             $siteName
                                         );
                                         $message = sprintf(
-                                            __('You have received a new anonymise request on %s.', WP_GDPR_C_SLUG),
-                                            sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
-                                        ) . '<br /><br />';
+                                                __('You have received a new anonymise request on %s.', WP_GDPR_C_SLUG),
+                                                sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
+                                            ) . '<br /><br />';
                                         $message .= sprintf(
                                             __('You can manage this request in the admin panel: %s', WP_GDPR_C_SLUG),
                                             $adminPage
@@ -301,19 +301,22 @@ class Ajax {
             if (!$request->getProcessed()) {
                 switch ($request->getType()) {
                     case 'user' :
+                        global $wpdb;
                         if (current_user_can('edit_users')) {
                             $date = Helper::localDateTime(time());
                             $result = wp_update_user(array(
                                 'ID' => $request->getDataId(),
+                                'user_pass' => wp_generate_password(30),
                                 'display_name' => 'DISPLAY_NAME',
-                                'nickname' => 'NICKNAME',
+                                'user_nicename' => 'NICENAME' . $request->getDataId(),
                                 'first_name' => 'FIRST_NAME',
                                 'last_name' => 'LAST_NAME',
-                                'user_email' => $request->getDataId() . '.' . $date->format('Ymd') . '.' . $date->format('His') . '@example.org'
+                                'user_email' => $request->getDataId() . '.' . $date->format('Ymd.His') . '@example.org'
                             ));
                             if (is_wp_error($result)) {
                                 $output['error'] = __('This user doesn\'t exist.', WP_GDPR_C_SLUG);
                             } else {
+                                $wpdb->update($wpdb->users, array('user_login' => 'USERNAME_' . $date->format('Ymd.His')), array('ID' => $request->getDataId()));
                                 $request->setProcessed(1);
                                 $request->save();
                             }
@@ -327,7 +330,7 @@ class Ajax {
                             $result = wp_update_comment(array(
                                 'comment_ID' => $request->getDataId(),
                                 'comment_author' => 'NAME',
-                                'comment_author_email' => $request->getDataId() . '.' . $date->format('Ymd') . '.' . $date->format('His') . '@example.org',
+                                'comment_author_email' => $request->getDataId() . '.' . $date->format('Ymd.His') . '@example.org',
                                 'comment_author_IP' => '127.0.0.1'
                             ));
                             if ($result === 0) {
@@ -398,9 +401,9 @@ class Ajax {
                         $accessRequest
                     );
                     $message = sprintf(
-                        __('We have successfully processed your request and your data has been anonymised on %s.', WP_GDPR_C_SLUG),
-                        sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
-                    ) . '<br /><br />';
+                            __('We have successfully processed your request and your data has been anonymised on %s.', WP_GDPR_C_SLUG),
+                            sprintf('<a target="_blank" href="%s">%s</a>', $siteUrl, $siteName)
+                        ) . '<br /><br />';
                     $message .= __('The following has been processed:', WP_GDPR_C_SLUG) . '<br />';
                     $message .= sprintf('%s #%d with email address %s.', $request->getNiceTypeLabel(), $request->getDataId(), $accessRequest->getEmailAddress());
                     $message = apply_filters('wpgdprc_delete_request_mail_content', $message, $request, $accessRequest);

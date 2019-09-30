@@ -1,13 +1,17 @@
 <?php
 /**
- * @package The_SEO_Framework/Bootstrap
+ * @package The_SEO_Framework
+ * @subpackage Bootstrap
+ *
+ * @NOTE This file MUST be written according to WordPress' minimum PHP requirements.
+ *       Which is PHP 5.2.
  */
 
 defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2018 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -26,9 +30,6 @@ defined( 'THE_SEO_FRAMEWORK_DB_VERSION' ) or die;
  * This file holds functions for testing the plugin after upgrade.
  * This file will only be called ONCE if the required version option is lower
  * compared to The SEO Framework version constant.
- *
- * @NOTE This file MUST be written according to WordPress' minimum PHP requirements.
- *       Which is PHP 5.2.
  *
  * @since 3.1.0
  * @access private
@@ -72,9 +73,11 @@ function the_seo_framework_pre_boot_test() {
 		'wp'  => '37965',
 	);
 
-	   ! defined( 'PHP_VERSION_ID' ) || PHP_VERSION_ID < $requirements['php'] and $test = 1
+	// phpcs:disable Generic.Formatting.MultipleStatementAlignment.NotSameWarning
+	   ! defined( 'PHP_VERSION_ID' ) || PHP_VERSION_ID < $requirements['php'] and $test = 1 // precision alignment ok.
 	or $GLOBALS['wp_db_version'] < $requirements['wp'] and $test = 2
 	or $test = true;
+	// phpcs:enable Generic.Formatting.MultipleStatementAlignment.NotSameWarning
 
 	//* All good.
 	if ( true === $test ) {
@@ -83,7 +86,7 @@ function the_seo_framework_pre_boot_test() {
 	}
 
 	if ( $ms ) {
-		$_plugins = get_site_option( 'active_sitewide_plugins' );
+		$_plugins     = get_site_option( 'active_sitewide_plugins' );
 		$network_mode = isset( $_plugins[ plugin_basename( THE_SEO_FRAMEWORK_PLUGIN_BASE_FILE ) ] );
 	} else {
 		$network_mode = false;

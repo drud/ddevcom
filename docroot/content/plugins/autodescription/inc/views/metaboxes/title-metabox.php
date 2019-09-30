@@ -87,7 +87,7 @@ switch ( $instance ) :
 						'left'  => $additions_left,
 						'right' => $additions_right,
 					],
-					'showleft' => $showleft,
+					'showleft'  => $showleft,
 				],
 			],
 		];
@@ -140,7 +140,7 @@ switch ( $instance ) :
 		$example_left  = $examples['left'];
 		$example_right = $examples['right'];
 
-		$home_page_has_option = __( 'The Home Page has a specific option.', 'autodescription' );
+		$homepage_has_option = __( 'The homepage has a specific option.', 'autodescription' );
 
 		?>
 		<fieldset>
@@ -164,7 +164,7 @@ switch ( $instance ) :
 					</label>
 				</span>
 			</p>
-			<?php $this->description( $home_page_has_option ); ?>
+			<?php $this->description( $homepage_has_option ); ?>
 		</fieldset>
 
 		<hr>
@@ -177,7 +177,7 @@ switch ( $instance ) :
 		<fieldset>
 			<legend>
 				<h4><?php esc_html_e( 'Title Separator', 'autodescription' ); ?></h4>
-				<?php $this->description( __( 'If the title consists of two parts (original title, pagination, and blogname), then the separator will go in-between them.', 'autodescription' ) ); ?>
+				<?php $this->description( __( 'If the title consists of multiple parts (original title, pagination, and blogname), then the separator will go in-between them.', 'autodescription' ) ); ?>
 			</legend>
 			<p id="tsf-title-separator" class="tsf-fields">
 			<?php foreach ( $title_separator as $name => $html ) : ?>
@@ -189,7 +189,7 @@ switch ( $instance ) :
 
 		<hr>
 
-		<h4><?php esc_html_e( 'Remove Blogname from Title', 'autodescription' ); ?></h4>
+		<h4><?php esc_html_e( 'Blog Name', 'autodescription' ); ?></h4>
 		<div id="tsf-title-additions-toggle">
 			<?php
 			$info = $this->make_info(
@@ -201,7 +201,7 @@ switch ( $instance ) :
 			$this->wrap_fields(
 				$this->make_checkbox(
 					'title_rem_additions',
-					esc_html__( 'Remove Blogname from title?', 'autodescription' ) . ' ' . $info,
+					esc_html__( 'Remove blog name from the title?', 'autodescription' ) . ' ' . $info,
 					'',
 					false
 				),
@@ -212,7 +212,7 @@ switch ( $instance ) :
 		<?php
 		$this->attention_description( __( 'Note: Only use this option if you are aware of its SEO effects.', 'autodescription' ), false );
 		echo ' ';
-		$this->description( $home_page_has_option, false );
+		$this->description( $homepage_has_option, false );
 		break;
 
 	case 'the_seo_framework_title_metabox_prefixes':
@@ -264,7 +264,7 @@ switch ( $instance ) :
 		<hr>
 
 		<h4><?php esc_html_e( 'Archive Title Prefixes', 'autodescription' ); ?></h4>
-		<div id="title-prefixes-toggle">
+		<div id="tsf-title-prefixes-toggle">
 			<?php
 			$info = $this->make_info(
 				__( "The prefix helps visitors and search engines determine what kind of page they're visiting.", 'autodescription' ),

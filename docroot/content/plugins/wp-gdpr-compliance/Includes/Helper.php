@@ -143,6 +143,9 @@ class Helper {
                     $type = 'error';
                     $message = __('Couldn\'t find this consent.', WP_GDPR_C_SLUG);
                     break;
+                case 'wpgdprc-cookie-bar-reset' :
+                    $message = __('The consent bar has been reset.', WP_GDPR_C_SLUG);
+                    break;
             }
             if (!empty($message)) {
                 printf(
@@ -313,8 +316,8 @@ class Helper {
      * @return bool
      */
     public static function hasMailPluginInstalled() {
-        foreach(self::getActivePlugins() as $activePlugin) {
-            if(strpos(strtolower($activePlugin), 'mail') !== false) {
+        foreach (self::getActivePlugins() as $activePlugin) {
+            if (strpos(strtolower($activePlugin), 'mail') !== false) {
                 return true;
             }
         }
@@ -561,6 +564,15 @@ class Helper {
     }
 
     /**
+     * Function resets the cookie bar for all users, this will happen on button trigger & when new Consent has been added.
+     */
+    public static function resetCookieBar() {
+        $consentVersion = get_option('wpgdprc_consent_version');
+        $consentVersion += 1;
+        update_option('wpgdprc_consent_version', $consentVersion);
+    }
+
+    /**
      * @return array
      */
     public static function getRequiredConsentIds() {
@@ -594,7 +606,14 @@ class Helper {
                 'value' => 1
             )
         ));
-        $consents = (!empty($_COOKIE['wpgdprc-consent'])) ? esc_html($_COOKIE['wpgdprc-consent']) : '';
+        $consentVersion = get_option('wpgdprc_consent_version');
+        $multiSite = is_multisite();
+        if ($multiSite) {
+            $blogId = get_current_blog_id();
+            $consents = (!empty($_COOKIE[$blogId . '-wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE[$blogId . '-wpgdprc-consent-' . $consentVersion]) : '';
+        } else {
+            $consents = (!empty($_COOKIE['wpgdprc-consent-' . $consentVersion])) ? esc_html($_COOKIE['wpgdprc-consent-' . $consentVersion]) : '';
+        }
         if (!empty($requiredConsents)) {
             foreach ($requiredConsents as $requiredConsent) {
                 $output[] = intval($requiredConsent->getId());
@@ -640,6 +659,7 @@ class Helper {
             `email_address` varchar(100) NOT NULL,
             `session_id` varchar(255) NOT NULL,
             `ip_address` varchar(100) NOT NULL,
+            `token` text NOT NULL,
             `expired` tinyint(1) DEFAULT '0' NOT NULL,
             `date_created` datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
             PRIMARY KEY (`ID`)
@@ -698,6 +718,60 @@ class Helper {
             }
         }
         return $output;
+    }
+
+    /**
+     * @param $email
+     *
+     * @return null|string
+     */
+    public static function anonymizeEmail($email) {
+        if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailParts = explode('@', $email);
+            $localPart = $emailParts[0];
+            if (strlen($localPart) > 1 && strlen($localPart) < 4) {
+                $localPart = substr_replace($localPart, '*', strlen($localPart) - 1);
+            } else if (strlen($localPart) > 3 && strlen($localPart) < 6) {
+                $localPart = substr_replace($localPart, '**', strlen($localPart) - 2);
+            } else if (strlen($localPart) > 5) {
+                $localPart = substr_replace($localPart, '***', strlen($localPart) - 3);
+            } else {
+                $domain = $emailParts[1];
+                $domainName = explode('.', $domain);
+                $anonymisedDomain = str_replace($domainName[0], '***', $domainName[0]);
+            }
+
+            if (isset($domainName) && isset($anonymisedDomain)) {
+                return $localPart . '@' . $anonymisedDomain . '.' . $domainName[1];
+            } else {
+                return $localPart . '@' . $emailParts[1];
+            }
+        } else {
+            return NULL;
+        }
+    }
+
+    /**
+     * @param $ip
+     *
+     * @return null|string
+     */
+    public static function anonymizeIP($ip) {
+        if (filter_var($ip, FILTER_VALIDATE_IP)) {
+            if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+                $lastDot = strrpos($ip, '.') + 1;
+                return substr($ip, 0, $lastDot)
+                    . str_repeat('*', strlen($ip) - $lastDot);
+            } else if (filter_var($ip, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+                $lastColon = strrpos($ip, ':') + 1;
+                return substr($ip, 0, $lastColon)
+                    . str_repeat('*', strlen($ip) - $lastColon);
+            } else {
+                return NULL;
+            }
+        } else {
+            return NULL;
+        }
     }
 
     /**

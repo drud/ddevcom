@@ -429,8 +429,6 @@ class TwitterOAuth extends Config
         if (in_array($method, ['GET', 'PUT', 'DELETE']) && !empty($postfields)) {
             $options[CURLOPT_URL] .= '?' . Util::buildHttpQuery($postfields);
         }
-
-
         $curlHandle = curl_init();
         curl_setopt_array($curlHandle, $options);
         $response = curl_exec($curlHandle);

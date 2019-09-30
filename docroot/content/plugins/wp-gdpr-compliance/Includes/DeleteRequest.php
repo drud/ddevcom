@@ -61,12 +61,16 @@ class DeleteRequest {
 
     /**
      * @param int $accessRequestId
+     * @param bool $showAnonymised
      * @return int
      */
-    public function getAmountByAccessRequestId($accessRequestId = 0) {
+    public function getAmountByAccessRequestId($accessRequestId = 0, $showAnonymised = true) {
         global $wpdb;
         $query = "SELECT COUNT(`ID`) FROM `" . self::getDatabaseTableName() . "`";
         $query .= " WHERE `access_request_id` = %d";
+        if ($showAnonymised === false) {
+            $query .= " AND `ip_address` != '127.0.0.1'";
+        }
         $query .= " AND `processed` = '0'";
         $query .= " AND `site_id` = %d";
         $result = $wpdb->get_var($wpdb->prepare($query, intval($accessRequestId), get_current_blog_id()));
@@ -101,7 +105,7 @@ class DeleteRequest {
     public function getList($filters = array(), $limit = 0, $offset = 0) {
         global $wpdb;
         $output = array();
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
         $query .= Helper::getQueryByFilters($filters);
         $query .= sprintf(" AND `site_id` = '%d'", get_current_blog_id());
         $query .= " ORDER BY `date_created` DESC";
@@ -166,9 +170,14 @@ class DeleteRequest {
         if ($this->exists($this->getId())) {
             $wpdb->update(
                 self::getDatabaseTableName(),
-                array('processed' => $this->getProcessed()),
+                array(
+                    'ip_address' => $this->getIpAddress(),
+                    'data_id' => $this->getDataId(),
+                    'type' => $this->getType(),
+                    'processed' => $this->getProcessed()
+                ),
                 array('ID' => $this->getId()),
-                array('%d'),
+                array('%s', '%d', '%s', '%d'),
                 array('%d')
             );
             return $this->getId();
@@ -199,16 +208,19 @@ class DeleteRequest {
      * @return null|string
      */
     public function getManageUrl() {
-        switch ($this->getType()) {
-            case 'user' :
-                return get_edit_user_link($this->getDataId());
-                break;
-            case 'comment' :
-                return get_edit_comment_link($this->getDataId());
-                break;
-            case 'woocommerce_order' :
-                return get_edit_post_link($this->getDataId());
-                break;
+        $dataId = intval($this->getDataId());
+        if ($dataId > 0) {
+            switch ($this->getType()) {
+                case 'user' :
+                    return get_edit_user_link($this->getDataId());
+                    break;
+                case 'comment' :
+                    return get_edit_comment_link($this->getDataId());
+                    break;
+                case 'woocommerce_order' :
+                    return get_edit_post_link($this->getDataId());
+                    break;
+            }
         }
         return '';
     }
@@ -218,6 +230,9 @@ class DeleteRequest {
      */
     public function getNiceTypeLabel() {
         switch ($this->getType()) {
+            case 'unknown' :
+                $output = __('Unknown', WP_GDPR_C_SLUG);
+                break;
             case 'user' :
                 $output = __('User', WP_GDPR_C_SLUG);
                 break;
@@ -232,6 +247,10 @@ class DeleteRequest {
                 break;
         }
         return $output;
+    }
+
+    public function isAnonymised() {
+        return ($this->getIpAddress() === '127.0.0.1');
     }
 
     /**

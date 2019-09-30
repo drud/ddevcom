@@ -44,7 +44,7 @@ class AccessRequest {
      */
     public function getByEmailAddressAndSessionId($emailAddress = '', $sessionId = '') {
         global $wpdb;
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
         $query .= " WHERE `email_address` = %s";
         $query .= " AND `session_id` = %s";
         $query .= " AND `expired` = '0'";
@@ -62,7 +62,7 @@ class AccessRequest {
      */
     public function getByToken($token = '') {
         global $wpdb;
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
         $query .= " WHERE `token` = %s";
         $query .= " AND `expired` = '0'";
         $query .= " AND `site_id` = %d";
@@ -98,7 +98,7 @@ class AccessRequest {
     public function getList($filters = array(), $limit = 0, $offset = 0) {
         global $wpdb;
         $output = array();
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "` WHERE 1";
         $query .= Helper::getQueryByFilters($filters);
         $query .= sprintf(" AND `site_id` = %d", get_current_blog_id());
         $query .= " ORDER BY `date_created` DESC";
@@ -161,7 +161,7 @@ class AccessRequest {
      */
     public function existsByEmailAddress($emailAddress = '', $nonExpiredOnly = false) {
         global $wpdb;
-        $query  = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
+        $query = "SELECT * FROM `" . self::getDatabaseTableName() . "`";
         $query .= " WHERE `email_address` = %s";
         $query .= " AND `site_id` = %d";
         if ($nonExpiredOnly === true) {
@@ -179,9 +179,13 @@ class AccessRequest {
         if ($this->exists($this->getId())) {
             $wpdb->update(
                 self::getDatabaseTableName(),
-                array('expired' => $this->getExpired()),
+                array(
+                    'email_address' => $this->getEmailAddress(),
+                    'ip_address' => $this->getIpAddress(),
+                    'expired' => $this->getExpired()
+                ),
                 array('ID' => $this->getId()),
-                array('%d'),
+                array('%s', '%s', '%d'),
                 array('%d')
             );
             return $this->getId();
@@ -205,6 +209,10 @@ class AccessRequest {
             }
         }
         return false;
+    }
+
+    public function isAnonymised() {
+        return ($this->getIpAddress() === '127.0.0.1');
     }
 
     /**

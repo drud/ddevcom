@@ -84,6 +84,9 @@
 			autoclose   : true
 		};
 
+		// Set up some specific strings for datepicker i18n.
+		tribe_ev.fn.ensure_datepicker_i18n();
+
 		$tribedate
 			.bootstrapDatepicker( td.datepicker_opts )
 			.on( 'changeDate', function( e ) {
@@ -268,9 +271,13 @@
 				params = params + '&featured=1';
 			}
 
-			history.replaceState( {
-				"tribe_params": params
-			}, ts.page_title, location.href );
+			var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+
+			if( ! isShortcode || false !== config.update_urls.shortcode.month ){
+				history.replaceState( {
+					"tribe_params": params
+				}, ts.page_title, location.href );
+			}
 
 			$( window ).on( 'popstate', function( event ) {
 
@@ -371,7 +378,11 @@
 				if ( ts.ajax_running ) {
 					return;
 				}
-				if ( $tribedate.val().length ) {
+
+				if (
+					typeof $tribedate.val() !== 'undefined'
+					&& $tribedate.val().length
+				) {
 					if ( '0' !== ts.datepicker_format ) {
 						ts.date = tribeDateFormat( $tribedate.bootstrapDatepicker( 'getDate' ), 'tribeMonthQuery' );
 					}
@@ -379,6 +390,7 @@
 						ts.date = $tribedate.val();
 					}
 				}
+
 				else {
 					if ( !dateMod ) {
 						ts.date = td.cur_date.slice( 0, -3 );
@@ -560,14 +572,18 @@
 							}
 						}
 
-						if ( ts.do_string ) {
+						var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
+						var shouldUpdateHistory = ! isShortcode || false !== config.update_urls.shortcode.month;
+
+
+						if ( ts.do_string && shouldUpdateHistory ) {
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params
 							}, ts.page_title, td.cur_url );
 						}
 
-						if ( ts.pushstate ) {
+						if ( ts.pushstate && shouldUpdateHistory ) {
 							history.pushState( {
 								"tribe_date"  : ts.date,
 								"tribe_params": ts.params

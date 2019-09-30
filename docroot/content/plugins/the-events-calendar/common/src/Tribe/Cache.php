@@ -33,10 +33,26 @@ class Tribe__Cache implements ArrayAccess {
 	public function set( $id, $value, $expiration = 0, $expiration_trigger = '' ) {
 		$key = $this->get_id( $id, $expiration_trigger );
 
-		if ( $expiration == self::NON_PERSISTENT ) {
+		/**
+		 * Filters the expiration for cache objects to provide the ability
+		 * to make non-persistent objects be treated as persistent.
+		 *
+		 * @param int    $expiration         Cache expiration time.
+		 * @param string $id                 Cache ID.
+		 * @param mixed  $value              Cache value.
+		 * @param string $expiration_trigger Action that triggers automatic expiration.
+		 * @param string $key                Unique cache key based on Cache ID and expiration trigger last run time.
+		 *
+		 * @since 4.8
+		 */
+		$expiration = apply_filters( 'tribe_cache_expiration', $expiration, $id, $value, $expiration_trigger, $key );
+
+		if ( self::NON_PERSISTENT === $expiration ) {
 			$group      = 'tribe-events-non-persistent';
-			$this->non_persistent_keys[] = $key;
 			$expiration = 1;
+
+			// Add so we know what group to use in the future.
+			$this->non_persistent_keys[] = $key;
 		} else {
 			$group = 'tribe-events';
 		}
@@ -141,23 +157,31 @@ class Tribe__Cache implements ArrayAccess {
 	}
 
 	/**
-	 * @param string $action
+	 * Returns the time of an action last occurrence.
 	 *
-	 * @return int
+	 * @param string $action The action to return the time for.
+	 *
+	 * @since 4.9.14 Changed the return value type from `int` to `float`.
+	 *
+	 * @return float The time (microtime) an action last occurred, or the current microtime if it never occurred.
 	 */
 	public function get_last_occurrence( $action ) {
-		return (int) get_option( 'tribe_last_' . $action, time() );
+		return (float) get_option( 'tribe_last_' . $action, microtime( true ) );
 	}
 
 	/**
-	 * @param string $action
-	 * @param int    $timestamp
+	 * Sets the time (microtime) for an action last occurrence.
+	 *
+	 * @since 4.9.14 Changed the type of the time stored from an `int` to a `float`.
+	 *
+	 * @param string $action The action to record the last occurrence of.
+	 * @param int    $timestamp The timestamp to assign to the action last occurrence or the current time (microtime).
 	 */
 	public function set_last_occurrence( $action, $timestamp = 0 ) {
 		if ( empty( $timestamp ) ) {
-			$timestamp = time();
+			$timestamp = microtime( true );
 		}
-		update_option( 'tribe_last_' . $action, (int) $timestamp );
+		update_option( 'tribe_last_' . $action, (float) $timestamp );
 	}
 
 	/**

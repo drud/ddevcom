@@ -8,27 +8,27 @@
     <div class="sfsi-deactivation-popup-content">
 
         <div class="sfsi-popup-header sfsi-top-header">
-            <h2><?php _e('Oh! You don\'t like our plugin?',SFSI_DOMAIN); ?></h2>
+            <h2>Oh! You don\'t like our plugin?</h2>
             <div class="sfsi-sad-image">
-                <img src="<?php echo SFSI_PLUGURL; ?>images/sad_image.png">
+                <img src="<?php echo SFSI_PLUGURL; ?>images/sad_image.png" alt="error">
             </div>
         </div>
 
         <div class="sfsi-popup-content">
             <div class="sfsi-text">
-                <p class="sfsi-please"><?php _e('PLEASE',SFSI_DOMAIN); ?></p>
-                <p class="sfsi-please-other-text"><?php _e('let us know in the Support Forum what was the issue, <br>so that we can fix it. We‘ll respond quickly!',SFSI_DOMAIN); ?></p>
+                <p class="sfsi-please">PLEASE</p>
+                <p class="sfsi-please-other-text">let us know in the Support Forum what was the issue, <br>so that we can fix it. We‘ll respond quickly!</p>
             </div>
             <div class="sfsi-go-to-support">
-                <a target="_blank" href="<?php echo SFSI_SUPPORT_FORM; ?>" class="go-to-support-forum"><?php _e('Go to Support Forum>',SFSI_DOMAIN); ?></a>
+                <a target="_blank" href="<?php echo SFSI_SUPPORT_FORM; ?>" class="go-to-support-forum">Go to Support Forum></a>
             </div>
             <div class="sfsi-info-text">
-                <p><?php _e('If you\'re not a Wordpress user yet, please sign up – it\'s quick! Once logged in you‘ll see a section at the bottom where you can ask your question.',SFSI_DOMAIN); ?> </p>
+                <p>If you're not a Wordpress user yet, please sign up – it's quick! Once logged in you‘ll see a section at the bottom where you can ask your question.</p>
             </div>
         </div>
         <div class="sfsi-popup-footer">
             <div class="sfsi-deactivation-reason-link">
-                <a href="javascript:void(0)"><?php _e('No, don\'t worry, there was a different reason, I want to de-activate it',SFSI_DOMAIN); ?></a>
+                <a href="javascript:void(0)">No, don't worry, there was a different reason, I want to de-activate it</a>
             </div>
         </div>
         
@@ -56,7 +56,7 @@
                         <div class="sfsi-popup-content">
                             <div class="sfsi-text">
                                 <p class="sfsi-please">PLEASE</p>
-                                <p class="sfsi-please-other-text">let us know in the Support Forum what didn't work, <br>so that we can fix it. We‘ll respond quickly! <img src="<?php echo SFSI_PLUGURL; ?>images/smile.png"></p>
+                                <p class="sfsi-please-other-text">let us know in the Support Forum what didn't work, <br>so that we can fix it. We‘ll respond quickly! <img src="<?php echo SFSI_PLUGURL; ?>images/smile.png" alt="error"></p>
                             </div>
                             <div class="sfsi-go-to-support">
                                 <a target="_blank" href="<?php echo SFSI_SUPPORT_FORM; ?>" class="go-to-support-forum">Go to Support Forum ></a>
@@ -77,7 +77,7 @@
                     <div class="sfsi-reason-section hide">
                         <div class="sfsi-popup-content">
                             <div class="sfsi-text">
-                                <p class="sfsi-please-other-text">Thumbs up to that one! <img src="<?php echo SFSI_PLUGURL; ?>images/smile.png"></p>
+                                <p class="sfsi-please-other-text">Thumbs up to that one! <img src="<?php echo SFSI_PLUGURL; ?>images/smile.png" alt="error"></p>
                             </div>
                             <div class="sfsi-go-to-support">
                                 <a href="javascript:void(0)" class="sfsi-deactive-plugin go-to-support-forum">De-activate plugin now</a>

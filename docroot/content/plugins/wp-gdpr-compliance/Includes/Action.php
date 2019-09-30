@@ -138,25 +138,49 @@ class Action {
     }
 
     public function addConsentBar() {
-        $output = '<div class="wpgdprc wpgdprc-consent-bar" style="display: none;">';
+    	$consentRequiredStatus = $this->checkAllConsentsRequired();
+	    $consentBarColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_color');
+    	$consentBarTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_text_color');
+    	$consentBarButtonColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary');
+    	$consentBarButtonTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary');
+    	$consentBarStyling = array(
+    		'display: none;'
+	    );
+    	if (!empty($consentBarColor)) {
+    		$consentBarStyling[] = 'background: ' . $consentBarColor .';';
+	    }
+	    $consentBarTextStyling = array();
+	    if (!empty($consentBarTextColor)) {
+    		$consentBarTextStyling[] = 'color: ' . $consentBarTextColor . ';';
+	    }
+
+	    $text = ($consentRequiredStatus) ? esc_attr__('More information', WP_GDPR_C_SLUG) : esc_attr__('My settings', WP_GDPR_C_SLUG);
+	    $output = '<div class="wpgdprc wpgdprc-consent-bar" style="' . implode('', $consentBarStyling) . '">';
         $output .= '<div class="wpgdprc-consent-bar__container">';
-        $output .= '<div class="wpgdprc-consent-bar__content">';
+	    $output .= '<div class="wpgdprc-consent-bar__content" ' .  (!empty($consentBarTextColor) ? 'style="' . implode('', $consentBarTextStyling) . '"' : '') . '>';
         $output .= '<div class="wpgdprc-consent-bar__column">';
         $output .= '<div class="wpgdprc-consent-bar__notice">';
         $output .= apply_filters('wpgdprc_the_content', Consent::getBarExplanationText());
         $output .= '</div>';
         $output .= '</div>';
         $output .= '<div class="wpgdprc-consent-bar__column">';
-        $output .= sprintf(
-            '<a class="wpgdprc-consent-bar__settings" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal">%s</a>',
-            esc_attr__('My settings', WP_GDPR_C_SLUG)
-        );
+	    $output .= sprintf(
+		    '<a class="wpgdprc-consent-bar__settings" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal">%s</a>',
+		    $text
+	    );
         $output .= '</div>';
         $output .= '<div class="wpgdprc-consent-bar__column">';
-        $output .= sprintf(
-            '<button class="wpgdprc-button wpgdprc-consent-bar__button">%s</button>',
-            __('Accept', WP_GDPR_C_SLUG)
-        );
+	    $buttonStyling = array();
+	    if (!empty($consentBarButtonColor)) {
+		    $buttonStyling[] = 'background: ' . $consentBarButtonColor . ';';
+	    }
+	    if (!empty($consentBarButtonTextColor)) {
+		    $buttonStyling[] = 'color: ' . $consentBarButtonTextColor . ';';
+	    }
+	    $output .= sprintf(
+		    '<button class="wpgdprc-button wpgdprc-consent-bar__button" ' .  (!empty($buttonStyling) ? 'style="' . implode('', $buttonStyling) . '"' : '') .'>%s</button>',
+		    __('Accept', WP_GDPR_C_SLUG)
+	    );
         $output .= '</div>';
         $output .= '</div>';
         $output .= '</div>';
@@ -164,16 +188,39 @@ class Action {
         echo apply_filters('wpgdprc_consent_bar', $output);
     }
 
+	/**
+	 * Checks if all the consents are required.
+	 * @return bool
+	 */
+	public function checkAllConsentsRequired() {
+		$totalRequiredConsents = Consent::getInstance()->getList(array(
+			'active' => array('value' => 1),
+			'required' => array('value' => 1)
+		));
+		$totalActiveConsents = Consent::getInstance()->getList(array(
+			'active' => array('value' => 1),
+		));
+		return sizeof($totalRequiredConsents) === sizeof($totalActiveConsents);
+    }
+
     public function addConsentModal() {
+    	$consentRequiredStatus = $this->checkAllConsentsRequired();
+	    $consentModalButtonColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary');
+	    $consentModalButtonTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary');
         $consentIds = (array)Helper::getConsentIdsByCookie();
         $consents = Consent::getInstance()->getList(array(
             'active' => array('value' => 1)
         ));
+	    $text = ($consentRequiredStatus) ?  __('Accept', WP_GDPR_C_SLUG) : __('Save my settings', WP_GDPR_C_SLUG);
         $output = '<div class="wpgdprc wpgdprc-consent-modal" id="wpgdprc-consent-modal" aria-hidden="true">';
         $output .= '<div class="wpgdprc-consent-modal__overlay" tabindex="-1" data-micromodal-close>';
         $output .= '<div class="wpgdprc-consent-modal__container" role="dialog" aria-modal="true">';
         if (!empty($consents)) {
             $output .= '<nav class="wpgdprc-consent-modal__navigation">';
+            $output .= sprintf(
+                '<a class="wpgdprc-button wpgdprc-button--active" href="javascript:void(0);" data-target="description">%s</a>',
+                Consent::getModalTitle()
+            );
             /** @var Consent $consent */
             foreach ($consents as $consent) {
                 $title = $consent->getTitle();
@@ -185,7 +232,7 @@ class Action {
             }
             $output .= '</nav>'; // .wpgdprc-consent-modal__navigation
             $output .= '<div class="wpgdprc-consent-modal__information">';
-            $output .= '<div class="wpgdprc-consent-modal__description">';
+            $output .= '<div class="wpgdprc-consent-modal__description" data-target="description">';
             $output .= sprintf(
                 '<h3 class="wpgdprc-consent-modal__title">%s</h3>',
                 Consent::getModalTitle()
@@ -226,10 +273,18 @@ class Action {
                 $output .= '</div>'; // .wpgdprc-consent-modal__description
             }
             $output .= '<footer class="wpgdprc-consent-modal__footer">';
-            $output .= sprintf(
-                '<a class="wpgdprc-button wpgdprc-button--secondary" href="javascript:void(0);">%s</a>',
-                __('Save my settings', WP_GDPR_C_SLUG)
-            );
+	        $buttonStyling = array();
+	        if (!empty($consentModalButtonColor)) {
+		        $buttonStyling[] = 'background: ' . $consentModalButtonColor . ';';
+	        }
+	        if (!empty($consentModalButtonTextColor)) {
+		        $buttonStyling[] = 'color: ' . $consentModalButtonTextColor . ';';
+	        }
+	        $output .= sprintf(
+		        '<a class="wpgdprc-button wpgdprc-button--secondary" href="javascript:void(0);" %s>%s</a>',
+		        (!empty($buttonStyling) ? 'style="' . implode('', $buttonStyling) . '"' : ''),
+		        $text
+	        );
             $output .= '</footer>'; // .wpgdprc-consent-modal__footer
             $output .= '</div>'; // .wpgdprc-consent-modal__information
         }
@@ -241,48 +296,6 @@ class Action {
         $output .= '</div>'; // .wpgdprc-consent-modal__overlay
         $output .= '</div>'; // #wpgdprc-consent-modal
         echo $output;
-    }
-
-    public function addConsentsToHead() {
-        $consentIds = Helper::getConsentIdsByCookie();
-        if (empty($consentIds)) {
-            return;
-        }
-        $args = array(
-            'placement' => array(
-                'value' => 'head'
-            ),
-            'active' => array(
-                'value' => 1
-            ),
-            'ID' => array(
-                'value' => $consentIds,
-                'compare' => 'IN'
-            )
-        );
-        $consents = Consent::getInstance()->getList($args);
-        echo Consent::output($consents);
-    }
-
-    public function addConsentsToFooter() {
-        $consentIds = Helper::getConsentIdsByCookie();
-        if (empty($consentIds)) {
-            return;
-        }
-        $args = array(
-            'placement' => array(
-                'value' => 'footer'
-            ),
-            'active' => array(
-                'value' => 1
-            ),
-            'ID' => array(
-                'value' => $consentIds,
-                'compare' => 'IN'
-            )
-        );
-        $consents = Consent::getInstance()->getList($args);
-        echo Consent::output($consents);
     }
 
     public function addTagsToFields() {

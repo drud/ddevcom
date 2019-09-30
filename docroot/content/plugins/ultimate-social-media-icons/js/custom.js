@@ -33,7 +33,7 @@ function sfsi_make_popBox() {
 function sfsi_stick_widget(s) {
 	0 == initTop.length && (SFSI(".sfsi_widget").each(function(s) {
         initTop[s] = SFSI(this).position().top;
-    }), console.log(initTop));
+    }));
     var i = SFSI(window).scrollTop(), e = [], t = [];
     SFSI(".sfsi_widget").each(function(s) {
         e[s] = SFSI(this).position().top, t[s] = SFSI(this);
@@ -71,9 +71,14 @@ function sfsi_float_widget(s) {
     
     function i() {
         r = "Microsoft Internet Explorer" === navigator.appName ? a - document.documentElement.scrollTop :a - window.pageYOffset, 
-        Math.abs(r) > 0 ? (window.removeEventListener("scroll", i), a -= r * o, SFSI("#sfsi_floater").css({
+        Math.abs(r) > 0 ?
+         (window.removeEventListener("scroll", i), 
+          a -= r * o, 
+          SFSI("#sfsi_floater").css({
             top:(a + t).toString() + "px"
-        }), setTimeout(i, n)) :window.addEventListener("scroll", i, !1);
+          }), 
+          setTimeout(i, n)) :
+        window.addEventListener("scroll", i, !1);
 	}
     
     function e() {
@@ -91,14 +96,13 @@ function sfsi_float_widget(s) {
 			SFSI("#sfsi_floater").css("top",documentheight+"px");
 		}
 	}
-
     if ("center" == s)
 	{
 		var t = ( SFSI(window).height() - SFSI("#sfsi_floater").height() ) / 2;
 	}
 	else if ("bottom" == s)
 	{
-		var t = window.innerHeight - SFSI("#sfsi_floater").height();
+		var t = window.innerHeight - (SFSI("#sfsi_floater").height() + parseInt(SFSI('#sfsi_floater').css('margin-bottom')));
 	}
 	else
 	{
@@ -155,7 +159,7 @@ function sfsfi_getCookie(s) {
 
 function sfsi_hideFooter() {}
 
-window.onerror = function() {}, SFSI = jQuery.noConflict(), SFSI(window).load(function() {
+window.onerror = function() {}, SFSI = jQuery, SFSI(window).on('load',function() {
     SFSI("#sfpageLoad").fadeOut(2e3);
 });
 
@@ -164,20 +168,29 @@ var global_error = 0;
 SFSI(document).ready(function(s) {
 
 	//changes done {Monad}
-	
+	//putting it before to make sure it registers before the mobile click function
+    SFSI(document).on('click','.inerCnt a[href=""]',function(event){
+        //check if not mobile
+        if(!(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent))) {
+            //execute
+            // console.log('abc');
+            event.preventDefault();
+        }
+    });
+
     SFSI("head").append('<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />'), 
     SFSI("head").append('<meta http-equiv="Pragma" content="no-cache" />'), SFSI("head").append('<meta http-equiv="Expires" content="0" />'), 
     SFSI(document).click(function(s) {
         var i = SFSI(".sfsi_FrntInner"), e = SFSI(".sfsi_wDiv"), t = SFSI("#at15s");
 		i.is(s.target) || 0 !== i.has(s.target).length || e.is(s.target) || 0 !== e.has(s.target).length || t.is(s.target) || 0 !== t.has(s.target).length || i.fadeOut();
     }), SFSI("div#sfsiid_linkedin").find(".icon4").find("a").find("img").mouseover(function() {
-        SFSI(this).attr("src", ajax_object.plugin_url + "images/visit_icons/linkedIn_hover.svg");
+        SFSI(this).attr("src", sfsi_icon_ajax_object.plugin_url + "images/visit_icons/linkedIn_hover.svg");
     }), SFSI("div#sfsiid_linkedin").find(".icon4").find("a").find("img").mouseleave(function() {
-        SFSI(this).attr("src", ajax_object.plugin_url + "images/visit_icons/linkedIn.svg");
+        SFSI(this).attr("src", sfsi_icon_ajax_object.plugin_url + "images/visit_icons/linkedIn.svg");
     }), SFSI("div#sfsiid_youtube").find(".icon1").find("a").find("img").mouseover(function() {
-        SFSI(this).attr("src", ajax_object.plugin_url + "images/visit_icons/youtube_hover.svg");
+        SFSI(this).attr("src", sfsi_icon_ajax_object.plugin_url + "images/visit_icons/youtube_hover.svg");
     }), SFSI("div#sfsiid_youtube").find(".icon1").find("a").find("img").mouseleave(function() {
-        SFSI(this).attr("src", ajax_object.plugin_url + "images/visit_icons/youtube.svg");
+        SFSI(this).attr("src", sfsi_icon_ajax_object.plugin_url + "images/visit_icons/youtube.svg");
     }), SFSI("div#sfsiid_facebook").find(".icon1").find("a").find("img").mouseover(function() {
         SFSI(this).css("opacity", "0.9");
     }), SFSI("div#sfsiid_facebook").find(".icon1").find("a").find("img").mouseleave(function() {
@@ -188,7 +201,7 @@ SFSI(document).ready(function(s) {
     }), SFSI("div#sfsiid_twitter").find(".cstmicon1").find("a").find("img").mouseleave(function() {
         SFSI(this).css("opacity", "1");
     }), SFSI(".pop-up").on("click", function() {
-        ("fbex-s2" == SFSI(this).attr("data-id") || "googlex-s2" == SFSI(this).attr("data-id") || "linkex-s2" == SFSI(this).attr("data-id")) && (SFSI("." + SFSI(this).attr("data-id")).hide(), 
+        ("fbex-s2" == SFSI(this).attr("data-id")  || "linkex-s2" == SFSI(this).attr("data-id")) && (SFSI("." + SFSI(this).attr("data-id")).hide(), 
         SFSI("." + SFSI(this).attr("data-id")).css("opacity", "1"), SFSI("." + SFSI(this).attr("data-id")).css("z-index", "1000")), 
         SFSI("." + SFSI(this).attr("data-id")).show("slow");
     }), /*SFSI("#close_popup").live("click", function() {*/SFSI(document).on("click", '#close_popup', function () {
@@ -203,21 +216,26 @@ SFSI(document).ready(function(s) {
         var s = SFSI(this).parent().find("input:radio:first");
         "sfsi_popup_border_shadow" == s.attr("name") && sfsi_make_popBox();
     }), /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ? SFSI("img.sfsi_wicon").on("click", function(s) {
-        s.stopPropagation();
+        if(SFSI(s.target).parent().attr('href')=="" ){
+            s.preventDefault();
+        }
+        if(!SFSI(this).hasClass('sfsi_click_wicon')){
+            s.stopPropagation&&s.stopPropagation();
+        }
         var i = SFSI("#sfsi_floater_sec").val();
         SFSI("div.sfsi_wicons").css("z-index", "0"), SFSI(this).parent().parent().parent().siblings("div.sfsi_wicons").find(".inerCnt").find("div.sfsi_tool_tip_2").hide(), 
         SFSI(this).parent().parent().parent().parent().siblings("li").length > 0 && (SFSI(this).parent().parent().parent().parent().siblings("li").find("div.sfsi_tool_tip_2").css("z-index", "0"), 
         SFSI(this).parent().parent().parent().parent().siblings("li").find("div.sfsi_wicons").find(".inerCnt").find("div.sfsi_tool_tip_2").hide()), 
         SFSI(this).parent().parent().parent().css("z-index", "1000000"), SFSI(this).parent().parent().css({
             "z-index":"999"
-        }), SFSI(this).attr("effect") && "fade_in" == SFSI(this).attr("effect") && (SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
+        }), SFSI(this).attr("data-effect") && "fade_in" == SFSI(this).attr("data-effect") && (SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
-        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("effect") && "scale" == SFSI(this).attr("effect") && (SFSI(this).parent().addClass("scale"), 
+        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("data-effect") && "scale" == SFSI(this).attr("data-effect") && (SFSI(this).parent().addClass("scale"), 
         SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
-        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("effect") && "combo" == SFSI(this).attr("effect") && (SFSI(this).parent().addClass("scale"), 
+        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("data-effect") && "combo" == SFSI(this).attr("data-effect") && (SFSI(this).parent().addClass("scale"), 
         SFSI(this).parent().css("opacity", "1"), SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
@@ -239,14 +257,14 @@ SFSI(document).ready(function(s) {
         SFSI(this).parent().parent().parent().parent().siblings("li").find("div.sfsi_wicons").find(".inerCnt").find("div.sfsi_tool_tip_2").hide()), 
         SFSI(this).parent().parent().parent().css("z-index", "1000000"), SFSI(this).parent().parent().css({
             "z-index":"999"
-        }), SFSI(this).attr("effect") && "fade_in" == SFSI(this).attr("effect") && (SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
+        }), SFSI(this).attr("data-effect") && "fade_in" == SFSI(this).attr("data-effect") && (SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
-        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("effect") && "scale" == SFSI(this).attr("effect") && (SFSI(this).parent().addClass("scale"), 
+        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("data-effect") && "scale" == SFSI(this).attr("data-effect") && (SFSI(this).parent().addClass("scale"), 
         SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
-        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("effect") && "combo" == SFSI(this).attr("effect") && (SFSI(this).parent().addClass("scale"), 
+        }), SFSI(this).parent().css("opacity", "1")), SFSI(this).attr("data-effect") && "combo" == SFSI(this).attr("data-effect") && (SFSI(this).parent().addClass("scale"), 
         SFSI(this).parent().css("opacity", "1"), SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").css({
             opacity:1,
             "z-index":10
@@ -262,15 +280,10 @@ SFSI(document).ready(function(s) {
             "z-index":10
         }), SFSI(this).parentsUntil("div").siblings("div.sfsi_tool_tip_2").show());
     }), SFSI("div.sfsi_wicons").on("mouseleave", function() {
-        SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && "fade_in" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && SFSI(this).children("div.inerCnt").find("a.sficn").css("opacity", "0.6"), 
-        SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && "scale" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && SFSI(this).children("div.inerCnt").find("a.sficn").removeClass("scale"), 
-        SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && "combo" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("effect") && (SFSI(this).children("div.inerCnt").find("a.sficn").css("opacity", "0.6"), 
-        SFSI(this).children("div.inerCnt").find("a.sficn").removeClass("scale")), "sfsiid_google" == SFSI(this).children("div.inerCnt").find("a.sficn").attr("id") ? SFSI("body").on("click", function() {
-            SFSI(this).children(".inerCnt").find("div.sfsi_tool_tip_2").hide();
-        }) :(SFSI(this).css({
-            "z-index":"0"
-        }), SFSI(this).children(".inerCnt").find("div.sfsi_tool_tip_2").hide());
-    }), SFSI("body").on("click", function() {
+        SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-effect") && "fade_in" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-effect") && SFSI(this).children("div.inerCnt").find("a.sficn").css("opacity", "0.6"), 
+        SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-effect") && "scale" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-effect") && SFSI(this).children("div.inerCnt").find("a.sficn").removeClass("scale"), 
+        SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-ffect") && "combo" == SFSI(this).children("div.inerCnt").children("a.sficn").attr("data-effect")/*  && SFSI(this).children("div.inerCnt").find("a.sficn").css("opacity", "0.6"), */
+		}), SFSI("body").on("click", function(){
         SFSI(".inerCnt").find("div.sfsi_tool_tip_2").hide();
     }), SFSI(".adminTooltip >a").on("hover", function() {
         SFSI(this).offset().top, SFSI(this).parent("div").find("div.sfsi_tool_tip_2_inr").css("opacity", "1"), 
@@ -299,3 +312,116 @@ function sfsihidemepopup()
 	SFSI(".sfsi_FrntInner_chg").fadeOut();
 }
 var initTop = new Array();
+function close_overlay(selector){
+    if(typeof selector === "undefined"){
+      selector = '.sfsi_overlay';
+    }
+    jQuery(selector).removeClass('show').addClass('hide').hide();
+}
+function sfsi_wechat_share(url){
+    if(jQuery('.sfsi_wechat_follow_overlay').length==0){
+          jQuery('body').append("<div class='sfsi_wechat_follow_overlay sfsi_overlay show'><div class='sfsi_inner_display'><a class='close_btn' href='' onclick='event.preventDefault();close_overlay(\".sfsi_wechat_follow_overlay\")' >×</a><div style='width:95%;max-width:500px; min-height:80%;background-color:#fff;margin:0 auto;margin:10% auto;padding: 20px 0;'><div style='width:90%;margin: 0 auto;text-align:center'><div class='sfsi_wechat_qr_display' style='display:inline-block'></div></div><div style='width:80%;margin:10px auto 0 auto;text-align:center;font-weight:900;font-size:25px;'>\"Scan QR Code\" in WeChat and press ··· to share!</div></div></div>");
+          new QRCode(jQuery('.sfsi_wechat_follow_overlay .sfsi_wechat_qr_display')[0], window.location.href)
+          jQuery('.sfsi_wechat_follow_overlay .sfsi_wechat_qr_display img').attr('nopin','nopin')
+      }else{
+          jQuery('.sfsi_wechat_follow_overlay').removeClass('hide').addClass('show').show();
+      }
+}
+function sfsi_mobile_wechat_share(url){
+    if(jQuery('.sfsi_wechat_follow_overlay').length==0){
+        jQuery('body').append("<div class='sfsi_wechat_follow_overlay sfsi_overlay show'><div class='sfsi_inner_display'><a class='close_btn' href='' onclick=\"event.preventDefault();close_overlay(\'.sfsi_wechat_follow_overlay\')\" >×</a><div style='width:95%; min-height:80%;background-color:#fff;margin:0 auto;margin:30% auto;padding: 20px 0;'><div style='width:90%;margin: 0 auto;'><input type='text' value='"+window.location.href+"' style='width:100%;padding:7px 0;text-align:center' /></div><div style='width:80%;margin:10px auto 0 auto'><div  class='sfsi_upload_butt_container' ><button onclick='sfsi_copy_text_parent_input(event)' class='upload_butt' >Copy</button></div><div class='sfsi_upload_butt_container' ><a href='weixin://' class='upload_butt'>Open WeChat</a></div></div></div></div>");
+    }else{
+        jQuery('.sfsi_wechat_scan').removeClass('hide').addClass('show');
+    }
+}
+function sfsi_copy_text_parent_input(event){
+    var target = jQuery(event.target);
+    console.log(target);
+    input_target= target.parent().parent().parent().find('input');
+    input_target.select();
+    document.execCommand('copy');
+}
+
+function sfsi_responsive_toggle() {
+    jQuery(document).scroll(function($) {
+        var y = jQuery(this).scrollTop();
+        if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+            if (jQuery(window).scrollTop() + jQuery(window).height() >= jQuery(document).height() - 100) {
+                jQuery('.sfsi_outr_div').css({
+                    'z-index': '9996',
+                    opacity: 1,
+                    top: jQuery(window).scrollTop() + "px",
+                    position: "absolute"
+                });
+                jQuery('.sfsi_outr_div').fadeIn(200);
+                jQuery('.sfsi_FrntInner_chg').fadeIn(200);
+            } else {
+                jQuery('.sfsi_outr_div').fadeOut();
+                jQuery('.sfsi_FrntInner_chg').fadeOut();
+            }
+        } else {
+            if (jQuery(window).scrollTop() + jQuery(window).height() >= jQuery(document).height() - 3) {
+                jQuery('.sfsi_outr_div').css({
+                    'z-index': '9996',
+                    opacity: 1,
+                    top: jQuery(window).scrollTop() + 200 + "px",
+                    position: "absolute"
+                });
+                jQuery('.sfsi_outr_div').fadeIn(200);
+                jQuery('.sfsi_FrntInner_chg').fadeIn(200);
+            } else {
+                jQuery('.sfsi_outr_div').fadeOut();
+                jQuery('.sfsi_FrntInner_chg').fadeOut();
+            }
+        }
+    });
+}
+function sfsi_time_pop_up(time_popUp) {
+    jQuery(document).ready(function($) {
+        setTimeout(function() {
+            jQuery('.sfsi_outr_div').css({
+                'z-index': '1000000',
+                opacity: 1
+            });
+            jQuery('.sfsi_outr_div').fadeIn(200);
+            jQuery('.sfsi_FrntInner_chg').fadeIn(200);
+        },  time_popUp);
+    });
+}
+
+function sfsi_social_pop_up(time_popUp) {
+    jQuery(document).ready(function($) {
+        //jQuery('.sfsi_outr_div').fadeIn();
+        sfsi_setCookie('sfsi_socialPopUp', time(), 32);
+        setTimeout(function() {
+            jQuery('.sfsi_outr_div').css({
+                'z-index': '1000000',
+                opacity: 1
+            });
+            jQuery('.sfsi_outr_div').fadeIn();
+        }, time_popUp);
+    });
+}
+function sfsi_plugin_version(pluginVersion) {
+    jQuery(document).ready(function(e) {
+        jQuery("body").addClass("sfsi_"+pluginVersion)
+    });
+}
+
+function sfsi_widget_set(){
+    jQuery(".sfsi_widget").each(function( index ) {
+        if(jQuery(this).attr("data-position") == "widget")
+        {
+            var wdgt_hght = jQuery(this).children(".norm_row.sfsi_wDiv").height();
+            var title_hght = jQuery(this).parent(".widget.sfsi").children(".widget-title").height();
+            var totl_hght = parseInt( title_hght ) + parseInt( wdgt_hght );
+            jQuery(this).parent(".widget.sfsi").css("min-height", totl_hght+"px");
+            console.log('widget');
+        }
+    });
+}
+
+
+// should execute at last so that every function is acceable in body.
+var sfsi_functions_loaded =  new CustomEvent('sfsi_functions_loaded',{detail:{"abc":"def"}});
+window.dispatchEvent(sfsi_functions_loaded);

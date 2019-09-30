@@ -476,8 +476,6 @@ if (!class_exists('OAuthRequest'))
   public function __toString() {
     return $this->to_url();
   }
-
-
   public function sign_request($signature_method, $consumer, $token) {
     $this->set_parameter(
       "oauth_signature_method",

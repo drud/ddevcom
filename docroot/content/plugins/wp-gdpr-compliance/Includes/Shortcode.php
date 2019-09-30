@@ -99,7 +99,13 @@ class Shortcode {
                 );
             }
         } else {
-            $output .= __('This request is expired or doesn\'t exist.', WP_GDPR_C_SLUG);
+            $output .= sprintf(
+                '<div class="wpgdprc-message wpgdprc-message--error"><p>%s</p></div>',
+                sprintf(
+                    __('<strong>ERROR</strong>: %s', WP_GDPR_C_SLUG),
+                    __('This request is expired or doesn\'t exist.', WP_GDPR_C_SLUG)
+                )
+            );
         }
         return $output;
     }
@@ -151,15 +157,25 @@ class Shortcode {
         $attributes = shortcode_atts(array(
             'class' => '',
         ), $attributes, 'wpgdprc_consents_settings_link');
-        $label = (!empty($label)) ? esc_html($label) : __('My settings', WP_GDPR_C_SLUG);
-        $classes = explode(',', $attributes['class']);
-        $classes[] = 'wpgdprc-consents-settings-link';
-        $classes = implode(' ', $classes);
-        $output = sprintf(
-            '<a class="%s" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal">%s</a>',
-            esc_attr($classes),
-            $label
-        );
+        $output = '';
+        if (current_user_can('administrator')) {
+            $output = sprintf(
+                '<p style="color: red;"><strong>%s:</strong> %s</p>',
+                strtoupper(__('Note', WP_GDPR_C_SLUG)),
+                __('You need to make sure you have added atleast one (1) active consent.', WP_GDPR_C_SLUG)
+            );
+        }
+        if (Consent::isActive()) {
+            $label = (!empty($label)) ? esc_html($label) : __('My settings', WP_GDPR_C_SLUG);
+            $classes = explode(',', $attributes['class']);
+            $classes[] = 'wpgdprc-consents-settings-link';
+            $classes = implode(' ', $classes);
+            $output = sprintf(
+                '<a class="%s" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal">%s</a>',
+                esc_attr($classes),
+                $label
+            );
+        }
         return $output;
     }
 

@@ -14,8 +14,6 @@
 })(function($, Modernizr, undefined) {
 
 'use strict';
-
-
 // Validate Modernizr exists.
 // Shuffle requires `csstransitions`, `csstransforms`, `csstransforms3d`,
 // and `prefixed` to exist on the Modernizr object.
@@ -23,8 +21,6 @@ if (typeof Modernizr !== 'object') {
   throw new Error('Shuffle.js requires Modernizr.\n' +
       'http://vestride.github.io/Shuffle/#dependencies');
 }
-
-
 /**
  * Returns css prefixed properties like `-webkit-transition` or `box-sizing`
  * from `transition` or `boxSizing`, respectively.
@@ -65,8 +61,6 @@ var ALL_ITEMS = 'all';
 var FILTER_ATTRIBUTE_KEY = 'groups';
 var DEFAULT_SCALE = 1;
 var CONCEALED_SCALE = 0.001;
-
-
 // Underscore's throttle function.
 function throttle(func, wait, options) {
   var context, args, result;
@@ -102,8 +96,6 @@ function throttle(func, wait, options) {
 
 // Used for unique instance variables
 var id = 0;
-
-
 /**
  * Categorize, sort, and filter a responsive grid of items.
  *
@@ -130,8 +122,6 @@ var Shuffle = function( element, options ) {
     this._fire( Shuffle.EventType.DONE );
   }, this), 16 );
 };
-
-
 /**
  * Events the container element emits with the .shuffle namespace.
  * For example, "done.shuffle".
@@ -148,8 +138,6 @@ Shuffle.EventType = {
   LAYOUT: 'layout',
   REMOVED: 'removed'
 };
-
-
 Shuffle.prototype = {
 
   _init : function() {
@@ -161,8 +149,6 @@ Shuffle.prototype = {
             self.throttle( resizeFunction, self.throttleTime ) :
             resizeFunction,
         sort = self.initialSort ? self.initialSort : null;
-
-
     self._layoutList = [];
     self._shrinkList = [];
 
@@ -251,8 +237,6 @@ Shuffle.prototype = {
       self.sizer = self.$sizer[0];
     }
   },
-
-
   /**
    * Filter the elements by a category.
    * @param {string} [category] Category to filter by. If it's given, the last
@@ -313,8 +297,6 @@ Shuffle.prototype = {
 
     return $filtered;
   },
-
-
   _toggleFilterClasses : function( $items, $filtered ) {
     var concealed = 'concealed',
         filtered = 'filtered';
@@ -406,8 +388,6 @@ Shuffle.prototype = {
     }
     return parseFloat( dimension );
   },
-
-
   /**
    * Returns the outer width of an element, optionally including its margins.
    * @param {Element} element The element.
@@ -432,8 +412,6 @@ Shuffle.prototype = {
 
     return width;
   },
-
-
   /**
    * Returns the outer height of an element, optionally including its margins.
    * @param {Element} element The element.
@@ -452,8 +430,6 @@ Shuffle.prototype = {
 
     return height;
   },
-
-
   _getColumnSize : function( gutterSize, containerWidth ) {
     var size;
 
@@ -485,8 +461,6 @@ Shuffle.prototype = {
 
     return size + gutterSize;
   },
-
-
   _getGutterSize : function( containerWidth ) {
     var size;
     if ( $.isFunction( this.gutterWidth ) ) {
@@ -499,8 +473,6 @@ Shuffle.prototype = {
 
     return size;
   },
-
-
   /**
    * Calculate the number of columns to be used. Gets css if using sizer element.
    * @param {number} [theContainerWidth] Optionally specify a container width if it's already available.
@@ -535,8 +507,6 @@ Shuffle.prototype = {
   _fire : function( name, args ) {
     this.$el.trigger( name + '.' + SHUFFLE, args && args.length ? args : [ this ] );
   },
-
-
   /**
    * Loops through each item that should be shown and calculates the x, y position.
    * @param {Array.<Element>} items Array of items that will be shown/layed out in order in their array.
@@ -746,8 +716,6 @@ Shuffle.prototype = {
 
     this.resized();
   },
-
-
   /**
    * If the browser has 3d transforms available, build a string with those,
    * otherwise use 2d transforms.
@@ -779,8 +747,6 @@ Shuffle.prototype = {
       styles.left = opts.x;
       styles.top = opts.y;
     }
-
-
     // Show the item if its opacity will be 1.
     if ( opts.opacity === 1 ) {
       styles.visibility = 'visible';
@@ -807,8 +773,6 @@ Shuffle.prototype = {
     var styles = this._getStylesForTransition( opts );
     this._startItemAnimation( opts.$item, styles, opts.callback );
   },
-
-
   _startItemAnimation : function( $item, styles, callback ) {
     var willBeVisible = styles.opacity === 1;
     var complete = $.proxy( this._handleItemAnimationEnd, this,
@@ -838,8 +802,6 @@ Shuffle.prototype = {
       $item.stop( true ).animate( styles, this.speed, 'swing', complete );
     }
   },
-
-
   _handleItemAnimationEnd : function( callback, item, willBeVisible, evt ) {
     // Make sure this event handler has not bubbled up from a child.
     if ( evt ) {
@@ -970,8 +932,6 @@ Shuffle.prototype = {
       });
     }, self.revealAppendedDelay);
   },
-
-
   /**
    * Public Methods
    */
@@ -1168,8 +1128,6 @@ Shuffle.prototype = {
     self.destroyed = true;
   }
 };
-
-
 // Overrideable options
 Shuffle.options = {
   group: ALL_ITEMS, // Filter group
@@ -1187,8 +1145,6 @@ Shuffle.options = {
   sequentialFadeDelay: 150, // Delay between each item that fades in when adding items
   supported: CAN_TRANSITION_TRANSFORMS // supports transitions and transforms
 };
-
-
 // Not overrideable
 Shuffle.settings = {
   $sizer: null,
@@ -1205,8 +1161,6 @@ Shuffle.settings = {
   initialized: false,
   styleQueue: []
 };
-
-
 // Plugin definition
 $.fn.shuffle = function( opts ) {
   var args = Array.prototype.slice.call( arguments, 1 );
@@ -1225,8 +1179,6 @@ $.fn.shuffle = function( opts ) {
     }
   });
 };
-
-
 // You can return `undefined` from the `by` function to revert to DOM order
 // This plugin does NOT return a jQuery object. It returns a plain array because
 // jQuery sorts everything in DOM order.
@@ -1286,15 +1238,11 @@ $.fn.sorted = function(options) {
 
   return arr;
 };
-
-
 $.fn.sorted.defaults = {
   reverse: false, // Use array.reverse() to reverse the results
   by: null, // Sorting function
   randomize: false // If true, this will skip the sorting and return a randomized order in the array
 };
-
-
 // http://stackoverflow.com/a/962890/373422
 $.fn.sorted.randomize = function( array ) {
   var top = array.length,

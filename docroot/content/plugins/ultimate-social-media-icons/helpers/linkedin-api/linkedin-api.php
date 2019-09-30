@@ -88,22 +88,24 @@ class LinkedIn {
 			$method = "GET";
 		};
 
-		$curl = curl_init();
-		curl_setopt($curl, CURLOPT_URL, $url);
-		curl_setopt($curl, CURLOPT_HEADER, 0);
-		curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-		curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header)); // Set the headers.
+		$args = array(
+			'headers' => array($auth_header),
+			'blocking' => true,
+		);
 
 		if ($body) {
-			curl_setopt($curl, CURLOPT_POST, 1);
-			curl_setopt($curl, CURLOPT_POSTFIELDS, $body);
-			curl_setopt($curl, CURLOPT_CUSTOMREQUEST, $method);
-			curl_setopt($curl, CURLOPT_HTTPHEADER, array($auth_header, "Content-Type: text/xml;charset=utf-8"));
+			$args2 = array(
+				'headers' => array($auth_header),
+				'blocking' => true,
+				'body' =>  $body,
+				'method' => $method,
+				'headers' => array($auth_header, "Content-Type: text/xml;charset=utf-8")
+			);
+			$args =array_merge($args,$args2);
 		}
-
-		$data = curl_exec($curl);
-		curl_close($curl);
-		return $data;
+		$curl = wp_remote_get($url, $args);
+		
+		return $curl['body'];
 	}
 
 }

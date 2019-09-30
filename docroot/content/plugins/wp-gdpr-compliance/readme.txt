@@ -2,23 +2,28 @@
 Contributors: donnyoexman, jeffreyvisser, merijnmolenaar, michaelvt, van-ons
 Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protection, eu, avg, comments, woocommerce, wc, contact form 7, cf7
 Requires at least: 4.5
-Tested up to: 4.9.4
+Tested up to: 5.2
 Requires PHP: 5.3
-Stable tag: 1.4.3
+Stable tag: 1.5.2
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
-This plugin assists website owners to comply with European privacy regulations (GDPR). By May 24th, 2018 you have to comply to avoid large fines.
+This plugin assists website owners to comply with European privacy regulations (GDPR).
 
 == Description ==
 
-ACTIVATING THIS PLUGIN DOES NOT GUARANTEE YOU FULLY COMPLY WITH GDPR. PLEASE CONTACT A GDPR CONSULTANT OR LAW FIRM TO ASSESS NECESSARY MEASURES.
+This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. Activating this plugin does not guarantee your site fully complies with GDPR.
 
-This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. By May 24th, 2018 your site or shop has to comply to avoid large fines.
+- Add Consents and give your visitors full control.
+- Keeping a consent log for supported plugins.
+- Adding checkboxes to supported plugins for explicit visitor consent.
+- 'Right to access' through encrypted audit logs and double opt-in mail.
+- 'Right to be forgotten' by anonymising user data.
 
-WP GDPR Compliance currently supports Contact Form 7 (>= 4.6), Gravity Forms (>= 1.9), WooCommerce (>= 2.5.0) and WordPress Comments. Additional plugin support will follow soon.
+WP GDPR Compliance supports Contact Form 7 (>= 4.6), Gravity Forms (>= 1.9), WooCommerce (>= 2.5.0) and WordPress Comments.
 
-We constantly update this plugin to take care of more GDPR related issues. To check our development roadmap please visit [wpgdprc.com](https://www.wpgdprc.com/roadmap/ "Roadmap").
+Documentation
+[https://www.wpgdprc.com/documentation/](https://www.wpgdprc.com/documentation/ "WP GDPR Compliance documentation")
 
 == Installation ==
 
@@ -28,7 +33,7 @@ We constantly update this plugin to take care of more GDPR related issues. To ch
 
 == Frequently Asked Questions ==
 
-You'll find answers to many of your questions on [wpgdprc.com](https://www.wpgdprc.com/faq/ "Frequently Asked Questions").
+You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](https://www.wpgdprc.com/faq/ "Frequently Asked Questions")
 
 == Screenshots ==
 
@@ -38,6 +43,66 @@ You'll find answers to many of your questions on [wpgdprc.com](https://www.wpgdp
 4. Control the link to your privacy policy, activate the request user data page and more.
 
 == Changelog ==
+
+= 1.5.2 =
+*Release date: 21th May, 2019*
+* Tested with WordPress 5.2.
+* Load accepted consents with JavaScript to improve performance.
+* Use different text when all consent is required.
+* When standard Consent bar/button colors are used, no empty attributes will be added to the elements.
+* Bugfix: WP Registration integration now also works on MultiSite, accepted consent on registering gets added to the 'wpgdprc_log' table.
+* Bugfix: Error shown in the WooCommerce Order page is removed.
+
+= 1.5.1 =
+*Release date: April 30th, 2019*
+* Bugfix: 'token' column not being added to access_request table for new users.
+
+= 1.5.0 =
+*Release date: March 13th, 2019*
+* Bugfix: JavaScript error when no active consents are added.
+
+= 1.4.9 =
+*Release date: March 12th, 2019*
+* Load accepted consents with AJAX so we can bypass any caching.
+* Added consent placement 'Body'. This will add code snippets directly AFTER the <body> tag.
+* Show a message for the administrators when using the [wpgdprc_consents_settings_link] and no active consents are added.
+* Show the descriptions tab in the consents modal.
+* Bugfix: Get correct charset collate when adding the 'Log' database table.
+* Bugfix: Correctly handle cookies in multisite environments.
+
+= 1.4.8 =
+*Release date: January 8th, 2019*
+* The consent description now allows HTML.
+* Added ability to change the colors of the consent bar.
+* Fixed bug where post ID was null.
+
+= 1.4.7 =
+*Release date: December 17th, 2018*
+* Bugfix older PHP versions.
+
+= 1.4.6 =
+*Release date: December 17th, 2018*
+* Added anonymised usernames.
+* Added log table.
+* Added integration for WordPress registration.
+* Added warning in case the privacy policy page has not been selected yet.
+* Fixed bug in the settings page.
+* Fixed bug with session ID’s.
+
+= 1.4.5 =
+*Release date: November 30th, 2018*
+* Hotfix: Fixed SQL syntax error.
+* Added possibility to reset the consent bar.
+* Consent bar will always be reset when consent is added/updated.
+
+= 1.4.4 =
+*Release date: November 28th, 2018*
+* Anonymise requests after 30 days. This also removes the ability to process delete requests.
+* Small bugfix to correctly strip slashes from 'Consent' titles.
+* Added possibility to use external URL's for the privacy policy.
+* Added auto opt-in for admin's when adding a comment.
+* Fixed bug that added attachment to the consent bar when viewing an attachment.
+* Fixed bug with token.
 
 = 1.4.3 =
 *Release date: November 7th, 2018*
@@ -135,36 +200,36 @@ You'll find answers to many of your questions on [wpgdprc.com](https://www.wpgdp
 
 = 1.2.4 =
 *Release date: April 3rd, 2018*
-* Show a notice when Jetpack is installed
-* Fixed a bug with WordPress Comments
+* Show a notice when Jetpack is installed.
+* Fixed a bug with WordPress Comments.
 
 = 1.2.3 =
 *Release date: March 29th, 2018*
-* Storage of explicit consent timestamp
-* Return of the settings tab
-* Added ability to include your privacy policy page
-* Added a couple of apply_filters()
-* Small styling changes
-* Added .POT file to translate this plugin (Thanks for translating!)
+* Storage of explicit consent timestamp.
+* Return of the settings tab.
+* Added ability to include your privacy policy page.
+* Added a couple of apply_filters().
+* Small styling changes.
+* Added .POT file to translate this plugin. (Thanks for translating!)
 
 = 1.2.2 =
 *Release date: March 2nd, 2018*
-* Fixed a bug with WordPress Comments
-* Added countdown to GDPR deadline (May 25, 2018)
-* Added ability to add custom error messages to Contact Form 7 and Gravity Forms
-* Added ability to add HTML tags to the texts and error messages
+* Fixed a bug with WordPress Comments.
+* Added countdown to GDPR deadline. (May 25, 2018)
+* Added ability to add custom error messages to Contact Form 7 and Gravity Forms.
+* Added ability to add HTML tags to the texts and error messages.
 
 = 1.2.1 =
 *Release date: February 26th, 2018*
-* Fixed a bug with WordPress comments
-* Fixed a bug with default checkbox texts
+* Fixed a bug with WordPress comments.
+* Fixed a bug with default checkbox texts.
 
 = 1.2 =
 *Release date: February 23rd, 2018*
 * Limit data shared with WordPress when updating the core.
-* Added minimum supported version for Contact Form 7 (version 4.6)
-* Added minimum supported version for Gravity Forms (version 1.9)
-* Added minimum supported version for WooCommerce (version 2.5.0)
+* Added minimum supported version for Contact Form 7. (version 4.6)
+* Added minimum supported version for Gravity Forms. (version 1.9)
+* Added minimum supported version for WooCommerce. (version 2.5.0)
 * Delete all data created by the plugin after deactivating integrations or uninstalling the plugin.
 * Moved the position of the GDPR checkbox in the WordPress Comments form. (directly above the submit button)
 * Moved the position of the GDPR checkbox in WooCommerce. (directly above the submit button)

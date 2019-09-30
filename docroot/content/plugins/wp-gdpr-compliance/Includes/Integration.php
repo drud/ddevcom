@@ -6,6 +6,7 @@ use WPGDPRC\Includes\Extensions\CF7;
 use WPGDPRC\Includes\Extensions\GForms;
 use WPGDPRC\Includes\Extensions\WC;
 use WPGDPRC\Includes\Extensions\WP;
+use WPGDPRC\Includes\Extensions\WPRegistration;
 
 /**
  * Class Integration
@@ -23,7 +24,11 @@ class Integration {
         foreach (Helper::getEnabledPlugins() as $plugin) {
             switch ($plugin['id']) {
                 case WP::ID :
-                    add_filter('comment_form_submit_field', array(WP::getInstance(), 'addField'), 999);
+                    if (current_user_can('administrator')) {
+                        add_filter('comment_form_submit_field', array(WP::getInstance(), 'addFieldForAdmin'), 999);
+                    } else {
+                        add_filter('comment_form_submit_field', array(WP::getInstance(), 'addField'), 999);
+                    }
                     add_action('pre_comment_on_post', array(WP::getInstance(), 'checkPost'));
                     add_action('comment_post', array(WP::getInstance(), 'addAcceptedDateToCommentMeta'));
                     add_filter('manage_edit-comments_columns', array(WP::getInstance(), 'displayAcceptedDateColumnInCommentOverview'));
@@ -36,6 +41,21 @@ class Integration {
                     add_action('wpcf7_init', array(CF7::getInstance(), 'addFormTagSupport'));
                     add_filter('wpcf7_before_send_mail', array(CF7::getInstance(), 'changeMailBodyOutput'), 999);
                     add_filter('wpcf7_validate_wpgdprc', array(CF7::getInstance(), 'validateField'), 10, 2);
+                    break;
+                case WPRegistration::ID :
+                    $users_can_register = get_option('users_can_register');
+                    if ($users_can_register) {
+	                    $addFieldAction = (is_multisite() ? 'signup_extra_fields' : 'register_form');
+	                    $addFieldFunction = (is_multisite() ? 'addFieldMultiSite' : 'addField');
+	                    $validationAction = (is_multisite() ? 'wpmu_validate_user_signup' : 'registration_errors');
+	                    $registerUserAction = (is_multisite() ? 'wpmu_new_user' : 'user_register');
+	                    $validateFunction = (is_multisite() ? 'validateGDPRCheckboxMultisite' : 'validateGDPRCheckbox' );
+	                    $logFunction = 'logGivenGDPRConsent';
+	                    $validationArguments  = (is_multisite() ? 1 : 3);
+                        add_action($addFieldAction, array(WPRegistration::getInstance(), $addFieldFunction), 10, 1);
+                        add_filter( $validationAction, array(WPRegistration::getInstance(), $validateFunction), 10, $validationArguments );
+                        add_action($registerUserAction, array(WPRegistration::getInstance(), $logFunction), 10, 1);
+                    }
                     break;
                 case WC::ID :
                     add_action('woocommerce_checkout_process', array(WC::getInstance(), 'checkPostCheckoutForm'));
@@ -257,7 +277,7 @@ class Integration {
         return apply_filters('wpgdprc_error_message', wp_kses($output, Helper::getAllowedHTMLTags($plugin)));
     }
 
-      /**
+    /**
      * @param string $plugin
      * @return mixed
      */
@@ -282,6 +302,14 @@ class Integration {
             $output = __('Privacy Policy', WP_GDPR_C_SLUG);
         }
         return apply_filters('wpgdprc_privacy_policy_text', $output);
+    }
+
+    public static function getPrivacyPolicyLink() {
+        $output = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_link');
+        if (empty($output)) {
+            $output = __('http://www.example.com', WP_GDPR_C_SLUG);
+        }
+        return apply_filters('wpgdprc_privacy_policy_link', $output);
     }
 
     /**
@@ -319,17 +347,21 @@ class Integration {
      * @return mixed|string
      */
     public static function insertPrivacyPolicyLink($content = '') {
-        $page = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_page');
+        if (!Helper::isEnabled('enable_privacy_policy_extern', 'settings')) {
+            $page = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_page');
+        } else {
+            $url = get_option(WP_GDPR_C_PREFIX . '_settings_privacy_policy_link');
+        }
         $text = Integration::getPrivacyPolicyText();
-        if (!empty($page) && !empty($text)) {
+        if ((!empty($page) || !empty($url)) && !empty($text)) {
             $link = apply_filters(
                 'wpgdprc_privacy_policy_link',
                 sprintf(
                     '<a target="_blank" href="%s" rel="noopener noreferrer">%s</a>',
-                    get_page_link($page),
+                    (Helper::isEnabled('enable_privacy_policy_extern', 'settings')) ? $url : get_page_link($page),
                     esc_html($text)
                 ),
-                $page,
+                (Helper::isEnabled('enable_privacy_policy_extern', 'settings')) ? $url : $page,
                 $text
             );
             $content = str_replace('%privacy_policy%', $link, $content);
@@ -346,6 +378,11 @@ class Integration {
                 'id' => 'wordpress',
                 'name' => __('WordPress Comments', WP_GDPR_C_SLUG),
                 'description' => __('When activated the GDPR checkbox will be added automatically just above the submit button.', WP_GDPR_C_SLUG),
+            ),
+            array(
+                'id' => WPRegistration::ID,
+                'name' => __('Wordpress Registration', WP_GDPR_C_SLUG),
+                'description' => __('When activated the GDPR checkbox will be added automatically just above the register button.', WP_GDPR_C_SLUG),
             )
         );
     }

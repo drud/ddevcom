@@ -211,7 +211,7 @@ p.wpgdprc-disclaimer {
     color: #8A8A8A;
 }
 
-div.wpgdprc-message +  table.wpgdprc-table {
+div.wpgdprc-message + table.wpgdprc-table {
     margin-top: 20px;
 }
 

@@ -222,7 +222,7 @@
                         <ul>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_likes_shares.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_likes_shares.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     More Likes & Shares
@@ -230,7 +230,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_icon_designs.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_icon_designs.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     More icon designs
@@ -238,7 +238,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/themed_icons.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/themed_icons.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     Themed icons
@@ -246,7 +246,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/better_icon_placement.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/better_icon_placement.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     Better icon placement
@@ -258,7 +258,7 @@
                         <ul>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/mobile_optimization.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/mobile_optimization.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     Mobile optimization
@@ -266,7 +266,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/faster_loading.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/faster_loading.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     Faster loading
@@ -274,7 +274,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/friendly_support.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/friendly_support.png" alt='error'>
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     Friendly support
@@ -282,7 +282,7 @@
                             </li>
                             <li>
                                 <span class="sfsi-left-image-section">
-                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_platforms.png">
+                                    <img src="<?php echo SFSI_PLUGURL ?>images/footer_banner/more_platforms.png" alt='error'> 
                                 </span>
                                 <span class="sfsi-li-right-content">
                                     More platforms
@@ -309,7 +309,7 @@
 </div>
 
 <div class="sfsi-footer-bottom-text">
-    <p>..only 24.98 USD (includes support and updates for 1 year, and after that it will not be deactivated, so you can just keep using it!)</p>
+    <p>..only 24.98 USD (includes support and updates for six months, and after that it will not be deactivated, so you can just keep using it!)</p>
 </div>
 
 <!-- Footer banner CLOSES -->

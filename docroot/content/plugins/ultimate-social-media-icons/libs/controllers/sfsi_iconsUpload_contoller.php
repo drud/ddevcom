@@ -3,7 +3,14 @@
 add_action('wp_ajax_UploadSkins','sfsi_UploadSkins');
 function sfsi_UploadSkins()
 {
-	extract($_REQUEST);
+	// extract($_REQUEST);
+	if ( !wp_verify_nonce( $_POST['nonce'], "UploadSkins")) {
+      echo  json_encode(array("wrong_nonce")); exit;
+    }
+    if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
+
+	$custom_imgurl = (isset($_POST['custom_imgurl']))?sanitize_text_field($_POST['custom_imgurl']):'';
+	
 	$upload_dir = wp_upload_dir();
 	
 	$ThumbSquareSize 		= 100; //Thumbnail will be 57X57
@@ -12,15 +19,20 @@ function sfsi_UploadSkins()
 	$AcceessUrl             = $upload_dir['url'].'/';
 	$ThumbPrefix			= "cmicon_";
 	
-	$data = $_REQUEST["custom_imgurl"];
+	$data = $custom_imgurl;
 	$params = array();
 	parse_str($data, $params);
-	
+	// var_dump($params);die();
+	$site_url = home_url();
 	foreach($params as $key => $value)
 	{
+
 		$custom_imgurl = $value;
 		if(!empty($custom_imgurl))
 		{
+			if(strpos($custom_imgurl, $site_url) === false){
+				die(json_encode(array('res'=>'thumb_error')));
+			}
 			$sfsi_custom_files[] = $custom_imgurl;
 			
 			list($CurWidth, $CurHeight) = getimagesize($custom_imgurl);
@@ -81,18 +93,19 @@ function sfsi_DeleteSkin()
 	if ( !wp_verify_nonce( $_POST['nonce'], "deleteCustomSkin")) {
 		echo  json_encode(array('res'=>"error")); exit;
 	} 
+    if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
 	
 	$upload_dir = wp_upload_dir();
 	
-	if($_POST['action'] == 'DeleteSkin' && isset($_POST['iconname']) && !empty($_POST['iconname']) && current_user_can('manage_options'))
+	if(sanitize_text_field($_POST['action']) == 'DeleteSkin' && isset($_POST['iconname']) && !empty($_POST['iconname']) && current_user_can('manage_options'))
 	{
 		$iconsArray = array(
-			"rss_skin","email_skin","facebook_skin","twitter_skin","google_skin",
+			"rss_skin","email_skin","facebook_skin","twitter_skin",
 			"share_skin","youtube_skin","linkedin_skin","pintrest_skin","instagram_skin"
 		);
-		if(in_array($_POST['iconname'], $iconsArray))
+		if(in_array(sanitize_text_field($_POST['iconname']), $iconsArray))
 		{
-			$imgurl = get_option( $_POST['iconname'] );
+			$imgurl = get_option( sanitize_text_field($_POST['iconname']) );
 			$path = parse_url($imgurl, PHP_URL_PATH);
 			
 			if(is_file($_SERVER['DOCUMENT_ROOT'] . $path))
@@ -100,7 +113,7 @@ function sfsi_DeleteSkin()
 				unlink($_SERVER['DOCUMENT_ROOT'] . $path);
 			}
 		   
-			delete_option( $_POST['iconname'] );
+			delete_option( sanitize_text_field($_POST['iconname']) );
 			die(json_encode(array('res'=>'success')));
 		}
 		else
@@ -119,7 +132,11 @@ add_action('wp_ajax_Iamdone','sfsi_Iamdone');
 function sfsi_Iamdone()
 {
 	 $return = '';
-	 
+	if ( !wp_verify_nonce( $_POST['nonce'], "Iamdone")) {
+		echo  json_encode(array('res'=>"error")); exit;
+	}
+    if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
+
 	 if(get_option("rss_skin"))
 	 {
 		$icon = get_option("rss_skin");
@@ -145,15 +162,6 @@ function sfsi_Iamdone()
 	 }else
 	 {
 		$return .= '<span class="row_17_3 facebook_section" style="background-position:-118px 0;"></span>';
-	 }
-	 
-	 if(get_option("google_skin"))
-	 {
-		$icon = get_option("google_skin");
-		$return .= '<span class="row_17_4 google_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
-	 }else
-	 {
-		$return .= '<span class="row_17_4 google_section" style="background-position:-176px 0;"></span>';
 	 }
 	 
 	 if(get_option("twitter_skin"))
@@ -209,6 +217,46 @@ function sfsi_Iamdone()
 	 {
 		$return .= '<span class="row_17_10 instagram_section" style="background-position:-526px 0;"></span>';
 	 }
+	 if(get_option("telegram_skin"))
+	 {
+		$icon = get_option("telegram_skin");
+		$return .= '<span class="row_17_10 telegram_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
+	 }else
+	 {
+		$return .= '<span class="row_17_10 telegram_section" style="background-position:-773px 0;"></span>';
+	 }
+	 if(get_option("vk_skin"))
+	 {
+		$icon = get_option("vk_skin");
+		$return .= '<span class="row_17_10 vk_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
+	 }else
+	 {
+		$return .= '<span class="row_17_10 vk_section" style="background-position:-838px 0;"></span>';
+	 }
+	 if(get_option("ok_skin"))
+	 {
+		$icon = get_option("ok_skin");
+		$return .= '<span class="row_17_10 ok_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
+	 }else
+	 {
+		$return .= '<span class="row_17_10 ok_section" style="background-position:-909px 0;"></span>';
+	 }
+	 if(get_option("weibo_skin"))
+	 {
+		$icon = get_option("weibo_skin");
+		$return .= '<span class="row_17_10 weibo_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
+	 }else
+	 {
+		$return .= '<span class="row_17_10 weibo_section" style="background-position:-977px 0;"></span>';
+	 }
+	 if(get_option("wechat_skin"))
+	 {
+		$icon = get_option("wechat_skin");
+		$return .= '<span class="row_17_10 wechat_section sfsi-bgimage" style="background: url('.$icon.') no-repeat;"></span>';
+	 }else
+	 {
+		$return .= '<span class="row_1_18 wechat_section"></span>';
+	 }
 	 die($return);
 }
 
@@ -218,7 +266,18 @@ add_action('wp_ajax_UploadIcons','sfsi_UploadIcons');
 /* uplaod custom icon {change by monad}*/
 function sfsi_UploadIcons()
 {
-	extract($_POST);
+	if ( !wp_verify_nonce( $_POST['nonce'], "UploadIcons")) {
+		echo  json_encode(array('res'=>"error")); exit;
+	}
+    if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
+
+	// extract($_POST);
+	$custom_imgurl = isset($_POST) && isset($_POST['custom_imgurl']) ? esc_url($_POST['custom_imgurl']):'';
+	
+	if(strpos($custom_imgurl, home_url()) === false){
+		die(json_encode(array('res'=>'thumb_error')));
+	}
+
 	$upload_dir = wp_upload_dir();
 	
 	$ThumbSquareSize 		= 100; //Thumbnail will be 57X57
@@ -306,33 +365,40 @@ add_action('wp_ajax_deleteIcons','sfsi_deleteIcons');
 
 function sfsi_deleteIcons()
 {
+	if ( !wp_verify_nonce( $_POST['nonce'], "deleteIcons")) {
+		echo  json_encode(array('res'=>"error")); exit;
+	}
+    if(!current_user_can('manage_options')){ echo json_encode(array('res'=>'not allowed'));die(); }
+	
    if(isset($_POST['icon_name']) && !empty($_POST['icon_name']))
    {
        /* get icons details to delete it from plugin folder */ 
-       $custom_icon		= explode('_',$_POST['icon_name']);  
+       $custom_icon_name= sanitize_text_field($_POST['icon_name']);
+       preg_match_all('/\d+/', $custom_icon_name, $custom_icon_numbers);
+       $custom_icon_number =    count($custom_icon_numbers)>0?((is_array($custom_icon_numbers[0])&&count($custom_icon_numbers[0])>0)?$custom_icon_numbers[0][0]:0):0;
        $sec_options1	= (get_option('sfsi_section1_options',false)) ? unserialize(get_option('sfsi_section1_options',false)) : array() ;
        $sec_options2	= (get_option('sfsi_section2_options',false)) ? unserialize(get_option('sfsi_section2_options',false)) : array() ;
        $up_icons		= (is_array(unserialize($sec_options1['sfsi_custom_files']))) ? unserialize($sec_options1['sfsi_custom_files']) : array();
        $icons_links		= (is_array(unserialize($sec_options2['sfsi_CustomIcon_links']))) ? unserialize($sec_options2['sfsi_CustomIcon_links']) : array();
-       $icon_path=$up_icons[$custom_icon[1]];  
-       $path=  pathinfo($icon_path);      
-      
+       $icon_url=$up_icons[$custom_icon_number];  
+       $url_info=  pathinfo($icon_url);      
 	   // Changes By {Monad}
 	   /*if(is_file(SFSI_DOCROOT.'/images/custom_icons/'.$path['basename']))
 	   {
 		  
         	unlink(SFSI_DOCROOT.'/images/custom_icons/'.$path['basename']);
        }*/
-	    $imgpath = parse_url($icon_path, PHP_URL_PATH);
+	    $imgpath = parse_url($icon_url, PHP_URL_PATH);
+
 		if(is_file($_SERVER['DOCUMENT_ROOT'] . $imgpath))
 		{
 		   unlink($_SERVER['DOCUMENT_ROOT'] . $imgpath);
 		}
 	   
-		if(isset($up_icons[$custom_icon[1]]))
+		if(isset($up_icons[$custom_icon_number]))
 		{
-			 unset($up_icons[$custom_icon[1]]);
-			 unset($icons_links[$custom_icon[1]]);
+			 unset($up_icons[$custom_icon_number]);
+			 unset($icons_links[$custom_icon_number]);
 		}
 		else
 		{
@@ -345,7 +411,7 @@ function sfsi_deleteIcons()
         $sec_options2['sfsi_CustomIcon_links']=serialize($icons_links);
          
         end($up_icons);
-        $key=(key($up_icons))? key($up_icons) :$custom_icon[1] ;
+        $key=(key($up_icons))? key($up_icons) :$custom_icon_number;
         $total_uploads=(isset($up_icons) && is_array($up_icons))?count($up_icons):0;
          
         update_option('sfsi_section1_options',serialize($sec_options1));
@@ -460,25 +526,5 @@ function cropImage($CurWidth,$CurHeight,$iSize,$DestFolder,$SrcImage,$Quality,$I
 	{
 		return false;
 	}
-}
-add_action('wp_ajax_sfsi_feedbackForm','sfsi_feedbackForm');
-function sfsi_feedbackForm()
-{
-	if(!empty($_POST["msg"]))
-	{
-		$useremail	= "uninstall@ultimatelysocial.com";
-		$subject 	= "Feedback from Ultimate Social Media Icons ".get_option('sfsi_pluginVersion')." user";
-		$from    	= $_POST["email"];
-		$message    = $_POST["msg"];
-		$sitename 	= get_bloginfo("name");
-		
-		$headers = "MIME-Version: 1.0" . "\r\n";
-		$headers .= "Content-type:text;charset=iso-8859-1" . "\r\n";
-		$headers .= sprintf('From: %s <%s>', $sitename, $from). "\r\n";
-		$headers .= "X-Mailer: PHP/" . phpversion();
-		
-		mail($useremail,$subject,$message,$headers);
-	}
-	die;
 }
 ?>

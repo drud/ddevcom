@@ -1,9 +1,9 @@
 === Social Media Share Buttons & Social Sharing Icons ===
-Contributors: socialdude
+Contributors: socialdude, socialtech
 Tags: social media, share, buttons, social widget, icons, share icons, share buttons, sharing icons, sharing buttons, social share, sharing, social sharing
-Requires at least: 3.0
-Tested up to: 4.9.8
-Stable tag: 2.0.8
+Requires at least: 3.5
+Tested up to: 5.2.2
+Stable tag: 2.4.2
 License: GPLv2 
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -11,7 +11,7 @@ Share buttons and share icons plugin for social media sharing on Facebook, Twitt
 
 == Description ==
 
-Social media plugin which let's you add share icons for RSS, Email, Facebook, Twitter, LinkedIn, Google+, Pinterest, Instagram, Youtube, 'Share' (covering 200+ other social media platforms) and upload custom share icons of your choice. 
+Social media plugin which let's you add share icons for RSS, Email, Facebook, Twitter, LinkedIn, Pinterest, Instagram, Youtube, 'Share' (covering 200+ other social media platforms) and upload custom share icons of your choice. 
 
 This free plugin has a lot to offer. Even more can be found in the Premium Plugin, please watch this short video: 
 
@@ -161,9 +161,9 @@ The new Premium Plugin also allows to show the number of your Facebook page like
 
 = Sharing doesn't take the right text or picture = 
 
-We use the share codes from Facebook, Google+ etc. and therefore don't have any influence over which text & pic Facebook decides to share.
+We use the share codes from Facebook etc. and therefore don't have any influence over which text & pic Facebook decides to share.
 
-Note that you can define an image as 'Featured Image' which tells Facebook / Google etc. to share that one. You'll find this 'Featured Image' section in your blog's admin area where you can edit your blog post.
+Note that you can define an image as 'Featured Image' which tells Facebook etc. to share that one. You'll find this 'Featured Image' section in your blog's admin area where you can edit your blog post.
 
 You can crosscheck which image Facebook will take by entering your url on https://developers.facebook.com/tools/debug/og/object/.
 
@@ -274,6 +274,152 @@ You cannot use the same plugin twice, however you can install both the USM as we
 
 
 == Changelog ==
+
+= 2.4.2 =
+* Solved the unserialize problem.
+* Design changes and typo corrections in the settings page.
+
+= 2.4.1 =
+* Feedback system updated.
+* Design changes in settings page.
+* Moved below post options to Q3.
+
+= 2.4.0 =
+* Instagram generate token removed the deplicated scopes.
+* Removed some PHP update Notices.
+* Updated feed claiming apis.
+* Updated Mouseover text removed.
+
+= 2.3.9 =
+* Corrected the jQuery admin area problem
+* Solved the jQuery error for shortcode
+* Solved feed claiming
+* Option name in Q3 changed
+
+= 2.3.8 =
+* Fixed the text in theme banner.
+* Fixed follow icon and subscription box when Curl is disabled.
+* Fixed cURL errors.
+
+= 2.3.7 =
+* solved: Wrong link on icons when curl not installed.
+
+= 2.3.6 =
+* Solved: Updated Text changes. 
+
+= 2.3.5 =
+* Solved: Updated Text changes.
+
+= 2.3.4 =
+* Solved: Updated Text changes.
+* Solved: Updated link for email. 
+
+= 2.3.3 =
+* Solved: Updated the email link and subscription action. 
+
+= 2.3.2 =
+* Solved: Updated feedback system. 
+
+= 2.3.1 =
+* Solved: Updated feedback system.
+
+= 2.3.0 =
+* Solved: Errors on the footer in dashboard corected.
+* Solved: Updated logic for inclusion of external js.
+* Solved: Some grametical errors.
+* Solved: Updated feedback system.
+
+= 2.2.9 =
+* Solved: After post icons shown.
+
+= 2.2.8 =
+* Solved: Header already sent error on some servers.
+
+= 2.2.7 =
+* Solved: Updated feedback system to next version.
+* Solved: Responsive Icons UI updated.
+
+= 2.2.6 =
+
+* New Feature: Responsive icons in free plugin.
+* Solved: Icons not rendering on woocomerce product page.
+* Solved: Twitter url changed to share from intent for better reliablity.
+* Solved: Lots of little adjustments to improve the UI and functionality.
+* Solved: Removed Google Plus.
+* Solved: Stop loading unused external library code for faster load.
+* Solved: Removed curl notice while activation.
+* Solved: Fixed broken arrays and missing indexes.
+* Solved: Updated feedback system to next version.
+
+= 2.2.5 =
+* Integrated feedback system
+
+= 2.2.4 =
+* Solved: Unserialized error corrected.
+* Solved: All curl calls to wp_remote.
+* Solved: Notices in front end solved.
+
+= 2.2.3 =
+* Solved: Footer Error solved.
+* Solved: Removed most of the html errors.
+* Solved: Less anoying sidebar.
+
+= 2.2.2 =
+* Solved: More icons upadated
+* Solved: Icon backgrounds updated 
+
+= 2.2.1 =
+* Solved: woocomerce conflict resolved
+* Solved: alert in case on conflict.
+* new Feature: More icons for free plugin
+
+= 2.2.0 =
+ * Solved: Critical Security Patch.
+
+= 2.1.9 =
+* Solved: Security Patch.
+
+= 2.1.8 =
+* Solved: security update.
+
+= 2.1.7 =
+* Solved: save button not working.
+
+= 2.1.6 =
+* Solved: compatablity issue with older versions.
+
+= 2.1.5 =
+* Solved: google plus is deprecated
+* Solved: Sf count not shown
+* Solved: Sf subscribe form opens blank page.
+* solved: decreased the manual intervestions of upgradation to premium.
+
+= 2.1.4 =
+* Solved: Changed theme check url to match bloginfo url.
+
+= 2.1.3 =
+* Solved: Email validation for Offline chat.
+* Solved: Premium notification breaking the dashboard structure.
+* Solved: changed option for linkedin count
+* Solved: ajax_object conflict with themes.
+* Solved: new keyword check from page title, page keywords and page description.
+
+= 2.1.2 =
+* Solved: Text optimized
+
+= 2.1.1 =
+* Solved: design changes for chat.
+* Solved: unexpected charactor  "[" error for php version 5.3. 
+
+= 2.1.0 =
+* New Feature: Chat for site admin on our settings page.
+* Solved: removed deprecated jQuery functions.
+* Solved: Rectangle icon alignemnt problem on some themes solved.
+
+= 2.0.9 =
+* Banner for animation section in Question 4 added
+* Different icon for mouseover section pointing in premium in Question 4 added
+* Removed theme icon banner if no match
 
 = 2.0.8 =
 * Solved: Notification bar cannot be seen anymore
@@ -724,8 +870,7 @@ You cannot use the same plugin twice, however you can install both the USM as we
 = 1.0 =
 * First release
 
-
 == Upgrade Notice ==
 
-= 2.0.8 =
+= 2.4.2 =
 Please upgrade

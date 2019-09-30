@@ -206,7 +206,7 @@ class GForms {
         return (array)get_option(WP_GDPR_C_PREFIX . '_integrations_' . self::ID . '_error_message', array());
     }
 
-     /**
+    /**
      * @return array
      */
     public function getFormRequiredMessages() {
@@ -245,7 +245,7 @@ class GForms {
         return Integration::getErrorMessage();
     }
 
-     /**
+    /**
      * @param int $formId
      * @return string
      */

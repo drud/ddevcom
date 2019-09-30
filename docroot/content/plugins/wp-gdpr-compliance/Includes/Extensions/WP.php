@@ -27,6 +27,16 @@ class WP {
         return $field . $submitField;
     }
 
+    public function addFieldForAdmin($submitField = '') {
+        $field = apply_filters(
+            'wpgdprc_wordpress_field',
+            '<label style="font-size: 14px;"><i>' . __('This checkbox is checked because you are an admin', WP_GDPR_C_SLUG) . '</i></label>' .
+            '<p class="wpgdprc-checkbox"><label><input type="checkbox" name="wpgdprc" id="wpgdprc" value="1" checked="checked" /> ' . Integration::getCheckboxText(self::ID) . ' <abbr class="required" title="' . esc_attr__('required', WP_GDPR_C_SLUG) . '">*</abbr></label></p>',
+            $submitField
+        );
+        return $field . $submitField;
+    }
+
     public function checkPost() {
         if (!isset($_POST['wpgdprc'])) {
             wp_die(

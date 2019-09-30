@@ -8,7 +8,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2018 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -59,9 +59,8 @@ class Sanitize extends Admin_Pages {
 		 *
 		 * @since 2.2.9
 		 */
-		if ( empty( $_POST )
-		|| ! isset( $_POST[ $this->settings_field ] )
-		|| ! is_array( $_POST[ $this->settings_field ] ) ) // CSRF ok: This is just a performance check.
+		if ( empty( $_POST[ $this->settings_field ] ) // Input var ok.
+		|| ! is_array( $_POST[ $this->settings_field ] ) ) // Input var, CSRF ok: This is just a performance check.
 			return $validated = false;
 
 		//* This is also handled in /wp-admin/options.php. Nevertheless, one might register outside of scope.
@@ -95,6 +94,7 @@ class Sanitize extends Admin_Pages {
 		\add_action( "update_option_{$this->settings_field}", [ $this, 'delete_main_cache' ] );
 		\add_action( "update_option_{$this->settings_field}", [ $this, 'reinitialize_rewrite' ], 11 );
 		\add_action( "update_option_{$this->settings_field}", [ $this, 'update_db_version' ], 12 );
+		//* TEMP: Set backward compatibility
 		\add_action( "update_option_{$this->settings_field}", [ $this, '_set_backward_compatibility' ], 13 );
 	}
 
@@ -158,14 +158,6 @@ class Sanitize extends Admin_Pages {
 			$this->settings_field,
 			[
 				'title_separator',
-			]
-		);
-
-		$this->add_option_filter(
-			's_description_separator',
-			$this->settings_field,
-			[
-				'description_separator',
 			]
 		);
 
@@ -259,8 +251,6 @@ class Sanitize extends Admin_Pages {
 				'title_strip_tags',
 
 				'auto_description',
-				'description_additions',
-				'description_blogname',
 
 				'category_noindex',
 				'tag_noindex',
@@ -314,7 +304,6 @@ class Sanitize extends Admin_Pages {
 
 				'ping_google',
 				'ping_bing',
-				'ping_yandex',
 
 				'excerpt_the_feed',
 				'source_the_feed',
@@ -615,41 +604,37 @@ class Sanitize extends Admin_Pages {
 	 * filter function name as a callback
 	 */
 	protected function get_available_filters() {
-
-		$default_filters = [
-			's_left_right'            => [ $this, 's_left_right' ],
-			's_left_right_home'       => [ $this, 's_left_right_home' ],
-			's_title_separator'       => [ $this, 's_title_separator' ],
-			's_description_separator' => [ $this, 's_description_separator' ],
-			's_description'           => [ $this, 's_description' ],
-			's_description_raw'       => [ $this, 's_description_raw' ],
-			's_title'                 => [ $this, 's_title' ],
-			's_title_raw'             => [ $this, 's_title_raw' ],
-			's_knowledge_type'        => [ $this, 's_knowledge_type' ],
-			's_alter_query_type'      => [ $this, 's_alter_query_type' ],
-			's_one_zero'              => [ $this, 's_one_zero' ],
-			's_disabled_post_types'   => [ $this, 's_disabled_post_types' ],
-			's_post_types'            => [ $this, 's_post_types' ],
-			's_numeric_string'        => [ $this, 's_numeric_string' ],
-			's_no_html'               => [ $this, 's_no_html' ],
-			's_no_html_space'         => [ $this, 's_no_html_space' ],
-			's_absint'                => [ $this, 's_absint' ],
-			's_safe_html'             => [ $this, 's_safe_html' ],
-			's_url'                   => [ $this, 's_url' ],
-			's_url_query'             => [ $this, 's_url_query' ],
-			's_facebook_profile'      => [ $this, 's_facebook_profile' ],
-			's_twitter_name'          => [ $this, 's_twitter_name' ],
-			's_twitter_card'          => [ $this, 's_twitter_card' ],
-			's_canonical_scheme'      => [ $this, 's_canonical_scheme' ],
-			's_min_max_sitemap'       => [ $this, 's_min_max_sitemap' ],
-		];
-
 		/**
 		 * @since 2.2.2
 		 * @param array $default_filters Array with keys of sanitization types
 		 *              and values of the filter function name as a callback
 		 */
-		return (array) \apply_filters( 'the_seo_framework_available_sanitizer_filters', $default_filters );
+		return (array) \apply_filters( 'the_seo_framework_available_sanitizer_filters', [
+			's_left_right'          => [ $this, 's_left_right' ],
+			's_left_right_home'     => [ $this, 's_left_right_home' ],
+			's_title_separator'     => [ $this, 's_title_separator' ],
+			's_description'         => [ $this, 's_description' ],
+			's_description_raw'     => [ $this, 's_description_raw' ],
+			's_title'               => [ $this, 's_title' ],
+			's_title_raw'           => [ $this, 's_title_raw' ],
+			's_knowledge_type'      => [ $this, 's_knowledge_type' ],
+			's_alter_query_type'    => [ $this, 's_alter_query_type' ],
+			's_one_zero'            => [ $this, 's_one_zero' ],
+			's_disabled_post_types' => [ $this, 's_disabled_post_types' ],
+			's_post_types'          => [ $this, 's_post_types' ],
+			's_numeric_string'      => [ $this, 's_numeric_string' ],
+			's_no_html'             => [ $this, 's_no_html' ],
+			's_no_html_space'       => [ $this, 's_no_html_space' ],
+			's_absint'              => [ $this, 's_absint' ],
+			's_safe_html'           => [ $this, 's_safe_html' ],
+			's_url'                 => [ $this, 's_url' ],
+			's_url_query'           => [ $this, 's_url_query' ],
+			's_facebook_profile'    => [ $this, 's_facebook_profile' ],
+			's_twitter_name'        => [ $this, 's_twitter_name' ],
+			's_twitter_card'        => [ $this, 's_twitter_card' ],
+			's_canonical_scheme'    => [ $this, 's_canonical_scheme' ],
+			's_min_max_sitemap'     => [ $this, 's_min_max_sitemap' ],
+		] );
 	}
 
 	/**
@@ -674,34 +659,6 @@ class Sanitize extends Admin_Pages {
 		//* Fallback to default if empty.
 		if ( empty( $previous ) )
 			$previous = $this->get_default_option( 'title_separator' );
-
-		return (string) $previous;
-	}
-
-	/**
-	 * Returns the description separator value string.
-	 *
-	 * @since 2.2.2
-	 * @since 2.8.0 Method is now public.
-	 *
-	 * @param mixed $new_value Should be identical to any of the $this->description_separator values
-	 * @return string Description separator option
-	 */
-	public function s_description_separator( $new_value ) {
-
-		//* Use the same as title_separator
-		$description_separator = $this->get_separator_list();
-
-		$key = array_key_exists( $new_value, $description_separator );
-
-		if ( $key )
-			return (string) $new_value;
-
-		$previous = $this->get_option( 'description_separator' );
-
-		//* Fallback to default if empty.
-		if ( empty( $previous ) )
-			$previous = $this->get_default_option( 'description_separator' );
 
 		return (string) $previous;
 	}
@@ -824,14 +781,21 @@ class Sanitize extends Admin_Pages {
 		//* No need to parse an empty excerpt.
 		if ( '' === $excerpt ) return '';
 
+		$strip_args = [
+			'space' =>
+				[ 'article', 'aside', 'blockquote', 'dd', 'div', 'dl', 'dt', 'figcaption', 'figure', 'footer', 'li', 'main', 'ol', 'p', 'section', 'tfoot', 'ul' ],
+			'clear' =>
+				[ 'address', 'bdo', 'br', 'button', 'canvas', 'code', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'hr', 'input', 'label', 'link', 'meta', 'nav', 'noscript', 'option', 'pre', 'samp', 'script', 'select', 'style', 'svg', 'table', 'textarea', 'var', 'video' ],
+		];
+
 		/**
 		 * @since 2.6.6.1
 		 * @param bool $allow_shortcodes Whether to allow shortcodes.
 		 */
 		if ( $allow_shortcodes && \apply_filters( 'the_seo_framework_allow_excerpt_shortcode_tags', false ) ) {
-			$excerpt = \wp_strip_all_tags( $excerpt );
+			$excerpt = $this->strip_tags_cs( $excerpt, $strip_args );
 		} else {
-			$excerpt = \wp_strip_all_tags( \strip_shortcodes( $excerpt ) );
+			$excerpt = $this->strip_tags_cs( \strip_shortcodes( $excerpt ), $strip_args );
 		}
 
 		if ( $escape )
@@ -985,8 +949,8 @@ class Sanitize extends Admin_Pages {
 	 */
 	public function s_alter_query_type( $new_value ) {
 		switch ( $new_value ) {
-			case 'in_query' :
-			case 'post_query' :
+			case 'in_query':
+			case 'post_query':
 				return (string) $new_value;
 				break;
 
@@ -1288,7 +1252,6 @@ class Sanitize extends Admin_Pages {
 		$url = strip_tags( $new_value );
 
 		if ( $url ) :
-
 			/**
 			 * Sanitize the redirect URL to only a relative link and removes first slash
 			 * @requires WP 4.1.0 and up to prevent adding upon itself.
@@ -1303,7 +1266,7 @@ class Sanitize extends Admin_Pages {
 					 . '((www.)?)'            // 3: maybe www.
 					 . '(.*\.[a-zA-Z0-9]*)'   // 4: any legal domain with tld
 					 . '(?:\/)?'              // 5: maybe trailing slash
-					 . '/';
+					 . '/'; // precision alignment OK.
 
 			//* If link is relative, make it full again
 			if ( ! preg_match( $pattern, $url ) ) {
@@ -1506,5 +1469,65 @@ class Sanitize extends Admin_Pages {
 	 */
 	public function strip_paragraph_urls( $content ) {
 		return preg_replace( '/(<p(?: [^>]*)?>\s*)(https?:\/\/[^\s<>"]+)(\s*<\/p>)/i', '', $content );
+	}
+
+	/**
+	 * Strips tags with HTML Context-Sensitivity and ouputs its breakdown.
+	 *
+	 * It essentially strips all tags, and replaces block-type tags' endings with spaces.
+	 * When done, it performs a sanity-cleanup via `strip_tags()`.
+	 *
+	 * Tip: You might want to use method `s_dupe_space()` to clear up the duplicated spaces afterward.
+	 *
+	 * @since 3.2.4
+	 * @link: https://www.w3schools.com/html/html_blocks.asp
+	 *
+	 * @param string $input The input text that needs its tags stripped.
+	 * @param array  $args  The input arguments: {
+	 *                         'space'   : @param array|null HTML elements that should have a space added.
+	 *                                                       If not set or null, skip check.
+	 *                                                       If empty array, use default; otherwise, use array.
+	 *                         'clear'   : @param array|null HTML elements that should be emptied and replaced with a space.
+	 *                                                       If not set or null, skip check.
+	 *                                                       If empty array, use default; otherwise, use array.
+	 *                      }
+	 *                      NOTE: WARNING The array values are forwarded to a regex without sanitization.
+	 *                      NOTE: Unlisted, script, and style tags will be stripped via PHP's `strip_tags()`.
+	 * @return string The output string without tags.
+	 */
+	public function strip_tags_cs( $input, $args = [] ) {
+
+		$default_args = [
+			'space' =>
+				[ 'address', 'article', 'aside', 'blockquote', 'dd', 'div', 'dl', 'dt', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'header', 'li', 'main', 'nav', 'ol', 'p', 'pre', 'section', 'table', 'tfoot', 'ul' ],
+			'clear' =>
+				[ 'bdo', 'br', 'button', 'canvas', 'code', 'hr', 'input', 'label', 'link', 'noscript', 'meta', 'option', 'samp', 'script', 'select', 'style', 'svg', 'textarea', 'var', 'video' ],
+		];
+
+		if ( ! $args ) {
+			$args = $default_args;
+		} else {
+			foreach ( [ 'space', 'clear' ] as $type ) {
+				if ( isset( $args[ $type ] ) ) {
+					if ( ! $args[ $type ] ) {
+						$args[ $type ] = $default_args[ $type ];
+					} else {
+						$args[ $type ] = (array) $args[ $type ];
+					}
+				}
+			}
+		}
+
+		// Clear first, so there's less to process; then add spaces.
+		foreach ( [ 'clear', 'space' ] as $type ) {
+			if ( empty( $args[ $type ] ) ) continue;
+
+			$_regex   = sprintf( '<(%s)[^>]*?>((.*?)(<\/\1>))?', implode( $args[ $type ], '|' ) );
+			$_replace = 'space' === $type ? ' $2 ' : ' ';
+
+			$input = preg_replace( "/$_regex/si", $_replace, $input );
+		}
+
+		return strip_tags( $input );
 	}
 }
