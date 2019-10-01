@@ -197,9 +197,7 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			$search_term = $wp_query->query_vars['s'];
 		} elseif ( ! empty( $_REQUEST['tribe-bar-search'] ) ) {
 			$search_term = $_REQUEST['tribe-bar-search'];
-		}
-
-		if ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
+		} elseif ( ! empty( $_REQUEST['tribe-bar-geoloc'] ) ) {
 			$geographic_term = $_REQUEST['tribe-bar-geoloc'];
 		}
 
@@ -410,12 +408,9 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			add_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
 			add_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			add_filter( 'tribe_get_venue', '__return_empty_string' );
+			add_filter( 'the_title', '__return_empty_string' );
 			add_filter( 'tribe_get_cost', '__return_empty_string' );
-
-			if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-				add_filter( 'the_title', '__return_empty_string' );
-				add_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
-			}
+			add_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 		} else {
 			remove_filter( 'tribe_events_event_schedule_details', '__return_empty_string' );
 			remove_filter( 'tribe_events_recurrence_tooltip', '__return_false' );
@@ -423,12 +418,9 @@ class Tribe__Events__Template_Factory extends Tribe__Template_Factory {
 			remove_filter( 'tribe_event_meta_venue_address', '__return_empty_string' );
 			remove_filter( 'tribe_event_featured_image', '__return_empty_string' );
 			remove_filter( 'tribe_get_venue', '__return_empty_string' );
+			remove_filter( 'the_title', '__return_empty_string' );
 			remove_filter( 'tribe_get_cost', '__return_empty_string' );
-
-			if ( is_singular( Tribe__Events__Main::POSTTYPE ) ) {
-				remove_filter( 'the_title', '__return_empty_string' );
-				remove_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
-			}
+			remove_filter( 'tribe_get_template_part_templates', '__return_empty_array' );
 		}
 	}
 

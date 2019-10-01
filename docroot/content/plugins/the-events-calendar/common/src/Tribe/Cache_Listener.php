@@ -4,29 +4,8 @@
 	 */
 	class Tribe__Cache_Listener {
 
-		/**
-		 * The name of the trigger that will be fired when rewrite rules are generated.
-		 */
-		const TRIGGER_GENERATE_REWRITE_RULES = 'generate_rewrite_rules';
-
-		/**
-		 * The name of the trigger that will be fired when a post is saved.
-		 */
-		const TRIGGER_SAVE_POST = 'save_post';
-
-		/**
-		 * The singleton instance of the class.
-		 *
-		 * @var Tribe__Cache_Listener|null
-		 */
-		private static $instance;
-
-		/**
-		 * An instance of the cache object.
-		 *
-		 * @var Tribe__Cache|null
-		 */
-		private $cache;
+		private static $instance = null;
+		private $cache    = null;
 
 		/**
 		 * Class constructor.
@@ -52,9 +31,8 @@
 		 * @return void
 		 */
 		private function add_hooks() {
-			add_action( 'save_post', [ $this, 'save_post' ], 0, 2 );
-			add_action( 'updated_option', [ $this, 'update_last_save_post' ], 10, 3 );
-			add_action( 'generate_rewrite_rules', [ $this, 'generate_rewrite_rules' ] );
+			add_action( 'save_post', array( $this, 'save_post' ), 0, 2 );
+			add_action( 'updated_option', array( $this, 'update_last_save_post' ) );
 		}
 
 		/**
@@ -65,28 +43,19 @@
 		 */
 		public function save_post( $post_id, $post ) {
 			if ( in_array( $post->post_type, Tribe__Main::get_post_types() ) ) {
-				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
+				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
 
 		/**
 		 * Run the caching functionality that is executed on saving tribe calendar options.
 		 *
+		 * @param string    $option
 		 * @see 'updated_option'
-		 *
-	     * @param string $option_name    Name of the updated option.
-	     * @param mixed  $old_value The old option value.
-	     * @param mixed  $value     The new option value.
 		 */
-		public function update_last_save_post( $option_name, $old_value, $value ) {
-			$triggers = array(
-				'tribe_events_calendar_options',
-				'permalink_structure',
-				'rewrite_rules',
-				'start_of_week',
-			);
-			if ( in_array( $option_name, $triggers, true ) ) {
-				$this->cache->set_last_occurrence( self::TRIGGER_SAVE_POST );
+		public function update_last_save_post( $option ) {
+			if ( $option != 'tribe_last_save_post' ) {
+				$this->cache->set_last_occurrence( 'save_post' );
 			}
 		}
 
@@ -123,14 +92,5 @@
 			$listener->init();
 
 			return $listener;
-		}
-
-		/**
-		 * Run the caching functionality that is executed when rewrite rules are generated.
-		 *
-		 * @since 4.9.11
-		 */
-		public function generate_rewrite_rules() {
-			$this->cache->set_last_occurrence( self::TRIGGER_GENERATE_REWRITE_RULES );
 		}
 	}

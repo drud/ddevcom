@@ -1,5 +1,5 @@
 <?php
-$common = __DIR__ . '/src';
+$common = dirname( __FILE__ ) . '/src';
 
 require_once $common . '/Tribe/Autoloader.php';
 

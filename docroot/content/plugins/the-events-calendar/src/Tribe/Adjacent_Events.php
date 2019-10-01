@@ -208,25 +208,25 @@ class Tribe__Events__Adjacent_Events {
 			$mode       = 'next';
 		}
 
-		$args = [
+		$args = array(
+			'post__not_in'   => array( $this->current_event_id ),
+			'order'          => $order,
+			'orderby'        => "TIMESTAMP( $wpdb->postmeta.meta_value ) ID",
 			'posts_per_page' => 1,
-			'post__not_in'   => [ $this->current_event_id ],
-			'meta_query'     => [
-				[
+			'meta_query'     => array(
+				array(
 					'key'     => '_EventStartDate',
 					'value'   => $post_obj->_EventStartDate,
 					'type'    => 'DATETIME',
 					'compare' => $direction,
-				],
-				[
+				),
+				array(
 					'key'     => '_EventHideFromUpcoming',
 					'compare' => 'NOT EXISTS',
-				],
+				),
 				'relation'    => 'AND',
-			],
-		];
-
-		$events_orm = tribe_events();
+			),
+		);
 
 		/**
 		 * Allows the query arguments used when retrieving the next/previous event link
@@ -239,20 +239,11 @@ class Tribe__Events__Adjacent_Events {
 		 */
 		$args = (array) apply_filters( "tribe_events_get_{$mode}_event_link", $args, $post_obj );
 
-		$events_orm->order_by( 'event_date', $order );
-		$events_orm->by_args( $args );
-		$query = $events_orm->get_query();
+		add_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 
-		// Make sure we are not including same datetime events
-		add_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
+		$results = tribe_get_events( $args );
 
-		// Fetch the posts
-		$query->get_posts();
-
-		// Remove this filter right after fetching the events
-		remove_filter( 'posts_where', [ $this, 'get_closest_event_where' ] );
-
-		$results = $query->posts;
+		remove_filter( 'posts_where', array( $this, 'get_closest_event_where' ) );
 
 		$event = null;
 

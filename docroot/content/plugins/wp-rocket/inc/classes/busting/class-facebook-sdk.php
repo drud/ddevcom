@@ -157,9 +157,9 @@ class Facebook_SDK extends Abstract_Busting {
 			return false;
 		}
 
-		foreach ( $matches as $match ) {
-			if ( trim( $match[1] ) && preg_match( '@//connect\.facebook\.net/[a-zA-Z_-]+/sdk\.js@i', $match[1] ) ) {
-				return $match[0];
+		foreach ( $matches as list( $tag, $script ) ) {
+			if ( $script && preg_match( '@//connect\.facebook\.net/[a-zA-Z_-]+/sdk\.js@i', $script ) ) {
+				return $tag;
 			}
 		}
 
@@ -473,7 +473,7 @@ class Facebook_SDK extends Abstract_Busting {
 		$filename = $this->get_busting_file_name( $locale );
 
 		// This filter is documented in inc/functions/minify.php.
-		return apply_filters( 'rocket_js_url', apply_filters( 'rocket_facebook_sdk_url', $this->busting_url . $filename ) );
+		return apply_filters( 'rocket_js_url', get_rocket_cdn_url( $this->busting_url . $filename, [ 'all', 'css_and_js', 'js' ] ) );
 	}
 
 	/**

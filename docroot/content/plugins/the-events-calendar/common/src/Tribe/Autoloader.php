@@ -124,11 +124,7 @@
 				if ( ! isset( $this->prefixes[ $prefix ] ) ) {
 					$this->prefixes[ $prefix ] = array();
 				}
-
 				$this->prefixes[ $prefix ][] = $root_dir;
-
-				// Let's make sure we're not adding duplicates.
-				$this->prefixes[ $prefix ] = array_unique( $this->prefixes[ $prefix ] );
 
 				if ( $slug ) {
 					$this->prefix_slugs[ $slug ] = $prefix;

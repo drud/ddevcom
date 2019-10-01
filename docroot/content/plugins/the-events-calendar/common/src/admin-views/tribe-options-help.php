@@ -1,6 +1,6 @@
 <?php
 // Fetch the Help page Instance
-$help = tribe( Tribe__Admin__Help_Page::class );
+$help = Tribe__Admin__Help_Page::instance();
 
 // Fetch plugins
 $plugins = $help->get_plugins( null, false );

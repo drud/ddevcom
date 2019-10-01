@@ -91,17 +91,7 @@ class Tribe__Events__Validator__Base extends Tribe__Validator__Base
 
 		$event = get_post( $event_id );
 
-		$is_event_id = ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
-
-		/**
-		 * Validator filter to define if is a valid event_id.
-		 *
-		 * @param bool $is_event_id
-		 * @param \WP_Post|array|null $event
-		 *
-		 * @since 4.9.4
-		 */
-		return apply_filters( 'tribe_events_validator_is_event_id', $is_event_id, $event );
+		return ! empty( $event ) && Tribe__Events__Main::POSTTYPE === $event->post_type;
 	}
 
 	/**

@@ -69,7 +69,7 @@ function rocket_after_save_options( $oldvalue, $value ) {
 				'timeout'    => 0.01,
 				'blocking'   => false,
 				'user-agent' => 'WP Rocket/Homepage Preload',
-				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
+				'sslverify'  => apply_filters( 'https_local_ssl_verify', true ),
 			]
 		);
 	}
@@ -171,8 +171,8 @@ function rocket_after_save_options( $oldvalue, $value ) {
 			);
 		}
 
-		// Set Browser cache to 1 year.
-		$cf_browser_cache_ttl    = ( isset( $cf_old_settings[3] ) && 0 === $value['cloudflare_auto_settings'] ) ? $cf_old_settings[3] : '31536000';
+		// Set Browser cache to 1 month.
+		$cf_browser_cache_ttl    = ( isset( $cf_old_settings[3] ) && 0 === $value['cloudflare_auto_settings'] ) ? $cf_old_settings[3] : '2678400';
 		$cf_browser_cache_return = set_rocket_cloudflare_browser_cache_ttl( $cf_browser_cache_ttl );
 
 		if ( is_wp_error( $cf_browser_cache_return ) ) {
@@ -217,7 +217,7 @@ function rocket_after_save_options( $oldvalue, $value ) {
 add_action( 'update_option_' . WP_ROCKET_SLUG, 'rocket_after_save_options', 10, 2 );
 
 /**
- * Perform actions when settings are saved.
+ * When purge settings are saved we change the scheduled purge
  *
  * @since 1.0
  *
@@ -226,96 +226,11 @@ add_action( 'update_option_' . WP_ROCKET_SLUG, 'rocket_after_save_options', 10, 
  * @return array Updated submitted options values.
  */
 function rocket_pre_main_option( $newvalue, $oldvalue ) {
-	// Make sure that fields that allow users to enter patterns are well formatted.
-	$is_form_submit = filter_input( INPUT_POST, 'option_page', FILTER_SANITIZE_STRING );
-	$is_form_submit = WP_ROCKET_PLUGIN_SLUG === $is_form_submit;
-	$errors         = [];
-	$pattern_labels = [
-		'exclude_css'       => __( 'Excluded CSS Files', 'rocket' ),
-		'exclude_inline_js' => __( 'Excluded Inline JavaScript', 'rocket' ),
-		'exclude_js'        => __( 'Excluded JavaScript Files', 'rocket' ),
-		'cache_reject_uri'  => __( 'Never Cache URL(s)', 'rocket' ),
-		'cache_reject_ua'   => __( 'Never Cache User Agent(s)', 'rocket' ),
-		'cache_purge_pages' => __( 'Always Purge URL(s)', 'rocket' ),
-		'cdn_reject_files'  => __( 'Exclude files from CDN', 'rocket' ),
-	];
-
-	foreach ( $pattern_labels as $pattern_field => $label ) {
-		if ( empty( $newvalue[ $pattern_field ] ) ) {
-			// The field is empty.
-			continue;
+	if ( ( isset( $newvalue['purge_cron_interval'], $oldvalue['purge_cron_interval'] ) && $newvalue['purge_cron_interval'] !== $oldvalue['purge_cron_interval'] ) || ( isset( $newvalue['purge_cron_unit'], $oldvalue['purge_cron_unit'] ) && $newvalue['purge_cron_unit'] !== $oldvalue['purge_cron_unit'] ) ) {
+		// Clear WP Rocket cron.
+		if ( wp_next_scheduled( 'rocket_purge_time_event' ) ) {
+			wp_clear_scheduled_hook( 'rocket_purge_time_event' );
 		}
-
-		// Sanitize.
-		$newvalue[ $pattern_field ] = rocket_sanitize_textarea_field( $pattern_field, $newvalue[ $pattern_field ] );
-
-		// Validate.
-		$newvalue[ $pattern_field ] = array_filter(
-			$newvalue[ $pattern_field ],
-			function( $excluded ) use ( $pattern_field, $label, $is_form_submit, &$errors ) {
-				if ( false === @preg_match( '#' . str_replace( '#', '\#', $excluded ) . '#', 'dummy-sample' ) && $is_form_submit ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-					/* translators: 1 and 2 can be anything. */
-					$errors[ $pattern_field ] = sprintf( __( '%1$s: <em>%2$s</em>.', 'rocket' ), $label, esc_html( $excluded ) );
-					return false;
-				}
-
-				return true;
-			}
-		);
-	}
-
-	if ( $errors ) {
-		$error_message  = _n( 'The following pattern is invalid and has been removed:', 'The following patterns are invalid and have been removed:', count( $errors ), 'rocket' );
-		$error_message .= '<ul><li>' . implode( '</li><li>', $errors ) . '</li></ul>';
-		$errors         = [];
-
-		add_settings_error( 'general', 'invalid_patterns', $error_message, 'error' );
-	}
-
-	// Make sure that fields that allow users to enter patterns are well formatted.
-	$is_form_submit = filter_input( INPUT_POST, 'option_page', FILTER_SANITIZE_STRING );
-	$is_form_submit = WP_ROCKET_PLUGIN_SLUG === $is_form_submit;
-	$errors         = [];
-	$pattern_labels = [
-		'exclude_css'       => __( 'Excluded CSS Files', 'rocket' ),
-		'exclude_inline_js' => __( 'Excluded Inline JavaScript', 'rocket' ),
-		'exclude_js'        => __( 'Excluded JavaScript Files', 'rocket' ),
-		'cache_reject_uri'  => __( 'Never Cache URL(s)', 'rocket' ),
-		'cache_reject_ua'   => __( 'Never Cache User Agent(s)', 'rocket' ),
-		'cache_purge_pages' => __( 'Always Purge URL(s)', 'rocket' ),
-		'cdn_reject_files'  => __( 'Exclude files from CDN', 'rocket' ),
-	];
-
-	foreach ( $pattern_labels as $pattern_field => $label ) {
-		if ( empty( $newvalue[ $pattern_field ] ) ) {
-			// The field is empty.
-			continue;
-		}
-
-		// Sanitize.
-		$newvalue[ $pattern_field ] = rocket_sanitize_textarea_field( $pattern_field, $newvalue[ $pattern_field ] );
-
-		// Validate.
-		$newvalue[ $pattern_field ] = array_filter(
-			$newvalue[ $pattern_field ],
-			function( $excluded ) use ( $pattern_field, $label, $is_form_submit, &$errors ) {
-				if ( false === @preg_match( '#' . str_replace( '#', '\#', $excluded ) . '#', 'dummy-sample' ) && $is_form_submit ) { // phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged
-					/* translators: 1 and 2 can be anything. */
-					$errors[ $pattern_field ] = sprintf( __( '%1$s: <em>%2$s</em>.', 'rocket' ), $label, esc_html( $excluded ) );
-					return false;
-				}
-
-				return true;
-			}
-		);
-	}
-
-	if ( $errors ) {
-		$error_message  = _n( 'The following pattern is invalid and has been removed:', 'The following patterns are invalid and have been removed:', count( $errors ), 'rocket' );
-		$error_message .= '<ul><li>' . implode( '</li><li>', $errors ) . '</li></ul>';
-		$errors         = [];
-
-		add_settings_error( 'general', 'invalid_patterns', $error_message, 'error' );
 	}
 
 	// Clear WP Rocket database optimize cron if the setting has been modified.
@@ -362,15 +277,6 @@ function rocket_pre_main_option( $newvalue, $oldvalue ) {
 		$newvalue = array_merge( $newvalue, $keys );
 	}
 
-	if ( ! function_exists( 'get_settings_errors' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/template.php';
-	}
-
-	if ( get_settings_errors() ) {
-		// Display an error notice.
-		set_transient( 'settings_errors', get_settings_errors(), 30 );
-	}
-
 	return $newvalue;
 }
 add_filter( 'pre_update_option_' . WP_ROCKET_SLUG, 'rocket_pre_main_option', 10, 2 );
@@ -384,7 +290,7 @@ add_filter( 'pre_update_option_' . WP_ROCKET_SLUG, 'rocket_pre_main_option', 10,
  * @param array $value     An array of submitted options values.
  */
 function rocket_update_ssl_option_after_save_home_url( $old_value, $value ) {
-	if ( $old_value === $value || get_rocket_option( 'cache_ssl' ) ) {
+	if ( $old_value === $value ) {
 		return;
 	}
 

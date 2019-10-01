@@ -67,14 +67,10 @@
 				params = params + '&featured=1';
 			}
 
-			var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
-
-			if( ! isShortcode || false !== config.update_urls.shortcode.day ){
-				history.replaceState( {
-					"tribe_params"    : params,
-					"tribe_url_params": td.params
-				}, '', location.href );
-			}
+			history.replaceState( {
+				"tribe_params"    : params,
+				"tribe_url_params": td.params
+			}, '', location.href );
 
 			$( window ).on( 'popstate', function( event ) {
 
@@ -321,18 +317,14 @@
 								td.cur_url = td.cur_url + '?' + ts.url_params;
 							}
 
-							var isShortcode = $( document.getElementById( 'tribe-events' ) ).is( '.tribe-events-shortcode' );
-							var shouldUpdateHistory = ! isShortcode || false !== config.update_urls.shortcode.day;
-
-
-							if ( ts.do_string && shouldUpdateHistory ) {
+							if ( ts.do_string ) {
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params
 								}, ts.page_title, td.cur_url );
 							}
 
-							if ( ts.pushstate && shouldUpdateHistory ) {
+							if ( ts.pushstate ) {
 								history.pushState( {
 									"tribe_date"  : ts.date,
 									"tribe_params": ts.params

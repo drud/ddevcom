@@ -1,6 +1,8 @@
 <?php
 namespace WP_Rocket\Admin;
 
+defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
+
 /**
  * Manages options using the WordPress options API.
  *

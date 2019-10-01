@@ -131,7 +131,7 @@ class WP_Rocket_Requirements_Check {
 	}
 
 	/**
-	 * Warns if PHP or WP version are less than the defined values and offer rollback.
+	 * Warns if PHP version is less than 5.4 and offers to rollback.
 	 *
 	 * @since 3.0 Updated minimum PHP version to 5.4 and minimum WordPress version to 4.2
 	 * @since 3.0 Moved to class
@@ -139,7 +139,8 @@ class WP_Rocket_Requirements_Check {
 	 * @author Remy Perona
 	 */
 	public function notice() {
-		if ( ! current_user_can( 'manage_options' ) ) {
+		/** This filter is documented in inc/admin-bar.php */
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
 
@@ -161,7 +162,7 @@ class WP_Rocket_Requirements_Check {
 		sprintf( __( 'Re-install version %s', 'rocket' ), $this->plugin_last_version )
 		. '</a></p>';
 
-		echo '<div class="notice notice-error">' . wp_kses_post( $message ) . '</div>';
+		echo '<div class="notice notice-error">' . $message . '</div>';
 	}
 
 	/**
@@ -173,7 +174,7 @@ class WP_Rocket_Requirements_Check {
 	public function rollback() {
 		check_ajax_referer( 'rocket_rollback' );
 
-		if ( ! current_user_can( 'manage_options' ) ) {
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			wp_die();
 		}
 
@@ -206,13 +207,11 @@ class WP_Rocket_Requirements_Check {
 		$url           = 'update.php?action=upgrade-plugin&plugin=' . rawurlencode( $plugin );
 		$upgrader_skin = new Plugin_Upgrader_Skin( compact( 'title', 'nonce', 'url', 'plugin' ) );
 		$upgrader      = new Plugin_Upgrader( $upgrader_skin );
-		remove_filter( 'site_transient_update_plugins', 'rocket_check_update', 1 );
+		remove_filter( 'site_transient_update_plugins', 'rocket_check_update', 100 );
 		$upgrader->upgrade( $plugin );
 		wp_die(
-			'',
 			// translators: %s is the plugin name.
-			sprintf( esc_html__( '%s Update Rollback', 'rocket' ), esc_html( $this->plugin_name ) ),
-			array(
+			'', sprintf( __( '%s Update Rollback', 'rocket' ), $this->plugin_name ), array(
 				'response' => 200,
 			)
 		);
@@ -228,23 +227,23 @@ class WP_Rocket_Requirements_Check {
 	 * @param string $url       URL requested.
 	 */
 	public function add_own_ua( $request, $url ) {
-		if ( strpos( $url, 'wp-rocket.me' ) === false ) {
+		if ( strpos( $url, 'wp-rocket.me' ) !== false ) {
+			$consumer_key = '';
+
+			if ( defined( 'WP_ROCKET_KEY' ) ) {
+				$consumer_key = WP_ROCKET_KEY;
+			}
+
+			$consumer_email = '';
+
+			if ( defined( 'WP_ROCKET_EMAIL' ) ) {
+				$consumer_email = WP_ROCKET_EMAIL;
+			}
+
+			$request['user-agent'] = sprintf( '%s;WP-Rocket|%s%s|%s|%s|%s|;', $request['user-agent'], $this->plugin_version, '', $consumer_key, $consumer_email, esc_url( home_url() ) );
+
 			return $request;
 		}
-
-		$consumer_key = isset( $this->options['consumer_key'] ) ? $this->options['consumer_key'] : false;
-
-		if ( ! $consumer_key && defined( 'WP_ROCKET_KEY' ) ) {
-			$consumer_key = WP_ROCKET_KEY;
-		}
-
-		$consumer_email = isset( $this->options['consumer_email'] ) ? $this->options['consumer_email'] : false;
-
-		if ( ! $consumer_email && defined( 'WP_ROCKET_EMAIL' ) ) {
-			$consumer_email = WP_ROCKET_EMAIL;
-		}
-
-		$request['user-agent'] = sprintf( '%s;WP-Rocket|%s%s|%s|%s|%s|;', $request['user-agent'], $this->plugin_version, '', $consumer_key, $consumer_email, esc_url( home_url() ) );
 
 		return $request;
 	}

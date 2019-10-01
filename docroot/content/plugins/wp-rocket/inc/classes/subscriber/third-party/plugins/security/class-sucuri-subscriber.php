@@ -64,7 +64,7 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 			'after_rocket_clean_term'        => 'maybe_clean_firewall_cache',
 			'after_rocket_clean_user'        => 'maybe_clean_firewall_cache',
 			'after_rocket_clean_home'        => 'maybe_clean_firewall_cache',
-			'after_rocket_clean_files'       => 'maybe_clean_firewall_cache',
+			'after_rocket_clean_file'        => 'maybe_clean_firewall_cache',
 			'admin_post_rocket_purge_sucuri' => 'do_admin_post_rocket_purge_sucuri',
 			'admin_notices'                  => 'maybe_print_notice',
 		];
@@ -82,19 +82,9 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 	 * @author Grégory Viguier
 	 */
 	public function maybe_clean_firewall_cache() {
-		static $done = false;
-
-		if ( $done ) {
-			return;
+		if ( $this->options->get( 'sucury_waf_cache_sync', 0 ) ) {
+			$this->clean_firewall_cache();
 		}
-
-		$done = true;
-
-		if ( ! $this->options->get( 'sucury_waf_cache_sync', 0 ) ) {
-			return;
-		}
-
-		$this->clean_firewall_cache();
 	}
 
 	/**
@@ -109,7 +99,8 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 			wp_nonce_ays( '' );
 		}
 
-		if ( ! current_user_can( 'rocket_purge_sucuri_cache' ) ) {
+		/** This filter is documented in inc/admin-bar.php */
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			wp_nonce_ays( '' );
 		}
 
@@ -142,7 +133,8 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 	 * @author Grégory Viguier
 	 */
 	public function maybe_print_notice() {
-		if ( ! current_user_can( 'rocket_purge_sucuri_cache' ) ) {
+		// This filter is documented in inc/admin-bar.php.
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
 
@@ -169,24 +161,6 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 	/** ----------------------------------------------------------------------------------------- */
 	/** TOOLS =================================================================================== */
 	/** ----------------------------------------------------------------------------------------- */
-
-	/**
-	 * Tell if a API key is well formatted.
-	 *
-	 * @since  3.2.3
-	 * @access public
-	 * @author Grégory Viguier
-	 *
-	 * @param  string $api_key An API kay.
-	 * @return array|bool      An array with the keys 'k' and 's' (required by the API) if valid. False otherwise.
-	 */
-	public static function is_api_key_valid( $api_key ) {
-		if ( '' !== $api_key && preg_match( '@^(?<k>[a-z0-9]{32})/(?<s>[a-z0-9]{32})$@', $api_key, $matches ) ) {
-			return $matches;
-		}
-
-		return false;
-	}
 
 	/**
 	 * Clear Sucuri firewall cache.
@@ -240,9 +214,7 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 			return new \WP_Error( 'no_sucuri_api_key', __( 'Sucuri firewall API key was not found.', 'rocket' ) );
 		}
 
-		$matches = self::is_api_key_valid( $api_key );
-
-		if ( ! $matches ) {
+		if ( ! preg_match( '@^(?<k>[a-z0-9]{32})/(?<s>[a-z0-9]{32})$@', $api_key, $matches ) ) {
 			Logger::error( 'API key is invalid.', [
 				'sucuri firewall cache',
 			] );
@@ -271,27 +243,14 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 		$url            = sprintf( static::API_URL, $params );
 
 		try {
-			/**
-			 * Filters the arguments for the Sucuri API request
-			 *
-			 * @since 3.3.4
-			 * @author Soponar Cristina
-			 *
-			 * @param array $args Arguments for the request.
-			 */
-			$args = apply_filters(
-				'rocket_sucuri_api_request_args',
-				[
-					'timeout'     => 5,
-					'redirection' => 5,
-					'httpversion' => '1.1',
-					'blocking'    => true,
-					/** This filter is documented in wp-includes/class-wp-http-streams.php */
-					'sslverify'   => apply_filters( 'https_ssl_verify', true ),
-				]
-			);
-
-			$response = wp_remote_get( $url, $args );
+			$response = wp_remote_get( $url, [
+				'timeout'     => 5,
+				'redirection' => 5,
+				'httpversion' => '1.1',
+				'blocking'    => true,
+				/** This filter is documented in wp-includes/class-wp-http-streams.php */
+				'sslverify'   => apply_filters( 'https_ssl_verify', true ),
+			] );
 		} catch ( \Exception $e ) {
 			Logger::error( 'Error when contacting the API.', [
 				'sucuri firewall cache',
