@@ -8,6 +8,15 @@ $baseDir = dirname($vendorDir);
 return array(
     'Symfony\\Polyfill\\Ctype\\' => array($vendorDir . '/symfony/polyfill-ctype'),
     'Roots\\Composer\\' => array($vendorDir . '/roots/wordpress-core-installer/src'),
+    'RocketLazyload\\' => array($vendorDir . '/wp-media/rocket-lazyload-common/src'),
+    'Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
+    'Psr\\Container\\' => array($vendorDir . '/psr/container/src'),
+    'Monolog\\' => array($vendorDir . '/monolog/monolog/src/Monolog'),
+    'MatthiasMullie\\PathConverter\\' => array($vendorDir . '/matthiasmullie/path-converter/src'),
+    'MatthiasMullie\\Minify\\' => array($vendorDir . '/matthiasmullie/minify/src'),
+    'League\\Container\\' => array($vendorDir . '/league/container/src'),
+    'Interop\\Container\\' => array($vendorDir . '/container-interop/container-interop/src/Interop/Container'),
     'Dotenv\\' => array($vendorDir . '/vlucas/phpdotenv/src'),
     'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
+    'Cloudflare\\' => array($vendorDir . '/jamesryanbell/cloudflare/src/CloudFlare'),
 );

@@ -30,6 +30,10 @@
       "url": "https://wpackagist.org"
     },
     {
+      "type": "vcs",
+      "url": "https://github.com/tabrisrp/wp-background-processing"
+    },
+    {
       "type": "package",
       "package": {
         "name": "gravityforms/gravityforms",
@@ -74,7 +78,8 @@
     "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
     "wpackagist-plugin/wpremote": "2.8.4.3",
     "wpackagist-plugin/classic-editor": "^1.5",
-    "wpackagist-plugin/wp-gdpr-compliance": "^1.4"
+    "wpackagist-plugin/wp-gdpr-compliance": "^1.4",
+    "wp-media/wp-rocket": "v3.4.0.2"
   },
   "extra": {
     "installer-paths": {
