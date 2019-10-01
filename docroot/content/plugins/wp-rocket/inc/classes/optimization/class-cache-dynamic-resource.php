@@ -225,7 +225,7 @@ class Cache_Dynamic_Resource extends Abstract_Optimization {
 	 * @return string
 	 */
 	protected function get_cache_url( $filename ) {
-		$cache_url = $this->busting_url . $filename;
+		$cache_url = get_rocket_cdn_url( $this->busting_url . $filename, $this->get_zones() );
 
 		switch ( $this->extension ) {
 			case 'css':

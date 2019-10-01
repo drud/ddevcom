@@ -26,7 +26,7 @@ if ( isset( $nginx_helper ) ) :
 			return;
 		}
 
-		if ( ! current_user_can( 'rocket_purge_cache' ) ) {
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
 
@@ -55,7 +55,7 @@ if ( isset( $nginx_helper ) ) :
 			return;
 		}
 
-		if ( ! current_user_can( 'rocket_purge_posts' ) ) {
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
 

@@ -109,7 +109,8 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 			wp_nonce_ays( '' );
 		}
 
-		if ( ! current_user_can( 'rocket_purge_sucuri_cache' ) ) {
+		/** This filter is documented in inc/admin-bar.php */
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			wp_nonce_ays( '' );
 		}
 
@@ -142,7 +143,8 @@ class Sucuri_Subscriber implements Subscriber_Interface {
 	 * @author Grégory Viguier
 	 */
 	public function maybe_print_notice() {
-		if ( ! current_user_can( 'rocket_purge_sucuri_cache' ) ) {
+		// This filter is documented in inc/admin-bar.php.
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
 

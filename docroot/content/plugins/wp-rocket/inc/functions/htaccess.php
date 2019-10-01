@@ -25,10 +25,6 @@ function flush_rocket_htaccess( $remove_rules = false ) {
 		return false;
 	}
 
-	if ( ! function_exists( 'get_home_path' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-	}
-
 	$htaccess_file = get_home_path() . '.htaccess';
 
 	if ( ! rocket_direct_filesystem()->is_writable( $htaccess_file ) ) {
@@ -223,12 +219,6 @@ function get_rocket_htaccess_mod_rewrite() {
 	$gzip_rules = '';
 	$enc        = '';
 
-	if ( $is_1and1_or_force ) {
-		$cache_dir_path = str_replace( '/kunden/', '/', WP_ROCKET_CACHE_PATH ) . $http_host . '%{REQUEST_URI}';
-	} else {
-		$cache_dir_path = '%{DOCUMENT_ROOT}/' . ltrim( $cache_root, '/' ) . $http_host . '%{REQUEST_URI}';
-	}
-
 	/**
 	 * Allow to serve gzip cache file
 	 *
@@ -255,7 +245,6 @@ function get_rocket_htaccess_mod_rewrite() {
 	$rules .= 'RewriteEngine On' . PHP_EOL;
 	$rules .= 'RewriteBase ' . $home_root . PHP_EOL;
 	$rules .= get_rocket_htaccess_ssl_rewritecond();
-	$rules .= rocket_get_webp_rewritecond( $cache_dir_path );
 	$rules .= $gzip_rules;
 	$rules .= 'RewriteCond %{REQUEST_METHOD} GET' . PHP_EOL;
 	$rules .= 'RewriteCond %{QUERY_STRING} =""' . PHP_EOL;
@@ -277,8 +266,13 @@ function get_rocket_htaccess_mod_rewrite() {
 		$rules .= 'RewriteCond %{HTTP_USER_AGENT} !^(' . $ua . ').* [NC]' . PHP_EOL;
 	}
 
-	$rules .= 'RewriteCond "' . $cache_dir_path . '/index%{ENV:WPR_SSL}%{ENV:WPR_WEBP}.html' . $enc . '" -f' . PHP_EOL;
-	$rules .= 'RewriteRule .* "' . $cache_root . $http_host . '%{REQUEST_URI}/index%{ENV:WPR_SSL}%{ENV:WPR_WEBP}.html' . $enc . '" [L]' . PHP_EOL;
+	if ( $is_1and1_or_force ) {
+		$rules .= 'RewriteCond "' . str_replace( '/kunden/', '/', WP_ROCKET_CACHE_PATH ) . $http_host . '%{REQUEST_URI}/index%{ENV:WPR_SSL}.html' . $enc . '" -f' . PHP_EOL;
+	} else {
+		$rules .= 'RewriteCond "%{DOCUMENT_ROOT}/' . ltrim( $cache_root, '/' ) . $http_host . '%{REQUEST_URI}/index%{ENV:WPR_SSL}.html' . $enc . '" -f' . PHP_EOL;
+	}
+
+	$rules .= 'RewriteRule .* "' . $cache_root . $http_host . '%{REQUEST_URI}/index%{ENV:WPR_SSL}.html' . $enc . '" [L]' . PHP_EOL;
 	$rules .= '</IfModule>' . PHP_EOL;
 
 	/**
@@ -347,35 +341,6 @@ function get_rocket_htaccess_ssl_rewritecond() {
 	$rules = apply_filters( 'rocket_htaccess_ssl_rewritecond', $rules );
 
 	return $rules;
-}
-
-/**
- * Rules for webp compatible browsers.
- *
- * @since  3.4
- * @author Grégory Viguier
- *
- * @param  string $cache_dir_path Path to the cache directory, without trailing slash.
- * @return string                 Rules that will be printed.
- */
-function rocket_get_webp_rewritecond( $cache_dir_path ) {
-	if ( ! get_rocket_option( 'cache_webp' ) ) {
-		return '';
-	}
-
-	$rules  = 'RewriteCond %{HTTP_ACCEPT} image/webp' . PHP_EOL;
-	$rules .= 'RewriteCond "' . $cache_dir_path . '/.no-webp" !-f' . PHP_EOL;
-	$rules .= 'RewriteRule .* - [E=WPR_WEBP:-webp]' . PHP_EOL;
-
-	/**
-	 * Filter rules for webp.
-	 *
-	 * @since  3.4
-	 * @author Grégory Viguier
-	 *
-	 * @param string $rules Rules that will be printed.
-	*/
-	return apply_filters( 'rocket_webp_rewritecond', $rules );
 }
 
 /**
@@ -674,10 +639,6 @@ function rocket_has_wp_htaccess_rules( $content ) {
  * @return bool
  */
 function rocket_check_htaccess_rules() {
-	if ( ! function_exists( 'get_home_path' ) ) {
-		require_once ABSPATH . 'wp-admin/includes/file.php';
-	}
-
 	$htaccess_file = get_home_path() . '.htaccess';
 
 	if ( ! rocket_direct_filesystem()->is_readable( $htaccess_file ) ) {

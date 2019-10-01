@@ -58,6 +58,7 @@ class Preload_Subscriber implements Subscriber_Interface {
 				[ 'notice_preload_complete' ],
 			],
 			'admin_post_rocket_stop_preload'  => [ 'do_admin_post_stop_preload' ],
+			'rocket_purge_time_event'         => [ 'run_preload', 11 ],
 			'pagely_cache_purge_after'        => [ 'run_preload', 11 ],
 			'update_option_' . WP_ROCKET_SLUG => [
 				[ 'maybe_launch_preload', 11, 2 ],
@@ -186,11 +187,12 @@ class Preload_Subscriber implements Subscriber_Interface {
 	 * @author Remy Perona
 	 */
 	public function notice_preload_triggered() {
-		if ( ! current_user_can( 'rocket_preload_cache' ) ) {
+		$screen = get_current_screen();
+
+		// This filter is documented in inc/admin-bar.php.
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
-
-		$screen = get_current_screen();
 
 		if ( 'settings_page_wprocket' === $screen->id ) {
 			return;
@@ -202,21 +204,15 @@ class Preload_Subscriber implements Subscriber_Interface {
 
 		delete_transient( 'rocket_preload_triggered' );
 
-		$message = __( 'Preload: WP Rocket has started preloading your website.', 'rocket' );
-
-		if ( current_user_can( 'rocket_manage_options' ) ) {
-			$message .= ' ' . sprintf(
-				// Translators: %1$s = opening link tag, %2$s = closing link tag.
-				__( 'Go to the %1$sWP Rocket settings%2$s page to track progress.', 'rocket' ),
-				'<a href="' . esc_url( admin_url( 'options-general.php?page=' . WP_ROCKET_PLUGIN_SLUG ) ) . '">',
-				'</a>'
-			);
-		}
-
 		\rocket_notice_html(
 			[
 				'status'  => 'info',
-				'message' => $message,
+				'message' => sprintf(
+					// Translators: %1$s = opening link tag, %2$s = closing link tag.
+					__( 'Preload: WP Rocket has started preloading your website. Go to the %1$sWP Rocket settings%2$s page to track progress.', 'rocket' ),
+					'<a href="' . esc_url( admin_url( 'options-general.php?page=' . WP_ROCKET_PLUGIN_SLUG ) ) . '">',
+					'</a>'
+				),
 			]
 		);
 	}
@@ -228,11 +224,12 @@ class Preload_Subscriber implements Subscriber_Interface {
 	 * @author Remy Perona
 	 */
 	public function notice_preload_running() {
-		if ( ! current_user_can( 'rocket_preload_cache' ) ) {
+		$screen = get_current_screen();
+
+		// This filter is documented in inc/admin-bar.php.
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
-
-		$screen = get_current_screen();
 
 		if ( 'settings_page_wprocket' !== $screen->id ) {
 			return;
@@ -246,8 +243,8 @@ class Preload_Subscriber implements Subscriber_Interface {
 
 		$status = 'info';
 		// translators: %1$s = Number of pages preloaded.
-		$message  = '<p>' . sprintf( _n( 'Preload: %1$s uncached page has now been preloaded. (refresh to see progress)', 'Preload: %1$s uncached pages have now been preloaded. (refresh to see progress)', $running, 'rocket' ), number_format_i18n( $running ) );
-		$message .= ' <em> - (' . date_i18n( get_option( 'date_format' ), current_time( 'timestamp' ) ) . ' @ ' . date_i18n( get_option( 'time_format' ), current_time( 'timestamp' ) ) . ') </em></p>';
+		$message = '<p>' . sprintf( _n( 'Preload: %1$s uncached page has now been preloaded. (refresh to see progress)', 'Preload: %1$s uncached pages have now been preloaded. (refresh to see progress)', $running, 'rocket' ), number_format_i18n( $running ) ) ;
+		$message .= ' <em> - (' . date_i18n( "F j, Y @ G:i", time() ) .') </em>' . '</p>';
 
 		if ( defined( 'WP_ROCKET_DEBUG' ) && WP_ROCKET_DEBUG ) {
 
@@ -280,11 +277,12 @@ class Preload_Subscriber implements Subscriber_Interface {
 	 * @author Remy Perona
 	 */
 	public function notice_preload_complete() {
-		if ( ! current_user_can( 'rocket_preload_cache' ) ) {
+		$screen = get_current_screen();
+
+		/** This filter is documented in inc/admin-bar.php */
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			return;
 		}
-
-		$screen = get_current_screen();
 
 		if ( 'settings_page_wprocket' !== $screen->id ) {
 			return;
@@ -328,7 +326,8 @@ class Preload_Subscriber implements Subscriber_Interface {
 			wp_nonce_ays( '' );
 		}
 
-		if ( ! current_user_can( 'rocket_preload_cache' ) ) {
+		/** This filter is documented in inc/admin-bar.php */
+		if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
 			wp_safe_redirect( wp_get_referer() );
 			die();
 		}

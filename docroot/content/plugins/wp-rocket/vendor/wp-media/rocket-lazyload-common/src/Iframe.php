@@ -107,6 +107,8 @@ class Iframe
                 'data-no-lazy=',
                 'recaptcha/api/fallback',
                 'loading="eager"',
+                'loading="lazy"',
+                'loading="auto"',
             ]
         );
     }
@@ -130,10 +132,6 @@ class Iframe
 
         $placeholder_atts = str_replace($iframe['src'], $placeholder, $iframe['atts']);
         $iframe_lazyload  = str_replace($iframe['atts'], $placeholder_atts . ' data-rocket-lazyload="fitvidscompatible" data-lazy-src="' . esc_url($iframe['src']) . '"', $iframe[0]);
-
-        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $iframe_lazyload)) {
-            $iframe_lazyload = str_replace('<iframe', '<iframe loading="lazy"', $iframe_lazyload);
-        }
 
         /**
          * Filter the LazyLoad HTML output on iframes

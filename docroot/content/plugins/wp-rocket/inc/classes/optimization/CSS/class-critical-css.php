@@ -192,7 +192,6 @@ class Critical_CSS {
 				'xlwcty_thankyou',
 				'fusion_template',
 				'blocks',
-				'fl-builder-template'
 			]
 		);
 

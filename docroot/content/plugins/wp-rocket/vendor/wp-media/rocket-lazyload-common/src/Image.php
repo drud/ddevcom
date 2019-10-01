@@ -34,9 +34,8 @@ class Image
                 continue;
             }
 
-            $image_lazyload  = $this->replaceImage($image);
-            $image_lazyload .= $this->noscript($image[0]);
-            $html            = str_replace($image[0], $image_lazyload, $html);
+            $image_lazyload = $this->replaceImage($image);
+            $html           = str_replace($image[0], $image_lazyload, $html);
 
             unset($image_lazyload);
         }
@@ -140,17 +139,17 @@ class Image
                 continue;
             }
 
-            if (! preg_match('#<img(?<atts>\s.+)\s?/?>#iUs', $picture[0], $img)) {
+            if (! preg_match('#<img(?<atts>\s.+)\s?/?>#is', $picture[0], $img)) {
                 continue;
             }
 
-            $img = $this->canLazyload($img);
-
-            if (! $img) {
+            if (! $this->canLazyload($img)) {
                 continue;
             }
 
-            $img_lazy = $this->replaceImage($img);
+            $img_lazy = preg_replace('/([\s"\'])src/i', '\1data-lazy-src', $img[0]);
+            $img_lazy = $this->addLazyClass($img_lazy);
+            $img_lazy = apply_filters('rocket_lazyload_html', $img_lazy);
             $html     = str_replace($img[0], $img_lazy, $html);
 
             unset($img_lazy);
@@ -254,6 +253,8 @@ class Image
                 'class="ls-l',
                 'class="ls-bg',
                 'soliloquy-image',
+                'loading="auto"',
+                'loading="lazy"',
                 'loading="eager"',
                 'swatch-img',
                 'data-height-percentage',
@@ -311,10 +312,6 @@ class Image
 
         $image_lazyload = str_replace($image['atts'], $placeholder_atts . ' data-lazy-src="' . $image['src'] . '"', $image[0]);
 
-        if (! preg_match('@\sloading\s*=\s*(\'|")(?:lazy|auto)\1@i', $image_lazyload) && apply_filters('rocket_use_native_lazyload', false)) {
-            $image_lazyload = str_replace('<img', '<img loading="lazy"', $image_lazyload);
-        }
-
         /**
          * Filter the LazyLoad HTML output
          *
@@ -322,20 +319,10 @@ class Image
          *
          * @param string $html Output that will be printed
          */
-        $image_lazyload = apply_filters('rocket_lazyload_html', $image_lazyload);
+        $image_lazyload  = apply_filters('rocket_lazyload_html', $image_lazyload);
+        $image_lazyload .= '<noscript>' . $image[0] . '</noscript>';
 
         return $image_lazyload;
-    }
-
-    /**
-     * Returns the HTML tag wrapped inside noscript tags
-     *
-     * @param string $element Element to wrap.
-     * @return string
-     */
-    private function noscript($element)
-    {
-        return '<noscript>' . $element . '</noscript>';
     }
 
     /**
@@ -346,8 +333,13 @@ class Image
      */
     public function lazyloadResponsiveAttributes($html)
     {
-        $html = preg_replace('/[\s|"|\'](srcset)\s*=\s*("|\')([^"|\']+)\2/i', ' data-lazy-$1=$2$3$2', $html);
-        $html = preg_replace('/[\s|"|\'](sizes)\s*=\s*("|\')([^"|\']+)\2/i', ' data-lazy-$1=$2$3$2', $html);
+        if (preg_match('/srcset=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html)) {
+            $html = str_replace('srcset=', 'data-lazy-srcset=', $html);
+        }
+    
+        if (preg_match('/sizes=("(?:[^"]+)"|\'(?:[^\']+)\'|(?:[^ >]+))/i', $html)) {
+            $html = str_replace('sizes=', 'data-lazy-sizes=', $html);
+        }
     
         return $html;
     }

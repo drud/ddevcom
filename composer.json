@@ -52,18 +52,6 @@
           "type": "zip"
         }
       }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "wp-media/wp-rocket",
-        "type": "wordpress-plugin",
-        "version": "v3.4.0.2",
-        "dist": {
-          "url": "https://github.com/wp-media/wp-rocket/archive/v3.4.0.2.zip",
-          "type": "zip"
-        }
-      }
     }
   ],
   "require": {
@@ -86,8 +74,7 @@
     "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
     "wpackagist-plugin/wpremote": "2.8.4.3",
     "wpackagist-plugin/classic-editor": "^1.5",
-    "wpackagist-plugin/wp-gdpr-compliance": "^1.4",
-    "wp-media/wp-rocket": "v3.4.0.2"
+    "wpackagist-plugin/wp-gdpr-compliance": "^1.4"
   },
   "extra": {
     "installer-paths": {

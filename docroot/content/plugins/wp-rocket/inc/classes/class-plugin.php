@@ -65,7 +65,6 @@ class Plugin {
 
 		$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Options' );
 		$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Database' );
-		$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Beacon' );
 
 		$subscribers = [];
 
@@ -81,9 +80,10 @@ class Plugin {
 				[
 					'slug'       => WP_ROCKET_PLUGIN_SLUG,
 					'title'      => WP_ROCKET_PLUGIN_NAME,
-					'capability' => 'rocket_manage_options',
+					'capability' => apply_filters( 'rocket_capacity', 'manage_options' ),
 				]
 			);
+			$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Beacon' );
 			$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Settings' );
 			$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Admin_Subscribers' );
 
@@ -104,6 +104,7 @@ class Plugin {
 				'minify_css_subscriber',
 				'minify_js_subscriber',
 				'cache_dynamic_resource_subscriber',
+				'cdn_favicons_subscriber',
 				'remove_query_string_subscriber',
 			];
 
@@ -122,12 +123,10 @@ class Plugin {
 		$this->container->addServiceProvider( 'WP_Rocket\ServiceProvider\Updater_Subscribers' );
 
 		$common_subscribers = [
-			'cdn_subscriber',
 			'critical_css_subscriber',
 			'sucuri_subscriber',
 			'facebook_tracking_subscriber',
 			'google_tracking_subscriber',
-			'expired_cache_purge_subscriber',
 			'preload_subscriber',
 			'sitemap_preload_subscriber',
 			'partial_preload_subscriber',
@@ -145,21 +144,7 @@ class Plugin {
 			'plugin_updater_common_subscriber',
 			'plugin_information_subscriber',
 			'plugin_updater_subscriber',
-			'capabilities_subscriber',
 		];
-
-		if ( \rocket_valid_key() ) {
-			$common_subscribers = array_merge(
-				$common_subscribers,
-				[
-					'webp_subscriber',
-					'imagify_webp_subscriber',
-					'shortpixel_webp_subscriber',
-					'ewww_webp_subscriber',
-					'optimus_webp_subscriber',
-				]
-			);
-		}
 
 		$subscribers = array_merge( $subscribers, $common_subscribers );
 
