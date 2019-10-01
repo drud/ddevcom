@@ -37,6 +37,6 @@ define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 
 /** Enable Cache by WP Rocket */
-define('WP_CACHE', true);
+define('WP_CACHE', false);
 define('WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/');
 define('WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/');
