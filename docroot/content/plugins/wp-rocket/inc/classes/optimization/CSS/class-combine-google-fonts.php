@@ -19,7 +19,7 @@ class Combine_Google_Fonts extends Abstract_Optimization {
 	 *
 	 * @var array
 	 */
-	protected $fonts = [];
+	protected $fonts;
 
 	/**
 	 * Found subsets
@@ -29,7 +29,18 @@ class Combine_Google_Fonts extends Abstract_Optimization {
 	 *
 	 * @var array
 	 */
-	protected $subsets = [];
+	protected $subsets;
+
+	/**
+	 * Constructor
+	 *
+	 * @since 3.1
+	 * @author Remy Perona
+	 */
+	public function __construct() {
+		$this->fonts   = [];
+		$this->subsets = [];
+	}
 
 	/**
 	 * Combines multiple Google Fonts links into one
@@ -108,26 +119,24 @@ class Combine_Google_Fonts extends Abstract_Optimization {
 	 */
 	protected function parse( $matches ) {
 		foreach ( $matches as $match ) {
-			$url   = html_entity_decode( $match[2] );
-			$query = \rocket_extract_url_component( $url, PHP_URL_QUERY );
+			$query = \rocket_extract_url_component( $match[2], PHP_URL_QUERY );
 
 			if ( ! isset( $query ) ) {
 				return;
 			}
 
-			$font = wp_parse_args( $query );
+			$query = html_entity_decode( $query );
+			$font  = wp_parse_args( $query );
 
 			// Add font to the collection.
 			$this->fonts[] = rawurlencode( htmlentities( $font['family'] ) );
 
 			// Add subset to collection.
-			if ( isset( $font['subset'] ) ) {
-				$this->subsets[] = rawurlencode( htmlentities( $font['subset'] ) );
-			}
+			$this->subsets[] = isset( $font['subset'] ) ? rawurlencode( htmlentities( $font['subset'] ) ) : '';
 		}
 
 		// Concatenate fonts tag.
-		$this->subsets = ! empty( $this->subsets ) ? '&subset=' . implode( ',', array_filter( array_unique( $this->subsets ) ) ) : '';
+		$this->subsets = ( $this->subsets ) ? '&subset=' . implode( ',', array_filter( array_unique( $this->subsets ) ) ) : '';
 		$this->fonts   = implode( '|', array_filter( array_unique( $this->fonts ) ) );
 		$this->fonts   = str_replace( '|', '%7C', $this->fonts );
 	}
@@ -135,33 +144,12 @@ class Combine_Google_Fonts extends Abstract_Optimization {
 	/**
 	 * Returns the combined Google fonts link tag
 	 *
-	 * @since 3.3.5 Add support for the display parameter
 	 * @since 3.1
 	 * @author Remy Perona
 	 *
 	 * @return string
 	 */
 	protected function get_combine_tag() {
-		/**
-		 * Filters the combined Google Fonts display parameter value
-		 *
-		 * @since 3.3.5
-		 * @author Remy Perona
-		 *
-		 * @param string $display Display value. Can be either auto, block, swap, fallback or optional.
-		 */
-		$display = apply_filters( 'rocket_combined_google_fonts_display', 'swap' );
-
-		$allowed_values = [
-			'auto'     => 1,
-			'block'    => 1,
-			'swap'     => 1,
-			'fallback' => 1,
-			'optional' => 1,
-		];
-
-		$display = isset( $allowed_values[ $display ] ) ? $display : 'swap';
-
-		return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=' . $this->fonts . $this->subsets . '&display=' . $display . '" />';
+		return '<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=' . $this->fonts . $this->subsets . '" />';
 	}
 }

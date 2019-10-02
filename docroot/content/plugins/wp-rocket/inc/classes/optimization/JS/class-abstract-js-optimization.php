@@ -117,11 +117,10 @@ class Abstract_JS_Optimization extends Abstract_Optimization {
 	 * @author Remy Perona
 	 *
 	 * @param string $filename Minified filename.
-	 * @param string $original_url Original URL for this file. Optional.
 	 * @return string
 	 */
-	protected function get_minify_url( $filename, $original_url = '' ) {
-		$minify_url = $this->minify_base_url . $filename;
+	protected function get_minify_url( $filename ) {
+		$minify_url = get_rocket_cdn_url( $this->minify_base_url . $filename, $this->get_zones() );
 
 		/**
 		 * Filters JS file URL with CDN hostname
@@ -129,9 +128,8 @@ class Abstract_JS_Optimization extends Abstract_Optimization {
 		 * @since 2.1
 		 *
 		 * @param string $minify_url Minified file URL.
-		 * @param string $original_url Original URL for this file.
-		 */
-		return apply_filters( 'rocket_js_url', $minify_url, $original_url );
+		*/
+		return apply_filters( 'rocket_js_url', $minify_url );
 	}
 
 	/**

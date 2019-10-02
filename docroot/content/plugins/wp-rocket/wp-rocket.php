@@ -3,31 +3,32 @@
  * Plugin Name: WP Rocket
  * Plugin URI: https://wp-rocket.me
  * Description: The best WordPress performance plugin.
- * Version: 3.4.0.2
- * Code Name: Scarif
+ * Version: 3.2.1
+ * Code Name: Dagobah
  * Author: WP Media
- * Author URI: https://wp-media.me
+ * Author URI: http://wp-media.me
  * Licence: GPLv2 or later
  *
  * Text Domain: rocket
  * Domain Path: languages
  *
- * Copyright 2013-2019 WP Rocket
+ * Copyright 2013-2018 WP Rocket
  * */
 
 defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 // Rocket defines.
-define( 'WP_ROCKET_VERSION',               '3.4.0.2' );
-define( 'WP_ROCKET_WP_VERSION',            '4.9' );
-define( 'WP_ROCKET_PHP_VERSION',           '5.6' );
-define( 'WP_ROCKET_PRIVATE_KEY',           false );
+define( 'WP_ROCKET_VERSION',               '3.2.1' );
+define( 'WP_ROCKET_WP_VERSION',            '4.7' );
+define( 'WP_ROCKET_PHP_VERSION',           '5.4' );
+define( 'WP_ROCKET_PRIVATE_KEY'         , 'dde1d37fa133ddd48a50de2d33ccd69d');
 define( 'WP_ROCKET_SLUG',                  'wp_rocket_settings' );
-define( 'WP_ROCKET_WEB_MAIN',              'https://wp-rocket.me/' );
+define( 'WP_ROCKET_WEB_MAIN'            , 'https://wp-rocket.me/');
 define( 'WP_ROCKET_WEB_API',               WP_ROCKET_WEB_MAIN . 'api/wp-rocket/' );
 define( 'WP_ROCKET_WEB_CHECK',             WP_ROCKET_WEB_MAIN . 'check_update.php' );
 define( 'WP_ROCKET_WEB_VALID',             WP_ROCKET_WEB_MAIN . 'valid_key.php' );
 define( 'WP_ROCKET_WEB_INFO',              WP_ROCKET_WEB_MAIN . 'plugin_information.php' );
+define( 'WP_ROCKET_BOT_URL',               'http://bot.wp-rocket.me/launch.php' );
 define( 'WP_ROCKET_FILE',                  __FILE__ );
 define( 'WP_ROCKET_PATH',                  realpath( plugin_dir_path( WP_ROCKET_FILE ) ) . '/' );
 define( 'WP_ROCKET_INC_PATH',              realpath( WP_ROCKET_PATH . 'inc/' ) . '/' );
@@ -43,7 +44,13 @@ define( 'WP_ROCKET_3RD_PARTY_PATH',        realpath( WP_ROCKET_INC_PATH . '3rd-p
 define( 'WP_ROCKET_CONFIG_PATH',           WP_CONTENT_DIR . '/wp-rocket-config/' );
 define( 'WP_ROCKET_URL',                   plugin_dir_url( WP_ROCKET_FILE ) );
 define( 'WP_ROCKET_INC_URL',               WP_ROCKET_URL . 'inc/' );
+define( 'WP_ROCKET_FRONT_URL',             WP_ROCKET_INC_URL . 'front/' );
+define( 'WP_ROCKET_FRONT_JS_URL',          WP_ROCKET_FRONT_URL . 'js/' );
 define( 'WP_ROCKET_ADMIN_URL',             WP_ROCKET_INC_URL . 'admin/' );
+define( 'WP_ROCKET_ADMIN_UI_URL',          WP_ROCKET_ADMIN_URL . 'ui/' );
+define( 'WP_ROCKET_ADMIN_UI_JS_URL',       WP_ROCKET_ADMIN_UI_URL . 'js/' );
+define( 'WP_ROCKET_ADMIN_UI_CSS_URL',      WP_ROCKET_ADMIN_UI_URL . 'css/' );
+define( 'WP_ROCKET_ADMIN_UI_IMG_URL',      WP_ROCKET_ADMIN_UI_URL . 'img/' );
 define( 'WP_ROCKET_ASSETS_URL',            WP_ROCKET_URL . 'assets/' );
 define( 'WP_ROCKET_ASSETS_JS_URL',         WP_ROCKET_ASSETS_URL . 'js/' );
 define( 'WP_ROCKET_ASSETS_CSS_URL',        WP_ROCKET_ASSETS_URL . 'css/' );
@@ -65,10 +72,10 @@ define( 'WP_ROCKET_MINIFY_CACHE_URL',  WP_ROCKET_CACHE_ROOT_URL . 'min/' );
 define( 'WP_ROCKET_CACHE_BUSTING_URL', WP_ROCKET_CACHE_ROOT_URL . 'busting/' );
 
 if ( ! defined( 'CHMOD_WP_ROCKET_CACHE_DIRS' ) ) {
-	define( 'CHMOD_WP_ROCKET_CACHE_DIRS', 0755 ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+	define( 'CHMOD_WP_ROCKET_CACHE_DIRS', 0755 );
 }
 if ( ! defined( 'WP_ROCKET_LASTVERSION' ) ) {
-	define( 'WP_ROCKET_LASTVERSION', '3.3.7' );
+	define( 'WP_ROCKET_LASTVERSION', '3.1.4' );
 }
 
 require WP_ROCKET_INC_PATH . 'compat.php';
@@ -88,7 +95,7 @@ function rocket_load_textdomain() {
 	$locale = get_locale();
 
 	// This filter is documented in /wp-includes/l10n.php.
-	$locale = apply_filters( 'plugin_locale', $locale, 'rocket' ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals
+	$locale = apply_filters( 'plugin_locale', $locale, 'rocket' );
 	load_textdomain( 'rocket', WP_LANG_DIR . '/plugins/wp-rocket-' . $locale . '.mo' );
 
 	load_plugin_textdomain( 'rocket', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );

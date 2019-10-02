@@ -5,7 +5,6 @@ use WP_Rocket\Event_Management\Event_Manager;
 use WP_Rocket\Event_Management\Subscriber_Interface;
 use WP_Rocket\Busting\Busting_Factory;
 use WP_Rocket\Admin\Options_Data as Options;
-use WP_Rocket\Logger\Logger;
 
 /**
  * Event subscriber for Google tracking cache busting
@@ -93,10 +92,13 @@ class Google_Tracking_Cache_Busting_Subscriber implements Subscriber_Interface {
 		$processor = $this->busting_factory->type( 'ga' );
 		$html      = $processor->replace_url( $html );
 
-		$processor = $this->busting_factory->type( 'gtm' );
-		$html      = $processor->replace_url( $html );
+		if ( $processor->is_replaced() ) {
+			return $html;
+		}
 
-		return $html;
+		$processor = $this->busting_factory->type( 'gtm' );
+
+		return $processor->replace_url( $html );
 	}
 
 	/**
@@ -132,7 +134,7 @@ class Google_Tracking_Cache_Busting_Subscriber implements Subscriber_Interface {
 
 		$processor = $this->busting_factory->type( 'ga' );
 
-		return $processor->refresh_save( $processor->get_url() );
+		return $processor->refresh_save( 'https://www.google-analytics.com/analytics.js' );
 	}
 
 	/**

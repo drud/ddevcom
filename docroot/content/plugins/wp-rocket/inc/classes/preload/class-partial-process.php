@@ -54,7 +54,7 @@ class Partial_Process extends \WP_Background_Process {
 				'timeout'    => 0.01,
 				'blocking'   => false,
 				'user-agent' => 'WP Rocket/Partial_Preload',
-				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
+				'sslverify'  => apply_filters( 'https_local_ssl_verify', true ),
 			]
 		);
 
@@ -71,30 +71,21 @@ class Partial_Process extends \WP_Background_Process {
 	 * @since 3.2
 	 * @author Remy Perona
 	 *
-	 * @param string $item Queue item to iterate over.
+	 * @param mixed $item Queue item to iterate over.
 	 * @return bool
 	 */
 	protected function is_already_cached( $item ) {
-		static $https;
+		$host = ( isset( $_SERVER['HTTP_HOST'] ) ) ? $_SERVER['HTTP_HOST'] : (string) time();
+		$host = preg_replace( '/:\d+$/', '', $host );
+		$host = trim( strtolower( $host ), '.' );
+		$host = rawurlencode( $host );
 
-		if ( ! isset( $https ) ) {
-			$https = ( is_ssl() && get_rocket_option( 'cache_ssl' ) ) ? '-https' : '';
-		}
-
-		$url = get_rocket_parse_url( $item );
-
-		/** This filter is documented in inc/functions/htaccess.php */
+		/** This filter is documented in inc/front/htaccess.php */
 		if ( apply_filters( 'rocket_url_no_dots', false ) ) {
-			$url['host'] = str_replace( '.', '_', $url['host'] );
+			$host = str_replace( '.', '_', $host );
 		}
 
-		$url['path'] = trailingslashit( $url['path'] );
-
-		if ( '' !== $url['query'] ) {
-			$url['query'] = '#' . $url['query'] . '/';
-		}
-
-		$file_cache_path = WP_ROCKET_CACHE_PATH . $url['host'] . strtolower( $url['path'] . $url['query'] ) . 'index' . $https . '.html';
+		$file_cache_path = WP_ROCKET_CACHE_PATH . $host . '/' . $item . '/index.html';
 
 		return rocket_direct_filesystem()->exists( $file_cache_path );
 	}

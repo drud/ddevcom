@@ -5,10 +5,9 @@ Developers:
 	Remy Perona <remy@wp-rocket.me>
 	Gregory Viguier <gregory@wp-rocket.me>
 	Arun Basil Lal <arun@wp-rocket.me>
-	Cristina Soponar <cristina@wp-media.me>
 
 UX:
-	Caspar Hübinger
+	Caspar Hübinger <caspar@wp-rocket.me>
 	Thomas Geisen
 
 Previous contributors:

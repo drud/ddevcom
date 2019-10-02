@@ -90,7 +90,7 @@ class Facebook_Pickles {
 	 * @access private
 	 * @author Grégory Viguier
 	 */
-	private $config_file_url = 'https://connect.facebook.net/signals/config/%s?v=%s&r=stable';
+	private $config_file_url = 'https://connect.facebook.net/signals/config/%d?v=%s&r=stable';
 
 	/**
 	 * Config file name (local).
@@ -340,9 +340,7 @@ class Facebook_Pickles {
 			'both'   => [],
 		];
 
-		foreach ( $matches as $match ) {
-			list( $tag, $script ) = $match;
-
+		foreach ( $matches as list( $tag, $script ) ) {
 			if ( ! trim( $script ) ) {
 				continue;
 			}
@@ -410,7 +408,7 @@ class Facebook_Pickles {
 	 * @return array|bool {
 	 *     An array of values. False on failure.
 	 *
-	 *     @type string $app_id  The app ID.
+	 *     @type int    $app_id  The app ID.
 	 *     @type string $version The file version.
 	 * }
 	 */
@@ -426,7 +424,7 @@ class Facebook_Pickles {
 				return false;
 			}
 
-			$variables['app_id'] = $matches['app_id'];
+			$variables['app_id'] = (int) $matches['app_id'];
 		}
 
 		if ( isset( $main_file_contents ) ) {
@@ -668,7 +666,7 @@ class Facebook_Pickles {
 
 		wp_remote_get( $home_url, [
 			'user-agent' => 'WP Rocket/Homepage Preload',
-			'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
+			'sslverify'  => apply_filters( 'https_local_ssl_verify', true ),
 		] );
 
 		/**
@@ -960,7 +958,7 @@ class Facebook_Pickles {
 		$filename = $this->get_busting_file_name( $locale, $version );
 
 		// This filter is documented in inc/functions/minify.php.
-		return apply_filters( 'rocket_js_url', $this->busting_url . $filename );
+		return apply_filters( 'rocket_js_url', get_rocket_cdn_url( $this->busting_url . $filename, [ 'all', 'css_and_js', 'js' ] ) );
 	}
 
 	/**
@@ -1040,7 +1038,7 @@ class Facebook_Pickles {
 	 * @param  array $variables {
 	 *     An array of variable values.
 	 *
-	 *     @type string $app_id  The app ID.
+	 *     @type int    $app_id  The app ID.
 	 *     @type string $version The file version.
 	 * }
 	 * @return array|bool An array of file paths on success. False on failure.
@@ -1050,7 +1048,7 @@ class Facebook_Pickles {
 		$plugin_names = [
 			'identity',
 			'microdata',
-			'inferredEvents',
+			'inferredevents',
 			'dwell',
 			'sessions',
 			'timespent',
