@@ -102,7 +102,6 @@ return array(
     'WP_Rocket\\Subscriber\\Preload\\Preload_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/preload/class-preload-subscriber.php',
     'WP_Rocket\\Subscriber\\Preload\\Sitemap_Preload_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/preload/class-sitemap-preload-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Hostings\\Pressable_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/third-party/Hostings/class-pressable-subscriber.php',
-    'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\BigCommerce_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/third-party/plugins/ecommerce/class-bigcommerce-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\WooCommerce_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/third-party/plugins/ecommerce/class-woocommerce-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Mobile_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/third-party/plugins/class-mobile-subscriber.php',
     'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\NGG_Subscriber' => $baseDir . '/docroot/content/plugins/wp-rocket/inc/classes/subscriber/third-party/plugins/class-ngg-subscriber.php',

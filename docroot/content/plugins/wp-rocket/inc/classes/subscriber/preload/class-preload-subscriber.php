@@ -1,7 +1,6 @@
 <?php
 namespace WP_Rocket\Subscriber\Preload;
 
-use WP_Rocket\Logger\Logger;
 use WP_Rocket\Event_Management\Subscriber_Interface;
 use WP_Rocket\Admin\Options_Data;
 use WP_Rocket\Preload\Homepage;
@@ -241,11 +240,10 @@ class Preload_Subscriber implements Subscriber_Interface {
 			return;
 		}
 
-		$status = 'info';
+		$status = 'success';
 		// translators: %1$s = Number of pages preloaded.
-		$message = '<p>' . sprintf( _n( 'Preload: %1$s uncached page has now been preloaded. (refresh to see progress)', 'Preload: %1$s uncached pages have now been preloaded. (refresh to see progress)', $running, 'rocket' ), number_format_i18n( $running ) ) ;
-		$message .= ' <em> - (' . date_i18n( "F j, Y @ G:i", time() ) .') </em>' . '</p>';
-
+		$message = '<p>' . sprintf( _n( 'Preload: %1$s uncached page has now been preloaded. (refresh to see progress)', 'Preload: %1$s uncached pages have now been preloaded. (refresh to see progress)', $running, 'rocket' ), number_format_i18n( $running ) ) . '</p>';
+		
 		if ( defined( 'WP_ROCKET_DEBUG' ) && WP_ROCKET_DEBUG ) {
 
 			$errors = get_transient( 'rocket_preload_errors' );
@@ -294,23 +292,13 @@ class Preload_Subscriber implements Subscriber_Interface {
 			return;
 		}
 
-		$result_timestamp = get_transient( 'rocket_preload_complete_time' );
-
-		if ( false === $result_timestamp ) {
-			return;
-		}
-
 		delete_transient( 'rocket_preload_complete' );
 		delete_transient( 'rocket_preload_errors' );
-		delete_transient( 'rocket_preload_complete_time' );
-
-		// translators: %d is the number of pages preloaded.
-		$notice_message  = sprintf( __( 'Preload complete: %d pages have been cached.', 'rocket' ), $result );
-		$notice_message .= ' <em> (' . $result_timestamp . ') </em>';
 
 		\rocket_notice_html(
 			[
-				'message' => $notice_message,
+				// translators: %d is the number of pages preloaded.
+				'message' => sprintf( __( 'Preload: %d pages have been cached.', 'rocket' ), $result ),
 			]
 		);
 	}
@@ -322,7 +310,7 @@ class Preload_Subscriber implements Subscriber_Interface {
 	 * @author Remy Perona
 	 */
 	public function do_admin_post_stop_preload() {
-		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( sanitize_key( $_GET['_wpnonce'] ), 'rocket_stop_preload' ) ) {
+		if ( ! isset( $_GET['_wpnonce'] ) || ! wp_verify_nonce( $_GET['_wpnonce'], 'rocket_stop_preload' ) ) {
 			wp_nonce_ays( '' );
 		}
 

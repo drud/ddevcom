@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36
+class ComposerStaticInit489ddf14503aa2da3edd18b0bdbc856f
 {
     public static $prefixLengthsPsr4 = array (
         'R' => 
@@ -177,7 +177,6 @@ class ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36
         'WP_Rocket\\Subscriber\\Preload\\Preload_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/preload/class-preload-subscriber.php',
         'WP_Rocket\\Subscriber\\Preload\\Sitemap_Preload_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/preload/class-sitemap-preload-subscriber.php',
         'WP_Rocket\\Subscriber\\Third_Party\\Hostings\\Pressable_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/Hostings/class-pressable-subscriber.php',
-        'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\BigCommerce_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/plugins/ecommerce/class-bigcommerce-subscriber.php',
         'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Ecommerce\\WooCommerce_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/plugins/ecommerce/class-woocommerce-subscriber.php',
         'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\Mobile_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/plugins/class-mobile-subscriber.php',
         'WP_Rocket\\Subscriber\\Third_Party\\Plugins\\NGG_Subscriber' => __DIR__ . '/../..' . '/inc/classes/subscriber/third-party/plugins/class-ngg-subscriber.php',
@@ -195,9 +194,9 @@ class ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit110a74b4005d5fe6c719cbd152a2fb36::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit489ddf14503aa2da3edd18b0bdbc856f::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit489ddf14503aa2da3edd18b0bdbc856f::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit489ddf14503aa2da3edd18b0bdbc856f::$classMap;
 
         }, null, ClassLoader::class);
     }

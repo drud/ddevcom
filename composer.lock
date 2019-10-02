@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c4dad9a20ee0fdeca0c34ca61d07560c",
+    "content-hash": "06d7da32e362d94cd3dbcf5912624651",
     "packages": [
         {
             "name": "a5hleyrich/wp-background-processing",
@@ -1012,16 +1012,16 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.3.7",
+            "version": "v3.3.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "7f9af51eec7336d4bd4d7a0193be8d9f06750d99"
+                "reference": "b8a54656afd7acc86fec1b1ac4e85d7b72ba5317"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/7f9af51eec7336d4bd4d7a0193be8d9f06750d99",
-                "reference": "7f9af51eec7336d4bd4d7a0193be8d9f06750d99",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/b8a54656afd7acc86fec1b1ac4e85d7b72ba5317",
+                "reference": "b8a54656afd7acc86fec1b1ac4e85d7b72ba5317",
                 "shasum": ""
             },
             "require": {
@@ -1076,7 +1076,7 @@
                 "minification",
                 "wordpress"
             ],
-            "time": "2019-08-28T15:04:14+00:00"
+            "time": "2019-07-24T13:24:45+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
