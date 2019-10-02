@@ -37,6 +37,15 @@ define('WP_DEBUG', false);
 define('DISALLOW_FILE_MODS', true);
 
 /** Enable Cache by WP Rocket */
+/** Enable Cache by WP Rocket */
+// Your license KEY.
+if (! defined('WP_ROCKET_KEY')) {
+    define('WP_ROCKET_KEY', '2c2d9819');
+}
+// Your email, the one you used for the purchase.
+if (! defined('WP_ROCKET_EMAIL')) {
+    define('WP_ROCKET_EMAIL', 'accounts@newmediadenver.com');
+}
 define('WP_CACHE', true);
 define('WP_ROCKET_CACHE_ROOT_PATH', WP_CONTENT_DIR . '/uploads/cache/');
 define('WP_ROCKET_CACHE_ROOT_URL', WP_CONTENT_URL . '/uploads/cache/');
