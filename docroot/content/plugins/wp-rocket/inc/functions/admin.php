@@ -7,42 +7,25 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
  * @since 1.0
  */
 function rocket_need_api_key() {
+	$message = '';
+	$errors  = get_transient( 'rocket_check_key_errors' );
+
+	if ( false !== $errors ) {
+		foreach ( $errors as $error ) {
+			$message .= '<p>' . $error . '</p>';
+		}
+	}
+
 	?>
-	<div class="notice notice-warning">
-		<p><strong><?php echo WP_ROCKET_PLUGIN_NAME; ?></strong>: <?php _e( 'There seems to be an issue with outgoing connections from your server. Resolve per documentation, or contact support.', 'rocket' ); ?>
+	<div class="notice notice-error">
+		<p><strong><?php echo esc_html( WP_ROCKET_PLUGIN_NAME ); ?></strong>
+		<?php
+		echo esc_html( _n( 'There seems to be an issue validating your license. Please see the error message below.', 'There seems to be an issue validating your license. You can see the error messages below.', count( $errors ), 'rocket' ) );
+		?>
 		</p>
+		<?php echo $message; ?>
 	</div>
 	<?php
-}
-
-/**
- * Add Rocket informations into USER_AGENT
- *
- * @since 1.1.0
- *
- * @param string $user_agent User Agent value.
- * @return string WP Rocket user agent
- */
-function rocket_user_agent( $user_agent ) {
-	$consumer_key = '';
-	if ( isset( $_POST[ WP_ROCKET_SLUG ]['consumer_key'] ) ) {
-		$consumer_key = $_POST[ WP_ROCKET_SLUG ]['consumer_key'];
-	} elseif ( '' !== (string) get_rocket_option( 'consumer_key' ) ) {
-		$consumer_key = (string) get_rocket_option( 'consumer_key' );
-	}
-
-	$consumer_email = '';
-	if ( isset( $_POST[ WP_ROCKET_SLUG ]['consumer_email'] ) ) {
-		$consumer_email = $_POST[ WP_ROCKET_SLUG ]['consumer_email'];
-	} elseif ( '' !== (string) get_rocket_option( 'consumer_email' ) ) {
-		$consumer_email = (string) get_rocket_option( 'consumer_email' );
-	}
-
-	$bonus       = ! get_rocket_option( 'do_beta' ) ? '' : '+';
-	$php_version = preg_replace( '@^(\d\.\d+).*@', '\1', phpversion() );
-	$new_ua      = sprintf( '%s;WP-Rocket|%s%s|%s|%s|%s|%s;', $user_agent, WP_ROCKET_VERSION, $bonus, $consumer_key, $consumer_email, esc_url( home_url() ), $php_version );
-
-	return $new_ua;
 }
 
 /**
@@ -120,23 +103,6 @@ function create_rocket_uniqid() {
 }
 
 /**
- * Force our user agent header when we hit our urls
- *
- * @since 2.4
- *
- * @param array  $request An array of request arguments.
- * @param string $url     Requested URL.
- * @return array An array of requested arguments
- */
-function rocket_add_own_ua( $request, $url ) {
-	if ( strpos( $url, 'wp-rocket.me' ) !== false ) {
-		$request['user-agent'] = rocket_user_agent( $request['user-agent'] );
-	}
-	return $request;
-}
-add_filter( 'http_request_args', 'rocket_add_own_ua', 10, 3 );
-
-/**
  * Gets names of all active plugins.
  *
  * @since 2.11 Only get the name
@@ -158,10 +124,25 @@ function rocket_get_active_plugins() {
 /**
  * Check if the whole website is on the SSL protocol
  *
+ * @since 3.3.6 Use the superglobal $_SERVER values to detect SSL.
  * @since 2.7
  */
 function rocket_is_ssl_website() {
-	return 'https' === rocket_extract_url_component( home_url(), PHP_URL_SCHEME );
+	if ( isset( $_SERVER['HTTPS'] ) ) {
+		$https = sanitize_text_field( wp_unslash( $_SERVER['HTTPS'] ) );
+
+		if ( 'on' === strtolower( $https ) ) {
+			return true;
+		}
+
+		if ( '1' === (string) $https ) {
+			return true;
+		}
+	} elseif ( isset( $_SERVER['SERVER_PORT'] ) && '443' === (string) sanitize_text_field( wp_unslash( $_SERVER['SERVER_PORT'] ) ) ) {
+		return true;
+	}
+
+	return false;
 }
 
 /**
@@ -191,14 +172,15 @@ function get_rocket_documentation_url() {
  * @return string URL in the correct language
  */
 function get_rocket_faq_url() {
-	$langs = array(
-		'fr_FR' => 'fr.docs.wp-rocket.me/category/146-faq',
-		'it_IT' => 'it.docs.wp-rocket.me/category/321-domande-frequenti',
-		'de_DE' => 'de.docs.wp-rocket.me/category/285-haufig-gestellte-fragen-faq',
-	);
-	$lang  = get_locale();
-	$faq   = isset( $langs[ $lang ] ) ? $langs[ $lang ] : 'docs.wp-rocket.me/category/65-faq';
-	$url   = "https://{$faq}/?utm_source=wp_plugin&utm_medium=wp_rocket";
+	$langs  = [
+		'de' => 1,
+		'es' => 1,
+		'fr' => 1,
+		'it' => 1,
+	];
+	$locale = explode( '_', get_locale() );
+	$lang   = isset( $langs[ $locale[0] ] ) ? $locale[0] . '/' : '';
+	$url    = WP_ROCKET_WEB_MAIN . "{$lang}faq/?utm_source=wp_plugin&utm_medium=wp_rocket";
 
 	return $url;
 }
@@ -311,6 +293,53 @@ function rocket_allow_json_mime_type( $wp_get_mime_types ) {
 	$wp_get_mime_types['json'] = 'application/json';
 
 	return $wp_get_mime_types;
+}
+
+/**
+ * Forces the correct file type for JSON file if the WP checks is incorrect
+ *
+ * @since 3.2.3.1
+ * @author Gregory Viguier
+ *
+ * @param array  $wp_check_filetype_and_ext File data array containing 'ext', 'type', and
+ *                                         'proper_filename' keys.
+ * @param string $file                     Full path to the file.
+ * @param string $filename                 The name of the file (may differ from $file due to
+ *                                         $file being in a tmp directory).
+ * @param array  $mimes                     Key is the file extension with value as the mime type.
+ * @return array
+ */
+function rocket_check_json_filetype( $wp_check_filetype_and_ext, $file, $filename, $mimes ) {
+	if ( ! empty( $wp_check_filetype_and_ext['ext'] ) && ! empty( $wp_check_filetype_and_ext['type'] ) ) {
+		return $wp_check_filetype_and_ext;
+	}
+
+	$wp_filetype = wp_check_filetype( $filename, $mimes );
+
+	if ( 'json' !== $wp_filetype['ext'] ) {
+		return $wp_check_filetype_and_ext;
+	}
+
+	if ( empty( $wp_filetype['type'] ) ) {
+		// In case some other filter messed it up.
+		$wp_filetype['type'] = 'application/json';
+	}
+
+	if ( ! extension_loaded( 'fileinfo' ) ) {
+		return $wp_check_filetype_and_ext;
+	}
+
+	$finfo     = finfo_open( FILEINFO_MIME_TYPE );
+	$real_mime = finfo_file( $finfo, $file );
+	finfo_close( $finfo );
+
+	if ( 'text/plain' !== $real_mime ) {
+		return $wp_check_filetype_and_ext;
+	}
+
+	$wp_check_filetype_and_ext = array_merge( $wp_check_filetype_and_ext, $wp_filetype );
+
+	return $wp_check_filetype_and_ext;
 }
 
 /**

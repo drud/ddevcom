@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 define( 'WP_ROCKET_ADVANCED_CACHE', true );
 
-if ( version_compare( phpversion(), '5.4' ) >= 0 ) {
+if ( version_compare( phpversion(), '5.6' ) >= 0 ) {
 
 	spl_autoload_register(
 		function( $class ) {
@@ -41,13 +41,13 @@ if ( version_compare( phpversion(), '5.4' ) >= 0 ) {
 		}
 		return;
 	}
-	
+
 	$rocket_config_class = new \WP_Rocket\Buffer\Config(
 		[
 			'config_dir_path' => '/var/www/html/docroot/content/wp-rocket-config/',
 		]
 	);
-	
+
 	( new \WP_Rocket\Buffer\Cache(
 		new \WP_Rocket\Buffer\Tests(
 			$rocket_config_class

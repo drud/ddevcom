@@ -132,14 +132,7 @@ function is_rocket_generate_caching_mobile_files() {
  * return Array An array of domain names to DNS prefetch
  */
 function rocket_get_dns_prefetch_domains() {
-	$cdn_cnames = get_rocket_cdn_cnames( array( 'all', 'images', 'css_and_js', 'css', 'js' ) );
-
-	// Don't add CNAMES if CDN is disabled.
-	if ( ! get_rocket_option( 'cdn' ) || is_rocket_post_excluded_option( 'cdn' ) ) {
-		$cdn_cnames = array();
-	}
-
-	$domains = array_merge( $cdn_cnames, (array) get_rocket_option( 'dns_prefetch' ) );
+	$domains = (array) get_rocket_option( 'dns_prefetch' );
 
 	/**
 	 * Filter list of domains to prefetch DNS
@@ -152,23 +145,50 @@ function rocket_get_dns_prefetch_domains() {
 }
 
 /**
- * Get the interval task cron purge in seconds
- * This setting can be changed from the options page of the plugin
+ * Gets the parameters ignored during caching
  *
- * @since 1.0
+ * These parameters are ignored when checking the query string during caching to allow serving the default cache when they are present
  *
- * @return int The interval task cron purge in seconds
+ * @since 3.4
+ * @author Remy Perona
+ *
+ * @return array
  */
-function get_rocket_purge_cron_interval() {
-	if ( ! get_rocket_option( 'purge_cron_interval' ) || ! get_rocket_option( 'purge_cron_unit' ) ) {
-		return 0;
-	}
-	return (int) ( get_rocket_option( 'purge_cron_interval' ) * constant( get_rocket_option( 'purge_cron_unit' ) ) );
+function rocket_get_ignored_parameters() {
+	$params = [
+		'utm_source'      => 1,
+		'utm_medium'      => 1,
+		'utm_campaign'    => 1,
+		'utm_expid'       => 1,
+		'utm_term'        => 1,
+		'utm_content'     => 1,
+		'fb_action_ids'   => 1,
+		'fb_action_types' => 1,
+		'fb_source'       => 1,
+		'fbclid'          => 1,
+		'gclid'           => 1,
+		'age-verified'    => 1,
+		'ao_noptimize'    => 1,
+		'usqp'            => 1,
+		'cn-reloaded'     => 1,
+		'_ga'             => 1,
+	];
+
+	/**
+	 * Filters the ignored parameters
+	 *
+	 * @since 3.4
+	 * @author Remy Perona
+	 *
+	 * @param array $params An array of ignored parameters as array keys.
+	 */
+	return apply_filters( 'rocket_cache_ignored_parameters', $params );
 }
 
 /**
  * Get all uri we don't cache.
  *
+ * @since 3.3.2 Exclude embedded URLs
  * @since 2.6   Using json_get_url_prefix() to auto-exclude the WordPress REST API.
  * @since 2.4.1 Auto-exclude WordPress REST API.
  * @since 2.0
@@ -176,6 +196,12 @@ function get_rocket_purge_cron_interval() {
  * @return string A pipe separated list of rejected uri.
  */
 function get_rocket_cache_reject_uri() {
+	static $uris;
+
+	if ( $uris ) {
+		return $uris;
+	}
+
 	$uris      = get_rocket_option( 'cache_reject_uri', array() );
 	$home_root = rocket_get_home_dirname();
 
@@ -202,6 +228,9 @@ function get_rocket_cache_reject_uri() {
 
 	// Exclude feeds.
 	$uris[] = '/(.+/)?' . $GLOBALS['wp_rewrite']->feed_base . '/?';
+
+	// Exlude embedded URLs.
+	$uris[] = '/(?:.+/)?embed/';
 
 	/**
 	 * Filter the rejected uri
@@ -237,31 +266,36 @@ function get_rocket_cache_reject_uri() {
 }
 
 /**
- * Get all cookie names we don't cache
+ * Get all cookie names we don't cache.
  *
  * @since 2.0
  *
- * @return array List of rejected cookies
+ * @return string A pipe separated list of rejected cookies.
  */
 function get_rocket_cache_reject_cookies() {
-	$cookies   = get_rocket_option( 'cache_reject_cookies', array() );
-	$cookies[] = str_replace( COOKIEHASH, '', LOGGED_IN_COOKIE );
+	$logged_in_cookie = explode( COOKIEHASH, LOGGED_IN_COOKIE );
+	$logged_in_cookie = array_map( 'preg_quote', $logged_in_cookie );
+	$logged_in_cookie = implode( '.+', $logged_in_cookie );
+
+	$cookies   = get_rocket_option( 'cache_reject_cookies', [] );
+	$cookies[] = $logged_in_cookie;
 	$cookies[] = 'wp-postpass_';
 	$cookies[] = 'wptouch_switch_toggle';
 	$cookies[] = 'comment_author_';
 	$cookies[] = 'comment_author_email_';
 
 	/**
-	 * Filter the rejected cookies
+	 * Filter the rejected cookies.
 	 *
 	 * @since 2.1
 	 *
-	 * @param array $cookies List of rejected cookies
+	 * @param array $cookies List of rejected cookies.
 	*/
-	$cookies = apply_filters( 'rocket_cache_reject_cookies', $cookies );
+	$cookies = (array) apply_filters( 'rocket_cache_reject_cookies', $cookies );
+	$cookies = array_filter( $cookies );
+	$cookies = array_flip( array_flip( $cookies ) );
 
-	$cookies = implode( '|', array_filter( $cookies ) );
-	return $cookies;
+	return implode( '|', $cookies );
 }
 
 /**
@@ -269,23 +303,23 @@ function get_rocket_cache_reject_cookies() {
  *
  * @since 2.7
  *
- * @return array List of mandatory cookies.
+ * @return string A pipe separated list of mandatory cookies.
  */
 function get_rocket_cache_mandatory_cookies() {
-	$cookies = array();
+	$cookies = [];
 
 	/**
-	 * Filter list of mandatory cookies
+	 * Filter list of mandatory cookies.
 	 *
 	 * @since 2.7
 	 *
-	 * @param array List of mandatory cookies
+	 * @param array $cookies List of mandatory cookies.
 	 */
-	$cookies = apply_filters( 'rocket_cache_mandatory_cookies', $cookies );
+	$cookies = (array) apply_filters( 'rocket_cache_mandatory_cookies', $cookies );
 	$cookies = array_filter( $cookies );
+	$cookies = array_flip( array_flip( $cookies ) );
 
-	$cookies = implode( '|', $cookies );
-	return $cookies;
+	return implode( '|', $cookies );
 }
 
 /**
@@ -296,30 +330,31 @@ function get_rocket_cache_mandatory_cookies() {
  * @return array List of dynamic cookies.
  */
 function get_rocket_cache_dynamic_cookies() {
-	$cookies = array();
+	$cookies = [];
 
 	/**
-	 * Filter list of dynamic cookies
+	 * Filter list of dynamic cookies.
 	 *
 	 * @since 2.7
 	 *
-	 * @param array List of dynamic cookies
+	 * @param array $cookies List of dynamic cookies.
 	 */
-	$cookies = apply_filters( 'rocket_cache_dynamic_cookies', $cookies );
+	$cookies = (array) apply_filters( 'rocket_cache_dynamic_cookies', $cookies );
 	$cookies = array_filter( $cookies );
+	$cookies = array_unique( $cookies );
 
 	return $cookies;
 }
 
 /**
- * Get all User-Agent we don't allow to get cache files
+ * Get all User-Agent we don't allow to get cache files.
  *
  * @since 2.3.5
  *
- * @return array List of rejected User-Agent
+ * @return string A pipe separated list of rejected User-Agent.
  */
 function get_rocket_cache_reject_ua() {
-	$ua   = get_rocket_option( 'cache_reject_ua', array() );
+	$ua   = get_rocket_option( 'cache_reject_ua', [] );
 	$ua[] = 'facebookexternalhit';
 
 	/**
@@ -327,80 +362,14 @@ function get_rocket_cache_reject_ua() {
 	 *
 	 * @since 2.3.5
 	 *
-	 * @param array $ua List of rejected User-Agent
+	 * @param array $ua List of rejected User-Agent.
 	*/
-	$ua = apply_filters( 'rocket_cache_reject_ua', $ua );
+	$ua = (array) apply_filters( 'rocket_cache_reject_ua', $ua );
+	$ua = array_filter( $ua );
+	$ua = array_flip( array_flip( $ua ) );
+	$ua = implode( '|', $ua );
 
-	$ua = implode( '|', array_filter( $ua ) );
-	$ua = str_replace( array( ' ', '\\\\ ' ), '\\ ', $ua );
-
-	return $ua;
-}
-
-/**
- * Get all files we don't allow to get in CDN.
- *
- * @since 2.5
- *
- * @return string A pipe-separated list of rejected files.
- */
-function get_rocket_cdn_reject_files() {
-	$files = get_rocket_option( 'cdn_reject_files', array() );
-
-	/**
-	 * Filter the rejected files
-	 *
-	 * @since 2.5
-	 *
-	 * @param array $files List of rejected files
-	*/
-	$files = apply_filters( 'rocket_cdn_reject_files', $files );
-
-	return implode( '|', array_filter( $files ) );
-}
-
-/**
- * Get all CNAMES.
- *
- * @since 2.1
- * @since 3.0 Don't check for WP Rocket CDN option activated to be able to use the function on Hosting with CDN auto-enabled.
- *
- * @param  string $zone List of zones. Default is 'all'.
- * @return array        List of CNAMES
- */
-function get_rocket_cdn_cnames( $zone = 'all' ) {
-	$hosts  = [];
-	$cnames = get_rocket_option( 'cdn_cnames', [] );
-
-	if ( $cnames ) {
-		$cnames_zone = get_rocket_option( 'cdn_zone', [] );
-		$zone        = (array) $zone;
-
-		foreach ( $cnames as $k => $_urls ) {
-			if ( ! in_array( $cnames_zone[ $k ], $zone, true ) ) {
-				continue;
-			}
-
-			$_urls = explode( ',', $_urls );
-			$_urls = array_map( 'trim', $_urls );
-
-			foreach ( $_urls as $url ) {
-				$hosts[] = $url;
-			}
-		}
-	}
-
-	/**
-	 * Filter all CNAMES.
-	 *
-	 * @since 2.7
-	 *
-	 * @param array $hosts List of CNAMES.
-	 */
-	$hosts = apply_filters( 'rocket_cdn_cnames', $hosts );
-	$hosts = array_filter( $hosts );
-
-	return $hosts;
+	return str_replace( array( ' ', '\\\\ ' ), '\\ ', $ua );
 }
 
 /**
@@ -411,7 +380,7 @@ function get_rocket_cdn_cnames( $zone = 'all' ) {
  * @return array List of query strings which can be cached.
  */
 function get_rocket_cache_query_string() {
-	$query_strings = get_rocket_option( 'cache_query_strings', array() );
+	$query_strings = get_rocket_option( 'cache_query_strings', [] );
 
 	/**
 	 * Filter query strings which can be cached.
@@ -420,7 +389,9 @@ function get_rocket_cache_query_string() {
 	 *
 	 * @param array $query_strings List of query strings which can be cached.
 	*/
-	$query_strings = apply_filters( 'rocket_cache_query_strings', $query_strings );
+	$query_strings = (array) apply_filters( 'rocket_cache_query_strings', $query_strings );
+	$query_strings = array_filter( $query_strings );
+	$query_strings = array_flip( array_flip( $query_strings ) );
 
 	return $query_strings;
 }
@@ -434,17 +405,23 @@ function get_rocket_cache_query_string() {
  * @return array An array of URLs for the JS files to be excluded.
  */
 function get_rocket_exclude_defer_js() {
-	global $wp_scripts;
-
 	$exclude_defer_js = [
 		'gist.github.com',
 		'content.jwplatform.com',
+		'js.hsforms.net',
+		'www.uplaunch.com',
+		'google.com/recaptcha',
+		'widget.reviews.co.uk',
 	];
 
 	if ( get_rocket_option( 'defer_all_js', 0 ) && get_rocket_option( 'defer_all_js_safe', 0 ) ) {
-		$jquery = site_url( $wp_scripts->registered['jquery-core']->src );
+		$jquery            = site_url( wp_scripts()->registered['jquery-core']->src );
+		$jetpack_jquery    = 'c0.wp.com/c/(?:.+)/wp-includes/js/jquery/jquery.js';
+		$googleapis_jquery = 'ajax.googleapis.com/ajax/libs/jquery/(?:.+)/jquery(?:\.min)?.js';
 
 		$exclude_defer_js[] = rocket_clean_exclude_file( $jquery );
+		$exclude_defer_js[] = $jetpack_jquery;
+		$exclude_defer_js[] = $googleapis_jquery;
 	}
 
 	/**
@@ -481,7 +458,9 @@ function get_rocket_exclude_async_css() {
 	 *
 	 * @param array $exclude_async_css An array of URLs for the CSS files to be excluded.
 	 */
-	$exclude_async_css = apply_filters( 'rocket_exclude_async_css', array() );
+	$exclude_async_css = (array) apply_filters( 'rocket_exclude_async_css', [] );
+	$exclude_async_css = array_filter( $exclude_async_css );
+	$exclude_async_css = array_flip( array_flip( $exclude_async_css ) );
 
 	return $exclude_async_css;
 }
@@ -509,72 +488,134 @@ function rocket_valid_key() {
  * @since 2.9.7 Remove arguments ($type & $data).
  * @since 2.9.7 Stop to auto-check the validation each 1 & 30 days.
  * @since 2.2 The function do the live check and update the option.
+ *
+ * @return bool|array
  */
 function rocket_check_key() {
 	// Recheck the license.
 	$return = rocket_valid_key();
 
-	if ( ! rocket_valid_key() ) {
-		Logger::info( 'LICENSE VALIDATION PROCESS STARTED.', [ 'license validation process' ] );
-
-		$response = wp_remote_get(
-			WP_ROCKET_WEB_VALID, array(
-				'timeout' => 30,
-			)
-		);
-
-		$body           = wp_remote_retrieve_body( $response );
-		$json           = json_decode( $body );
-		$rocket_options = array();
-
-		if ( $json ) {
-			$rocket_options['consumer_key']   = $json->data->consumer_key;
-			$rocket_options['consumer_email'] = $json->data->consumer_email;
-
-			if ( $json->success ) {
-				$rocket_options['secret_key'] = $json->data->secret_key;
-
-				if ( ! get_rocket_option( 'license' ) ) {
-					$rocket_options['license'] = '1';
-				}
-
-				Logger::info( 'License validation succeeded.', [ 'license validation process' ] );
-			} else {
-				$messages = array(
-					'BAD_LICENSE' => __( 'Your license is not valid.', 'rocket' ),
-					'BAD_NUMBER'  => __( 'You cannot add more websites. Upgrade your account.', 'rocket' ),
-					'BAD_SITE'    => __( 'This website is not allowed.', 'rocket' ),
-					'BAD_KEY'     => __( 'This license key is not accepted.', 'rocket' ),
-				);
-
-				$rocket_options['secret_key'] = '';
-
-				add_settings_error( 'general', 'settings_updated', $messages[ $json->data->reason ], 'error' );
-
-				Logger::error( 'License validation failed.', [
-					'license validation process',
-					'response_error' => $json->data->reason,
-				] );
-			}
-
-			set_transient( WP_ROCKET_SLUG, $rocket_options );
-			$return = (array) $rocket_options;
-		} elseif ( is_wp_error( $response ) ) {
-			Logger::error( 'License validation failed.', [
-				'license validation process',
-				'request_error' => $response->get_error_messages(),
-			] );
-		} elseif ( '' !== $body ) {
-			Logger::error( 'License validation failed.', [
-				'license validation process',
-				'response_body' => $body,
-			] );
-		} else {
-			Logger::error( 'License validation failed. No body available in response.', [ 'license validation process' ] );
-		}
+	if ( $return ) {
+		return $return;
 	}
 
-	return $return;
+	Logger::info( 'LICENSE VALIDATION PROCESS STARTED.', [ 'license validation process' ] );
+
+	$response = wp_remote_get(
+		WP_ROCKET_WEB_VALID,
+		[
+			'timeout' => 30,
+		]
+	);
+
+	if ( is_wp_error( $response ) ) {
+		Logger::error( 'License validation failed.', [
+			'license validation process',
+			'request_error' => $response->get_error_messages(),
+		] );
+
+		set_transient( 'rocket_check_key_errors', $response->get_error_messages() );
+
+		return $return;
+	}
+
+	$body = wp_remote_retrieve_body( $response );
+	$json = json_decode( $body );
+
+	if ( null === $json ) {
+		if ( '' === $body ) {
+			Logger::error( 'License validation failed. No body available in response.', [ 'license validation process' ] );
+			// Translators: %1$s = opening em tag, %2$s = closing em tag, %3$s = opening link tag, %4$s closing link tag.
+			$message = __( 'License validation failed. Our server could not resolve the request from your website.', 'rocket' ) . '<br>' . sprintf( __( 'Try clicking %1$sSave Changes%2$s below. If the error persists, follow %3$sthis guide%4$s.', 'rocket' ), '<em>', '</em>', '<a href="https://docs.wp-rocket.me/article/100-resolving-problems-with-license-validation#general">', '</a>' );
+			set_transient( 'rocket_check_key_errors', [ $message ] );
+
+			return $return;
+		}
+
+		Logger::error(
+			'License validation failed.',
+			[
+				'license validation process',
+				'response_body' => $body,
+			]
+		);
+
+		if ( 'NULLED' === $body ) {
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			$message = __( 'License validation failed. You may be using a nulled version of the plugin. Please do the following:', 'rocket' ) . '<ul><li>' . sprintf( __( 'Login to your WP Rocket %1$saccount%2$s', 'rocket' ), '<a href="https://wp-rocket.me/account/" rel="noopener noreferrer" target=_"blank">', '</a>' ) . '</li><li>' . __( 'Download the zip file', 'rocket' ) . '<li></li>' . __( 'Reinstall', 'rocket' ) . '</li></ul>' . sprintf( __( 'If you do not have a WP Rocket account, please %1$spurchase a license%2$s.', 'rocket' ), '<a href="https://wp-rocket.me/" rel="noopener noreferrer" target="_blank">', '</a>' );
+			set_transient( 'rocket_check_key_errors', [ $message ] );
+
+			return $return;
+		}
+
+		if ( 'BAD_USER' === $body ) {
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			$message = __( 'License validation failed. This user account does not exist in our database.', 'rocket' ) . '<br>' . sprintf( __( 'To resolve, please contact support.', 'rocket' ), '<a href="https://wp-rocket.me/support/" rel="noopener noreferrer" target=_"blank">', '</a>' );
+			set_transient( 'rocket_check_key_errors', [ $message ] );
+
+			return $return;
+		}
+
+		if ( 'USER_BLACKLISTED' === $body ) {
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			$message = __( 'License validation failed. This user account is blacklisted.', 'rocket' ) . '<br>' . sprintf( __( 'Please see %1$sthis guide%2$s for more info.', 'rocket' ), '<a href="https://docs.wp-rocket.me/article/100-resolving-problems-with-license-validation#errors" rel="noopener noreferrer" target=_"blank">', '</a>' );
+			set_transient( 'rocket_check_key_errors', [ $message ] );
+
+			return $return;
+		}
+
+		// Translators: %1$s = opening em tag, %2$s = closing em tag, %3$s = opening link tag, %4$s closing link tag.
+		$message = __( 'License validation failed. Our server could not resolve the request from your website.', 'rocket' ) . '<br>' . sprintf( __( 'Try clicking %1$sSave Changes%2$s below. If the error persists, follow %3$sthis guide%4$s.', 'rocket' ), '<em>', '</em>', '<a href="https://docs.wp-rocket.me/article/100-resolving-problems-with-license-validation#general" rel="noopener noreferrer" target=_"blank">', '</a>' );
+		set_transient( 'rocket_check_key_errors', [ $message ] );
+
+		return $return;
+	}
+
+	$rocket_options                   = [];
+	$rocket_options['consumer_key']   = $json->data->consumer_key;
+	$rocket_options['consumer_email'] = $json->data->consumer_email;
+
+	if ( ! $json->success ) {
+		$messages = array(
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			'BAD_LICENSE' => __( 'Your license is not valid.', 'rocket' ) . '<br>'  . sprintf( __( 'Make sure you have an active %1$sWP Rocket license%2$s.', 'rocket' ), '<a href="https://wp-rocket.me/" rel="noopener noreferrer" target="_blank">', '</a>' ),
+			// Translators: %1$s = opening link tag, %2$s = closing link tag, %3$s = opening link tag.
+			'BAD_NUMBER'  => __( 'You have added as many sites as your current license allows.', 'rocket' ) . '<br>' .  sprintf( __( 'Upgrade your %1$saccount%2$s or %3$stransfer your license%2$s to this domain.', 'rocket' ), '<a href="https://wp-rocket.me/account/" rel="noopener noreferrer" target=_"blank">', '</a>', '<a href="https://docs.wp-rocket.me/article/28-transfering-your-license-to-another-site" rel="noopener noreferrer" target=_"blank">' ),
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			'BAD_SITE'    => __( 'This website is not allowed.', 'rocket' ) . '<br>' . sprintf( __( 'Please %1$scontact support%2$s.', 'rocket' ), '<a href="https://wp-rocket.me/support/" rel="noopener noreferrer" target=_"blank">', '</a>' ),
+			// Translators: %1$s = opening link tag, %2$s = closing link tag.
+			'BAD_KEY'     => __( 'This license key is not recognized.', 'rocket' ) . '<ul><li>' . sprintf( __( 'Login to your WP Rocket %1$saccount%2$s', 'rocket' ), '<a href="https://wp-rocket.me/account/" rel="noopener noreferrer" target=_"blank">', '</a>' ) . '</li><li>' . __( 'Download the zip file', 'rocket' ) . '<li></li>' . __( 'Reinstall', 'rocket' ) . '</li></ul>' . sprintf( __( 'If the issue persists, please %1$scontact support%2$s.', 'rocket'), '<a href="https://wp-rocket.me/support/" rel="noopener noreferrer" target=_"blank">', '</a>' ),
+		);
+
+		$rocket_options['secret_key'] = '';
+
+		// Translators: %s = error message returned.
+		set_transient( 'rocket_check_key_errors', [ sprintf( __( 'License validation failed: %s', 'rocket' ), $messages[ $json->data->reason ] ) ] );
+
+		Logger::error(
+			'License validation failed.',
+			[
+				'license validation process',
+				'response_error' => $json->data->reason,
+			]
+		);
+
+		set_transient( WP_ROCKET_SLUG, $rocket_options );
+		return $rocket_options;
+	}
+
+	$rocket_options['secret_key'] = $json->data->secret_key;
+
+	if ( ! get_rocket_option( 'license' ) ) {
+		$rocket_options['license'] = '1';
+	}
+
+	Logger::info( 'License validation succeeded.', [ 'license validation process' ] );
+
+	set_transient( WP_ROCKET_SLUG, $rocket_options );
+	delete_transient( 'rocket_check_key_errors' );
+
+	return $rocket_options;
 }
 
 /**
@@ -648,7 +689,7 @@ function rocket_get_main_home_url() {
 	}
 
 	if ( ! is_multisite() || is_main_site() ) {
-		$root_url = home_url( '/' );
+		$root_url = rocket_get_home_url( '/' );
 		return $root_url;
 	}
 
@@ -658,7 +699,7 @@ function rocket_get_main_home_url() {
 		$root_url = set_url_scheme( 'https://' . $current_network->domain . $current_network->path );
 		$root_url = trailingslashit( $root_url );
 	} else {
-		$root_url = home_url( '/' );
+		$root_url = rocket_get_home_url( '/' );
 	}
 
 	return $root_url;

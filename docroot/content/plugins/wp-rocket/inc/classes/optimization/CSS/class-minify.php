@@ -105,7 +105,7 @@ class Minify extends Abstract_CSS_Optimization {
 		$filename  = preg_replace( '/\.(css)$/', '-' . $unique_id . '.css', ltrim( rocket_realpath( rocket_extract_url_component( $url, PHP_URL_PATH ) ), '/' ) );
 
 		$minified_file = $this->minify_base_path . $filename;
-		$minify_url    = $this->get_minify_url( $filename );
+		$minify_url    = $this->get_minify_url( $filename, $url );
 
 		if ( rocket_direct_filesystem()->exists( $minified_file ) ) {
 			Logger::debug( 'Minified CSS file already exists.', [
@@ -125,7 +125,7 @@ class Minify extends Abstract_CSS_Optimization {
 			return false;
 		}
 
-		$minified_content = $this->minify( $file_path );
+		$minified_content = $this->minify( $file_path, $minified_file );
 
 		if ( ! $minified_content ) {
 			Logger::error( 'No minified content.', [
@@ -159,17 +159,18 @@ class Minify extends Abstract_CSS_Optimization {
 	 * @since 2.11
 	 * @author Remy Perona
 	 *
-	 * @param string|array $file     File to minify.
-	 * @return string|bool Minified content, false if empty
+	 * @param string|array $file          File to minify.
+	 * @param string       $minified_file Target filepath.
+	 * @return string|bool
 	 */
-	protected function minify( $file ) {
+	protected function minify( $file, $minified_file ) {
 		$file_content = $this->get_file_content( $file );
 
 		if ( ! $file_content ) {
 			return false;
 		}
 
-		$file_content     = $this->rewrite_paths( $file, $file_content );
+		$file_content     = $this->rewrite_paths( $file, $minified_file, $file_content );
 		$minifier         = $this->get_minifier( $file_content );
 		$minified_content = $minifier->minify();
 

@@ -1,7 +1,8 @@
 <?php
 namespace WP_Rocket\Admin\Settings;
 
-use WP_Rocket\Event_Management\Subscriber_Interface;
+use \WP_Rocket\Interfaces\Render_Interface;
+use WP_Rocket\Admin\Database\Optimization;
 
 defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
@@ -11,7 +12,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
  * @since 3.0
  * @author Remy Perona
  */
-class Page implements Subscriber_Interface {
+class Page {
 	/**
 	 * Plugin slug
 	 *
@@ -58,7 +59,7 @@ class Page implements Subscriber_Interface {
 	 * @since 3.0
 	 * @author Remy Perona
 	 *
-	 * @var \WP_Rocket\Interfaces\Render_Interface
+	 * @var Render_Interface
 	 */
 	private $render;
 
@@ -73,58 +74,71 @@ class Page implements Subscriber_Interface {
 	private $beacon;
 
 	/**
+	 * Database optimization instance
+	 *
+	 * @since 3.3
+	 * @author Remy Perona
+	 *
+	 * @var Optimization
+	 */
+	private $optimize;
+
+	/**
 	 * Constructor
 	 *
 	 * @since 3.0
 	 * @author Remy Perona
 	 *
-	 * @param array                                  $args     Array of required arguments to add the admin page.
-	 * @param Settings                               $settings Instance of Settings class.
-	 * @param \WP_Rocket\Interfaces\Render_Interface $render   Implementation of Render interface.
-	 * @param Beacon                                 $beacon   Beacon instance.
+	 * @param array            $args     Array of required arguments to add the admin page.
+	 * @param Settings         $settings Instance of Settings class.
+	 * @param Render_Interface $render   Implementation of Render interface.
+	 * @param Beacon           $beacon   Beacon instance.
+	 * @param Optimization     $optimize Database optimization instance.
 	 */
-	public function __construct( $args, Settings $settings, \WP_Rocket\Interfaces\Render_Interface $render, Beacon $beacon ) {
+	public function __construct( $args, Settings $settings, Render_Interface $render, Beacon $beacon, Optimization $optimize ) {
 		$this->slug       = $args['slug'];
 		$this->title      = $args['title'];
 		$this->capability = $args['capability'];
 		$this->settings   = $settings;
 		$this->render     = $render;
 		$this->beacon     = $beacon;
+		$this->optimize   = $optimize;
 	}
 
 	/**
-	 * @inheritDoc
-	 */
-	public static function get_subscribed_events() {
-		return [
-			'admin_menu'                                        => 'add_admin_page',
-			'admin_init'                                        => 'configure',
-			'wp_ajax_rocket_refresh_customer_data'              => 'refresh_customer_data',
-			'wp_ajax_rocket_toggle_option'                      => 'toggle_option',
-			'option_page_capability_' . WP_ROCKET_PLUGIN_SLUG   => 'required_capability',
-			'rocket_settings_menu_navigation'                   => [
-				'add_menu_tools_page',
-				[ 'add_imagify_page', 9 ],
-			],
-		];
-	}
-
-	/**
-	 * Adds plugin page to the Settings menu
+	 * Returns the settings page title
 	 *
-	 * @since 3.0
+	 * @since 3.3
 	 * @author Remy Perona
 	 *
-	 * @return void
+	 * @return string
 	 */
-	public function add_admin_page() {
-		add_options_page(
-			$this->title,
-			$this->title,
-			$this->capability,
-			$this->slug,
-			[ $this, 'render_page' ]
-		);
+	public function get_title() {
+		return $this->title;
+	}
+
+	/**
+	 * Returns the settings page slug
+	 *
+	 * @since 3.3
+	 * @author Remy Perona
+	 *
+	 * @return string
+	 */
+	public function get_slug() {
+		return $this->slug;
+	}
+
+	/**
+	 * Returns the settings page capability
+	 *
+	 * @since 3.3
+	 * @author Remy Perona
+	 *
+	 * @return string
+	 */
+	public function get_capability() {
+		return $this->capability;
 	}
 
 	/**
@@ -172,20 +186,6 @@ class Page implements Subscriber_Interface {
 		$this->render->set_hidden_settings( $this->settings->get_hidden_settings() );
 
 		echo $this->render->generate( 'page', [ 'slug' => $this->slug ] );
-	}
-
-	/**
-	 * Sets the capability for the options page if custom.
-	 *
-	 * @since 3.0
-	 * @author Remy Perona
-	 *
-	 * @param string $capability Custom capability to replace manage_options.
-	 * @return string
-	 */
-	public function required_capability( $capability ) {
-		/** This filter is documented in inc/admin-bar.php */
-		return apply_filters( 'rocket_capacity', $capability );
 	}
 
 	/**
@@ -239,7 +239,7 @@ class Page implements Subscriber_Interface {
 	 *
 	 * @return object
 	 */
-	private function customer_data() {
+	public function customer_data() {
 		if ( false !== get_transient( 'wp_rocket_customer_data' ) ) {
 			return get_transient( 'wp_rocket_customer_data' );
 		}
@@ -249,26 +249,6 @@ class Page implements Subscriber_Interface {
 		set_transient( 'wp_rocket_customer_data', $customer_data, DAY_IN_SECONDS );
 
 		return $customer_data;
-	}
-
-	/**
-	 * Gets customer data to refresh it on the dashboard with AJAX
-	 *
-	 * @since 3.0
-	 * @author Remy Perona
-	 *
-	 * @return string
-	 */
-	public function refresh_customer_data() {
-		check_ajax_referer( 'rocket-ajax' );
-
-		if ( ! current_user_can( apply_filters( 'rocket_capability', 'manage_options' ) ) ) {
-			wp_die();
-		}
-
-		delete_transient( 'wp_rocket_customer_data' );
-
-		return wp_send_json_success( $this->customer_data() );
 	}
 
 	/**
@@ -282,7 +262,7 @@ class Page implements Subscriber_Interface {
 	public function toggle_option() {
 		check_ajax_referer( 'rocket-ajax' );
 
-		if ( ! current_user_can( apply_filters( 'rocket_capability', 'manage_options' ) ) ) {
+		if ( ! current_user_can( 'rocket_manage_options' ) ) {
 			wp_die();
 		}
 
@@ -307,7 +287,7 @@ class Page implements Subscriber_Interface {
 
 		$value = (int) ! empty( $_POST['option']['value'] );
 
-		update_rocket_option( $_POST['option']['name'], $value );
+		update_rocket_option( sanitize_key( $_POST['option']['name'] ), $value );
 
 		wp_die();
 	}
@@ -459,7 +439,6 @@ class Page implements Subscriber_Interface {
 		$user_cache_beacon   = $this->beacon->get_suggest( 'user_cache' );
 		$nonce_beacon        = $this->beacon->get_suggest( 'nonce' );
 		$cache_life_beacon   = $this->beacon->get_suggest( 'cache_lifespan' );
-		$cache_ssl_beacon    = $this->beacon->get_suggest( 'cache_ssl' );
 
 		$this->settings->add_page_section(
 			'cache',
@@ -493,25 +472,11 @@ class Page implements Subscriber_Interface {
 					],
 					'page'        => 'cache',
 				],
-				'cache_ssl_section'    => [
-					'title'       => __( 'SSL Cache', 'rocket' ),
-					'type'        => 'fields_container',
-					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description' => sprintf( __( '%1$sSSL Cache%2$s works best when your entire website runs on HTTPS.', 'rocket' ), '<a href="' . esc_url( $cache_ssl_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $cache_ssl_beacon['id'] ) . '" target="_blank">', '</a>' ),
-					'class'       => [
-						rocket_is_ssl_website() ? 'wpr-isHidden' : '',
-					],
-					'help'        => [
-						'url' => $cache_ssl_beacon['url'],
-						'id'  => $cache_ssl_beacon['id'],
-					],
-					'page'        => 'cache',
-				],
 				'cache_lifespan'       => [
 					'title'       => __( 'Cache Lifespan', 'rocket' ),
 					'type'        => 'fields_container',
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description' => sprintf( __( 'Cache lifespan is the period of time after which all cache files are removed.<br>Enable %1$spreloading%2$s for the cache to be rebuilt automatically after lifespan expiration.', 'rocket' ), '<a href="#preload">', '</a>' ),
+					'description' => sprintf( __( 'Cache files older than the specified lifespan will be deleted.<br>Enable %1$spreloading%2$s for the cache to be rebuilt automatically after lifespan expiration.', 'rocket' ), '<a href="#preload">', '</a>' ),
 					'help'        => [
 						'url' => $cache_life_beacon['url'],
 						'id'  => $this->beacon->get_suggest( 'cache_lifespan_section' ),
@@ -564,14 +529,6 @@ class Page implements Subscriber_Interface {
 						'disabled' => rocket_is_mobile_plugin_active() ? 1 : 0,
 					],
 				],
-				'cache_ssl'               => [
-					'type'              => 'checkbox',
-					'label'             => __( 'Enable caching for pages with <code>https://</code>', 'rocket' ),
-					'section'           => 'cache_ssl_section',
-					'page'              => 'cache',
-					'default'           => rocket_is_ssl_website() ? 1 : 0,
-					'sanitize_callback' => 'sanitize_checkbox',
-				],
 				'purge_cron_interval'     => [
 					'type'              => 'cache_lifespan',
 					'label'             => __( 'Specify time after which the global cache is cleared<br>(0 = unlimited )', 'rocket' ),
@@ -602,7 +559,8 @@ class Page implements Subscriber_Interface {
 	private function assets_section() {
 		$remove_qs_beacon  = $this->beacon->get_suggest( 'remove_query_strings' );
 		$combine_beacon    = $this->beacon->get_suggest( 'combine' );
-		$defer_beacon      = $this->beacon->get_suggest( 'defer' );
+		$defer_js_beacon   = $this->beacon->get_suggest( 'defer_js' );
+		$async_beacon      = $this->beacon->get_suggest( 'async' );
 		$files_beacon      = $this->beacon->get_suggest( 'file_optimization' );
 		$inline_js_beacon  = $this->beacon->get_suggest( 'exclude_inline_js' );
 		$exclude_js_beacon = $this->beacon->get_suggest( 'exclude_js' );
@@ -748,14 +706,21 @@ class Page implements Subscriber_Interface {
 					'type'              => 'checkbox',
 					'label'             => __( 'Optimize CSS delivery', 'rocket' ),
 					'container_class'   => [
+						is_plugin_active( 'wp-criticalcss/wp-criticalcss.php' ) ? 'wpr-isDisabled' : '',
 						'wpr-isParent',
 					],
+					'description'       => is_plugin_active( 'wp-criticalcss/wp-criticalcss.php' ) ?
+					// translators: %1$s = plugin name.
+					sprintf( _x( 'Optimize CSS Delivery is currently handled by the %1$s plugin. If you want to use WP Rocket’s Optimize CSS Delivery option, disable the %1$s plugin.', 'WP Critical CSS compatibility', 'rocket' ), 'WP Critical CSS' ) :
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description'       => sprintf( __( 'Optimize CSS delivery eliminates render-blocking CSS on your website for faster perceived load time. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $defer_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $defer_beacon['id'] ) . '" target="_blank">', '</a>' ),
+					sprintf( __( 'Optimize CSS delivery eliminates render-blocking CSS on your website for faster perceived load time. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $async_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $async_beacon['id'] ) . '" target="_blank">', '</a>' ),
 					'section'           => 'css',
 					'page'              => 'file_optimization',
 					'default'           => 0,
 					'sanitize_callback' => 'sanitize_checkbox',
+					'input_attr'        => [
+						'disabled' => is_plugin_active( 'wp-criticalcss/wp-criticalcss.php' ) ? 1 : 0,
+					],
 				],
 				'critical_css'           => [
 					'type'              => 'textarea',
@@ -764,7 +729,7 @@ class Page implements Subscriber_Interface {
 						'wpr-field--children',
 					],
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'helper'            => sprintf( __( 'Provides a fallback if auto-generated critical path CSS is incomplete. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $defer_beacon['url'] ) . '#fallback" data-beacon-article="' . esc_attr( $defer_beacon['id'] ) . '" target="_blank">', '</a>' ),
+					'helper'            => sprintf( __( 'Provides a fallback if auto-generated critical path CSS is incomplete. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $async_beacon['url'] ) . '#fallback" data-beacon-article="' . esc_attr( $async_beacon['id'] ) . '" target="_blank">', '</a>' ),
 					'parent'            => 'async_css',
 					'section'           => 'css',
 					'page'              => 'file_optimization',
@@ -814,13 +779,12 @@ class Page implements Subscriber_Interface {
 						'button_label' => __( 'Activate combine JavaScript', 'rocket' ),
 					],
 				],
-				'exclude_inline_js'  => [
+				'exclude_inline_js'      => [
 					'type'              => 'textarea',
 					'label'             => __( 'Excluded Inline JavaScript', 'rocket' ),
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 					'description'       => sprintf( __( 'Specify patterns of inline JavaScript to be excluded from concatenation (one per line). %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $inline_js_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $inline_js_beacon['id'] ) . '" rel="noopener noreferrer" target="_blank">', '</a>' ),
 					'container_class'   => [
-						get_rocket_option( 'minify_concatenate_js' ) ? '' : 'wpr-isDisabled',
 						'wpr-field--children',
 					],
 					'placeholder'       => 'recaptcha',
@@ -837,8 +801,8 @@ class Page implements Subscriber_Interface {
 					'type'              => 'textarea',
 					'label'             => __( 'Excluded JavaScript Files', 'rocket' ),
 					'description'       => __( 'Specify URLs of JavaScript files to be excluded from minification and concatenation (one per line).', 'rocket' ),
-					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 					'helper'            => __( '<strong>Internal:</strong> The domain part of the URL will be stripped automatically. Use (.*).js wildcards to exclude all JS files located at a specific path.', 'rocket' ) . '<br>' .
+					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
 					sprintf( __( '<strong>3rd Party:</strong> Use either the full URL path or only the domain name, to exclude external JS. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $exclude_js_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $exclude_js_beacon['id'] ) . '" rel="noopener noreferrer" target="_blank">', '</a>' ),
 					'container_class'   => [
 						'wpr-field--children',
@@ -857,7 +821,7 @@ class Page implements Subscriber_Interface {
 					'type'              => 'checkbox',
 					'label'             => __( 'Load JavaScript deferred', 'rocket' ),
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-					'description'       => sprintf( __( 'Load JavaScript deferred eliminates render-blocking JS on your site and can improve load time. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $defer_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $defer_beacon['id'] ) . '" target="_blank">', '</a>' ),
+					'description'       => sprintf( __( 'Load JavaScript deferred eliminates render-blocking JS on your site and can improve load time. %1$sMore info%2$s', 'rocket' ), '<a href="' . esc_url( $defer_js_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $defer_js_beacon['id'] ) . '" target="_blank">', '</a>' ),
 					'section'           => 'js',
 					'page'              => 'file_optimization',
 					'default'           => 0,
@@ -890,12 +854,19 @@ class Page implements Subscriber_Interface {
 	 */
 	private function media_section() {
 		$lazyload_beacon = $this->beacon->get_suggest( 'lazyload' );
+		$webp_beacon     = $this->beacon->get_suggest( 'webp' );
+
+		if ( rocket_valid_key() && ! \Imagify_Partner::has_imagify_api_key() ) {
+			$imagify_link = '<a href="#imagify">';
+		} else {
+			$imagify_link = '<a href="https://wordpress.org/plugins/imagify/" target="_blank" rel="noopener noreferrer">';
+		}
 
 		$this->settings->add_page_section(
 			'media',
 			[
 				'title'            => __( 'Media', 'rocket' ),
-				'menu_description' => __( 'LazyLoad, emojis, embeds', 'rocket' ),
+				'menu_description' => __( 'LazyLoad, emojis, embeds, WebP', 'rocket' ),
 			]
 		);
 
@@ -904,12 +875,15 @@ class Page implements Subscriber_Interface {
 				'lazyload_section' => [
 					'title'       => __( 'LazyLoad', 'rocket' ),
 					'type'        => 'fields_container',
-					'description' => __( 'It can improve actual and perceived loading time as images, iframes, and videos will be loaded only as they enter (or about to enter) the viewport and reduces the number of HTTP requests.', 'rocket' ),
+					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
+					'description' => sprintf( __( 'It can improve actual and perceived loading time as images, iframes, and videos will be loaded only as they enter (or about to enter) the viewport and reduces the number of HTTP requests. %1$sMore Info%2$s', 'rocket' ), '<a href="' . esc_url( $lazyload_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $lazyload_beacon['id'] ) . '" target="_blank" rel="noopener noreferrer">', '</a>' ),
 					'help'        => [
 						'id'  => $this->beacon->get_suggest( 'lazyload_section' ),
 						'url' => $lazyload_beacon['url'],
 					],
 					'page'        => 'media',
+					// translators: %1$s = “WP Rocket”.
+					'helper'      => rocket_maybe_disable_lazyload() ? sprintf( __( 'Lazyload is currently activated in <strong>Autoptimize</strong>. If you want to use %1$s’s lazyload, disable this option in Autoptimize.', 'rocket' ), WP_ROCKET_PLUGIN_NAME ) : '',
 				],
 				'emoji_section'    => [
 					'title'       => __( 'Emoji 👻', 'rocket' ),
@@ -923,8 +897,34 @@ class Page implements Subscriber_Interface {
 					'description' => __( 'Prevents others from embedding content from your site, prevents you from embedding content from other (non-whitelisted) sites, and removes JavaScript requests related to WordPress embeds', 'rocket' ),
 					'page'        => 'media',
 				],
+				'webp_section'     => [
+					'title'       => __( 'WebP compatibility', 'rocket' ),
+					'type'        => 'fields_container',
+					'description' => sprintf(
+						// translators: %1$s and %3$s = opening <a> tag, %2$s = closing </a> tag.
+						__( 'Enable this option if you would like WP Rocket to serve WebP images to compatible browsers. Please note that WP Rocket cannot create WebP images for you. To create WebP images we recommend %1$sImagify%2$s. %3$sMore info%2$s', 'rocket' ),
+						$imagify_link,
+						'</a>',
+						'<a href="' . esc_url( $webp_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $webp_beacon['id'] ) . '" target="_blank" rel="noopener noreferrer">'
+					),
+					'help'        => [
+						'id'  => $webp_beacon['id'],
+						'url' => $webp_beacon['url'],
+					],
+					'page'        => 'media',
+				],
 			]
 		);
+
+		/**
+		 * Add more content to the 'cache_webp' setting field.
+		 *
+		 * @since  3.4
+		 * @author Grégory Viguier
+		 *
+		 * @param array $cache_webp_field Data to be added to the setting field.
+		 */
+		$cache_webp_field = (array) apply_filters( 'rocket_cache_webp_setting_field', [] );
 
 		$this->settings->add_settings_fields(
 			[
@@ -935,9 +935,17 @@ class Page implements Subscriber_Interface {
 					'page'              => 'media',
 					'default'           => 0,
 					'sanitize_callback' => 'sanitize_checkbox',
+					'container_class'   => [
+						( rocket_avada_maybe_disable_lazyload() || rocket_maybe_disable_lazyload() ) ? 'wpr-isDisabled' : '',
+					],
+					'input_attr'        => [
+						'disabled' => ( rocket_avada_maybe_disable_lazyload() || rocket_maybe_disable_lazyload() ) ? 1 : 0,
+					],
+					'description'       => rocket_avada_maybe_disable_lazyload() ? _x( 'Lazyload for images is currently activated in Avada. If you want to use WP Rocket’s LazyLoad, disable this option in Avada.', 'Avada', 'rocket' ) : '',
 				],
 				'lazyload_iframes' => [
 					'container_class'   => [
+						rocket_maybe_disable_lazyload() ? 'wpr-isDisabled' : '',
 						'wpr-isParent',
 					],
 					'type'              => 'checkbox',
@@ -946,9 +954,13 @@ class Page implements Subscriber_Interface {
 					'page'              => 'media',
 					'default'           => 0,
 					'sanitize_callback' => 'sanitize_checkbox',
+					'input_attr'        => [
+						'disabled' => rocket_maybe_disable_lazyload() ? 1 : 0,
+					],
 				],
 				'lazyload_youtube' => [
 					'container_class'   => [
+						rocket_maybe_disable_lazyload() ? 'wpr-isDisabled' : '',
 						'wpr-field--children',
 					],
 					'type'              => 'checkbox',
@@ -959,6 +971,9 @@ class Page implements Subscriber_Interface {
 					'page'              => 'media',
 					'default'           => 0,
 					'sanitize_callback' => 'sanitize_checkbox',
+					'input_attr'        => [
+						'disabled' => rocket_maybe_disable_lazyload() ? 1 : 0,
+					],
 				],
 				'emoji'            => [
 					'type'              => 'checkbox',
@@ -977,6 +992,17 @@ class Page implements Subscriber_Interface {
 					'default'           => 1,
 					'sanitize_callback' => 'sanitize_checkbox',
 				],
+				'cache_webp'       => array_merge(
+					$cache_webp_field,
+					[
+						'type'              => 'checkbox',
+						'label'             => __( 'Enable WebP caching', 'rocket' ),
+						'section'           => 'webp_section',
+						'page'              => 'media',
+						'default'           => 0,
+						'sanitize_callback' => 'sanitize_checkbox',
+					]
+				),
 			]
 		);
 	}
@@ -1002,7 +1028,7 @@ class Page implements Subscriber_Interface {
 
 		$this->settings->add_settings_sections(
 			[
-				'preload_section' => [
+				'preload_section'      => [
 					'title'       => __( 'Preload', 'rocket' ),
 					'type'        => 'fields_container',
 					// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
@@ -1013,7 +1039,7 @@ class Page implements Subscriber_Interface {
 					],
 					'page'        => 'preload',
 				],
-				'dns_prefetch_section'    => [
+				'dns_prefetch_section' => [
 					'title'       => __( 'Prefetch DNS Requests', 'rocket' ),
 					'type'        => 'fields_container',
 					'description' => __( 'DNS prefetching can make external files load faster, especially on mobile networks', 'rocket' ),
@@ -1028,7 +1054,7 @@ class Page implements Subscriber_Interface {
 
 		$this->settings->add_settings_fields(
 			[
-				'manual_preload'    => [
+				'manual_preload' => [
 					'type'              => 'checkbox',
 					'label'             => __( 'Activate Preloading', 'rocket' ),
 					'section'           => 'preload_section',
@@ -1039,25 +1065,29 @@ class Page implements Subscriber_Interface {
 					],
 					'sanitize_callback' => 'sanitize_checkbox',
 				],
-			] );
+			]
+		);
 
 		// Add this separately to be able to filter it easily.
 		$this->settings->add_settings_fields(
-			apply_filters( 'rocket_sitemap_preload_options', [
-				'sitemap_preload' => [
-					'type'              => 'checkbox',
-					'label'             => __( 'Activate sitemap-based cache preloading', 'rocket' ),
-					'container_class'   => [
-						'wpr-isParent',
-						'wpr-field--children',
+			apply_filters(
+				'rocket_sitemap_preload_options',
+				[
+					'sitemap_preload' => [
+						'type'              => 'checkbox',
+						'label'             => __( 'Activate sitemap-based cache preloading', 'rocket' ),
+						'container_class'   => [
+							'wpr-isParent',
+							'wpr-field--children',
+						],
+						'parent'            => 'manual_preload',
+						'section'           => 'preload_section',
+						'page'              => 'preload',
+						'default'           => 0,
+						'sanitize_callback' => 'sanitize_checkbox',
 					],
-					'parent'            => 'manual_preload',
-					'section'           => 'preload_section',
-					'page'              => 'preload',
-					'default'           => 0,
-					'sanitize_callback' => 'sanitize_checkbox',
-				],
-			] )
+				]
+			)
 		);
 
 		$this->settings->add_settings_fields(
@@ -1242,11 +1272,10 @@ class Page implements Subscriber_Interface {
 	 * @return void
 	 */
 	private function database_section() {
-		$total                 = array();
-		$database_optimization = new \Rocket_Database_Optimization();
+		$total = [];
 
-		foreach ( array_keys( $database_optimization->get_options() ) as $key ) {
-			$total[ $key ] = $database_optimization->count_cleanup_items( $key );
+		foreach ( array_keys( $this->optimize->get_options() ) as $key ) {
+			$total[ $key ] = $this->optimize->count_cleanup_items( $key );
 		}
 
 		$this->settings->add_page_section(
@@ -1438,7 +1467,12 @@ class Page implements Subscriber_Interface {
 				'cdn_section'         => [
 					'title'       => __( 'CDN', 'rocket' ),
 					'type'        => 'fields_container',
-					'description' => __( 'All URLs of static files (CSS, JS, images) will be rewritten to the CNAME(s) you provide.', 'rocket' ),
+					'description' => __( 'All URLs of static files (CSS, JS, images) will be rewritten to the CNAME(s) you provide.', 'rocket' ) . '<br><em>' . sprintf(
+						// translators: %1$s = opening link tag, %2$s = closing link tag.
+						__( 'Not required for services like Cloudflare and Sucuri. Please see our available %1$sAdd-ons%2$s.', 'rocket' ),
+						'<a href="#addons">',
+						'</a>'
+					) . '</em>',
 					'help'        => [
 						'id'  => $this->beacon->get_suggest( 'cdn_section' ),
 						'url' => $cdn_beacon['url'],
@@ -1461,16 +1495,56 @@ class Page implements Subscriber_Interface {
 			]
 		);
 
+		$maybe_display_cdn_helper = '';
+		$addons                   = [];
+
+		if ( get_rocket_option( 'do_cloudflare' ) ) {
+			$addons[] = 'Cloudflare';
+		}
+
+		if ( get_rocket_option( 'sucury_waf_cache_sync' ) ) {
+			$addons[] = 'Sucuri';
+		}
+
+		if ( ! empty( $addons ) ) {
+			$maybe_display_cdn_helper = sprintf(
+				// translators: %1$s = opening em tag, %2$s = add-on name(s), %3$s = closing em tag.
+				_n(
+					'%1$s%2$s Add-on%3$s is currently enabled. Configuration of the CDN settings is not required for %2$s to work on your site.',
+					'%1$s%2$s Add-ons%3$s are currently enabled. Configuration of the CDN settings is not required for %2$s to work on your site.',
+					count( $addons ),
+					'rocket'
+				),
+				'<em>',
+				implode( ' and ', $addons ),
+				'</em>'
+			) . '<br>';
+		}
+
+		/**
+		 * Add more content to the 'cdn' setting field.
+		 *
+		 * @since  3.4
+		 * @author Grégory Viguier
+		 *
+		 * @param array $cdn_field Data to be added to the setting field.
+		 */
+		$cdn_field = (array) apply_filters( 'rocket_cdn_setting_field', [] );
+
 		$this->settings->add_settings_fields(
 			[
-				'cdn'              => [
-					'type'              => 'checkbox',
-					'label'             => __( 'Enable Content Delivery Network', 'rocket' ),
-					'section'           => 'cdn_section',
-					'page'              => 'page_cdn',
-					'default'           => 0,
-					'sanitize_callback' => 'sanitize_checkbox',
-				],
+				'cdn'              => array_merge(
+					$cdn_field,
+					[
+						'type'              => 'checkbox',
+						'label'             => __( 'Enable Content Delivery Network', 'rocket' ),
+						'helper'            => $maybe_display_cdn_helper,
+						'section'           => 'cdn_section',
+						'page'              => 'page_cdn',
+						'default'           => 0,
+						'sanitize_callback' => 'sanitize_checkbox',
+					]
+				),
 				'cdn_cnames'       => [
 					'type'        => 'cnames',
 					'label'       => __( 'CDN CNAME(s)', 'rocket' ),
@@ -1554,16 +1628,25 @@ class Page implements Subscriber_Interface {
 					'sanitize_callback' => 'sanitize_checkbox',
 					'default'           => 0,
 				],
-				'heartbeat_admin_behavior'  => array_merge( $fields_default, [
-					'label'       => __( 'Behavior in backend', 'rocket' ),
-					'description' => '',
-				] ),
-				'heartbeat_editor_behavior' => array_merge( $fields_default, [
-					'label' => __( 'Behavior in post editor', 'rocket' ),
-				] ),
-				'heartbeat_site_behavior'   => array_merge( $fields_default, [
-					'label' => __( 'Behavior in frontend', 'rocket' ),
-				] ),
+				'heartbeat_admin_behavior'  => array_merge(
+					$fields_default,
+					[
+						'label'       => __( 'Behavior in backend', 'rocket' ),
+						'description' => '',
+					]
+				),
+				'heartbeat_editor_behavior' => array_merge(
+					$fields_default,
+					[
+						'label' => __( 'Behavior in post editor', 'rocket' ),
+					]
+				),
+				'heartbeat_site_behavior'   => array_merge(
+					$fields_default,
+					[
+						'label' => __( 'Behavior in frontend', 'rocket' ),
+					]
+				),
 			]
 		);
 	}
@@ -1672,24 +1755,27 @@ class Page implements Subscriber_Interface {
 				 *
 				 * @param array $settings Field settings data.
 				 */
-				apply_filters( 'rocket_varnish_field_settings', [
-					'varnish_auto_purge' => [
-						'type'              => 'one_click_addon',
-						'label'             => __( 'Varnish', 'rocket' ),
-						'logo'              => [
-							'url'    => WP_ROCKET_ASSETS_IMG_URL . 'logo-varnish.svg',
-							'width'  => 152,
-							'height' => 135,
+				apply_filters(
+					'rocket_varnish_field_settings',
+					[
+						'varnish_auto_purge' => [
+							'type'              => 'one_click_addon',
+							'label'             => __( 'Varnish', 'rocket' ),
+							'logo'              => [
+								'url'    => WP_ROCKET_ASSETS_IMG_URL . 'logo-varnish.svg',
+								'width'  => 152,
+								'height' => 135,
+							],
+							'title'             => __( 'If Varnish runs on your server, you must activate this add-on.', 'rocket' ),
+							// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
+							'description'       => sprintf( __( 'Varnish cache will be purged each time WP Rocket clears its cache to ensure content is always up-to-date.<br>%1$sLearn more%2$s', 'rocket' ), '<a href="' . esc_url( $varnish_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $varnish_beacon['id'] ) . '" target="_blank">', '</a>' ),
+							'section'           => 'one_click',
+							'page'              => 'addons',
+							'default'           => 0,
+							'sanitize_callback' => 'sanitize_checkbox',
 						],
-						'title'             => __( 'If Varnish runs on your server, you must activate this add-on.', 'rocket' ),
-						// translators: %1$s = opening <a> tag, %2$s = closing </a> tag.
-						'description'       => sprintf( __( 'Varnish cache will be purged each time WP Rocket clears its cache to ensure content is always up-to-date.<br>%1$sLearn more%2$s', 'rocket' ), '<a href="' . esc_url( $varnish_beacon['url'] ) . '" data-beacon-article="' . esc_attr( $varnish_beacon['id'] ) . '" target="_blank">', '</a>' ),
-						'section'           => 'one_click',
-						'page'              => 'addons',
-						'default'           => 0,
-						'sanitize_callback' => 'sanitize_checkbox',
-					],
-				] )
+					]
+				)
 			);
 		}
 
@@ -1766,14 +1852,17 @@ class Page implements Subscriber_Interface {
 			]
 		);
 
+		$beacon_cf_credentials = $this->beacon->get_suggest( 'cloudflare_credentials' );
+		$beacon_cf_settings    = $this->beacon->get_suggest( 'cloudflare_settings' );
+
 		$this->settings->add_settings_sections(
 			[
 				'cloudflare_credentials' => [
 					'type'  => 'fields_container',
 					'title' => __( 'Cloudflare credentials', 'rocket' ),
 					'help'  => [
-						'id'  => $this->beacon->get_suggest( 'cloudflare_credentials' ),
-						'url' => '',
+						'id'  => $beacon_cf_credentials['id'],
+						'url' => $beacon_cf_credentials['url'],
 					],
 					'page'  => 'cloudflare',
 				],
@@ -1781,8 +1870,8 @@ class Page implements Subscriber_Interface {
 					'type'  => 'fields_container',
 					'title' => __( 'Cloudflare settings', 'rocket' ),
 					'help'  => [
-						'id'  => $this->beacon->get_suggest( 'cloudflare_settings' ),
-						'url' => '',
+						'id'  => $beacon_cf_settings['id'],
+						'url' => $beacon_cf_settings['url'],
 					],
 					'page'  => 'cloudflare',
 				],
@@ -1808,7 +1897,7 @@ class Page implements Subscriber_Interface {
 				'cloudflare_email'            => [
 					'label'           => _x( 'Account email', 'Cloudflare', 'rocket' ),
 					'default'         => '',
-					'container_class'   => [
+					'container_class' => [
 						'wpr-field--split',
 					],
 					'section'         => 'cloudflare_credentials',
@@ -1817,7 +1906,7 @@ class Page implements Subscriber_Interface {
 				'cloudflare_zone_id'          => [
 					'label'           => _x( 'Zone ID', 'Cloudflare', 'rocket' ),
 					'default'         => '',
-					'container_class'   => [
+					'container_class' => [
 						'wpr-field--split',
 					],
 					'section'         => 'cloudflare_credentials',
@@ -1886,11 +1975,11 @@ class Page implements Subscriber_Interface {
 				'sucuri_credentials' => [
 					'type'  => 'fields_container',
 					'title' => __( 'Sucuri credentials', 'rocket' ),
+					'page'  => 'sucuri',
 					'help'  => [
 						'id'  => $sucuri_beacon['id'],
 						'url' => $sucuri_beacon['url'],
 					],
-					'page'  => 'sucuri',
 				],
 			]
 		);
@@ -1898,7 +1987,7 @@ class Page implements Subscriber_Interface {
 		$this->settings->add_settings_fields(
 			[
 				'sucury_waf_api_key' => [
-					'label'       => _x( 'Firewall API key (for plugin):', 'Sucuri', 'rocket' ),
+					'label'       => _x( 'Firewall API key (for plugin), must be in format <code>{32 characters}/{32 characters}</code>:', 'Sucuri', 'rocket' ),
 					'description' => sprintf( '<a href="%1$s" target="_blank">%2$s</a>', 'https://kb.sucuri.net/firewall/Performance/clearing-cache', _x( 'Find your API key', 'Sucuri', 'rocket' ) ),
 					'default'     => '',
 					'section'     => 'sucuri_credentials',
@@ -1929,49 +2018,8 @@ class Page implements Subscriber_Interface {
 				'version',
 				'cloudflare_old_settings',
 				'sitemap_preload_url_crawl',
+				'cache_ssl',
 			]
 		);
-	}
-
-	/**
-	 * Add Tools section to navigation
-	 *
-	 * @since 3.0
-	 * @author Remy Perona
-	 *
-	 * @param array $navigation Array of menu items.
-	 * @return array
-	 */
-	public function add_menu_tools_page( $navigation ) {
-		$navigation['tools'] = [
-			'id'               => 'tools',
-			'title'            => __( 'Tools', 'rocket' ),
-			'menu_description' => __( 'Import, Export, Rollback', 'rocket' ),
-		];
-
-		return $navigation;
-	}
-
-	/**
-	 * Add Imagify section to navigation
-	 *
-	 * @since 3.2
-	 * @author Remy Perona
-	 *
-	 * @param array $navigation Array of menu items.
-	 * @return array
-	 */
-	public function add_imagify_page( $navigation ) {
-		if ( \Imagify_Partner::has_imagify_api_key() ) {
-			return $navigation;
-		}
-
-		$navigation['imagify'] = [
-			'id'               => 'imagify',
-			'title'            => __( 'Image Optimization', 'rocket' ),
-			'menu_description' => __( 'Compress your images', 'rocket' ),
-		];
-
-		return $navigation;
 	}
 }
