@@ -1,7 +1,4 @@
 <?php
-
-use WP_Rocket\Logger\Logger;
-
 defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 /**
@@ -17,7 +14,13 @@ function get_rocket_advanced_cache_file() {
 	$buffer .= "defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );\n\n";
 
 	// Add a constant to be sure this is our file.
-	$buffer .= "define( 'WP_ROCKET_ADVANCED_CACHE', true );\n\n";
+	$buffer .= "define( 'WP_ROCKET_ADVANCED_CACHE', true );\n";
+
+	// Get cache path.
+	$buffer .= '$rocket_cache_path  = \'' . WP_ROCKET_CACHE_PATH . "';\n";
+
+	// Get config path.
+	$buffer .= '$rocket_config_path = \'' . WP_ROCKET_CONFIG_PATH . "';\n\n";
 
 	// Include the Mobile Detect class if we have to create a different caching file for mobile.
 	if ( is_rocket_generate_caching_mobile_files() ) {
@@ -27,7 +30,7 @@ function get_rocket_advanced_cache_file() {
 	}
 
 	// Register a class autoloader and include the process file.
-	$buffer .= "if ( version_compare( phpversion(), '" . WP_ROCKET_PHP_VERSION . "' ) >= 0 ) {\n\n";
+	$buffer .= "if ( file_exists( '" . WP_ROCKET_FRONT_PATH . "process.php' ) && version_compare( phpversion(), '" . WP_ROCKET_PHP_VERSION . "' ) >= 0 ) {\n\n";
 
 	// Class autoloader.
 	$autoloader = rocket_direct_filesystem()->get_contents( WP_ROCKET_INC_PATH . 'process-autoloader.php' );
@@ -40,29 +43,8 @@ function get_rocket_advanced_cache_file() {
 		$buffer .= "\t$autoloader\n\n";
 	}
 
-	// Initialize the Cache class and process.
-	$buffer .= "\t" . 'if ( ! class_exists( \'\WP_Rocket\Buffer\Cache\' ) ) {
-		if ( ! defined( \'DONOTROCKETOPTIMIZE\' ) ) {
-			define( \'DONOTROCKETOPTIMIZE\', true ); // WPCS: prefix ok.
-		}
-		return;
-	}
-	
-	$rocket_config_class = new \WP_Rocket\Buffer\Config(
-		[
-			\'config_dir_path\' => \'' . WP_ROCKET_CONFIG_PATH . '\',
-		]
-	);
-	
-	( new \WP_Rocket\Buffer\Cache(
-		new \WP_Rocket\Buffer\Tests(
-			$rocket_config_class
-		),
-		$rocket_config_class,
-		[
-			\'cache_dir_path\' => \'' . WP_ROCKET_CACHE_PATH . '\',
-		]
-	) )->maybe_init_process();' . "\n";
+	// Include the process file in buffer.
+	$buffer .= "\tinclude '" . WP_ROCKET_FRONT_PATH . "process.php';\n";
 	$buffer .= "} else {\n";
 	// Add a constant to provent include issue.
 	$buffer .= "\tdefine( 'WP_ROCKET_ADVANCED_CACHE_PROBLEM', true );\n";
@@ -112,11 +94,10 @@ function get_rocket_config_file() {
 		return;
 	}
 
-	$buffer  = "<?php\n";
-	$buffer .= "defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );\n\n";
+	$buffer  = '<?php' . "\n";
+	$buffer .= 'defined( \'ABSPATH\' ) or die( \'Cheatin\\\' uh?\' );' . "\n\n";
 
-	$buffer .= '$rocket_cookie_hash = \'' . COOKIEHASH . "';\n";
-	$buffer .= '$rocket_logged_in_cookie = \'' . LOGGED_IN_COOKIE . "';\n";
+	$buffer .= '$rocket_cookie_hash = \'' . COOKIEHASH . '\'' . ";\n";
 
 	/**
 	 * Filters the activation of the common cache for logged-in users.
@@ -139,63 +120,45 @@ function get_rocket_config_file() {
 	 *
 	 * @param string $tablet_version valid values are 'mobile' or 'desktop'
 	 */
-	$buffer .= '$rocket_cache_mobile_files_tablet = \'' . apply_filters( 'rocket_cache_mobile_files_tablet', 'desktop' ) . "';\n";
+	$buffer .= '$rocket_cache_mobile_files_tablet = \'' . apply_filters( 'rocket_cache_mobile_files_tablet', 'desktop' ) . '\';' . "\n";
 
 	foreach ( $options as $option => $value ) {
-		if ( 'cache_ssl' === $option ) {
-			if ( 1 !== (int) $value ) {
-				if ( rocket_is_ssl_website() ) {
-					update_rocket_option( 'cache_ssl', 1 );
-					$value = 1;
-				}
-			}
-
-			$buffer .= '$rocket_' . $option . ' = ' . (int) $value . ";\n";
-		}
-
-		if ( 'cache_mobile' === $option || 'do_caching_mobile_files' === $option ) {
-			$buffer .= '$rocket_' . $option . ' = ' . (int) $value . ";\n";
-		}
-
-		if ( 'secret_cache_key' === $option ) {
-			$buffer .= '$rocket_' . $option . ' = \'' . $value . "';\n";
+		if ( 'cache_ssl' === $option || 'cache_mobile' === $option || 'do_caching_mobile_files' === $option || 'secret_cache_key' === $option ) {
+			$buffer .= '$rocket_' . $option . ' = \'' . $value . '\';' . "\n";
 		}
 
 		if ( 'cache_reject_uri' === $option ) {
-			$buffer .= '$rocket_' . $option . ' = \'' . get_rocket_cache_reject_uri() . "';\n";
+			$buffer .= '$rocket_' . $option . ' = \'' . get_rocket_cache_reject_uri() . '\';' . "\n";
 		}
 
 		if ( 'cache_query_strings' === $option ) {
-			$buffer .= '$rocket_' . $option . ' = ' . call_user_func( 'var_export', get_rocket_cache_query_string(), true ) . ";\n";
+			$buffer .= '$rocket_' . $option . ' = ' . var_export( get_rocket_cache_query_string(), true ) . ';' . "\n";
 		}
 
 		if ( 'cache_reject_cookies' === $option ) {
 			$cookies = get_rocket_cache_reject_cookies();
 
-			if ( $cookies && get_rocket_option( 'cache_logged_user' ) ) {
-				// Make sure the "logged-in cookies" are not rejected.
-				$logged_in_cookie = explode( COOKIEHASH, LOGGED_IN_COOKIE );
-				$logged_in_cookie = array_map( 'preg_quote', $logged_in_cookie );
-				$logged_in_cookie = implode( '[^|]*', $logged_in_cookie );
-				$cookies          = preg_replace( '/\|' . $logged_in_cookie . '\|/', '|', '|' . $cookies . '|' );
+			if ( get_rocket_option( 'cache_logged_user' ) ) {
+				$logged_in_cookie = str_replace( COOKIEHASH, '', LOGGED_IN_COOKIE );
+				$cookies          = str_replace( $logged_in_cookie . '|', '', $cookies );
 				$cookies          = trim( $cookies, '|' );
 			}
 
-			$buffer .= '$rocket_' . $option . ' = \'' . $cookies . "';\n";
+			$buffer .= '$rocket_' . $option . ' = \'' . $cookies . '\';' . "\n";
 		}
 
 		if ( 'cache_reject_ua' === $option ) {
-			$buffer .= '$rocket_' . $option . ' = \'' . get_rocket_cache_reject_ua() . "';\n";
+			$buffer .= '$rocket_' . $option . ' = \'' . get_rocket_cache_reject_ua() . '\';' . "\n";
 		}
 	}
 
-	$buffer .= '$rocket_cache_mandatory_cookies = ' . call_user_func( 'var_export', get_rocket_cache_mandatory_cookies(), true ) . ";\n";
+	$buffer .= '$rocket_cache_mandatory_cookies = ' . var_export( get_rocket_cache_mandatory_cookies(), true ) . ';' . "\n";
 
-	$buffer .= '$rocket_cache_dynamic_cookies = ' . call_user_func( 'var_export', get_rocket_cache_dynamic_cookies(), true ) . ";\n";
+	$buffer .= '$rocket_cache_dynamic_cookies = ' . var_export( get_rocket_cache_dynamic_cookies(), true ) . ';' . "\n";
 
 	/** This filter is documented in inc/front/htaccess.php */
 	if ( apply_filters( 'rocket_url_no_dots', false ) ) {
-		$buffer .= '$rocket_url_no_dots = 1;';
+		$buffer .= '$rocket_url_no_dots = \'1\';';
 	}
 
 	$config_files_path = [];
@@ -232,8 +195,6 @@ function get_rocket_config_file() {
 	 * @param array $config_files_path  Names of all config files.
 	*/
 	$buffer = apply_filters( 'rocket_config_file', $buffer, $config_files_path );
-	$buffer = preg_replace( '@array\s+\(@i', 'array(', $buffer );
-	$buffer = preg_replace( '@array\(\s+\)@i', 'array()', $buffer );
 
 	return [ $config_files_path, $buffer ];
 }
@@ -343,10 +304,6 @@ function set_rocket_wp_cache_define( $turn_it_on ) {
 		return;
 	}
 
-	if ( defined( 'IS_PRESSABLE' ) && IS_PRESSABLE ) {
-		return;
-	}
-
 	// Get path of the config file.
 	$config_file_path = rocket_find_wpconfig_path();
 	if ( ! $config_file_path ) {
@@ -418,14 +375,14 @@ function rocket_clean_minify( $extensions = array( 'js', 'css' ) ) {
 
 	try {
 		$dir = new RecursiveDirectoryIterator( WP_ROCKET_MINIFY_CACHE_PATH . get_current_blog_id(), FilesystemIterator::SKIP_DOTS );
-	} catch ( \UnexpectedValueException $e ) {
+	} catch ( Exception $e ) {
 		// No logging yet.
 		return;
 	}
 
 	try {
 		$iterator = new RecursiveIteratorIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST );
-	} catch ( \Exception $e ) {
+	} catch ( Exception $e ) {
 		// No logging yet.
 		return;
 	}
@@ -445,7 +402,7 @@ function rocket_clean_minify( $extensions = array( 'js', 'css' ) ) {
 			foreach ( $files as $file ) {
 				rocket_direct_filesystem()->delete( $file[0] );
 			}
-		} catch ( \InvalidArgumentException $e ) {
+		} catch ( Exception $e ) {
 			// No logging yet.
 			return;
 		}
@@ -476,7 +433,7 @@ function rocket_clean_minify( $extensions = array( 'js', 'css' ) ) {
 				rocket_direct_filesystem()->delete( $file );
 			}
 		}
-	} catch ( \UnexpectedValueException $e ) {
+	} catch ( Exception $e ) {
 		// No logging yet.
 		return;
 	}
@@ -494,49 +451,36 @@ function rocket_clean_minify( $extensions = array( 'js', 'css' ) ) {
 function rocket_clean_cache_busting( $extensions = array( 'js', 'css' ) ) {
 	$extensions = is_string( $extensions ) ? (array) $extensions : $extensions;
 
-	$cache_busting_path = WP_ROCKET_CACHE_BUSTING_PATH . get_current_blog_id();
-
-	if ( ! rocket_direct_filesystem()->is_dir( $cache_busting_path ) ) {
-		rocket_mkdir_p( $cache_busting_path );
-
-		Logger::debug( 'No Cache Busting folder found.', [
-			'mkdir cache busting folder',
-			'cache_busting_path' => $cache_busting_path,
-		] );
-
-		return;
-	}
-
 	try {
-		$dir = new RecursiveDirectoryIterator( $cache_busting_path, FilesystemIterator::SKIP_DOTS );
-	} catch ( \UnexpectedValueException $e ) {
+		$dir = new RecursiveDirectoryIterator( WP_ROCKET_CACHE_BUSTING_PATH . get_current_blog_id(), FilesystemIterator::SKIP_DOTS );
+	} catch ( Exception $e ) {
 		// No logging yet.
 		return;
 	}
 
 	try {
 		$iterator = new RecursiveIteratorIterator( $dir, RecursiveIteratorIterator::CHILD_FIRST );
-	} catch ( \Exception $e ) {
+	} catch ( Exception $e ) {
 		// No logging yet.
 		return;
 	}
 
 	foreach ( $extensions as $ext ) {
 		/**
-		 * Fires before the cache busting files are deleted
+		 * Fires before the minify cache files are deleted
 		 *
-		 * @since 2.9
+		 * @since 2.1
 		 *
-		 * @param string $ext File extensions to clean.
+		 * @param string $ext File extensions to minify.
 		*/
-		do_action( 'before_rocket_clean_busting', $ext );
+		do_action( 'before_rocket_clean_minify', $ext );
 
 		try {
 			$files = new RegexIterator( $iterator, '#.*\.' . $ext . '#', RegexIterator::GET_MATCH );
 			foreach ( $files as $file ) {
 				rocket_direct_filesystem()->delete( $file[0] );
 			}
-		} catch ( \InvalidArgumentException $e ) {
+		} catch ( Exception $e ) {
 			// No logging yet.
 			return;
 		}
@@ -768,7 +712,7 @@ function rocket_clean_home_feeds() {
  * @return void
  */
 function rocket_clean_domain( $lang = '' ) {
-	$urls = ( ! $lang || is_object( $lang ) || is_array( $lang ) || is_int( $lang ) ) ? get_rocket_i18n_uri() : get_rocket_i18n_home_url( $lang );
+	$urls = ( ! $lang || is_object( $lang ) || is_array( $lang ) ) ? get_rocket_i18n_uri() : get_rocket_i18n_home_url( $lang );
 	$urls = (array) $urls;
 
 	/**
@@ -1230,4 +1174,24 @@ function rocket_find_wpconfig_path() {
 
 	// No writable file found.
 	return false;
+}
+
+/**
+ * Get WP Rocket footprint
+ *
+ * @since 3.0.5 White label footprint if WP_ROCKET_WHITE_LABEL_FOOTPRINT is defined.
+ * @since 2.0
+ *
+ * @param bool $debug (default: true) If true, adds the date of generation cache file.
+ * @return string The footprint that will be printed
+ */
+function get_rocket_footprint( $debug = true ) {
+	$footprint = defined( 'WP_ROCKET_WHITE_LABEL_FOOTPRINT' ) ?
+					"\n" . '<!-- Cached for great performance' :
+					"\n" . '<!-- This website is like a Rocket, isn\'t it? Performance optimized by ' . WP_ROCKET_PLUGIN_NAME . '. Learn more: https://wp-rocket.me';
+	if ( $debug ) {
+		$footprint .= ' - Debug: cached@' . time();
+	}
+	$footprint .= ' -->';
+	return $footprint;
 }

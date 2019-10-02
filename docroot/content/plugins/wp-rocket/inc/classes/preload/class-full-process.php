@@ -42,9 +42,6 @@ class Full_Process extends \WP_Background_Process {
 	 * @return null
 	 */
 	protected function task( $item ) {
-		$count = get_transient( 'rocket_preload_running' );
-		set_transient( 'rocket_preload_running', $count + 1 );
-
 		if ( $this->is_already_cached( $item ) ) {
 			return false;
 		}
@@ -65,6 +62,9 @@ class Full_Process extends \WP_Background_Process {
 		] );
 
 		wp_remote_get( esc_url_raw( $item ), $args );
+
+		$count = get_transient( 'rocket_preload_running' );
+		set_transient( 'rocket_preload_running', $count + 1 );
 
 		usleep( absint( get_rocket_option( 'sitemap_preload_url_crawl', 500000 ) ) );
 
@@ -89,18 +89,16 @@ class Full_Process extends \WP_Background_Process {
 
 		$url = get_rocket_parse_url( $item );
 
-		/** This filter is documented in inc/functions/htaccess.php */
+		/** This filter is documented in inc/front/htaccess.php */
 		if ( apply_filters( 'rocket_url_no_dots', false ) ) {
 			$url['host'] = str_replace( '.', '_', $url['host'] );
 		}
 
-		$url['path'] = trailingslashit( $url['path'] );
-
-		if ( '' !== $url['query'] ) {
-			$url['query'] = '#' . $url['query'] . '/';
+		if ( empty( $url['path'] ) ) {
+			$url['path'] = '/';
 		}
 
-		$file_cache_path = WP_ROCKET_CACHE_PATH . $url['host'] . strtolower( $url['path'] . $url['query'] ) . 'index' . $https . '.html';
+		$file_cache_path = WP_ROCKET_CACHE_PATH . $url['host'] . strtolower( $url['path'] ) . 'index' . $https . '.html';
 
 		return rocket_direct_filesystem()->exists( $file_cache_path );
 	}
@@ -113,7 +111,6 @@ class Full_Process extends \WP_Background_Process {
 	 */
 	public function complete() {
 		set_transient( 'rocket_preload_complete', get_transient( 'rocket_preload_running' ) );
-		set_transient( 'rocket_preload_complete_time', date_i18n( "F j, Y @ G:i", time() ) );
 		delete_transient( 'rocket_preload_running' );
 		parent::complete();
 	}

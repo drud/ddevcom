@@ -18,7 +18,6 @@ class Homepage extends Abstract_Preload {
 	 * @return void
 	 */
 	public function preload( $home_urls ) {
-		$preload = 0;
 		foreach ( $home_urls as $home_url ) {
 			$urls = $this->get_urls( $home_url );
 
@@ -34,12 +33,7 @@ class Homepage extends Abstract_Preload {
 				}
 
 				$this->preload_process->push_to_queue( $url );
-				$preload++;
 			}
-		}
-
-		if ( 0 === $preload ) {
-			return;
 		}
 
 		set_transient( 'rocket_preload_running', 0 );

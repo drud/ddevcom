@@ -50,28 +50,17 @@ add_filter( 'widget_update_callback', 'rocket_widget_update_callback' );
  * @since 1.1.3 Use clean_post_cache instead of transition_post_status, transition_comment_status and preprocess_comment
  * @since 1.0
  *
- * @param int     $post_id The post ID.
- * @param WP_Post $post    WP_Post object.
+ * @param int $post_id The post ID.
  */
-function rocket_clean_post( $post_id, $post = null ) {
-	static $done = [];
-
-	if ( isset( $done[ $post_id ] ) ) {
-		return;
-	}
-
-	$done[ $post_id ] = 1;
-
+function rocket_clean_post( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) ) {
 		return;
 	}
 
-	$purge_urls = [];
+	$purge_urls = array();
 
-	// Get all post infos if the $post object was not supplied.
-	if ( is_null( $post ) ) {
-		$post = get_post( $post_id );
-	}
+	// Get all post infos.
+	$post = get_post( $post_id );
 
 	// Return if $post is not an object.
 	if ( ! is_object( $post ) ) {
@@ -105,7 +94,7 @@ function rocket_clean_post( $post_id, $post = null ) {
 	$permalink_structure = get_rocket_sample_permalink( $post_id );
 
 	// Get permalink.
-	$permalink = str_replace( [ '%postname%', '%pagename%' ], $permalink_structure[1], $permalink_structure[0] );
+	$permalink = str_replace( array( '%postname%', '%pagename%' ), $permalink_structure[1], $permalink_structure[0] );
 
 	// Add permalink.
 	if ( rocket_extract_url_component( $permalink, PHP_URL_PATH ) !== '/' ) {
@@ -200,9 +189,9 @@ function rocket_clean_post( $post_id, $post = null ) {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param WP_Post $post       The post object
-	 * @param array   $purge_urls URLs cache files to remove
-	 * @param string  $lang       The post language
+	 * @param obj    $post       The post object
+	 * @param array  $purge_urls URLs cache files to remove
+	 * @param string $lang       The post language
 	 */
 	do_action( 'before_rocket_clean_post', $post, $purge_urls, $lang );
 
@@ -229,16 +218,16 @@ function rocket_clean_post( $post_id, $post = null ) {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param WP_Post $post       The post object
-	 * @param array   $purge_urls URLs cache files to remove
-	 * @param string  $lang       The post language
+	 * @param obj    $post       The post object
+	 * @param array  $purge_urls URLs cache files to remove
+	 * @param string $lang       The post language
 	 */
 	do_action( 'after_rocket_clean_post', $post, $purge_urls, $lang );
 }
-add_action( 'wp_trash_post',           'rocket_clean_post' );
-add_action( 'delete_post',             'rocket_clean_post' );
-add_action( 'clean_post_cache',        'rocket_clean_post' );
-add_action( 'wp_update_comment_count', 'rocket_clean_post' );
+add_action( 'wp_trash_post'             , 'rocket_clean_post' );
+add_action( 'delete_post'               , 'rocket_clean_post' );
+add_action( 'clean_post_cache'          , 'rocket_clean_post' );
+add_action( 'wp_update_comment_count'   , 'rocket_clean_post' );
 
 /**
  * Add pattern to clean files of connected users
@@ -348,16 +337,6 @@ function do_admin_post_rocket_purge_cache() {
 					$options['minify_js_key']  = create_rocket_uniqid();
 					remove_all_filters( 'update_option_' . WP_ROCKET_SLUG );
 					update_option( WP_ROCKET_SLUG, $options );
-				}
-
-				if ( get_rocket_option( 'manual_preload' ) && ( ! defined( 'WP_ROCKET_DEBUG' ) || ! WP_ROCKET_DEBUG ) ) {
-					wp_safe_remote_get(
-						home_url( $lang ),
-						[
-							'blocking' => false,
-							'timeout'  => 0.01,
-						]
-					);
 				}
 
 				rocket_dismiss_box( 'rocket_warning_plugin_modification' );
@@ -491,10 +470,6 @@ function rocket_clean_cache_theme_update( $wp_upgrader, $hook_extra ) {
 		$current_theme->get_template(), // Parent theme.
 		$current_theme->get_stylesheet(), // Child theme.
 	];
-
-	if ( ! is_array( $hook_extra['themes'] ) ) {
-		return;
-	}
 
 	if ( ! array_intersect( $hook_extra['themes'], $themes ) ) {
 		return;

@@ -90,7 +90,7 @@ class Facebook_Pickles {
 	 * @access private
 	 * @author Grégory Viguier
 	 */
-	private $config_file_url = 'https://connect.facebook.net/signals/config/%s?v=%s&r=stable';
+	private $config_file_url = 'https://connect.facebook.net/signals/config/%d?v=%s&r=stable';
 
 	/**
 	 * Config file name (local).
@@ -1050,7 +1050,7 @@ class Facebook_Pickles {
 		$plugin_names = [
 			'identity',
 			'microdata',
-			'inferredEvents',
+			'inferredevents',
 			'dwell',
 			'sessions',
 			'timespent',
