@@ -3,7 +3,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 $current_theme = wp_get_theme();
 
-if ( 'Divi' === $current_theme->get( 'Name' ) ) :
+if ( 'Divi' === $current_theme->get( 'Name' ) || 'Divi' === $current_theme->get( 'Template' ) ) :
 	/**
 	 * Excludes Divi's Salvatorre script from JS minification
 	 *
