@@ -59,64 +59,31 @@ class Beacon {
 
 		switch ( $this->locale ) {
 			case 'fr':
-				$lang        = '-fr';
-				$form_id     = '5d9279dc-1b2d-11e8-b466-0ec85169275a';
-				$suggest     = wp_list_pluck( $this->get_suggest( 'faq', 'fr' ), 'id' );
-				$translation = wp_json_encode(
-					[
-						'searchLabel'               => 'Comment pouvons-nous vous aider ?',
-						'searchErrorLabel'          => 'Votre recherche a expiré. Veuillez vérifier votre connexion et réessayer.',
-						'noResultsLabel'            => 'Aucun résultat trouvé pour',
-						'contactLabel'              => 'Envoyer un message',
-						'attachFileLabel'           => 'Joindre un fichier',
-						'attachFileError'           => 'Le poids maximum de fichier est de 10Mo',
-						'fileExtensionError'        => 'Le format du fichier attaché n\'est pas autorisé.',
-						'nameLabel'                 => 'Votre nom',
-						'nameError'                 => 'Veuillez entrer votre nom',
-						'emailLabel'                => 'Adresse email',
-						'emailError'                => 'Veuillez entrer une adresse email valide',
-						'topicLabel'                => 'Sélectionnez un sujet',
-						'topicError'                => 'Veuillez sélectionner un sujet dans la liste',
-						'subjectLabel'              => 'Sujet',
-						'subjectError'              => 'Veuillez entrer un sujet',
-						'messageLabel'              => 'Comment pouvons-nous vous aider ?',
-						'messageError'              => 'Veuillez entrer un message',
-						'sendLabel'                 => 'Envoyer',
-						'contactSuccessLabel'       => 'Message envoyé !',
-						'contactSuccessDescription' => 'Merci de nous avoir contacté ! Un de nos rocketeers vous répondra rapidement.',
-					]
-				);
+				$form_id = '9db9417a-5e2f-41dd-8857-1421d5112aea';
 				break;
 			default:
-				$lang        = '';
-				$form_id     = '6e4a6b6e-1b2d-11e8-b466-0ec85169275a';
-				$suggest     = wp_list_pluck( $this->get_suggest( 'faq' ), 'id' );
-				$translation = '{}';
+				$form_id = '44cc73fb-7636-4206-b115-c7b33823551b';
 				break;
 		}
 
-		$script = '<script>!function(e,o,n){window.HSCW=o,window.HS=n,n.beacon=n.beacon||{};var t=n.beacon;t.userConfig={},t.readyQueue=[],t.config=function(e){this.userConfig=e},t.ready=function(e){this.readyQueue.push(e)},o.config={docs:{enabled:!0,baseUrl:"https://wp-rocket' . $lang . '.helpscoutdocs.com/"},contact:{enabled:!0,formId:"' . $form_id . '"}};var r=e.getElementsByTagName("script")[0],c=e.createElement("script");c.type="text/javascript",c.async=!0,c.src="https://djtflbt20bdde.cloudfront.net/",r.parentNode.insertBefore(c,r)}(document,window.HSCW||{},window.HS||{});
-			HS.beacon.ready( function() {
-				HS.beacon.suggest(' . wp_json_encode( $suggest ) . ');
-				HS.beacon.identify(' . wp_json_encode( $this->identify_data() ) . ');
-			} );
-			HS.beacon.config({
-				showSubject: true,
-				translation: ' . $translation . '
-			});</script>';
-
-		return $script;
+		return '<script type="text/javascript">!function(e,t,n){function a(){var e=t.getElementsByTagName("script")[0],n=t.createElement("script");n.type="text/javascript",n.async=!0,n.src="https://beacon-v2.helpscout.net",e.parentNode.insertBefore(n,e)}if(e.Beacon=n=function(t,n,a){e.Beacon.readyQueue.push({method:t,options:n,data:a})},n.readyQueue=[],"complete"===t.readyState)return a();e.attachEvent?e.attachEvent("onload",a):e.addEventListener("load",a,!1)}(window,document,window.Beacon||function(){});</script>
+			<script type="text/javascript">window.Beacon(\'init\', \'' . $form_id . '\')</script>
+			<script>window.Beacon("identify", ' . wp_json_encode( $this->identify_data() ) . ');</script>
+			<script>window.Beacon("session-data", ' . wp_json_encode( $this->session_data() ) . ');</script>
+			<script>window.addEventListener("hashchange", function () {
+				window.Beacon("suggest");
+			  }, false);</script>';
 	}
 
 	/**
-	 * Returns Data to pass to the Beacon identify() method
+	 * Returns Session specific data to pass to Beacon
 	 *
-	 * @since 3.0
+	 * @since 3.3.3
 	 * @author Remy Perona
 	 *
 	 * @return array
 	 */
-	private function identify_data() {
+	private function session_data() {
 		global $wp_version;
 
 		$options_to_send = [
@@ -143,14 +110,17 @@ class Beacon {
 			'cdn'                     => 'CDN Enabled',
 			'do_cloudflare'           => 'Cloudflare Enabled',
 			'varnish_auto_purge'      => 'Varnish Purge Enabled',
+			'google_analytics_cache'  => 'Google Tracking Add-on',
+			'facebook_pixel_cache'    => 'Facebook Tracking Add-on',
+			'control_heartbeat'       => 'Hearbeat Control',
+			'sucury_waf_cache_sync'   => 'Sucuri Add-on',
 		];
 
 		$active_options = array_filter( $this->options->get_options() );
 		$active_options = array_intersect_key( $options_to_send, $active_options );
 		$theme          = wp_get_theme();
 
-		$data = [
-			'email'                    => $this->options->get( 'consumer_email' ),
+		return [
 			'Website'                  => home_url(),
 			'WordPress Version'        => $wp_version,
 			'WP Rocket Version'        => WP_ROCKET_VERSION,
@@ -158,8 +128,21 @@ class Beacon {
 			'Plugins Enabled'          => implode( ' - ', rocket_get_active_plugins() ),
 			'WP Rocket Active Options' => implode( ' - ', $active_options ),
 		];
+	}
 
-		return $data;
+	/**
+	 * Returns Identify data to pass to Beacon
+	 *
+	 * @since 3.0
+	 * @author Remy Perona
+	 *
+	 * @return array
+	 */
+	private function identify_data() {
+		return [
+			'email'   => $this->options->get( 'consumer_email' ),
+			'Website' => home_url(),
+		];
 	}
 
 	/**
@@ -347,16 +330,16 @@ class Beacon {
 			],
 			'lazyload'               => [
 				'en' => [
-					'id'  => '54b85754e4b0512429883a86',
-					'url' => 'https://docs.wp-rocket.me/article/38-lazyload-plugin-compatibility/?utm_source=wp_plugin&utm_medium=wp_rocket',
+					'id'  => '5c884cf80428633d2cf38314',
+					'url' => 'https://docs.wp-rocket.me/article/1141-using-lazyload-in-wp-rocket/?utm_source=wp_plugin&utm_medium=wp_rocket',
 				],
 				'fr' => [
-					'id'  => '56967a859033603f7da30858',
-					'url' => 'https://fr.docs.wp-rocket.me/article/237-compatibilite-des-extensions-avec-le-lazyload/?utm_source=wp_plugin&utm_medium=wp_rocket',
+					'id'  => '5c98ff532c7d3a1544614cf4',
+					'url' => 'https://fr.docs.wp-rocket.me/article/1146-utiliser-lazyload-images-wp-rocket/?utm_source=wp_plugin&utm_medium=wp_rocket',
 				],
 			],
 			'lazyload_section'       => [
-				'en' => '54b85754e4b0512429883a86,5418c792e4b0e7b8127bed99,569ec4a69033603f7da32c93,5419e246e4b099def9b5561e,5a299b332c7d3a1a640cb402',
+				'en' => '5c884cf80428633d2cf38314,54b85754e4b0512429883a86,5418c792e4b0e7b8127bed99,569ec4a69033603f7da32c93,5419e246e4b099def9b5561e,5a299b332c7d3a1a640cb402',
 				'fr' => '56967a859033603f7da30858,56967952c69791436155e60a,56cb9c9d90336008e9e9e3dc,569676ea9033603f7da3083d,5a3a66f52c7d3a1943676524',
 			],
 			'sitemap_preload'        => [
@@ -472,12 +455,24 @@ class Beacon {
 				],
 			],
 			'cloudflare_credentials' => [
-				'en' => '54205619e4b0e7b8127bf849',
-				'fr' => '5696837e9033603f7da308ae',
+				'en' => [
+					'id'  => '54205619e4b0e7b8127bf849',
+					'url' => 'https://docs.wp-rocket.me/article/18-using-wp-rocket-with-cloudflare/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
+				'fr' => [
+					'id'  => '5696837e9033603f7da308ae',
+					'url' => 'https://fr.docs.wp-rocket.me/article/247-utiliser-wp-rocket-avec-cloudflare/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
 			],
 			'cloudflare_settings'    => [
-				'en' => '54205619e4b0e7b8127bf849',
-				'fr' => '5696837e9033603f7da308ae',
+				'en' => [
+					'id'  => '54205619e4b0e7b8127bf849',
+					'url' => 'https://docs.wp-rocket.me/article/18-using-wp-rocket-with-cloudflare/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
+				'fr' => [
+					'id'  => '5696837e9033603f7da308ae',
+					'url' => 'https://fr.docs.wp-rocket.me/article/247-utiliser-wp-rocket-avec-cloudflare/?utm_source=wp_plugin&utm_medium=wp_rocket',
+				],
 			],
 			'sucuri_credentials'     => [
 				'en' => [
