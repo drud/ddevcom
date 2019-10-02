@@ -26,6 +26,8 @@ function run_rocket_bot( $spider = 'cache-preload', $lang = '' ) {
 
 	$homepage_preload = new WP_Rocket\Preload\Homepage( new WP_Rocket\Preload\Full_Process() );
 
+	$homepage_preload->cancel_preload();
+	usleep( 1000000 );
 	$homepage_preload->preload( $urls );
 }
 
@@ -58,6 +60,8 @@ function run_rocket_sitemap_preload() {
 
 	$sitemap_preload = new WP_Rocket\Preload\Sitemap( new WP_Rocket\Preload\Full_Process() );
 
+	$sitemap_preload->cancel_preload();
+	usleep( 1000000 );
 	$sitemap_preload->run_preload( $sitemaps );
 }
 
@@ -83,15 +87,6 @@ function do_admin_post_rocket_preload_cache() {
 		wp_safe_redirect( wp_get_referer() );
 		die();
 	}
-
-	$preload_process = new WP_Rocket\Preload\Full_Process();
-
-	if ( $preload_process->is_process_running() ) {
-		wp_safe_redirect( wp_get_referer() );
-		die();
-	}
-
-	delete_transient( 'rocket_preload_errors' );
 
 	$lang = isset( $_GET['lang'] ) && 'all' !== $_GET['lang'] ? sanitize_key( $_GET['lang'] ) : '';
 	run_rocket_bot( 'cache-preload', $lang );

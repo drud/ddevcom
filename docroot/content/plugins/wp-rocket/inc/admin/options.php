@@ -69,7 +69,7 @@ function rocket_after_save_options( $oldvalue, $value ) {
 				'timeout'    => 0.01,
 				'blocking'   => false,
 				'user-agent' => 'WP Rocket/Homepage Preload',
-				'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
+				'sslverify'  => apply_filters( 'https_local_ssl_verify', true ),
 			]
 		);
 	}
@@ -171,8 +171,8 @@ function rocket_after_save_options( $oldvalue, $value ) {
 			);
 		}
 
-		// Set Browser cache to 1 year.
-		$cf_browser_cache_ttl    = ( isset( $cf_old_settings[3] ) && 0 === $value['cloudflare_auto_settings'] ) ? $cf_old_settings[3] : '31536000';
+		// Set Browser cache to 1 month.
+		$cf_browser_cache_ttl    = ( isset( $cf_old_settings[3] ) && 0 === $value['cloudflare_auto_settings'] ) ? $cf_old_settings[3] : '2678400';
 		$cf_browser_cache_return = set_rocket_cloudflare_browser_cache_ttl( $cf_browser_cache_ttl );
 
 		if ( is_wp_error( $cf_browser_cache_return ) ) {
@@ -290,7 +290,7 @@ add_filter( 'pre_update_option_' . WP_ROCKET_SLUG, 'rocket_pre_main_option', 10,
  * @param array $value     An array of submitted options values.
  */
 function rocket_update_ssl_option_after_save_home_url( $old_value, $value ) {
-	if ( $old_value === $value || get_rocket_option( 'cache_ssl' ) ) {
+	if ( $old_value === $value ) {
 		return;
 	}
 

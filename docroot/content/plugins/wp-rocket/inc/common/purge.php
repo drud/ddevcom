@@ -2,24 +2,23 @@
 defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 // Launch hooks that deletes all the cache domain.
-add_action( 'switch_theme', 'rocket_clean_domain' );  // When user change theme.
-add_action( 'user_register', 'rocket_clean_domain' );  // When a user is added.
-add_action( 'profile_update', 'rocket_clean_domain' );  // When a user is updated.
-add_action( 'deleted_user', 'rocket_clean_domain' );  // When a user is deleted.
-add_action( 'wp_update_nav_menu', 'rocket_clean_domain' );  // When a custom menu is update.
-add_action( 'update_option_sidebars_widgets', 'rocket_clean_domain' );  // When you change the order of widgets.
-add_action( 'update_option_category_base', 'rocket_clean_domain' );  // When category permalink prefix is update.
-add_action( 'update_option_tag_base', 'rocket_clean_domain' );  // When tag permalink prefix is update.
-add_action( 'permalink_structure_changed', 'rocket_clean_domain' );  // When permalink structure is update.
-add_action( 'create_term', 'rocket_clean_domain' );  // When a term is created.
-add_action( 'edited_terms', 'rocket_clean_domain' );  // When a term is updated.
-add_action( 'delete_term', 'rocket_clean_domain' );  // When a term is deleted.
-add_action( 'add_link', 'rocket_clean_domain' );  // When a link is added.
-add_action( 'edit_link', 'rocket_clean_domain' );  // When a link is updated.
-add_action( 'delete_link', 'rocket_clean_domain' );  // When a link is deleted.
-add_action( 'customize_save', 'rocket_clean_domain' );  // When customizer is saved.
+add_action( 'switch_theme'                                          , 'rocket_clean_domain' );  // When user change theme.
+add_action( 'user_register'                                         , 'rocket_clean_domain' );  // When a user is added.
+add_action( 'profile_update'                                        , 'rocket_clean_domain' );  // When a user is updated.
+add_action( 'deleted_user'                                          , 'rocket_clean_domain' );  // When a user is deleted.
+add_action( 'wp_update_nav_menu'                                    , 'rocket_clean_domain' );  // When a custom menu is update.
+add_action( 'update_option_sidebars_widgets'                        , 'rocket_clean_domain' );  // When you change the order of widgets.
+add_action( 'update_option_category_base'                           , 'rocket_clean_domain' );  // When category permalink prefix is update.
+add_action( 'update_option_tag_base'                                , 'rocket_clean_domain' );  // When tag permalink prefix is update.
+add_action( 'permalink_structure_changed'                           , 'rocket_clean_domain' );  // When permalink structure is update.
+add_action( 'create_term'                                           , 'rocket_clean_domain' );  // When a term is created.
+add_action( 'edited_terms'                                          , 'rocket_clean_domain' );  // When a term is updated.
+add_action( 'delete_term'                                           , 'rocket_clean_domain' );  // When a term is deleted.
+add_action( 'add_link'                                              , 'rocket_clean_domain' );  // When a link is added.
+add_action( 'edit_link'                                             , 'rocket_clean_domain' );  // When a link is updated.
+add_action( 'delete_link'                                           , 'rocket_clean_domain' );  // When a link is deleted.
+add_action( 'customize_save'                                        , 'rocket_clean_domain' );  // When customizer is saved.
 add_action( 'update_option_theme_mods_' . get_option( 'stylesheet' ), 'rocket_clean_domain' ); // When location of a menu is updated.
-add_action( 'upgrader_process_complete', 'rocket_clean_cache_theme_update', 10, 2 );  // When a theme is updated.
 
 /**
  * Purge cache When a widget is updated
@@ -50,28 +49,17 @@ add_filter( 'widget_update_callback', 'rocket_widget_update_callback' );
  * @since 1.1.3 Use clean_post_cache instead of transition_post_status, transition_comment_status and preprocess_comment
  * @since 1.0
  *
- * @param int     $post_id The post ID.
- * @param WP_Post $post    WP_Post object.
+ * @param int $post_id The post ID.
  */
-function rocket_clean_post( $post_id, $post = null ) {
-	static $done = [];
-
-	if ( isset( $done[ $post_id ] ) ) {
-		return;
-	}
-
-	$done[ $post_id ] = 1;
-
+function rocket_clean_post( $post_id ) {
 	if ( defined( 'DOING_AUTOSAVE' ) ) {
 		return;
 	}
 
-	$purge_urls = [];
+	$purge_urls = array();
 
-	// Get all post infos if the $post object was not supplied.
-	if ( is_null( $post ) ) {
-		$post = get_post( $post_id );
-	}
+	// Get all post infos.
+	$post = get_post( $post_id );
 
 	// Return if $post is not an object.
 	if ( ! is_object( $post ) ) {
@@ -91,21 +79,22 @@ function rocket_clean_post( $post_id, $post = null ) {
 
 	// Get the post language.
 	$i18n_plugin = rocket_has_i18n();
-	$lang        = false;
 
 	if ( 'wpml' === $i18n_plugin && ! rocket_is_plugin_active( 'woocommerce-multilingual/wpml-woocommerce.php' ) ) {
 		// WPML.
 		$lang = $GLOBALS['sitepress']->get_language_for_element( $post_id, 'post_' . get_post_type( $post_id ) );
-	} elseif ( 'polylang' === $i18n_plugin && function_exists( 'pll_get_post_language' ) ) {
+	} elseif ( 'polylang' === $i18n_plugin ) {
 		// Polylang.
 		$lang = pll_get_post_language( $post_id );
+	} else {
+		$lang = false;
 	}
 
 	// Get the permalink structure.
 	$permalink_structure = get_rocket_sample_permalink( $post_id );
 
 	// Get permalink.
-	$permalink = str_replace( [ '%postname%', '%pagename%' ], $permalink_structure[1], $permalink_structure[0] );
+	$permalink = str_replace( array( '%postname%', '%pagename%' ), $permalink_structure[1], $permalink_structure[0] );
 
 	// Add permalink.
 	if ( rocket_extract_url_component( $permalink, PHP_URL_PATH ) !== '/' ) {
@@ -200,9 +189,9 @@ function rocket_clean_post( $post_id, $post = null ) {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param WP_Post $post       The post object
-	 * @param array   $purge_urls URLs cache files to remove
-	 * @param string  $lang       The post language
+	 * @param obj    $post       The post object
+	 * @param array  $purge_urls URLs cache files to remove
+	 * @param string $lang       The post language
 	 */
 	do_action( 'before_rocket_clean_post', $post, $purge_urls, $lang );
 
@@ -229,16 +218,16 @@ function rocket_clean_post( $post_id, $post = null ) {
 	 *
 	 * @since 1.3.0
 	 *
-	 * @param WP_Post $post       The post object
-	 * @param array   $purge_urls URLs cache files to remove
-	 * @param string  $lang       The post language
+	 * @param obj    $post       The post object
+	 * @param array  $purge_urls URLs cache files to remove
+	 * @param string $lang       The post language
 	 */
 	do_action( 'after_rocket_clean_post', $post, $purge_urls, $lang );
 }
-add_action( 'wp_trash_post',           'rocket_clean_post' );
-add_action( 'delete_post',             'rocket_clean_post' );
-add_action( 'clean_post_cache',        'rocket_clean_post' );
-add_action( 'wp_update_comment_count', 'rocket_clean_post' );
+add_action( 'wp_trash_post'             , 'rocket_clean_post' );
+add_action( 'delete_post'               , 'rocket_clean_post' );
+add_action( 'clean_post_cache'          , 'rocket_clean_post' );
+add_action( 'wp_update_comment_count'   , 'rocket_clean_post' );
 
 /**
  * Add pattern to clean files of connected users
@@ -335,30 +324,18 @@ function do_admin_post_rocket_purge_cache() {
 				// Remove all cache files.
 				rocket_clean_domain( $lang );
 
-				if ( '' === $lang ) {
-					// Remove all minify cache files.
-					rocket_clean_minify();
+				// Remove all minify cache files.
+				rocket_clean_minify();
 
-					// Remove cache busting files.
-					rocket_clean_cache_busting();
+				// Remove cache busting files.
+				rocket_clean_cache_busting();
 
-					// Generate a new random key for minify cache file.
-					$options                   = get_option( WP_ROCKET_SLUG );
-					$options['minify_css_key'] = create_rocket_uniqid();
-					$options['minify_js_key']  = create_rocket_uniqid();
-					remove_all_filters( 'update_option_' . WP_ROCKET_SLUG );
-					update_option( WP_ROCKET_SLUG, $options );
-				}
-
-				if ( get_rocket_option( 'manual_preload' ) && ( ! defined( 'WP_ROCKET_DEBUG' ) || ! WP_ROCKET_DEBUG ) ) {
-					wp_safe_remote_get(
-						home_url( $lang ),
-						[
-							'blocking' => false,
-							'timeout'  => 0.01,
-						]
-					);
-				}
+				// Generate a new random key for minify cache file.
+				$options                   = get_option( WP_ROCKET_SLUG );
+				$options['minify_css_key'] = create_rocket_uniqid();
+				$options['minify_js_key']  = create_rocket_uniqid();
+				remove_all_filters( 'update_option_' . WP_ROCKET_SLUG );
+				update_option( WP_ROCKET_SLUG, $options );
 
 				rocket_dismiss_box( 'rocket_warning_plugin_modification' );
 
@@ -403,7 +380,7 @@ function do_admin_post_rocket_purge_cache() {
 				break;
 		}
 
-		wp_safe_redirect( esc_url_raw( wp_get_referer() ) );
+		wp_redirect( wp_get_referer() );
 		die();
 	}
 }
@@ -426,7 +403,7 @@ function do_admin_post_rocket_purge_opcache() {
 
 	rocket_reset_opcache();
 
-	wp_safe_redirect( esc_url_raw( wp_get_referer() ) );
+	wp_redirect( wp_get_referer() );
 	die();
 }
 add_action( 'admin_post_rocket_purge_opcache', 'do_admin_post_rocket_purge_opcache' );
@@ -464,41 +441,7 @@ function do_admin_post_rocket_purge_cloudflare() {
 
 	set_transient( $GLOBALS['current_user']->ID . '_cloudflare_purge_result', $cf_purge_result );
 
-	wp_safe_redirect( esc_url_raw( wp_get_referer() ) );
+	wp_redirect( wp_get_referer() );
 	die();
 }
 add_action( 'admin_post_rocket_purge_cloudflare', 'do_admin_post_rocket_purge_cloudflare' );
-
-/**
- * Clean the cache when the current theme is updated
- *
- * @param WP_Upgrader $wp_upgrader WP_Upgrader instance.
- * @param array       $hook_extra  Array of bulk item update data.
- * @return void
- */
-function rocket_clean_cache_theme_update( $wp_upgrader, $hook_extra ) {
-	if ( 'update' !== $hook_extra['action'] ) {
-		return;
-	}
-
-	if ( 'theme' !== $hook_extra['type'] ) {
-		return;
-	}
-
-	$current_theme = wp_get_theme();
-
-	$themes = [
-		$current_theme->get_template(), // Parent theme.
-		$current_theme->get_stylesheet(), // Child theme.
-	];
-
-	if ( ! is_array( $hook_extra['themes'] ) ) {
-		return;
-	}
-
-	if ( ! array_intersect( $hook_extra['themes'], $themes ) ) {
-		return;
-	}
-
-	rocket_clean_domain();
-}

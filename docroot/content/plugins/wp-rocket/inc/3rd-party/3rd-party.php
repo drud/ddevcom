@@ -13,7 +13,6 @@ require WP_ROCKET_3RD_PARTY_PATH . 'hosting/savvii.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'hosting/godaddy.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'hosting/kinsta.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'hosting/o2switch.php';
-require WP_ROCKET_3RD_PARTY_PATH . 'hosting/presslabs.php';
 
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/geotargetingwp.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/slider/revslider.php';
@@ -49,7 +48,6 @@ require WP_ROCKET_3RD_PARTY_PATH . 'plugins/disqus.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/custom-login.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/mobile/amp.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/mobile/wp-appkit.php';
-require WP_ROCKET_3RD_PARTY_PATH . 'plugins/seo/rank-math-seo.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/seo/yoast-seo.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/seo/the-seo-framework.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/seo/all-in-one-seo-pack.php';
@@ -71,7 +69,6 @@ require WP_ROCKET_3RD_PARTY_PATH . 'plugins/wp-offload-s3.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/wp-offload-s3-assets.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/s2member.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'plugins/sumome.php';
-require WP_ROCKET_3RD_PARTY_PATH . 'plugins/nginx-helper.php';
 
 require WP_ROCKET_3RD_PARTY_PATH . 'themes/divi.php';
 require WP_ROCKET_3RD_PARTY_PATH . 'themes/avada.php';

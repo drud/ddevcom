@@ -340,9 +340,7 @@ class Facebook_Pickles {
 			'both'   => [],
 		];
 
-		foreach ( $matches as $match ) {
-			list( $tag, $script ) = $match;
-
+		foreach ( $matches as list( $tag, $script ) ) {
 			if ( ! trim( $script ) ) {
 				continue;
 			}
@@ -410,7 +408,7 @@ class Facebook_Pickles {
 	 * @return array|bool {
 	 *     An array of values. False on failure.
 	 *
-	 *     @type string $app_id  The app ID.
+	 *     @type int    $app_id  The app ID.
 	 *     @type string $version The file version.
 	 * }
 	 */
@@ -426,7 +424,7 @@ class Facebook_Pickles {
 				return false;
 			}
 
-			$variables['app_id'] = $matches['app_id'];
+			$variables['app_id'] = (int) $matches['app_id'];
 		}
 
 		if ( isset( $main_file_contents ) ) {
@@ -668,7 +666,7 @@ class Facebook_Pickles {
 
 		wp_remote_get( $home_url, [
 			'user-agent' => 'WP Rocket/Homepage Preload',
-			'sslverify'  => apply_filters( 'https_local_ssl_verify', false ),
+			'sslverify'  => apply_filters( 'https_local_ssl_verify', true ),
 		] );
 
 		/**
@@ -1040,7 +1038,7 @@ class Facebook_Pickles {
 	 * @param  array $variables {
 	 *     An array of variable values.
 	 *
-	 *     @type string $app_id  The app ID.
+	 *     @type int    $app_id  The app ID.
 	 *     @type string $version The file version.
 	 * }
 	 * @return array|bool An array of file paths on success. False on failure.
@@ -1050,7 +1048,7 @@ class Facebook_Pickles {
 		$plugin_names = [
 			'identity',
 			'microdata',
-			'inferredEvents',
+			'inferredevents',
 			'dwell',
 			'sessions',
 			'timespent',

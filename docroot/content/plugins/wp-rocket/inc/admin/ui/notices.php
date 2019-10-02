@@ -94,13 +94,12 @@ add_action( 'admin_notices', 'rocket_warning_plugin_modification' );
  * @since 1.3.0
  */
 function rocket_plugins_to_deactivate() {
-	$plugins = [];
+	$plugins = array();
 
 	// Deactivate all plugins who can cause conflicts with WP Rocket.
-	$plugins = [
+	$plugins = array(
 		'w3-total-cache'                             => 'w3-total-cache/w3-total-cache.php',
 		'wp-super-cache'                             => 'wp-super-cache/wp-cache.php',
-		'litespeed-cache'                            => 'litespeed-cache/litespeed-cache.php',
 		'quick-cache'                                => 'quick-cache/quick-cache.php',
 		'hyper-cache'                                => 'hyper-cache/plugin.php',
 		'hyper-cache-extended'                       => 'hyper-cache-extended/plugin.php',
@@ -124,9 +123,7 @@ function rocket_plugins_to_deactivate() {
 		'check-and-enable-gzip-compression'          => 'check-and-enable-gzip-compression/richards-toolbox.php',
 		'leverage-browser-caching-ninjas'            => 'leverage-browser-caching-ninjas/leverage-browser-caching-ninja.php',
 		'force-gzip'                                 => 'force-gzip/force-gzip.php',
-		'enable-gzip-compression'                    => 'enable-gzip-compression/enable-gzip-compression.php',
-		'leverage-browser-caching'                   => 'leverage-browser-caching/leverage-browser-caching.php',
-	];
+	);
 
 	if ( get_rocket_option( 'lazyload' ) ) {
 		$plugins['bj-lazy-load']              = 'bj-lazy-load/bj-lazy-load.php';
@@ -134,7 +131,6 @@ function rocket_plugins_to_deactivate() {
 		$plugins['jquery-image-lazy-loading'] = 'jquery-image-lazy-loading/jq_img_lazy_load.php';
 		$plugins['advanced-lazy-load']        = 'advanced-lazy-load/advanced_lazyload.php';
 		$plugins['crazy-lazy']                = 'crazy-lazy/crazy-lazy.php';
-		$plugins['specify-image-dimensions']  = 'specify-image-dimensions/specify-image-dimensions.php';
 	}
 
 	if ( get_rocket_option( 'lazyload_iframes' ) ) {
@@ -148,7 +144,6 @@ function rocket_plugins_to_deactivate() {
 		$plugins['scripts-gzip']            = 'scripts-gzip/scripts_gzip.php';
 		$plugins['minqueue']                = 'minqueue/plugin.php';
 		$plugins['dependency-minification'] = 'dependency-minification/dependency-minification.php';
-		$plugins['fast-velocity-minify']    = 'fast-velocity-minify/fvm.php';
 	}
 
 	if ( get_rocket_option( 'minify_css' ) || get_rocket_option( 'minify_js' ) ) {
@@ -204,48 +199,14 @@ function rocket_plugins_to_deactivate() {
 
 		$warning .= '</ul>';
 
-		rocket_notice_html( [
+		rocket_notice_html( array(
 			'status'      => 'error',
 			'dismissible' => '',
 			'message'     => $warning,
-		] );
+		) );
 	}
 }
 add_action( 'admin_notices', 'rocket_plugins_to_deactivate' );
-
-/**
- * Displays a warning if Rocket Footer JS plugin is active
- *
- * @since 3.2.3
- * @author Remy Perona
- *
- * @return void
- */
-function rocket_warning_footer_js_plugin() {
-	$screen = get_current_screen();
-
-	// This filter is documented in inc/admin-bar.php.
-	if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) ) ) {
-		return;
-	}
-
-	if ( 'settings_page_wprocket' !== $screen->id ) {
-		return;
-	}
-
-	if ( ! is_plugin_active( 'rocket-footer-js/rocket-footer-js.php' ) ) {
-		return;
-	}
-
-	rocket_notice_html(
-		[
-			'status'         => 'warning',
-			'message'        => __( 'WP Rocket Footer JS is not an official add-on. It prevents some options in WP Rocket from working correctly. Please deactivate it if you have problems.', 'rocket' ),
-			'dismiss_button' => true,
-		]
-	);
-}
-add_action( 'admin_notices', 'rocket_warning_footer_js_plugin' );
 
 /**
  * This warning is displayed when there is no permalink structure in the configuration.
@@ -376,53 +337,27 @@ function rocket_warning_htaccess_permissions() {
 	$htaccess_file = get_home_path() . '.htaccess';
 
 	// This filter is documented in inc/admin-bar.php.
-	if ( ! current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) )
-		|| ( rocket_direct_filesystem()->is_writable( $htaccess_file ) )
-		|| ! $is_apache
-		// This filter is documented in inc/functions/htaccess.php.
-		|| apply_filters( 'rocket_disable_htaccess', false )
-		|| ! rocket_valid_key() ) {
+	if ( current_user_can( apply_filters( 'rocket_capacity', 'manage_options' ) )
+		&& ( ! rocket_direct_filesystem()->is_writable( $htaccess_file ) )
+		&& $is_apache
+		&& rocket_valid_key() ) {
+
+		$boxes = get_user_meta( $GLOBALS['current_user']->ID, 'rocket_boxes', true );
+
+		if ( in_array( __FUNCTION__, (array) $boxes, true ) ) {
 			return;
+		}
+
+		$message = rocket_notice_writing_permissions( '.htaccess' );
+
+		rocket_notice_html( array(
+			'status'           => 'error',
+			'dismissible'      => '',
+			'message'          => $message,
+			'dismiss_button'   => __FUNCTION__,
+			'readonly_content' => get_rocket_htaccess_marker(),
+		) );
 	}
-
-	if ( rocket_check_htaccess_rules() ) {
-		return;
-	}
-
-	$boxes = get_user_meta( get_current_user_id(), 'rocket_boxes', true );
-
-	if ( in_array( __FUNCTION__, (array) $boxes, true ) ) {
-		return;
-	}
-
-	$message = sprintf(
-		// translators: %s = plugin name.
-		__( '%s could not modify the .htaccess file due to missing writing permissions.', 'rocket' ),
-		'<strong>' . WP_ROCKET_PLUGIN_NAME . '</strong>'
-	);
-
-	$message .= '<br>' . sprintf(
-		/* translators: This is a doc title! %1$s = opening link; %2$s = closing link */
-		__( 'Troubleshoot: %1$sHow to make system files writeable%2$s', 'rocket' ),
-		/* translators: Documentation exists in EN, DE, FR, ES, IT; use loaclised URL if applicable */
-		'<a href="' . __( 'https://docs.wp-rocket.me/article/626-how-to-make-system-files-htaccess-wp-config-writeable/?utm_source=wp_plugin&utm_medium=wp_rocket', 'rocket' ) . '" target="_blank">',
-		'</a>'
-	);
-
-	add_filter( 'rocket_htaccess_mod_rewrite', '__return_false' );
-
-	$message .= '<p>' . __( 'Don’t worry, WP Rocket’s page caching and settings will still function correctly.', 'rocket' ) . '<br>' . __( 'For optimal performance, adding the following lines into your .htaccess is recommended (not required):', 'rocket' ) . '<br><textarea readonly="readonly" id="rocket_htaccess_rules" name="rocket_htaccess_rules" class="large-text readonly" rows="6">' . esc_textarea( get_rocket_htaccess_marker() ) . '</textarea></p>';
-
-	remove_filter( 'rocket_htaccess_mod_rewrite', '__return_false' );
-
-	rocket_notice_html(
-		[
-			'status'         => 'warning',
-			'dismissible'    => '',
-			'message'        => $message,
-			'dismiss_button' => __FUNCTION__,
-		]
-	);
 }
 add_action( 'admin_notices', 'rocket_warning_htaccess_permissions' );
 
@@ -867,7 +802,7 @@ function rocket_notice_html( $args ) {
 			echo ( $tag ? '<p>' : '' ) . $args['message'] . ( $tag ? '</p>' : '' );
 		?>
 		<?php if ( ! empty( $args['readonly_content'] ) ) : ?>
-		<p><?php _e( 'The following code should have been written to this file:', 'rocket' ); ?>
+		<p><?php _e( 'The following code should have been written to this file:', 'rocket' ); ?>:
 			<br><textarea readonly="readonly" id="rules" name="rules" class="large-text readonly" rows="6"><?php echo esc_textarea( $args['readonly_content'] ); ?></textarea>
 		</p>
 		<?php

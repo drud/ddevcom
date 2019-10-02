@@ -3,7 +3,7 @@ namespace WP_Rocket\Logger;
 
 use Monolog\Logger as Monologger;
 use Monolog\Registry;
-use Monolog\Processor\IntrospectionProcessor;
+use Monolog\Processor;
 use Monolog\Handler\StreamHandler as MonoStreamHandler;
 use WP_Rocket\Logger\HTML_Formatter as HtmlFormatter;
 use WP_Rocket\Logger\Stream_Handler as StreamHandler;
@@ -36,16 +36,6 @@ class Logger {
 	 * @author Grégory Viguier
 	 */
 	const LOG_FILE_NAME = 'wp-rocket-debug.log';
-
-	/**
-	 * A unique ID given to the current thread.
-	 *
-	 * @var    string
-	 * @since  3.3
-	 * @access private
-	 * @author Grégory Viguier
-	 */
-	private static $thread_id;
 
 
 	/** ----------------------------------------------------------------------------------------- */
@@ -200,9 +190,9 @@ class Logger {
 
 		/**
 		 * Thanks to the processors, add data to each log:
-		 * - `debug_backtrace()` (exclude this class and Abstract_Buffer).
+		 * - `debug_backtrace()` (exclude this class).
 		 */
-		$trace_processor = new IntrospectionProcessor( $log_level, [ get_called_class(), 'Abstract_Buffer' ] );
+		$trace_processor = new Processor\IntrospectionProcessor( $log_level, [ get_called_class() ] );
 
 		// Create the logger.
 		$logger = new Monologger( $logger_name, [ $handler ], [ $trace_processor ] );
@@ -496,7 +486,7 @@ class Logger {
 		}
 
 		// Save the file.
-		$chmod = rocket_get_filesystem_perms( 'file' );
+		$chmod = defined( 'FS_CHMOD_FILE' ) ? FS_CHMOD_FILE : 0644;
 		$filesystem->put_contents( $file_path, $content, $chmod );
 	}
 
@@ -504,23 +494,6 @@ class Logger {
 	/** ----------------------------------------------------------------------------------------- */
 	/** TOOLS =================================================================================== */
 	/** ----------------------------------------------------------------------------------------- */
-
-	/**
-	 * Get the thread identifier.
-	 *
-	 * @since  3.3
-	 * @access public
-	 * @author Grégory Viguier
-	 *
-	 * @return string
-	 */
-	public static function get_thread_id() {
-		if ( ! isset( self::$thread_id ) ) {
-			self::$thread_id = uniqid( '', true );
-		}
-
-		return self::$thread_id;
-	}
 
 	/**
 	 * Remove cookies related to WP auth.
@@ -547,7 +520,7 @@ class Logger {
 
 		foreach ( $cookies as $cookie_name => $value ) {
 			if ( preg_match( $pattern, $cookie_name ) ) {
-				$cookies[ $cookie_name ] = 'Value removed by WP Rocket.';
+				unset( $cookies[ $cookie_name ] );
 			}
 		}
 

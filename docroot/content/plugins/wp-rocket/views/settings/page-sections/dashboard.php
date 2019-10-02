@@ -28,7 +28,22 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 	</div>
 
 	<?php
-	$rocket_boxes = get_user_meta( get_current_user_id(), 'rocket_boxes', true );
+		$rocket_boxes = get_user_meta( get_current_user_id(), 'rocket_boxes', true );
+
+	if ( ! in_array( 'rocket_adblock_notice', (array) $rocket_boxes, true ) ) :
+		?>
+	<div class="wpr-adblock">
+		<div class="wpr-adblock-container">
+			<img src="<?php echo esc_url( WP_ROCKET_ASSETS_IMG_URL ); ?>logo-adblock.svg" width="52" height="52" alt="Logo Adblock">
+			<div>
+				<div class="wpr-adblock-title"><?php esc_html_e( 'WP Rocket : Ad blocker detected.', 'rocket' ); ?></div>
+				<h2 class="wpr-adblock-description"><?php esc_html_e( 'Disable it on your site to access our support features. <a href="https://docs.wp-rocket.me/article/1080-disable-ad-blocker-for-support-integration" target="_blank">Learn more</a>', 'rocket' ); ?></h2>
+			</div>
+			<a class="wpr-adblock-close wpr-icon-close rocket-dismiss" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=rocket_ignore&box=rocket_adblock_notice' ), 'rocket_ignore_rocket_adblock_notice' ) ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'rocket' ); ?></span></a>
+		</div>
+	</div>
+		<?php
+	endif;
 
 	if ( ! in_array( 'rocket_activation_notice', (array) $rocket_boxes, true ) ) :
 		?>
@@ -40,7 +55,7 @@ defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 			<br>
 			<?php esc_html_e( 'Your website should be loading faster now!', 'rocket' ); ?>
 			</h2>
-				<div class="wpr-notice-description"><?php esc_html_e( 'To guarantee fast websites, WP Rocket applies 80% of web performance best practices.', 'rocket' ); ?><br> <?php esc_html_e( 'We also enable options that provide immediate benefits to your website.', 'rocket' ); ?></div>
+				<div class="wpr-notice-description"><?php esc_html_e( 'To guarantee fast websites, WP Rocket applies 80% of web performance best practices.<br> We also enable options that provide immediate benefits to your website.', 'rocket' ); ?></div>
 				<div class="wpr-notice-continue"><?php esc_html_e( 'Continue to the options to further optimize your site!', 'rocket' ); ?></div>
 				<a class="wpr-notice-close wpr-icon-close rocket-dismiss" href="<?php echo esc_url( wp_nonce_url( admin_url( 'admin-post.php?action=rocket_ignore&box=rocket_activation_notice' ), 'rocket_ignore_rocket_activation_notice' ) ); ?>"><span class="screen-reader-text"><?php esc_html_e( 'Dismiss this notice.', 'rocket' ); ?></span></a>
 		</div>

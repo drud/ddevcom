@@ -58,6 +58,7 @@ function rocket_cdn_file( $url ) {
 	return $url;
 }
 add_filter( 'template_directory_uri', 'rocket_cdn_file', PHP_INT_MAX );
+add_filter( 'wp_get_attachment_url',  'rocket_cdn_file', PHP_INT_MAX );
 add_filter( 'smilies_src',            'rocket_cdn_file', PHP_INT_MAX );
 add_filter( 'stylesheet_uri',         'rocket_cdn_file', PHP_INT_MAX );
 // If for some completely unknown reason the user is using WP Minify or Better WordPress Minify instead of the WP Rocket minification.
@@ -99,6 +100,7 @@ function rocket_cdn_attachment_image_src( $image ) {
 
 	return $image;
 }
+add_filter( 'wp_get_attachment_image_src', 'rocket_cdn_attachment_image_src', PHP_INT_MAX );
 
 /**
  * Replace srcset URLs by CDN URLs for WP responsive images
@@ -144,13 +146,14 @@ function rocket_cdn_images( $html ) {
 	if ( $cnames ) {
 
 		$cnames             = array_flip( $cnames );
-		$wp_content_dirname = wp_parse_url( content_url(), PHP_URL_PATH );
+		$home_url           = home_url( '/' );
+		$wp_content_dirname = str_replace( $home_url, '', WP_CONTENT_URL );
 
 		$custom_media_uploads_dirname = '';
 		$uploads_info                 = wp_upload_dir();
 
 		if ( ! empty( $uploads_info['baseurl'] ) ) {
-			$custom_media_uploads_dirname = '|' . trailingslashit( wp_parse_url( $uploads_info['baseurl'], PHP_URL_PATH ) );
+			$custom_media_uploads_dirname = '|' . trailingslashit( str_replace( $home_url, '/', $uploads_info['baseurl'] ) ); // make sure https://www.site.com/images/ becomes /images/.
 		}
 
 		// Get all images of the content.
@@ -172,12 +175,12 @@ function rocket_cdn_images( $html ) {
 
 			// Image path is relative, apply the host to it.
 			if ( empty( $host ) ) {
-				$image_url = home_url( '/' ) . ltrim( $image_url, '/' );
+				$image_url = $home_url . ltrim( $image_url, '/' );
 				$host      = rocket_extract_url_component( $image_url, PHP_URL_HOST );
 			}
 
 			// Check if the link isn't external.
-			if ( rocket_extract_url_component( home_url(), PHP_URL_HOST ) !== $host ) {
+			if ( rocket_extract_url_component( $home_url, PHP_URL_HOST ) !== $host ) {
 				continue;
 			}
 
@@ -211,7 +214,9 @@ function rocket_cdn_images( $html ) {
 
 	return $html;
 }
-add_filter( 'rocket_buffer', 'rocket_cdn_images', 24 );
+add_filter( 'the_content', 'rocket_cdn_images', PHP_INT_MAX );
+add_filter( 'widget_text', 'rocket_cdn_images', PHP_INT_MAX );
+add_filter( 'rocket_buffer', 'rocket_cdn_images', PHP_INT_MAX );
 
 /**
  * Replace URL by CDN of all inline styles containing url()
@@ -321,7 +326,7 @@ function rocket_cdn_custom_files( $html ) {
 
 	if ( in_array( 'all', $zones, true ) ) {
 		$cdn_zones[] = 'all';
-		$file_types  = array_merge( $file_types, $image_types, $other_types );
+		$file_types  = array_merge( $file_types, $other_types );
 	}
 
 	$cnames = get_rocket_cdn_cnames( $cdn_zones );

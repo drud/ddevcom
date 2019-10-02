@@ -67,22 +67,6 @@ class Remove_Query_String extends Abstract_Optimization {
 		$this->options      = $options;
 		$this->busting_path = $busting_path . get_current_blog_id() . '/';
 		$this->busting_url  = $busting_url . get_current_blog_id() . '/';
-	}
-
-	/**
-	 * Returns a regex-ready string with the excluded filepaths for the Remove Query Strings option
-	 *
-	 * @since 3.3.3
-	 * @author Remy Perona
-	 *
-	 * @return string
-	 */
-	protected function get_excluded_files() {
-		static $excluded_files;
-
-		if ( isset( $excluded_files ) ) {
-			return $excluded_files;
-		}
 
 		/**
 		 * Filters files to exclude from cache busting
@@ -92,22 +76,16 @@ class Remove_Query_String extends Abstract_Optimization {
 		 *
 		 * @param array $excluded_files An array of filepath to exclude.
 		 */
-		$excluded_files = apply_filters( 'rocket_exclude_cache_busting', [] );
+		$this->excluded_files = apply_filters( 'rocket_exclude_cache_busting', array() );
 
-		if ( empty( $excluded_files ) ) {
-			$excluded_files = '';
+		if ( ! empty( $this->excluded_files ) ) {
+			foreach ( $this->excluded_files as $i => $excluded_file ) {
+				// Escape character for future use in regex pattern.
+				$this->excluded_files[ $i ] = str_replace( '#', '\#', $excluded_file );
+			}
 
-			return $excluded_files;
+			$this->excluded_files = implode( '|', $this->excluded_files );
 		}
-
-		foreach ( $excluded_files as $i => $excluded_file ) {
-			// Escape character for future use in regex pattern.
-			$excluded_files[ $i ] = str_replace( '#', '\#', $excluded_file );
-		}
-
-		$excluded_files = implode( '|', $excluded_files );
-
-		return $excluded_files;
 	}
 
 	/**
@@ -261,9 +239,7 @@ class Remove_Query_String extends Abstract_Optimization {
 	 * @return bool
 	 */
 	protected function is_excluded( $url ) {
-		$excluded_files = $this->get_excluded_files();
-
-		if ( ! empty( $excluded_files ) && preg_match( '#^' . $excluded_files . '$#', rocket_clean_exclude_file( $url ) ) ) {
+		if ( ! empty( $this->excluded_files ) && preg_match( '#^' . $this->excluded_files . '$#', rocket_clean_exclude_file( $url ) ) ) {
 			return true;
 		}
 
@@ -314,7 +290,7 @@ class Remove_Query_String extends Abstract_Optimization {
 		}
 
 		if ( 'css' === $extension ) {
-			$busting_content = $this->rewrite_paths( $file, $busting_file, $busting_content );
+			$busting_content = $this->rewrite_paths( $file, $busting_content );
 		}
 
 		if ( ! $this->write_file( $busting_content, $busting_file ) ) {
