@@ -981,6 +981,26 @@
         "homepage": "https://wordpress.org/plugins/simple-301-redirects/"
     },
     {
+        "name": "wpackagist-plugin/stackable-ultimate-gutenberg-blocks",
+        "version": "1.17.3",
+        "version_normalized": "1.17.3.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/stackable-ultimate-gutenberg-blocks/",
+            "reference": "tags/1.17.3"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/stackable-ultimate-gutenberg-blocks.1.17.3.zip"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/stackable-ultimate-gutenberg-blocks/"
+    },
+    {
         "name": "wpackagist-plugin/stream",
         "version": "3.4.2",
         "version_normalized": "3.4.2.0",
