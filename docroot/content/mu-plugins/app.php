@@ -214,6 +214,18 @@ function DDEV_ACF_Block_render($block)
     }
 }
 
+// input validation for organization
+add_filter( 'gform_field_validation_8_11', function ( $result, $value, $form, $field ) {
+    preg_match('/^[a-z][a-z0-9-]{1,61}[a-z0-9]/', $value, $clean_value);
+
+    if ( $result['is_valid'] && isset($clean_value) && isset($clean_value[0]) && $clean_value[0] !== $value ) {
+        $result['is_valid'] = false;
+        $result['message']  = 'Your Organization name must be alphanumeric. This value needs to reflect your actual organization in github.';
+    }
+
+    return $result;
+}, 10, 4 );
+
 
 add_action('admin_head', function () {
     echo '
