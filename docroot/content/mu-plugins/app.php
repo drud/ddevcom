@@ -91,16 +91,107 @@ add_action(
         // check function exists
         if (function_exists('acf_register_block')) {
 
-            // register a testimonial block
+            // register a newsletter block
             acf_register_block(
                 array(
-                    'name'              => 'testimonial',
-                    'title'             => __('Testimonial'),
-                    'description'       => __('A custom testimonial block.'),
+                    'name'              => 'newsletter',
+                    'title'             => __('newsletter'),
+                    'description'       => __('A custom newsletter block.'),
                     'render_callback'   => 'DDEV_ACF_Block_render',
                     'category'          => 'formatting',
                     'icon'              => 'admin-comments',
-                    'keywords'          => array( 'testimonial', 'quote' ),
+                    'keywords'          => array( 'newsletter', 'signup' ),
+                )
+            );
+
+            // register a jumbotron block
+            acf_register_block(
+                array(
+                    'name'              => 'jumbotron',
+                    'title'             => __('Jumbotron'),
+                    'description'       => __('A custom jumbotron block.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register a events banner block
+            acf_register_block(
+                array(
+                    'name'              => 'events',
+                    'title'             => __('Events Banner'),
+                    'description'       => __('A custom events banner.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register a custom Title w/ FontAwesome Icon
+            acf_register_block(
+                array(
+                    'name'              => 'icontitle',
+                    'title'             => __('DDEV Icon Title'),
+                    'description'       => __('A custom Title w/ FontAwesome Icon.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register One Platform block
+            acf_register_block(
+                array(
+                    'name'              => 'oneplatform',
+                    'title'             => __('DDEV One Platform'),
+                    'description'       => __('A custom One Platform block.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register Cloud Native block
+            acf_register_block(
+                array(
+                    'name'              => 'cloudnative',
+                    'title'             => __('DDEV Cloud Native'),
+                    'description'       => __('A custom Cloud Native block.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register Built & Guaranteed block
+            acf_register_block(
+                array(
+                    'name'              => 'builtguaranteed',
+                    'title'             => __('DDEV Built & Guaranteed'),
+                    'description'       => __('A custom Built & Guaranteed block.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
+                )
+            );
+
+            // register Built & Guaranteed block
+            acf_register_block(
+                array(
+                    'name'              => 'supportedcms',
+                    'title'             => __('DDEV Supported CMS'),
+                    'description'       => __('A custom Supported CMS block.'),
+                    'render_callback'   => 'DDEV_ACF_Block_render',
+                    'category'          => 'formatting',
+                    'icon'              => 'admin-comments',
+                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
                 )
             );
         }

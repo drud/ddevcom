@@ -118,3 +118,6 @@ section.front-page-recent-posts {
 body.page .main {
   min-height: 75vh;
 }
+body.display-header .main {
+  margin-top: $navbar-brand-height * 2.5;
+}

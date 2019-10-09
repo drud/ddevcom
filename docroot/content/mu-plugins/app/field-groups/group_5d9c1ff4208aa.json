@@ -1,0 +1,128 @@
+{
+    "key": "group_5d9c1ff4208aa",
+    "title": "Block: JumboTron",
+    "fields": [
+        {
+            "key": "field_5d9c2070b21bb",
+            "label": "Header",
+            "name": "jumbotron_header",
+            "type": "text",
+            "instructions": "The main text within the jumbotron on the front page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "placeholder": "",
+            "prepend": "",
+            "append": "",
+            "maxlength": ""
+        },
+        {
+            "key": "field_5d9c2073b21bc",
+            "label": "Content",
+            "name": "jumbotron_content",
+            "type": "wysiwyg",
+            "instructions": "The content for the jumbotron on the front page.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "tabs": "all",
+            "toolbar": "full",
+            "media_upload": 1,
+            "delay": 0
+        },
+        {
+            "key": "field_5d9c2076b21bd",
+            "label": "Button 1 Link",
+            "name": "jumbotron_button_1_link",
+            "type": "link",
+            "instructions": "The link for the first button in jumbotron on front page. Users can edit the text for the button here. Returns the link array.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_5d9c207ab21be",
+            "label": "Button 2 Link",
+            "name": "jumbotron_button_2_link",
+            "type": "link",
+            "instructions": "The link for the first button in jumbotron on front page. Users can edit the text for the button here. Returns the link array.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array"
+        },
+        {
+            "key": "field_5d9c21389c94d",
+            "label": "Links",
+            "name": "links",
+            "type": "repeater",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "collapsed": "field_5d9c214a9c94e",
+            "min": 0,
+            "max": 0,
+            "layout": "row",
+            "button_label": "Add Button",
+            "sub_fields": [
+                {
+                    "key": "field_5d9c214a9c94e",
+                    "label": "Button Link",
+                    "name": "button_link",
+                    "type": "link",
+                    "instructions": "The link for the first button in jumbotron on front page. Users can edit the text for the button here. Returns the link array.",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "return_format": "array"
+                }
+            ]
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "block",
+                "operator": "==",
+                "value": "acf\/jumbotron"
+            }
+        ]
+    ],
+    "menu_order": 0,
+    "position": "normal",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": "",
+    "active": 1,
+    "description": "",
+    "modified": 1570514032
+}

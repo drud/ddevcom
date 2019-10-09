@@ -2,23 +2,13 @@
 /**
  * Template Name: Landing Page
  */
+?>
 
-while (have_posts()) : the_post();
-  // jumbotron
-  get_template_part('templates/landing', 'jumbotron');
-  // rethink
-  get_template_part('templates/landing', 'rethink');
-  // one PaaS
-  get_template_part('templates/landing', 'onepaas');
-  // open-source
-  get_template_part('templates/landing', 'opensource');
+<?php while (have_posts()) : the_post(); ?>
+  <?php the_content(); ?>
+  <?php wp_link_pages([
+    'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'),
+    'after' => '</p></nav>'
+  ]); ?>
+<?php endwhile; ?>
 
-  $formID = get_field('product_newsletter_form_id');
-  if ($formID) {
-      // signup
-      get_template_part('templates/landing', 'signup-acf');
-  } else {
-      // signup
-      get_template_part('templates/landing', 'signup');
-  }
-endwhile;
