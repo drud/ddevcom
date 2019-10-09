@@ -213,3 +213,12 @@ function DDEV_ACF_Block_render($block)
         include get_theme_file_path("/templates/block/content-{$slug}.php");
     }
 }
+
+
+add_action('admin_head', function () {
+    echo '
+        <style type="text/css">
+            .wp-block { max-width: none; }
+        </style>
+    ';
+});
