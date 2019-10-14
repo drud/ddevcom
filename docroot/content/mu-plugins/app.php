@@ -157,71 +157,9 @@ add_action(
                 )
             );
 
-            // register Cloud Native block
-            acf_register_block(
-                array(
-                    'name'              => 'cloudnative',
-                    'title'             => __('DDEV Cloud Native'),
-                    'description'       => __('A custom Cloud Native block.'),
-                    'render_callback'   => 'DDEV_ACF_Block_render',
-                    'category'          => 'formatting',
-                    'icon'              => 'admin-comments',
-                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
-                )
-            );
-
-            // register Built & Guaranteed block
-            acf_register_block(
-                array(
-                    'name'              => 'builtguaranteed',
-                    'title'             => __('DDEV Built & Guaranteed'),
-                    'description'       => __('A custom Built & Guaranteed block.'),
-                    'render_callback'   => 'DDEV_ACF_Block_render',
-                    'category'          => 'formatting',
-                    'icon'              => 'admin-comments',
-                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
-                )
-            );
-
-            // register Built & Guaranteed block
-            acf_register_block(
-                array(
-                    'name'              => 'supportedcms',
-                    'title'             => __('DDEV Supported CMS'),
-                    'description'       => __('A custom Supported CMS block.'),
-                    'render_callback'   => 'DDEV_ACF_Block_render',
-                    'category'          => 'formatting',
-                    'icon'              => 'admin-comments',
-                    'keywords'          => array( 'banner', 'jumbotron', 'header' ),
-                )
-            );
-        }
-    }
-);
-
-
-/*
- * Render the ACF Block
- */
-function DDEV_ACF_Block_render($block)
-{
-
-    // convert name ("acf/testimonial") into path friendly slug ("testimonial")
-    $slug = str_replace('acf/', '', $block['name']);
-
-    // include a template part from within the "templates/block" folder
-    if (file_exists(get_theme_file_path("/templates/block/content-{$slug}.php"))) {
-        include get_theme_file_path("/templates/block/content-{$slug}.php");
-    }
-}
-
-// input validation for organization
-add_filter('gform_field_validation_8_11', function ($result, $value, $form, $field) {
-    preg_match('/^[a-z][a-z0-9-]{1,61}[a-z0-9]/', $value, $clean_value);
-
-    if ($result['is_valid'] && isset($clean_value) && isset($clean_value[0]) && $clean_value[0] !== $value) {
-        $result['is_valid'] = false;
-        $result['message']  = 'Your Organization name must be alphanumeric. This value needs to reflect your actual organization in github.';
+add_filter('gform_confirmation', function ($confirmation, $form, $entry, $ajax) {
+    if ($form['id'] == '8' && isset($entry[11])) {
+        $confirmation = array( 'redirect' => 'https://dash.ddev.com/?ticket=1&org=' . $entry[11] );
     }
     return $confirmation;
 }, 10, 4);
