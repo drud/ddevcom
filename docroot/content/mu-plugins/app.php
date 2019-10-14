@@ -60,8 +60,8 @@ add_filter('gform_confirmation_anchor_4', function () {
 });
 
 add_filter('gform_confirmation', function ($confirmation, $form, $entry, $ajax) {
-    if ($form['id'] == '8' && isset($entry[5])) {
-        $confirmation = array( 'redirect' => 'https://dash.ddev.com/?ticket=' . $entry[5] );
+    if ($form['id'] == '8' && isset($entry[11])) {
+        $confirmation = array( 'redirect' => 'https://dash.ddev.com/?ticket=1&org=' . $entry[11] );
     }
     return $confirmation;
 }, 10, 4);
