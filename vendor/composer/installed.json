@@ -981,6 +981,46 @@
         "homepage": "https://wordpress.org/plugins/simple-301-redirects/"
     },
     {
+        "name": "wpackagist-plugin/social-pug",
+        "version": "1.6.2",
+        "version_normalized": "1.6.2.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/social-pug/",
+            "reference": "trunk"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/social-pug.zip?timestamp=1574198109"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/social-pug/"
+    },
+    {
+        "name": "wpackagist-plugin/stackable-ultimate-gutenberg-blocks",
+        "version": "2.1.0",
+        "version_normalized": "2.1.0.0",
+        "source": {
+            "type": "svn",
+            "url": "https://plugins.svn.wordpress.org/stackable-ultimate-gutenberg-blocks/",
+            "reference": "tags/2.1.0"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://downloads.wordpress.org/plugin/stackable-ultimate-gutenberg-blocks.2.1.0.zip"
+        },
+        "require": {
+            "composer/installers": "~1.0"
+        },
+        "type": "wordpress-plugin",
+        "installation-source": "dist",
+        "homepage": "https://wordpress.org/plugins/stackable-ultimate-gutenberg-blocks/"
+    },
+    {
         "name": "wpackagist-plugin/stream",
         "version": "3.4.2",
         "version_normalized": "3.4.2.0",
@@ -1019,26 +1059,6 @@
         "type": "wordpress-plugin",
         "installation-source": "dist",
         "homepage": "https://wordpress.org/plugins/the-events-calendar/"
-    },
-    {
-        "name": "wpackagist-plugin/ultimate-social-media-icons",
-        "version": "2.4.2",
-        "version_normalized": "2.4.2.0",
-        "source": {
-            "type": "svn",
-            "url": "https://plugins.svn.wordpress.org/ultimate-social-media-icons/",
-            "reference": "tags/2.4.2"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://downloads.wordpress.org/plugin/ultimate-social-media-icons.2.4.2.zip"
-        },
-        "require": {
-            "composer/installers": "~1.0"
-        },
-        "type": "wordpress-plugin",
-        "installation-source": "dist",
-        "homepage": "https://wordpress.org/plugins/ultimate-social-media-icons/"
     },
     {
         "name": "wpackagist-plugin/wordpress-importer",
