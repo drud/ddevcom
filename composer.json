@@ -75,12 +75,12 @@
     "wpackagist-plugin/the-events-calendar": "^4.6",
     "wpackagist-plugin/simple-301-redirects": "^1.07",
     "wpackagist-plugin/wpmandrill": "^1.33",
-    "wpackagist-plugin/ultimate-social-media-icons": "^2.0",
     "wpackagist-plugin/wpremote": "2.8.4.3",
     "wpackagist-plugin/classic-editor": "^1.5",
     "wpackagist-plugin/wp-gdpr-compliance": "^1.4",
-    "wp-media/wp-rocket": "v3.2.6",
-    "wpackagist-plugin/stackable-ultimate-gutenberg-blocks": "^1.17"
+    "wpackagist-plugin/stackable-ultimate-gutenberg-blocks": "^2.1",
+    "wpackagist-plugin/social-pug": "^1.6",
+    "wp-media/wp-rocket": "v3.2.6"
   },
   "extra": {
     "installer-paths": {
