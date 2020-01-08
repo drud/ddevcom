@@ -43,6 +43,12 @@ SVG;
             if ( 'toplevel_page_stackable' === $hook ) {
 				wp_enqueue_style( 'stackable-welcome', plugins_url( 'dist/admin_welcome.css', STACKABLE_FILE ), array() );
 
+<<<<<<< HEAD
+=======
+				// Add translations.
+				wp_set_script_translations( 'stackable-welcome', STACKABLE_I18N );
+
+>>>>>>> add gutenblock plugin that was used on production
 				wp_enqueue_script( 'wp-i18n' );
 				wp_enqueue_script( 'wp-element' );
 				wp_enqueue_script( 'wp-hooks' );
@@ -52,13 +58,20 @@ SVG;
 
 				wp_enqueue_script( 'stackable-welcome', plugins_url( 'dist/admin_welcome.js', STACKABLE_FILE ), array( 'wp-i18n', 'wp-element', 'wp-hooks', 'wp-util', 'wp-components' ) );
 
+<<<<<<< HEAD
 				// Add translations.
 				wp_set_script_translations( 'stackable-welcome', STACKABLE_I18N );
 
+=======
+>>>>>>> add gutenblock plugin that was used on production
 				wp_localize_script( 'stackable-welcome', 'stackable', array(
 					'srcUrl' => untrailingslashit( plugins_url( '/', STACKABLE_FILE ) ),
 					'welcomeSrcUrl' => untrailingslashit( plugins_url( '/', __FILE__ ) ),
 					'i18n' => STACKABLE_I18N,
+<<<<<<< HEAD
+=======
+					'cdnUrl' => STACKABLE_CLOUDFRONT_URL,
+>>>>>>> add gutenblock plugin that was used on production
 					'isPro' => sugb_fs()->can_use_premium_code(),
 					'showProNotice' => stackable_should_show_pro_notices(),
 					'pricingURL' => sugb_fs()->get_upgrade_url(),
@@ -69,6 +82,11 @@ SVG;
 					'showProNoticesOption' => stackable_show_pro_notices_option(),
 					'nonceProNotice' => stackable_show_pro_notices_option_nonce(),
 					'nonceNews' => stackable_get_news_feed_nonce(),
+<<<<<<< HEAD
+=======
+					'loadV1Styles' => stackable_should_load_v1_styles(),
+					'nonceLoadV1Styles' => stackable_load_v1_styles_nonce(),
+>>>>>>> add gutenblock plugin that was used on production
 				) );
             }
         }
@@ -110,6 +128,10 @@ SVG;
 							<!-- We put all the block controls here. -->
                             <div class="s-settings-wrapper" />
 						</article>
+<<<<<<< HEAD
+=======
+						<aside class="s-backward-compatibility-control-wrapper"></aside>
+>>>>>>> add gutenblock plugin that was used on production
 						<?php if ( STACKABLE_SHOW_PRO_NOTICES && ! sugb_fs()->can_use_premium_code() ): ?>
 							<aside class="s-pro-control-wrapper"></aside>
 						<?php endif; ?>

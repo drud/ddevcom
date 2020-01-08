@@ -58,8 +58,17 @@
 				$this->fs->get_trial_url() :
 				$this->fs->get_upgrade_url();
 
+<<<<<<< HEAD
 			// Load features.
 			$pricing = $this->fs->get_api_plugin_scope()->get( $this->fs->add_show_pending( "pricing.json" ) );
+=======
+			$api = FS_Plugin::is_valid_id( $this->fs->get_bundle_id() ) ?
+				$this->fs->get_api_bundle_scope() :
+				$this->fs->get_api_plugin_scope();
+
+			// Load features.
+			$pricing = $api->get( $this->fs->add_show_pending( "pricing.json" ) );
+>>>>>>> add gutenblock plugin that was used on production
 
 			if ( $this->fs->is_api_result_object( $pricing, 'plans' ) ) {
 				// Add support features.

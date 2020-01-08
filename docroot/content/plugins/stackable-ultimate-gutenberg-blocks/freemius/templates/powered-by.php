@@ -31,12 +31,21 @@
 
 	$VARS = isset($VARS) ? $VARS : array();
 
+<<<<<<< HEAD
+=======
+    $fs = freemius( $VARS['module_id'] );
+
+>>>>>>> add gutenblock plugin that was used on production
 	wp_enqueue_script( 'jquery' );
 	wp_enqueue_script( 'json2' );
 	fs_enqueue_local_script( 'postmessage', 'nojquery.ba-postmessage.min.js' );
 	fs_enqueue_local_script( 'fs-postmessage', 'postmessage.js' );
 ?>
+<<<<<<< HEAD
 
+=======
+<?php if ( ! $fs->is_whitelabeled() ) : ?>
+>>>>>>> add gutenblock plugin that was used on production
 <div id="pframe"></div>
 <script type="text/javascript">
 	(function ($) {
@@ -55,4 +64,9 @@
 			});
 		});
 	})(jQuery);
+<<<<<<< HEAD
 </script>
+=======
+</script>
+<?php endif ?>
+>>>>>>> add gutenblock plugin that was used on production

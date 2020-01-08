@@ -88,6 +88,10 @@
 		// Billing cycle.
 		'billing_cycle'    => fs_request_get( 'billing_cycle', WP_FS__PERIOD_ANNUALLY ),
 		'is_network_admin' => fs_is_network_admin() ? 'true' : 'false',
+<<<<<<< HEAD
+=======
+		'currency'         => $fs->apply_filters( 'default_currency', 'usd' ),
+>>>>>>> add gutenblock plugin that was used on production
 	) );
 
 	if ( ! $fs->is_registered() ) {

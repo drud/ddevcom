@@ -15,7 +15,11 @@
 	 *
 	 * @var string
 	 */
+<<<<<<< HEAD
 	$this_sdk_version = '2.3.0';
+=======
+	$this_sdk_version = '2.3.2';
+>>>>>>> add gutenblock plugin that was used on production
 
 	#region SDK Selection Logic --------------------------------------------------------------------
 

@@ -49,6 +49,14 @@
         private $_is_network_storage;
 
         /**
+<<<<<<< HEAD
+=======
+         * @var bool|null
+         */
+        private $_autoload;
+
+        /**
+>>>>>>> add gutenblock plugin that was used on production
          * @var array[string]FS_Option_Manager {
          * @key   string
          * @value FS_Option_Manager
@@ -60,11 +68,25 @@
          * @author Vova Feldman (@svovaf)
          * @since  1.0.3
          *
+<<<<<<< HEAD
          * @param string   $id
          * @param bool     $load
          * @param bool|int $network_level_or_blog_id Since 2.0.0
          */
         private function __construct( $id, $load = false, $network_level_or_blog_id = false ) {
+=======
+         * @param string    $id
+         * @param bool      $load
+         * @param bool|int  $network_level_or_blog_id Since 2.0.0
+         * @param bool|null $autoload
+         */
+        private function __construct(
+            $id,
+            $load = false,
+            $network_level_or_blog_id = false,
+            $autoload = null
+        ) {
+>>>>>>> add gutenblock plugin that was used on production
             $id = strtolower( $id );
 
             $this->_logger = FS_Logger::get_logger( WP_FS__SLUG . '_opt_mngr_' . $id, WP_FS__DEBUG_SDK, WP_FS__ECHO_DEBUG_SDK );
@@ -74,6 +96,11 @@
 
             $this->_id = $id;
 
+<<<<<<< HEAD
+=======
+            $this->_autoload = $autoload;
+
+>>>>>>> add gutenblock plugin that was used on production
             if ( is_multisite() ) {
                 $this->_is_network_storage = ( true === $network_level_or_blog_id );
 
@@ -93,6 +120,7 @@
          * @author Vova Feldman (@svovaf)
          * @since  1.0.3
          *
+<<<<<<< HEAD
          * @param string   $id
          * @param bool     $load
          * @param bool|int $network_level_or_blog_id Since 2.0.0
@@ -100,6 +128,21 @@
          * @return FS_Option_Manager
          */
         static function get_manager( $id, $load = false, $network_level_or_blog_id = false ) {
+=======
+         * @param string    $id
+         * @param bool      $load
+         * @param bool|int  $network_level_or_blog_id Since 2.0.0
+         * @param bool|null $autoload
+         *
+         * @return \FS_Option_Manager
+         */
+        static function get_manager(
+            $id,
+            $load = false,
+            $network_level_or_blog_id = false,
+            $autoload = null
+        ) {
+>>>>>>> add gutenblock plugin that was used on production
             $key = strtolower( $id );
 
             if ( is_multisite() ) {
@@ -115,7 +158,16 @@
             }
 
             if ( ! isset( self::$_MANAGERS[ $key ] ) ) {
+<<<<<<< HEAD
                 self::$_MANAGERS[ $key ] = new FS_Option_Manager( $id, $load, $network_level_or_blog_id );
+=======
+                self::$_MANAGERS[ $key ] = new FS_Option_Manager(
+                    $id,
+                    $load,
+                    $network_level_or_blog_id,
+                    $autoload
+                );
+>>>>>>> add gutenblock plugin that was used on production
             } // If load required but not yet loaded, load.
             else if ( $load && ! self::$_MANAGERS[ $key ]->is_loaded() ) {
                 self::$_MANAGERS[ $key ]->load();
@@ -410,7 +462,11 @@
             } else if ( $this->_blog_id > 0 ) {
                 update_blog_option( $this->_blog_id, $option_name, $this->_options );
             } else {
+<<<<<<< HEAD
                 update_option( $option_name, $this->_options );
+=======
+                update_option( $option_name, $this->_options, $this->_autoload );
+>>>>>>> add gutenblock plugin that was used on production
             }
 
             if ( ! WP_FS__DEBUG_SDK ) {
