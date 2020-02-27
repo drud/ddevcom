@@ -1,26 +1,16 @@
 <?php
 // site URL
-if (getenv('DDEV_ENV_NAME') == 'production') {
-    if (strpos($_SERVER['HTTP_HOST'], "drud") !== false) {
-        define('WP_HOME', 'https://www.drud.com');
-    } elseif (strpos($_SERVER['HTTP_HOST'], "ddev") !== false) {
-        define('WP_HOME', 'https://www.ddev.com');
-    } else {
-        define('WP_HOME', 'https://www.drud.com');
-    }
-} else {
-    define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
-}
+define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
 
 /** WP in Sub-directory */
 // WP URL
 define('WP_SITEURL', WP_HOME . '/wp');
 // set WP ABSPATH
-define('ABSPATH', getenv('NGINX_DOCROOT') . '/wp/');
+define('ABSPATH', getenv('DDEV_DOCROOT') . '/wp/');
 
 /** Custom wp-content Directory */
 // full local path of current directory (no trailing slash)
-define('WP_CONTENT_DIR', getenv('NGINX_DOCROOT') . '/content');
+define('WP_CONTENT_DIR', getenv('DDEV_DOCROOT') . '/content');
 // full URI of current directory (no trailing slash)
 define('WP_CONTENT_URL', WP_HOME . '/content');
 
