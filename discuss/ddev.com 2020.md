@@ -19,6 +19,8 @@ The case studies archive and single views are new templates. ⚠️
 - Case Studies ?
 
 **Solutions**
+
+This would require the creation of a new solutions template or post type. ⚠️ ?
  
 - Developers ?
 - Agency Owners ?
