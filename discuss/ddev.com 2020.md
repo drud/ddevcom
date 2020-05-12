@@ -69,7 +69,7 @@ This would require the creation of a new solutions template or post type. ⚠️
 
 - About ✅
 - Blog ✅
-- Podcast ?
+- Podcast  ⚠️ ? 
 - Contact ↗️
 - Jobs ✅
 
@@ -103,8 +103,10 @@ Quick and dirty implementation. We can even hard-code the content to make it fas
 - Pricing Page Template `template-pricing.php` ⚠️
 - Solution Page Template `template-solution.php` ⚠️ ?
 - About Page Template `template-about.php` ⚠️ ?
-- Case Study Archive `archive-case-study.php` ⚠️ ? (Post-launch)
-- Case Study Single `single-case-study.php` ⚠️ ? (Post-launch)
+- Case Study Archive `archive-case-study.php` ⚠️ ?
+- Case Study Single `single-case-study.php` ⚠️ ?
+- Podcast Archive `archive-podcast.php` ⚠️ ?
+- Podcast Single `single-podcast.php` ⚠️ ?
 
 #### Option 2: Gutenberg Page Builder Plugin
 
