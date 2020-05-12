@@ -106,5 +106,5 @@ Quick and dirty implementation. We can even hard-code the content to make it fas
 
 #### Option 2: Gutenberg Page Builder Plugin
 
-Nathan has installed Stackable plugin, a block builder for Gutenberg for editing WordPress pages. This might take a little more time, as we would have to "massage" a pre-existing plugin to do exactly what we want. We can expect to build some custom Gutenberg blocks if we need custom functionality. We would need to make sure Marketing is comfortable editing in blocks, 
+Nathan has installed Stackable plugin, a block builder for Gutenberg for editing WordPress pages. This might take a little more time, as we would have to "massage" a pre-existing plugin to do exactly what we want. We can expect to build some custom Gutenberg blocks if we need custom functionality. We would need to make sure Marketing is comfortable editing in blocks.
 
