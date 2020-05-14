@@ -1,0 +1,94 @@
+/* montserrat-regular - latin */
+@font-face {
+  font-family: 'Montserrat';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../fonts/montserrat-v12-latin-regular.eot'); /* IE9 Compat Modes */
+  src: local('Montserrat Regular'), local('Montserrat-Regular'),
+       url('../fonts/montserrat-v12-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/montserrat-v12-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/montserrat-v12-latin-regular.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/montserrat-v12-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/montserrat-v12-latin-regular.svg#Montserrat') format('svg'); /* Legacy iOS */
+}
+
+/* palanquin-dark-500 - latin */
+@font-face {
+  font-family: 'Palanquin Dark';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../fonts/palanquin-dark-v3-latin-500.eot'); /* IE9 Compat Modes */
+  src: local('Palanquin Dark Medium'), local('PalanquinDark-Medium'),
+       url('../fonts/palanquin-dark-v3-latin-500.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+       url('../fonts/palanquin-dark-v3-latin-500.woff2') format('woff2'), /* Super Modern Browsers */
+       url('../fonts/palanquin-dark-v3-latin-500.woff') format('woff'), /* Modern Browsers */
+       url('../fonts/palanquin-dark-v3-latin-500.ttf') format('truetype'), /* Safari, Android, iOS */
+       url('../fonts/palanquin-dark-v3-latin-500.svg#PalanquinDark') format('svg'); /* Legacy iOS */
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-weight: 500;
+}
+
+p {
+  line-height: 1.8;
+}
+
+.lead {
+  font-weight: 400;
+}
+
+.wysiwyg {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin-bottom: 1.5rem;
+    margin-top: 3rem;
+  }
+
+  a {
+    color: theme-color('primary-light');
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+
+  blockquote {
+    padding: 2rem;
+    border-left: 0.5rem solid theme-color('secondary-light');
+    background-color: theme-color('light');;
+  }
+
+  img {
+    margin: 2rem;
+    max-width: 100%;
+  }
+
+  code {
+    font-family: 'Source Code Pro', monospace;
+    background-color: theme-color('light');
+    color: theme-color('primary-light');
+  }
+
+  pre.language-bash {
+    background-color: theme-color('primary-dark');
+    margin-bottom: 2rem;
+  }
+
+  pre.language-bash code {
+    background-color: theme-color('primary-dark');
+
+  }
+
+  code[class*=language-], pre[class*=language-] {
+    color: theme-color('light');
+    text-shadow: none;
+  }
+}

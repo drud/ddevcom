@@ -1,0 +1,21 @@
+h1.single-post-header {
+  margin-top: 6rem;
+
+  @include media-breakpoint-up(lg) {
+    margin-top: 10rem;
+  }
+}
+
+nav.pagination {
+  padding: 1rem;
+  background-color: theme-color('light');
+}
+
+nav.pagination a.page-numbers {
+  padding: 0 1rem;
+}
+
+.sfsi_Sicons {
+  padding-top: 2rem;
+  padding-bottom: 4rem;
+}
