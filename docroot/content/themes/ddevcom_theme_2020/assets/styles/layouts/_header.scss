@@ -1,0 +1,135 @@
+.admin-bar .fixed-top {
+  top: 32px;
+}
+
+nav.navbar {
+  transition: background-color .2s;
+}
+
+body.scrolled nav.navbar {
+  background-color: theme-color('primary-dark');
+}
+
+body.single-post nav.navbar,
+body.single-job nav.navbar,
+body.blog nav.navbar,
+body.archive nav.navbar,
+body.category nav.navbar,
+body.display-header nav.navbar,
+body.page-template-template-people nav.navbar,
+body.page-template-template-quickstart nav.navbar {
+  background-color: theme-color('primary-dark');
+}
+
+nav.navbar ul.navbar-nav {
+  margin-top: 1rem;
+  flex-direction: column;
+  background-color: theme-color('primary-dark');
+  padding: 1rem;
+
+  @include media-breakpoint-up(md) {
+    margin-top: 0;
+    flex-direction: row;
+    background-color: transparent;
+  }
+}
+
+nav.navbar ul.navbar-nav li {
+  padding: 0.5rem;
+  position: relative;
+
+  @include media-breakpoint-up(md) {
+    &:hover {
+      ul.sub-menu {
+        pointer-events: auto;
+        opacity: 1;
+        transform: translateY(0);
+        display: block;
+        box-shadow: $shadow;
+      }
+    }
+  }
+
+
+  @include media-breakpoint-up(md) {
+    padding: 0.5rem 1rem;
+  }
+
+  @include media-breakpoint-up(lg) {
+    margin-right: 2rem;
+  }
+}
+
+nav.navbar ul.navbar-nav li a {
+  color: theme-color('light');
+  font-family: $headings-font-family;
+  font-size: 1.125rem;
+
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      text-decoration: none;
+      color: theme-color('secondary');
+    }
+  }
+}
+
+nav.navbar ul.navbar-nav li ul.sub-menu {
+  list-style: none;
+  padding: 0.5rem;
+
+  @include media-breakpoint-up(md) {
+    pointer-events: none;
+    position: absolute;
+    top: 2.5rem;
+    left: 0;
+    background-color: #fff;
+    width: 15rem;
+    margin-top: 0;
+    border-radius: $border-radius-sm;
+    transform: translateY(1rem);
+    opacity: 0;
+    transition: transform $animate-duration-sm, opacity $animate-duration-sm;
+  }
+
+  li {
+    position: relative;
+    padding: 0.25rem 0.75rem;
+
+    @include media-breakpoint-up(md) {
+      &:before {
+        content: '';
+        position: absolute;
+        left: 0;
+        width: 0rem;
+        height: 2rem;
+        background-color: theme-color('primary-light');
+        transition: width $animate-duration-sm;
+      }
+    }
+
+    &:hover:before {
+      width: 0.25rem;
+    }
+
+
+    a {
+      color: #fff;
+
+      @include media-breakpoint-up(md) {
+        color: theme-color('primary');
+        &:hover {
+          color: theme-color('primary-light');
+        }
+      }
+
+    }
+  }
+}
+
+nav.navbar .btn {
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: auto;
+  }
+}
