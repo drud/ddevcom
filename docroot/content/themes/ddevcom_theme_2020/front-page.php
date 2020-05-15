@@ -1,4 +1,3 @@
-<<<<<<< Updated upstream
 <?php while (have_posts()) : the_post(); ?>
   <?php the_content(); ?>
   <?php wp_link_pages([
@@ -6,7 +5,6 @@
     'after' => '</p></nav>'
   ]); ?>
 <?php endwhile; ?>
-=======
 <section class="front-page-jumbotron">
   <div class="jumbotron bg-primary-dark rounded-0 mb-0">
     <div class="container-fluid">
@@ -209,4 +207,3 @@
 
   </div>
 </section>
->>>>>>> Stashed changes
