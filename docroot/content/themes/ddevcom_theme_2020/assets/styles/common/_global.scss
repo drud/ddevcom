@@ -1,0 +1,9 @@
+body.no-scroll {
+  overflow-y: hidden;
+  position: relative;
+
+  @include media-breakpoint-up(lg) {
+    overflow-y: auto;
+    position: inherit;
+  }
+}
