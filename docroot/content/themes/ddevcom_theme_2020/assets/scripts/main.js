@@ -48,6 +48,7 @@
 
         $('.hamburger').on('click', function() {
           $(this).toggleClass('is-active');
+          $('body').toggleClass('no-scroll');
           $('.main-navigation-wrapper').toggleClass('is-open');
         });
 
