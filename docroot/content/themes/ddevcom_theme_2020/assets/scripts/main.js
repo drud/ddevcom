@@ -52,6 +52,11 @@
           $('.main-navigation-wrapper').toggleClass('is-open');
         });
 
+        $('.product-navigation-toggle__button').on('click', function() {
+          $(this).toggleClass('is-active');
+          $('.product-navigation__menu').toggleClass('show');
+        });
+
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired

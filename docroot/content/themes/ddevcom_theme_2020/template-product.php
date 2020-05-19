@@ -4,6 +4,44 @@
  */
 ?>
 
+
+<div class="product-navigation-wrapper">
+  <div class="container d-flex">
+    <div class="product-name">
+      <?php
+      $productName = get_post_field('post_name', get_post());
+      switch ($productName) {
+        case 'ddev-live':
+          $productName = 'Live';
+          break;
+        case 'ddev-local':
+          $productName = 'Local';
+          break;
+        default:
+          $productName = 'Live';
+      }
+      ?>
+
+      <p class="h1"><?php echo $productName; ?></p>
+    </div>
+    <nav class="product-navigation">
+      <?php
+        if (has_nav_menu('ddev_local_navigation') && has_nav_menu('ddev_local_navigation')) :
+          $underscored = str_replace('-', '_', get_post_field('post_name', get_post()));
+          wp_nav_menu([
+            'theme_location' => "{$underscored}_navigation",
+            'menu_class' => 'product-navigation__menu mr-auto'
+          ]);
+        endif;
+        ?>
+    </nav>
+    <div class="product-navigation-toggle">
+      <button class="product-navigation-toggle__button">Menu</button>
+    </div>
+  </div>
+</div>
+
+
 <section class="product-jumbotron">
   <div class="jumbotron bg-white rounded-0 mb-0">
     <div class="container-fluid">
