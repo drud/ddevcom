@@ -1,3 +1,7 @@
+body {
+  overflow-x: hidden;
+}
+
 body.no-scroll {
   overflow-y: hidden;
   position: relative;

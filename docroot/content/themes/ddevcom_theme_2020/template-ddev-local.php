@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Product Template
+ * Template Name: DDEV Local Template
  */
 ?>
 
@@ -8,28 +8,13 @@
 <div class="product-navigation-wrapper">
   <div class="container d-flex">
     <div class="product-name">
-      <?php
-      $productName = get_post_field('post_name', get_post());
-      switch ($productName) {
-        case 'ddev-live':
-          $productName = 'Live';
-          break;
-        case 'ddev-local':
-          $productName = 'Local';
-          break;
-        default:
-          $productName = 'Live';
-      }
-      ?>
-
-      <p class="h1"><?php echo $productName; ?></p>
+      <p class="h1">Local</p>
     </div>
     <nav class="product-navigation">
       <?php
-        if (has_nav_menu('ddev_local_navigation') && has_nav_menu('ddev_local_navigation')) :
-          $underscored = str_replace('-', '_', get_post_field('post_name', get_post()));
+        if (has_nav_menu('ddev_local_navigation')) :
           wp_nav_menu([
-            'theme_location' => "{$underscored}_navigation",
+            'theme_location' => "ddev_local_navigation",
             'menu_class' => 'product-navigation__menu mr-auto'
           ]);
         endif;
