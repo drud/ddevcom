@@ -1,0 +1,32 @@
+.product {
+  padding: 4rem 0;
+
+  &__main-header-heading {
+    font-size: 3rem;
+    font-family: $headings-font-family;
+    color: $gray-800;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 4rem;
+      line-height: 5rem;
+    }
+  }
+
+  &__main-header-lead {
+    color: $gray-600;
+  }
+
+  &__screenshot {
+    border-radius: 0.5rem;
+
+    @include media-breakpoint-up(lg) {
+      width: 800px;
+      margin-bottom: -4rem;
+    }
+  }
+
+  &__feature-cards {
+    padding: 4rem 0;
+    background-color: theme-color('light');
+  }
+}

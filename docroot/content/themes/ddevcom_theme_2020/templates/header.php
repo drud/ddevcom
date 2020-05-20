@@ -18,9 +18,9 @@
 
       </div>
     </nav>
-    <?php $burgerClass = is_page('ddev-live') || is_page('ddev-local') ? '' : 'd-md-none' ?>
+    <?php $burgerClass = is_page('ddev-live') || is_page('ddev-local') ? '' : 'd-lg-none' ?>
     <div class="main-navigation-toggle-wrapper <?php echo $burgerClass; ?>">
-        <button class="main-navigation-toggle hamburger hamburger--collapse" type="button">
+        <button class="main-navigation-toggle hamburger hamburger--collapse" type="button" tabindex="0">
           <span class="hamburger-box">
             <span class="hamburger-inner"></span>
           </span>

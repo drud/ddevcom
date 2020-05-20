@@ -55,8 +55,40 @@
         $('.product-navigation-toggle__button').on('click', function() {
           $(this).toggleClass('is-active');
           $('.product-navigation__menu').toggleClass('show');
+          $('.product-navigation-wrapper').toggleClass('is-open');
         });
 
+        $('.main-navigation__menu > li.menu-item-has-children').hover(function () {
+          $(this).find('.sub-menu').addClass('show');
+        }, function () {
+          $(this).find('.sub-menu').removeClass('show');
+        });
+
+        $('.main-navigation__menu > li.menu-item-has-children').focusin(function () {
+          $(this).closest('li.menu-item-has-children').find('.sub-menu').addClass('show');
+        });
+
+        $('.main-navigation__menu > li.menu-item-has-children').focusout(function () {
+          $(this).closest('li.menu-item-has-children').find('.sub-menu').removeClass('show');
+        });
+
+        $('.main-navigation-wrapper.is-product .main-navigation__menu > li').focusin(function () {
+          $('.main-navigation-toggle').addClass('is-active');
+          $('.main-navigation-wrapper').addClass('is-open');
+        });
+
+        $('.product-navigation__menu > li.menu-item-has-children').focusin(function () {
+          $(this).find('.sub-menu').addClass('show');
+        });
+
+        $('.product-navigation__menu > li.menu-item-has-children').focusout(function () {
+          $(this).find('.sub-menu').removeClass('show');
+        });
+
+        $('.product-navigation-mobile-overlay').click(function () {
+          $('.product-navigation__menu').removeClass('show');
+          $('.product-navigation-wrapper').removeClass('is-open');
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
