@@ -54,6 +54,7 @@ $colors: (
 ) !default;
 
 $theme-colors: (
+  cta: #f50057,
   primary: #004278,
   primary-light: #0075be,
   primary-dark: #00325a,
@@ -64,7 +65,7 @@ $theme-colors: (
   warning: $yellow,
   danger: $red,
   light: #f7f7f7,
-  dark: $gray-800
+  dark: $gray-900
   );
 
   $headings-font-family: 'Palanquin Dark', sans-serif;

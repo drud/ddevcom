@@ -1,32 +1,151 @@
 .product {
-  padding: 4rem 0;
+  padding: 4rem 0 0;
 
   &__main-header-heading {
     font-size: 3rem;
-    font-family: $headings-font-family;
     color: $gray-800;
+    line-height: 3.75rem;
+    font-family: $headings-font-family;
 
     @include media-breakpoint-up(lg) {
       font-size: 4rem;
       line-height: 5rem;
+
     }
   }
 
   &__main-header-lead {
     color: $gray-600;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.25rem;
+    }
   }
 
   &__screenshot {
     border-radius: 0.5rem;
+    max-width: 100%;
 
     @include media-breakpoint-up(lg) {
+      max-width: none;
       width: 800px;
       margin-bottom: -4rem;
+      box-shadow: $shadow;
     }
   }
 
-  &__feature-cards {
+  &__features {
     padding: 4rem 0;
     background-color: theme-color('light');
+
+    @include media-breakpoint-up(lg) {
+      padding: 8rem 0 0 0;
+    }
+  }
+
+  &__supporting {
+    p {
+      color: $gray-600;
+    }
+  }
+
+  &__supporting-logo {
+    fill: $gray-600;
+  }
+
+  &__supporting-col {
+    border-right: 1px solid $gray-400;
+  }
+
+  &__feature-card {
+    width: 100%;
+
+    @include media-breakpoint-up(lg) {
+      padding: 2rem;
+      margin-bottom: -4rem;
+      box-shadow: $shadow;
+    }
+  }
+
+  &__card-section-heading {
+    color: $gray-600;
+    font-family: $headings-font-family;
+    font-size: 1rem;
+  }
+
+  &__feature-heading {
+    color: $gray-700;
+  }
+
+  &__feature-description {
+    color: $gray-600;
+    font-size: 1.125rem;
+  }
+
+  &__connect {
+    padding: 8rem 0;
+  }
+
+  &__connect-body {
+    font-size: 1.25rem;
+    color: $gray-500;
+
+    @include media-breakpoint-up(lg) {
+      min-height: 10rem;
+    }
+  }
+
+  &__connect-icon.green {
+    color: theme-color('success');
+  }
+
+  &__connect-icon.blue {
+    color: theme-color('primary-light');
+  }
+
+  &__connect-icon.pink {
+    color: #f50057;
+  }
+
+  &__demo {
+    padding: 8rem 0;
+  }
+
+  &__demo-steps {
+    font-size: 1.25rem;
+    border-radius: 0.25rem;
+    box-shadow: $shadow;
+    color: $gray-400;
+
+    h6 {
+      color: $gray-500;
+    }
+
+    code {
+      background-color: $gray-800;
+      padding: 0.5rem;
+      font-size: 1.125rem;
+      color: $gray-600;
+      display: block;
+      width: 100%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.5rem;
+      padding: 2rem 2rem 2rem 4rem;
+    }
+  }
+
+  &__demo-steps li {
+    margin-bottom: 1.5rem;
+  }
+
+  &__posts {
+    padding: 4rem 0;
+
+
+    @include media-breakpoint-up(lg) {
+      padding: 8rem 0;
+    }
   }
 }
