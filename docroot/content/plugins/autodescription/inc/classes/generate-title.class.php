@@ -10,7 +10,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -512,6 +512,12 @@ class Generate_Title extends Generate_Description {
 			$title = $this->get_post_meta_item( '_genesis_title' ) ?: '';
 		} elseif ( $this->is_term_meta_capable() ) {
 			$title = $this->get_term_meta_item( 'doctitle' ) ?: '';
+		} elseif ( \is_post_type_archive() ) {
+			/**
+			 * @since 4.0.6
+			 * @param string $title The post type archive title.
+			 */
+			$title = (string) \apply_filters( 'the_seo_framework_pta_title', '' );
 		}
 		// phpcs:enable, WordPress.WhiteSpace.PrecisionAlignment
 
@@ -716,8 +722,12 @@ class Generate_Title extends Generate_Description {
 	 * @see WP Core get_the_archive_title()
 	 *
 	 * @since 3.1.0
+	 * @since 4.0.2 Now asserts the correct tag taxonomy condition.
+	 * @since 4.0.5 1: Now no longer uses `get_the_author()` to fetch the author's display name,
+	 *                 but uses the provided term object instead.
+	 *              2: The first parameter now accepts `\WP_User` objects.
 	 *
-	 * @param \WP_Term|\WP_Error|null $term The Term object or error. Leave null to autodetermine query.
+	 * @param \WP_Term|\WP_User|\WP_Error|null $term The Term object or error. Leave null to autodetermine query.
 	 * @return string The generated archive title, not escaped.
 	 */
 	public function get_generated_archive_title( $term = null ) {
@@ -735,17 +745,16 @@ class Generate_Title extends Generate_Description {
 		/**
 		 * @since 2.6.0
 		 *
-		 * @param string   $title The short circuit title.
-		 * @param \WP_Term $term The Term object.
+		 * @param string            $title The short circuit title.
+		 * @param \WP_Term|\WP_User $term  The Term object.
 		 */
 		$title = (string) \apply_filters( 'the_seo_framework_the_archive_title', '', $term );
 
 		if ( $title )
 			return $title;
 
-		$use_prefix = $this->use_generated_archive_prefix();
-
-		$_tax = isset( $term->taxonomy ) ? $term->taxonomy : '';
+		$_tax       = isset( $term->taxonomy ) ? $term->taxonomy : '';
+		$use_prefix = $this->use_generated_archive_prefix( $term );
 
 		if ( ! $_query ) {
 			if ( $_tax ) {
@@ -753,7 +762,7 @@ class Generate_Title extends Generate_Description {
 					$title = $this->get_generated_single_term_title( $term );
 					/* translators: Category archive title. 1: Category name */
 					$title = $use_prefix ? sprintf( \__( 'Category: %s', 'default' ), $title ) : $title;
-				} elseif ( 'tag' === $_tax ) {
+				} elseif ( 'post_tag' === $_tax ) {
 					$title = $this->get_generated_single_term_title( $term );
 					/* translators: Tag archive title. 1: Tag name */
 					$title = $use_prefix ? sprintf( \__( 'Tag: %s', 'default' ), $title ) : $title;
@@ -766,6 +775,10 @@ class Generate_Title extends Generate_Description {
 						$title = sprintf( \__( '%1$s: %2$s', 'autodescription' ), $_prefix, $title );
 					}
 				}
+			} elseif ( $term instanceof \WP_User && isset( $term->display_name ) ) {
+				$title = $term->display_name;
+				/* translators: Author archive title. 1: Author name */
+				$title = $use_prefix ? sprintf( \__( 'Author: %s', 'default' ), $title ) : $title;
 			} else {
 				$title = \__( 'Archives', 'default' );
 			}
@@ -779,7 +792,7 @@ class Generate_Title extends Generate_Description {
 				/* translators: Tag archive title. 1: Tag name */
 				$title = $use_prefix ? sprintf( \__( 'Tag: %s', 'default' ), $title ) : $title;
 			} elseif ( $this->is_author() ) {
-				$title = \get_the_author();
+				$title = isset( $term->display_name ) ? $term->display_name : '';
 				/* translators: Author archive title. 1: Author name */
 				$title = $use_prefix ? sprintf( \__( 'Author: %s', 'default' ), $title ) : $title;
 			} elseif ( $this->is_date() ) {
@@ -838,8 +851,8 @@ class Generate_Title extends Generate_Description {
 		 *
 		 * @since 3.0.4
 		 *
-		 * @param string $title Archive title to be displayed.
-		 * @param \WP_Term $term The term object.
+		 * @param string   $title Archive title to be displayed.
+		 * @param \WP_Term $term  The term object.
 		 */
 		return \apply_filters( 'the_seo_framework_generated_archive_title', $title, $term );
 	}
@@ -886,6 +899,7 @@ class Generate_Title extends Generate_Description {
 	 *
 	 * @since 3.1.0
 	 * @since 4.0.0 No longer redundantly tests the query, now only uses the term input or queried object.
+	 * @since 4.0.2 Now asserts the correct tag taxonomy condition.
 	 *
 	 * @param null|\WP_Term $term The term name, required in the admin area.
 	 * @return string The generated single term title.
@@ -907,7 +921,7 @@ class Generate_Title extends Generate_Description {
 				 * @param string $term_name Category name for archive being displayed.
 				 */
 				$term_name = \apply_filters( 'single_cat_title', $term->name );
-			} elseif ( 'tag' === $term->taxonomy ) {
+			} elseif ( 'post_tag' === $term->taxonomy ) {
 				/**
 				 * Filter the tag archive page title.
 				 *
@@ -1277,8 +1291,8 @@ class Generate_Title extends Generate_Description {
 	 * Determines whether to add or remove title branding additions.
 	 *
 	 * @since 3.1.0
-	 * @since 3.1.2: 1. Added filter.
-	 *               2. Added strict taxonomical check.
+	 * @since 3.1.2 : 1. Added filter.
+	 *                2. Added strict taxonomical check.
 	 * @since 3.2.2 Now differentiates from query and parameter input.
 	 * @see $this->merge_title_branding()
 	 * @uses $this->use_title_branding_from_query()
@@ -1311,6 +1325,7 @@ class Generate_Title extends Generate_Description {
 	 *
 	 * @since 3.2.2
 	 * @since 4.0.0 Added use_taxonomical_title_branding() check.
+	 * @since 4.0.2 Removed contemned \is_post_type_archive() check for taxonomical branding.
 	 * @see $this->use_title_branding()
 	 *
 	 * @return bool
@@ -1321,7 +1336,7 @@ class Generate_Title extends Generate_Description {
 			$use = $this->use_home_page_title_tagline();
 		} elseif ( $this->is_singular() ) {
 			$use = $this->use_singular_title_branding();
-		} elseif ( $this->is_term_meta_capable() || \is_post_type_archive() ) {
+		} elseif ( $this->is_term_meta_capable() ) {
 			$use = $this->use_taxonomical_title_branding();
 		} else {
 			$use = ! $this->get_option( 'title_rem_additions' );
@@ -1359,11 +1374,23 @@ class Generate_Title extends Generate_Description {
 	 * Determines whether to use the autogenerated archive title prefix or not.
 	 *
 	 * @since 3.1.0
+	 * @since 4.0.5 1: Added first parameter `$term`.
+	 *              2: Added filter.
 	 *
+	 * @param \WP_Term|\WP_User|null $term The Term object. Leave null to autodermine query.
 	 * @return bool
 	 */
-	public function use_generated_archive_prefix() {
-		return ! $this->get_option( 'title_rem_prefixes' );
+	public function use_generated_archive_prefix( $term = null ) {
+
+		$term = isset( $term ) ? $term : \get_queried_object();
+		$use  = ! $this->get_option( 'title_rem_prefixes' );
+
+		/**
+		 * @since 4.0.5
+		 * @param string            $use  Whether to use branding.
+		 * @param \WP_Term|\WP_User $term The current term.
+		 */
+		return \apply_filters_ref_array( 'the_seo_framework_use_archive_prefix', [ $use, $term ] );
 	}
 
 	/**

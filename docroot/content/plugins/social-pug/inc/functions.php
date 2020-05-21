@@ -14,7 +14,7 @@
 			'name' 		 		 => __( 'Floating Sidebar', 'social-pug' ),
 			'type'				 => 'share_tool',
 			'activation_setting' => 'dpsp_location_sidebar[active]',
-			'img'		 		 => 'assets/img/tool-sidebar.png',
+			'img'		 		 => 'assets/src/img/tool-sidebar.png',
 			'admin_page' 		 => 'admin.php?page=dpsp-sidebar'
 		);
 
@@ -23,7 +23,7 @@
 			'name' 		 		 => __( 'Inline Content', 'social-pug' ),
 			'type'				 => 'share_tool',
 			'activation_setting' => 'dpsp_location_content[active]',
-			'img'		 		 => 'assets/img/tool-content.png',
+			'img'		 		 => 'assets/src/img/tool-content.png',
 			'admin_page' 		 => 'admin.php?page=dpsp-content'
 		);
 

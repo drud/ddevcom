@@ -10,7 +10,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -220,6 +220,7 @@ class Generate_Url extends Generate_Title {
 	 *
 	 * @since 3.0.0
 	 * @since 4.0.0 Can now fetch custom canonical URL for terms.
+	 * @TODO Remove the $id passthrough requirement? Methods lower than this pass it to the query handler...
 	 * @see $this->get_canonical_url()
 	 *
 	 * @return string The canonical URL.
@@ -345,6 +346,7 @@ class Generate_Url extends Generate_Title {
 	 * @since 3.0.0
 	 * @since 3.1.0 Added WC Shop and WP Blog (as page) pagination integration via $this->paged().
 	 * @since 3.2.4 Removed pagination support for singular posts, as the SEO attack is now mitigated via WordPress.
+	 * @since 4.0.5 Now passes the `$id` to `is_singular_archive()`
 	 *
 	 * @param int|null $id The page ID.
 	 * @return string The custom canonical URL, if any.
@@ -359,7 +361,7 @@ class Generate_Url extends Generate_Title {
 			$url = $this->remove_pagination_from_url( $url, $_page, false );
 		}
 
-		if ( $url && $this->is_singular_archive() ) {
+		if ( $url && $this->is_singular_archive( $id ) ) {
 			// Singular archives, like blog pages and shop pages, use the pagination base with paged.
 			$url = $this->add_url_pagination( $url, $this->paged(), true );
 		}
@@ -779,14 +781,20 @@ class Generate_Url extends Generate_Title {
 	 * Adjusts category post link.
 	 *
 	 * @since 3.0.0
+	 * @since 4.0.3 Now fills in a fallback $post object when null.
 	 * @access private
 	 *
 	 * @param \WP_Term $term  The category to use in the permalink.
-	 * @param array    $terms Array of all categories (WP_Term objects) associated with the post.
+	 * @param array    $terms Array of all categories (WP_Term objects) associated with the post. Unused.
 	 * @param \WP_Post $post  The post in question.
 	 * @return \WP_Term The primary term.
 	 */
 	public function _adjust_post_link_category( $term, $terms = null, $post = null ) {
+
+		if ( null === $post ) {
+			$post = \get_post( $this->get_the_real_ID() );
+		}
+
 		return $this->get_primary_term( $post->ID, $term->taxonomy ) ?: $term;
 	}
 

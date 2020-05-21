@@ -1,95 +1,117 @@
-=== Social Sharing Buttons - Grow by Mediavine ===
-Contributors: mediavine, iova.mihai
-Donate link: https://www.mediavine.com
+=== Grow by Mediavine ===
+Contributors: Mediavine, iova.mihai
 Tags: social share, social sharing, social sharing buttons, social share buttons, social, social media, social share icon, social share counts, social sharing icon
 Requires at least: 3.1
-Tested up to: 5.2.3
-Stable tag: 1.6.2
+Tested up to: 5.3.2
+Stable tag: 1.7.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Make content. Shape your influence. GROW your reach. The only social plugin you need. Drive meaningful engagement with  customizable social sharing.
+The best social sharing plugin for your WordPress website and the only social sharing plugin you will ever need.
 
 == Description ==
-**The only social sharing plugin you need.**
+**The Best Looking Social Sharing Buttons**
 
-Grow by Mediavine, formerly Social Pug is an easy, all-in-one social sharing plugin. You can add social share buttons that integrate beautifully with your website’s design, leading to increased engagement and reach.
+Grow by Mediavine is one of the easies to use social sharing plugin available. It let's you add highly customizable social share buttons that will integrate beautifully with your website's design, leading to increased interactions and social media shares.
 
-The free version of this social sharing plugin allows you to customize the four biggest social media platforms; Facebook, Twitter, Pinterest and LinkedIn.
+The free version of the plugin comes with five of the biggest social media platforms, mainly Facebook, Twitter, Google+, Pinterest and LinkedIn.
 
-For all social media platforms, you can personalize the social share buttons to your liking. Choose from a variety of designs and utilize custom colors to catch the eye. You can even include social share counts.
+For each social media platform you can customize the social share button to your liking. You can choose to have a simple social media icon share button, a share button with a bold label to catch the eye and even social sharing buttons with social share counts, so that you visitors have social media proof.
 
-You can place the social sharing buttons before and after the post content, or have the social buttons follow your readers as they scroll up and down the page, in the form of a social media floating sidebar.
+You can place the social sharing buttons before and after the post content or have them follow your readers as they scroll up and down the page, in the form of a social media floating sidebar.
 
-Display the post’s social share count to showcase the popularity of your content.
+**Social Share Count**: Display the posts social share count **( including Twitter )** to provide social media proof and increase your website's credibility.
+
+**Social Share Buttons Locations**: You can place the social sharing buttons in 4 different locations of your website. You can opt in to display them before and/or after the content of your posts on whichever post type you want. Also you can choose to display the social share buttons in a floating sidebar that follows the user as he/she scrolls the page. The floating sidebar can be placed on the left or on the right side of the screen.
 
 = Main Features =
-* **Easy Installation and Setup** – Seamlessly set up Grow by Mediavine, formerly Social Pug on your website today!
-* **Multiple Share Button Locations** – Choose from various placements on your website: before or after the content, or in a floating sidebar on the left or right of the page. Floating sidebars stick with the reader as they scroll through your site.
-* **Customizable Button Labels** – Edit the social buttons’ text to maximize your engagement
-* **Retina Ready Sharp Social Sharing Icons** – Grow uses an icon font to display the best looking social media icons on any screen
-* **GDPR Compliance** – Your readers’ privacy and peace of mind is important. Grow does not collect, store or distribute any user information.
-* **Social Share Counts and Total Share Counts** – Social sharing counts can be displayed for all major social media networks, including Twitter, Facebook and Pinterest
+* **Before and After Content Social Share Buttons** - Place the social share buttons right before your content, after your content or both
+* **Floating Sidebar Social Share Buttons** - Make the social share buttons follow the user as he/she scrolls up and down your webpage by adding floating buttons on the left or right side of the screen
+* **Social Share Counts and Total Share Counts** - Display social share counts for all social media networks, including Twitter
+* **Editable Button Labels** - Edit the labels that appear in the share buttons, to maximize your engagement
+* **Retina Ready Sharp Share Icons** - Grow by Mediavine uses an icon font to display the best looking social media icons on any screen
 
 = Premium Features =
-* **Custom Social Content** – Set default social media images and descriptions for your content that your users can share on their social media profiles using Custom Open Graph Metadata.
-* **10+ Social Media Networks** – Reach more people by adding a multitude of social share networks including Reddit, VK, Yummly, WhatsApp, Buffer, Telegram, Flipboard, Pocket, Tumblr and email
-* **Mobile Sticky Footer Social Share Buttons** – Make your website mobile-friendly with sticky footer buttons
-* **Pop-Up Social Share Buttons** – Trigger a pop-up with the social sharing buttons when a user starts to scroll, arrives at the bottom of a post or begins to leave your site
-* **Custom Button Colors and Hover Colors** – Add any color to your social buttons to match your website’s design and branding.
-* **Shortcode for Social Share Buttons** – Place the social buttons anywhere in your template files or the body of your content with the [socialpug_share] shortcode
-* **Link Shortening** – Mask long URLs using a shorter version with our Bitly and Branch integrations
-* **Google Analytics tracking** – Track the source of your incoming traffic with help from the Google Analytics UTM parameters
-* **Follow Buttons Widget** – Attract users to your social media profiles with our [socialpug_follow] shortcode. Place it in your template files or anywhere on your site. Buttons include Facebook, Twitter, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly and Behance
-* **Shareable Tweet Feature** – Let your readers easily share a custom tweet with just one click
-* **Top Shared Posts Widget** – Showcase your most-shared articles with our customizable widget for sidebars, footers and other widget areas
-* **Import / Export Settings** – Transfer all the settings from one website to another with just a few clicks
-* **Share Count Recovery** – If you upgraded from HTTP to HTTPS and lost your social share counts, they can be recovered with Grow.
-* **Mediavine Support** – Access to Mediavine’s award-winning Publisher Support team 7 days a week for help with technical issues, questions or feedback.
+* **10+ Social Media Networks more** - Reach more people by adding any of the following social share networks StumbleUpon, Reddit, VK, Yummly, WhatsApp, Buffer, Telegram, Flipboard, Pocket, Tumblr and Email
+* **Mobile Sticky Footer Social Share Buttons** - Your website needs to be mobile ready and Grow by Mediavine is here to help
+* **Pop-Up Social Share Buttons** - Trigger a pop-up with the social sharing buttons when a user does an action 
+* **Custom Button Colors and Hover Colors** - The social networks colors are beautiful, but you don't have to limit yourself. Add any color to your social share buttons to match your website's design.
+* **Shortcode for Social Share Buttons** - Place the buttons anywhere in your template files or the body of your content with the [socialpug_share] shortcode
+* **Link Shortening through Bitly** - Hide long URL's behind their shorter version with the Bitly integration
+* **Google Analytics UTM tracking** - Track the source of your incoming traffic with the help of the Google Analytics UTM parameters
+* **Social Media Follow Buttons Widget** - Place social media follow buttons for the following social media networks: Facebook, Twitter, Google+, Pinterest, LinkedIn, Reddit, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly and Behance. Use the [socialpug_follow] shortcode to place the follow buttons anywere in your template files
+* **Sharable Quotes ( Click to Tweet ) Feature** - Let your readers easily share a custom tweet with just one click
+* **Top Social Media Shared Posts Widget** - Want to showcase your most social shared articles? No problem. You can use this widget in any widget area to add your top shared posts
+* **Import / Export Settings** - Move all the settings from one website to another with just a few clicks
+
+= Powerful Social Sharing Features =
+
+**Social Proof**
+Display social sharing counts for each social media network, for positive social media proof.
+
+**Click to Tweet**
+Let your users share your posts on Twitter with just one click.
+
+**Social Media Custom Content**
+Customize the social media images and descriptions that your users share on their social media profiles.
+
+= Help us Translate =
+We want to reach as many people as possible. Help us translate the plugin in your language and get a 20% discount code for your premium purchases. Contact us here: http://devpups.com/support/
+
+= Documentation =
+
+http://docs.devpups.com/
 
 = Website =
 
-https://www.mediavine.com/social-pug/
+https://marketplace.mediavine.com/grow-social-pro/
 
 == Installation ==
 
 1. Upload the social-pug folder to the '/wp-content/plugins/' directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Activate each location where you wish the social buttons to appear
+1. Activate each location where you wish the buttons to appear
+
 
 == Frequently Asked Questions ==
 
 = What social sharing buttons are supported? =
 
-The free version of Grow supports Facebook, Twitter, Pinterest and LinkedIn as social sharing buttons.
-
-Pro sharing buttons include: Facebook, Twitter, Pinterest, LinkedIn, Reddit, VK, WhatsApp, Pocket, Yummly, Buffer, Tumbler, Xing, Flipboard, Telegram and Mix, as well as buttons for emailing and printing the article.
-
-Pro follow buttons include: Facebook, Twitter, Pinterest, LinkedIn, Reddit, VK, Instagram, YouTube, Vimeo, SoundCloud, Twitch, Yummly, Tumblr, Behance, Xing, Github, Telegram and Medium.
+We currently support Facebook, Twitter, Google+, Pinterest and LinkedIn as social sharing buttons in the free version. The Pro version adds many more social media networks for both social sharing and social follow.
 
 = Can I activate tweet count for my Twitter social sharing button? =
 
-Twitter has officially removed support for the tweet count of a URL. Luckily a third party application named OpenShareCount provides an alternative solution. Grow has partnered with OpenShareCount to provide social sharing proof for your Twitter social sharing button.
+Twitter has officially removed support for the tweet count of a URL. Luckily a third party application, namely OpenShareCount, has come to provide an alternative solution. Grow by Mediavine has partnered with OpenShareCount to provide social sharing proof for your Twitter social sharing button.
 
 = Can I customize the social information that is being shared on social media? =
 
-By default, Grow will use the post’s title and featured image to populate what is being shared on social platforms. If you wish to have full control of what content is shared, we will soon be releasing our Pro version, which will include this feature.
+By default Grow by Mediavine will use the post's title and featured image to populate what is being shared on the social platforms. If you wish to have full control on what gets shared when a visitor uses the social sharing buttons, please visit our website and check out Grow by Mediavine premium.
 
 = Will your social sharing plugin slow down my website? =
 
-No. Grow is a lightweight plugin that was built with efficiency and pagespeed in mind. Unlike other social sharing plugins, Grow will not slow down your website.
+No. Grow by Mediavine is a lightweight plugin that was built with efficiency in mind. Unlike other social sharing plugins, Grow by Mediavine will not slow down your website.
 
-= Do the social share buttons work on only on posts and pages? =
-You are not limited to only posts and pages. Both the inline social share buttons and the floating sidebar social share buttons may be placed on any custom post type that your WordPress installation supports.
+= Can I place the social share buttons only on posts and pages? =
+
+You can place both the inline social share buttons and the floating sidebar social sharing buttons on any custom post type that your WordPress installation has registered. You are not limited to only posts and pages.
+
 
 == Screenshots ==
-
 1. Inline-Content social sharing buttons output
 2. Floating Sidebar social share buttons output
 3. Floating Sidebar social share buttons configuration page
 4. Before and After Content social sharing buttons configuration page
 
+
 == Changelog ==
+
+= 1.7.0 =
+* ENHANCEMENT: Change name and branding to Grow by Mediavine
+* ENHANCEMENT: Ensure text remains visible during icon webfont load
+* ENHANCEMENT: Optimize Javascript
+* ENHANCEMENT: Better accessibility for share buttons
+* FIX: Better spacing for the inline links
+* FIX: Total Shares won't wrap lines
 
 = 1.6.2 =
 * Fixed: Issue with Facebook social share counts not being pulled properly
@@ -222,7 +244,7 @@ You are not limited to only posts and pages. Both the inline social share button
 * Misc: New optimised icon font for the icons, that is smaller in size
 
 = 1.1.5 =
-* New: Settings page with option to disable the Open Graph tags printed by Social Pug
+* New: Settings page with option to disable the Open Graph tags printed by Grow by Mediavine
 
 = 1.1.4 =
 * Misc: Code clean up and minor performance improvements

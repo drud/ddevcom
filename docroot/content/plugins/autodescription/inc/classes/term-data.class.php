@@ -10,7 +10,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -139,7 +139,7 @@ class Term_Data extends Post_Data {
 		static $has_deprecated_filter = null;
 		if ( null === $has_deprecated_filter && \has_filter( 'the_seo_framework_current_term_meta' ) ) {
 			$has_deprecated_filter = true;
-			$this->_deprecated_filter( 'the_seo_framework_current_term_meta', '4.0.0', 'get_term_metadata' );
+			$this->_deprecated_filter( 'the_seo_framework_current_term_meta', '4.0.0', 'the_seo_framework_term_meta' );
 		}
 
 		if ( $has_deprecated_filter && $meta ) {
@@ -166,7 +166,21 @@ class Term_Data extends Post_Data {
 			);
 		}
 
-		return $cache[ $term_id ] = array_merge( $defaults, $meta );
+		/**
+		 * @since 4.0.5
+		 * @note Do not delete/unset/add indexes! It'll cause errors.
+		 * @param array $meta    The current term meta.
+		 * @param int   $term_id The term ID.
+		 */
+		$meta = \apply_filters_ref_array(
+			'the_seo_framework_term_meta',
+			[
+				array_merge( $defaults, $meta ),
+				$term_id,
+			]
+		);
+
+		return $cache[ $term_id ] = $meta;
 	}
 
 	/**
@@ -227,15 +241,15 @@ class Term_Data extends Post_Data {
 	 * Sanitizes and saves term meta data when a term is altered.
 	 *
 	 * @since 2.7.0
-	 * @since 4.0.0: 1. Renamed from `update_term_meta`
-	 *               2. noindex, nofollow, noarchive are now converted to qubits.
-	 *               3. Added new keys to sanitize.
-	 *               4. Now marked as private.
-	 *               5. Added more sanity protection.
-	 *               6. No longer runs when no `autodescription-meta` POST data is sent.
-	 *               7. Now uses the current term meta to set new values.
-	 *               8. No longer deletes meta from abstracting plugins on save when they're deactivated.
-	 *               9. Now allows updating during `WP_AJAX`.
+	 * @since 4.0.0 : 1. Renamed from `update_term_meta`
+	 *                2. noindex, nofollow, noarchive are now converted to qubits.
+	 *                3. Added new keys to sanitize.
+	 *                4. Now marked as private.
+	 *                5. Added more sanity protection.
+	 *                6. No longer runs when no `autodescription-meta` POST data is sent.
+	 *                7. Now uses the current term meta to set new values.
+	 *                8. No longer deletes meta from abstracting plugins on save when they're deactivated.
+	 *                9. Now allows updating during `WP_AJAX`.
 	 * @securitycheck 3.0.0 OK.
 	 * @access private
 	 *         Use $this->save_term_meta() instead.
@@ -260,6 +274,8 @@ class Term_Data extends Post_Data {
 	 * Overwrites all of the term meta on term-edit.
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.2 : 1. Now tests for valid term ID in the term object.
+	 *                2. Now continues using the filtered term object.
 	 *
 	 * @param int    $term_id  Term ID.
 	 * @param int    $tt_id    Term taxonomy ID.
@@ -270,23 +286,26 @@ class Term_Data extends Post_Data {
 
 		$term = \get_term( $term_id, $taxonomy );
 
-		if ( ! $term ) return;
+		// We could test for is_wp_error( $term ), but this is more to the point.
+		if ( empty( $term->term_id ) ) return;
 
 		//* Check again against ambiguous injection...
 		// Note, however: function wp_update_term() already performs all these checks for us before firing this callback's action.
-		if ( ! \current_user_can( 'edit_term', $term_id ) ) return;
+		if ( ! \current_user_can( 'edit_term', $term->term_id ) ) return;
 		if ( ! isset( $_POST['_wpnonce'] ) ) return;
-		if ( ! \wp_verify_nonce( \stripslashes_from_strings_only( $_POST['_wpnonce'] ), 'update-tag_' . $term_id ) ) return;
+		if ( ! \wp_verify_nonce( \stripslashes_from_strings_only( $_POST['_wpnonce'] ), 'update-tag_' . $term->term_id ) ) return;
 
 		$data = (array) $_POST['autodescription-meta'];
 
-		$this->save_term_meta( $term_id, $tt_id, $taxonomy, $data );
+		$this->save_term_meta( $term->term_id, $tt_id, $taxonomy, $data );
 	}
 
 	/**
 	 * Overwrites a part of the term meta on quick-edit.
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.2 : 1. Now tests for valid term ID in the term object.
+	 *                2. Now continues using the filtered term object.
 	 *
 	 * @param int    $term_id  Term ID.
 	 * @param int    $tt_id    Term taxonomy ID.
@@ -297,21 +316,22 @@ class Term_Data extends Post_Data {
 
 		$term = \get_term( $term_id, $taxonomy );
 
-		if ( ! $term ) return;
+		// We could test for is_wp_error( $term ), but this is more to the point.
+		if ( empty( $term->term_id ) ) return;
 
 		//* Check again against ambiguous injection...
 		// Note, however: function wp_ajax_inline_save_tax() already performs all these checks for us before firing this callback's action.
-		if ( ! \current_user_can( 'edit_term', $term_id ) ) return;
+		if ( ! \current_user_can( 'edit_term', $term->term_id ) ) return;
 		if ( ! \check_ajax_referer( 'taxinlineeditnonce', '_inline_edit', false ) ) return;
 
 		// Unlike the term-edit saving, we don't reset the data, just overwrite what's given.
 		// This is because we only update a portion of the meta.
 		$data = array_merge(
-			$this->get_term_meta( $term_id, false ),
+			$this->get_term_meta( $term->term_id, false ),
 			(array) $_POST['autodescription-quick']
 		);
 
-		$this->save_term_meta( $term_id, $tt_id, $taxonomy, $data );
+		$this->save_term_meta( $term->term_id, $tt_id, $taxonomy, $data );
 	}
 
 	/**
@@ -321,6 +341,8 @@ class Term_Data extends Post_Data {
 	 * as it reprocesses all term meta.
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.2 : 1. Now tests for valid term ID in the term object.
+	 *                2. Now continues using the filtered term object.
 	 * @uses $this->save_term_meta() to process all data.
 	 *
 	 * @param string $item     The item to update.
@@ -333,18 +355,21 @@ class Term_Data extends Post_Data {
 
 		$term = \get_term( $term_id, $taxonomy );
 
-		if ( ! $term ) return;
+		// We could test for is_wp_error( $term ), but this is more to the point.
+		if ( empty( $term->term_id ) ) return;
 
-		$meta          = $this->get_term_meta( $term_id, false );
+		$meta          = $this->get_term_meta( $term->term_id, false );
 		$meta[ $item ] = $value;
 
-		$this->save_term_meta( $term_id, $tt_id, $taxonomy, $meta );
+		$this->save_term_meta( $term->term_id, $tt_id, $taxonomy, $meta );
 	}
 
 	/**
 	 * Updates term meta from input.
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.2 : 1. Now tests for valid term ID in the term object.
+	 *                2. Now continues using the filtered term object.
 	 *
 	 * @param int    $term_id  Term ID.
 	 * @param int    $tt_id    Term Taxonomy ID.
@@ -355,9 +380,10 @@ class Term_Data extends Post_Data {
 
 		$term = \get_term( $term_id, $taxonomy );
 
-		if ( ! $term ) return;
+		// We could test for is_wp_error( $term ), but this is more to the point.
+		if ( empty( $term->term_id ) ) return;
 
-		$data = (array) \wp_parse_args( $data, $this->get_term_meta_defaults( $term_id ) );
+		$data = (array) \wp_parse_args( $data, $this->get_term_meta_defaults( $term->term_id ) );
 		$data = $this->s_term_meta( $data );
 
 		/**
@@ -371,13 +397,13 @@ class Term_Data extends Post_Data {
 			'the_seo_framework_save_term_data',
 			[
 				$data,
-				$term_id,
+				$term->term_id,
 				$tt_id,
 				$taxonomy,
 			]
 		);
 
-		\update_term_meta( $term_id, THE_SEO_FRAMEWORK_TERM_OPTIONS, $data );
+		\update_term_meta( $term->term_id, THE_SEO_FRAMEWORK_TERM_OPTIONS, $data );
 	}
 
 	/**
@@ -445,6 +471,7 @@ class Term_Data extends Post_Data {
 	 * Returns hierarchical taxonomies for post type.
 	 *
 	 * @since 3.0.0
+	 * @since 4.0.5 The `$post_type` fallback now uses a real query ID, instead of `$GLOBALS['post']`.
 	 *
 	 * @param string $get       Whether to get the names or objects.
 	 * @param string $post_type The post type. Will default to current post type.
@@ -452,8 +479,7 @@ class Term_Data extends Post_Data {
 	 */
 	public function get_hierarchical_taxonomies_as( $get = 'objects', $post_type = '' ) {
 
-		if ( ! $post_type )
-			$post_type = \get_post_type( $this->get_the_real_ID() );
+		$post_type = $post_type ?: $this->get_post_type_real_ID();
 
 		if ( ! $post_type )
 			return [];

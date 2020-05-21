@@ -18,17 +18,21 @@ class Loader {
 	 *
 	 * @since 1.0.0
 	 * @since 1.6.0 Added Sendinblue.
+	 * @since 1.7.0 Added AmazonSES/Outlook as indication of the Pro mailers.
 	 *
 	 * @var array
 	 */
 	protected $providers = array(
-		'mail'       => 'WPMailSMTP\Providers\Mail\\',
-		'sendinblue' => 'WPMailSMTP\Providers\Sendinblue\\',
-		'mailgun'    => 'WPMailSMTP\Providers\Mailgun\\',
-		'sendgrid'   => 'WPMailSMTP\Providers\Sendgrid\\',
-		'gmail'      => 'WPMailSMTP\Providers\Gmail\\',
-		'smtp'       => 'WPMailSMTP\Providers\SMTP\\',
-		'pepipost'   => 'WPMailSMTP\Providers\Pepipost\\',
+		'mail'        => 'WPMailSMTP\Providers\Mail\\',
+		'pepipostapi' => 'WPMailSMTP\Providers\PepipostAPI\\',
+		'sendinblue'  => 'WPMailSMTP\Providers\Sendinblue\\',
+		'mailgun'     => 'WPMailSMTP\Providers\Mailgun\\',
+		'sendgrid'    => 'WPMailSMTP\Providers\Sendgrid\\',
+		'amazonses'   => 'WPMailSMTP\Providers\AmazonSES\\',
+		'gmail'       => 'WPMailSMTP\Providers\Gmail\\',
+		'outlook'     => 'WPMailSMTP\Providers\Outlook\\',
+		'smtp'        => 'WPMailSMTP\Providers\SMTP\\',
+		'pepipost'    => 'WPMailSMTP\Providers\Pepipost\\',
 	);
 
 	/**

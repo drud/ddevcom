@@ -8,7 +8,7 @@ namespace The_SEO_Framework\Interpreters;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2019 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -29,7 +29,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
  * Interprets the SEO Bar into an HTML item.
  *
  * @since 4.0.0
- * TODO @see \the_seo_framework()->get_new_seo_bar( $args ) for easy access. (name tbd)
+ * @see \the_seo_framework()->get_generated_seo_bar( $args ) for easy access.
  *
  * @access public
  *         Note that you can't instance this class. Only static methods and properties are accessible.

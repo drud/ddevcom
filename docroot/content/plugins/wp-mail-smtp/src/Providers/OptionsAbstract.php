@@ -40,6 +40,12 @@ abstract class OptionsAbstract implements OptionsInterface {
 	 */
 	private $recommended = false;
 	/**
+	 * @since 1.7.0
+	 *
+	 * @var bool
+	 */
+	private $disabled = false;
+	/**
 	 * @var string
 	 */
 	private $php = WPMS_PHP_VER;
@@ -99,8 +105,11 @@ abstract class OptionsAbstract implements OptionsInterface {
 			}
 		}
 
-		if ( ! empty( $params['recommended'] ) ) {
+		if ( isset( $params['recommended'] ) ) {
 			$this->recommended = (bool) $params['recommended'];
+		}
+		if ( isset( $params['disabled'] ) ) {
+			$this->disabled = (bool) $params['disabled'];
 		}
 
 		if ( ! empty( $params['php'] ) ) {
@@ -369,6 +378,19 @@ abstract class OptionsAbstract implements OptionsInterface {
 	}
 
 	/**
+	 * Whether this mailer is disabled or not.
+	 * Used for displaying Pro mailers inside Lite plugin.
+	 *
+	 * @since 1.7.0
+	 *
+	 * @return bool
+	 */
+	public function is_disabled() {
+
+		return (bool) apply_filters( 'wp_mail_smtp_providers_provider_is_disabled', $this->disabled, $this );
+	}
+
+	/**
 	 * Check whether we can use this provider based on the PHP version.
 	 * Valid for those, that use SDK.
 	 *
@@ -419,7 +441,7 @@ abstract class OptionsAbstract implements OptionsInterface {
 			<?php
 			printf(
 				/* translators: %s - Provider name. */
-				esc_html__( '%s requires a SSL certificate on a site to work and does not support you current installation. Please contact your host and request a SSL certificate or install a free one, like Let\'s Encrypt.', 'wp-mail-smtp' ),
+				esc_html__( '%s requires a SSL certificate on a site to work and does not support your current installation. Please contact your host and request a SSL certificate or install a free one, like Let\'s Encrypt.', 'wp-mail-smtp' ),
 				esc_html( $this->get_title() )
 			);
 			?>

@@ -36,7 +36,7 @@
 
 				<div class="dpsp-card-inner">
 
-					<?php dpsp_settings_field( 'select', 'dpsp_settings[facebook_share_counts_provider]', ( isset($dpsp_settings['facebook_share_counts_provider']) ? $dpsp_settings['facebook_share_counts_provider'] : '' ), __( 'Facebook Share Counts Provider', 'social-pug' ), array( 'authorized_app' => __( 'Social Pug App', 'social-pug' ), 'own_app' => __( 'Facebook Graph API', 'social-pug' ) ) ); ?>
+					<?php dpsp_settings_field( 'select', 'dpsp_settings[facebook_share_counts_provider]', ( isset($dpsp_settings['facebook_share_counts_provider']) ? $dpsp_settings['facebook_share_counts_provider'] : '' ), __( 'Facebook Share Counts Provider', 'social-pug' ), array( 'authorized_app' => __( 'Grow by Mediavine App', 'social-pug' ), 'own_app' => __( 'Facebook Graph API', 'social-pug' ) ) ); ?>
 
 					<div class="dpsp-setting-field-wrapper dpsp-setting-field-text dpsp-has-field-label dpsp-setting-field-facebook-authorize-app">
 
@@ -60,13 +60,13 @@
 									<?php echo '- ' . __( 'Please reauthorize.', 'social-pug' ); ?>
 								</div>
 
-								<a class="dpsp-button-primary" href="<?php echo add_query_arg( array( 'action' => 'authorize_facebook_app_free', 'referer' => home_url(), 'tkn' => wp_create_nonce( 'dpsp_authorize_facebook_app' ), 'client_url' => urlencode( add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) ) ), 'http://apitest.devpups.com/1.0/' ); ?>"><?php echo __( 'Reauthorize Social Pug', 'social-pug' ); ?></a>
+								<a class="dpsp-button-primary" href="<?php echo add_query_arg( array( 'action' => 'authorize_facebook_app_free', 'referer' => home_url(), 'tkn' => wp_create_nonce( 'dpsp_authorize_facebook_app' ), 'client_url' => urlencode( add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) ) ), 'http://apitest.devpups.com/1.0/' ); ?>"><?php echo __( 'Reauthorize Grow', 'social-pug' ); ?></a>
 
 							<?php endif; ?>
 
 						<?php else: ?>
 
-							<a class="dpsp-button-primary" href="<?php echo add_query_arg( array( 'action' => 'authorize_facebook_app_free', 'referer' => home_url(), 'tkn' => wp_create_nonce( 'dpsp_authorize_facebook_app' ), 'client_url' => urlencode( add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) ) ), 'http://apitest.devpups.com/1.0/' ); ?>"><?php echo __( 'Authorize Social Pug', 'social-pug' ); ?></a>
+							<a class="dpsp-button-primary" href="<?php echo add_query_arg( array( 'action' => 'authorize_facebook_app_free', 'referer' => home_url(), 'tkn' => wp_create_nonce( 'dpsp_authorize_facebook_app' ), 'client_url' => urlencode( add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) ) ), 'http://apitest.devpups.com/1.0/' ); ?>"><?php echo __( 'Authorize Grow', 'social-pug' ); ?></a>
 
 						<?php endif; ?>
 
@@ -75,7 +75,7 @@
 					<?php dpsp_settings_field( 'text', 'dpsp_settings[facebook_app_id]', ( isset($dpsp_settings['facebook_app_id']) ? $dpsp_settings['facebook_app_id'] : '' ), __( 'Facebook App ID', 'social-pug' ), '' ); ?>
 					<?php dpsp_settings_field( 'text', 'dpsp_settings[facebook_app_secret]', ( isset($dpsp_settings['facebook_app_secret']) ? $dpsp_settings['facebook_app_secret'] : '' ), __( 'Facebook App Secret', 'social-pug' ), '' ); ?>
 					<?php dpsp_settings_field( 'switch', 'dpsp_settings[disable_meta_tags]', ( isset($dpsp_settings['disable_meta_tags']) ? $dpsp_settings['disable_meta_tags'] : '' ), __( 'Disable Open Graph Meta Tags', 'social-pug' ), array('yes') ); ?>
-					<?php dpsp_settings_field( 'switch', 'dpsp_settings[twitter_share_counts]', ( isset($dpsp_settings['twitter_share_counts']) ? $dpsp_settings['twitter_share_counts'] : '' ), __( 'Enable Twitter Tweet Counts', 'social-pug' ), array('yes'), sprintf( __( 'You will need to register your website on %1$sTwitCount%2$s in order for Social Pug to be able to return the share counts.', 'social-pug' ), '<a href="http://twitcount.com/" target="_blank">', '</a>' ) ); ?>
+					<?php dpsp_settings_field( 'switch', 'dpsp_settings[twitter_share_counts]', ( isset($dpsp_settings['twitter_share_counts']) ? $dpsp_settings['twitter_share_counts'] : '' ), __( 'Enable Twitter Tweet Counts', 'social-pug' ), array('yes'), sprintf( __( 'You will need to register your website on %1$sTwitCount%2$s in order for Growto be able to return the share counts.', 'social-pug' ), '<a href="http://twitcount.com/" target="_blank">', '</a>' ) ); ?>
 
 				</div>
 

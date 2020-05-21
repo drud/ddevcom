@@ -23,6 +23,7 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
         'P' => 
         array (
             'Psr\\Log\\' => 8,
+            'PhpOption\\' => 10,
         ),
         'M' => 
         array (
@@ -54,6 +55,10 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
         array (
             0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
         ),
+        'PhpOption\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpoption/phpoption/src/PhpOption',
+        ),
         'Monolog\\' => 
         array (
             0 => __DIR__ . '/..' . '/monolog/monolog/src/Monolog',
@@ -81,13 +86,6 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
     );
 
     public static $prefixesPsr0 = array (
-        'P' => 
-        array (
-            'PhpOption\\' => 
-            array (
-                0 => __DIR__ . '/..' . '/phpoption/phpoption/src',
-            ),
-        ),
         'E' => 
         array (
             'Env' => 

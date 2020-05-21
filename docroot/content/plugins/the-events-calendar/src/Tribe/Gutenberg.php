@@ -75,15 +75,25 @@ class Tribe__Events__Gutenberg {
 	 */
 	public function should_display() {
 		// Hide when all of these three are active
-		if (
-			tribe( 'tec.gutenberg' )->is_gutenberg_active()
-			&& tribe( 'tec.gutenberg' )->is_extension_active()
-			&& tribe( 'tec.gutenberg' )->is_blocks_editor_active()
-		) {
-			return false;
+		return ! ( $this->is_gutenberg_active() && $this->is_extension_active() && $this->is_blocks_editor_active() );
+	}
+
+	/**
+	 * Checks if we are on the classic editor page
+	 *
+	 * @since  4.6.26
+	 *
+	 * @return boolean
+	 */
+	public function is_classic_editor_page() {
+		$on_classic_editor_page = tribe_get_request_var( 'classic-editor', false );
+
+		// Bail if in classic editor
+		if ( '' === $on_classic_editor_page || $on_classic_editor_page ) {
+			return true;
 		}
 
-		return true;
+		return false;
 	}
 
 	/**

@@ -10,7 +10,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -213,21 +213,23 @@ class Core {
 	 */
 	public function _add_plugin_action_links( $links = [] ) {
 
-		if ( $this->load_options )
+		if ( $this->load_options ) {
 			$tsf_links['settings'] = sprintf(
 				'<a href="%s">%s</a>',
 				\esc_url( \admin_url( 'admin.php?page=' . $this->seo_settings_page_slug ) ),
 				\esc_html__( 'Settings', 'autodescription' )
 			);
+		}
 
-		$tsf_links['about'] = sprintf(
-			'<a href="https://theseoframework.com/about-us/" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
-			\esc_html_x( 'About', 'About us', 'autodescription' )
-		);
 		$tsf_links['tsfem'] = sprintf(
 			'<a href="%s" rel="noreferrer noopener" target="_blank">%s</a>',
 			'https://theseoframework.com/extensions/',
 			\esc_html_x( 'Extensions', 'Plugin extensions', 'autodescription' )
+		);
+		$tsf_links['pricing'] = sprintf(
+			'<a href="%s" rel="noreferrer noopener" target="_blank">%s</a>',
+			'https://theseoframework.com/pricing/',
+			\esc_html_x( 'Pricing', 'Plugin pricing', 'autodescription' )
 		);
 
 		return array_merge( $tsf_links, $links );
@@ -256,25 +258,32 @@ class Core {
 		return array_merge(
 			$plugin_meta,
 			[
-				'docs' => vsprintf(
+				'support' => vsprintf(
+					'<a href="%s" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
+					[
+						'https://tsf.fyi/support',
+						\esc_html__( 'Get support', 'autodescription' ),
+					]
+				),
+				'docs'    => vsprintf(
 					'<a href="%s" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
 					[
 						'https://tsf.fyi/docs',
 						\esc_html__( 'View documentation', 'autodescription' ),
 					]
 				),
-				'API'  => vsprintf(
+				'API'     => vsprintf(
 					'<a href="%s" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
 					[
 						'https://tsf.fyi/docs/api',
 						\esc_html__( 'View API docs', 'autodescription' ),
 					]
 				),
-				'EM'   => vsprintf(
+				'EM'      => vsprintf(
 					'<a href="%s" rel="noreferrer noopener nofollow" target="_blank">%s</a>',
 					[
 						'https://tsf.fyi/extension-manager',
-						$_get_em ? \esc_html_x( 'Get the Extension Manager', 'Extension Manager is a product name; do not translate it.', 'autodescription' ) : 'Extension Manager',
+						$_get_em ? \esc_html_x( 'Get Extension Manager', 'Extension Manager is a product name; do not translate it.', 'autodescription' ) : 'Extension Manager',
 					]
 				),
 			]
@@ -345,6 +354,7 @@ class Core {
 	 * Checks if blog is public through WordPress core settings.
 	 *
 	 * @since 2.6.0
+	 * @since 4.0.5 Can now test for non-sanitized 'blog_public' option states.
 	 * @staticvar bool $cache
 	 *
 	 * @return bool True is blog is public.
@@ -353,13 +363,7 @@ class Core {
 
 		static $cache = null;
 
-		if ( isset( $cache ) )
-			return $cache;
-
-		if ( '1' === \get_option( 'blog_public' ) )
-			return $cache = true;
-
-		return $cache = false;
+		return isset( $cache ) ? $cache : $cache = (bool) \get_option( 'blog_public' );
 	}
 
 	/**
@@ -438,8 +442,8 @@ class Core {
 	 *
 	 * @since 2.6.0
 	 *
-	 * @param bool $guess : If true, the timezone will be guessed from the
-	 * WordPress core gmt_offset option.
+	 * @param bool $guess If true, the timezone will be guessed from the
+	 *                    WordPress core gmt_offset option.
 	 * @return string PHP Timezone String. May be empty (thus invalid).
 	 */
 	public function get_timezone_string( $guess = false ) {
@@ -476,14 +480,20 @@ class Core {
 	/**
 	 * Sets and resets the timezone.
 	 *
+	 * NOTE: Always call reset_timezone() ASAP. Don't let changes linger, as they can be destructive.
+	 *
 	 * This exists because WordPress' current_time() adds discrepancies between UTC and GMT.
 	 * This is also far more accurate than WordPress' tiny time table.
 	 *
+	 * @TODO Note that WordPress 5.3 no longer requires this, and that we should rely on wp_date() instead.
+	 *       So, we should remove this dependency ASAP.
+	 *
 	 * @since 2.6.0
 	 * @since 3.0.6 Now uses the old timezone string when a new one can't be generated.
+	 * @since 4.0.4 Now also unsets the stored timezone string on reset.
+	 * @link http://php.net/manual/en/timezones.php
 	 *
 	 * @param string $tzstring Optional. The PHP Timezone string. Best to leave empty to always get a correct one.
-	 *               @link http://php.net/manual/en/timezones.php
 	 * @param bool   $reset Whether to reset to default. Ignoring first parameter.
 	 * @return bool True on success. False on failure.
 	 */
@@ -491,25 +501,19 @@ class Core {
 
 		static $old_tz = null;
 
-		if ( is_null( $old_tz ) ) {
-			// See method docs.
-			// phpcs:ignore
-			$old_tz = date_default_timezone_get();
-			if ( empty( $old_tz ) )
-				$old_tz = 'UTC';
-		}
+		$old_tz = $old_tz ?: date_default_timezone_get() ?: 'UTC';
 
 		if ( $reset ) {
-			// See method docs.
-			// phpcs:ignore
-			return date_default_timezone_set( $old_tz );
+			$_revert_tz = $old_tz;
+			$old_tz     = null;
+			// phpcs:ignore, WordPress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
+			return date_default_timezone_set( $_revert_tz );
 		}
 
 		if ( empty( $tzstring ) )
 			$tzstring = $this->get_timezone_string( true ) ?: $old_tz;
 
-		// See method docs.
-		// phpcs:ignore
+		// phpcs:ignore, WordPress.DateTime.RestrictedFunctions.timezone_change_date_default_timezone_set
 		return date_default_timezone_set( $tzstring );
 	}
 
@@ -528,6 +532,9 @@ class Core {
 	 * Converts time from GMT input to given format.
 	 *
 	 * @since 2.7.0
+	 * @since 4.0.4 Now uses `gmdate()` instead of `date()`.
+	 * @see `$this->set_timezone()`
+	 * @see `$this->reset_timezone()`
 	 *
 	 * @param string $format The datetime format.
 	 * @param string $time The GMT time. Expects timezone to be omitted.
@@ -536,7 +543,7 @@ class Core {
 	public function gmt2date( $format = 'Y-m-d', $time = '' ) {
 
 		if ( $time )
-			return date( $format, strtotime( $time . ' GMT' ) );
+			return gmdate( $format, strtotime( $time . ' GMT' ) );
 
 		return '';
 	}
@@ -670,7 +677,7 @@ class Core {
 	 * @since 2.8.0
 	 * @since 2.9.0 Now adds a little more relative softness based on rel_lum.
 	 * @since 2.9.2 (Typo): Renamed from 'get_relatitve_fontcolor' to 'get_relative_fontcolor'.
-	 * @since 3.0.4 : Now uses WCAG's relative luminance formula
+	 * @since 3.0.4 Now uses WCAG's relative luminance formula
 	 * @link https://www.w3.org/TR/2008/REC-WCAG20-20081211/#visual-audio-contrast-contrast
 	 * @link https://www.w3.org/WAI/GL/wiki/Relative_luminance
 	 *
@@ -736,6 +743,7 @@ class Core {
 	 * Returns sitemap color scheme.
 	 *
 	 * @since 2.8.0
+	 * @since 4.0.5 Changed default colors to be more in line with WordPress.
 	 *
 	 * @param bool $get_defaults Whether to get the default colors.
 	 * @return array The sitemap colors.
@@ -744,8 +752,8 @@ class Core {
 
 		if ( $get_defaults ) {
 			$colors = [
-				'main'   => '#333',
-				'accent' => '#00cd98',
+				'main'   => '#222222',
+				'accent' => '#00a0d2',
 			];
 		} else {
 			$main   = $this->s_color_hex( $this->get_option( 'sitemap_color_main' ) );
@@ -771,10 +779,11 @@ class Core {
 	 * Note: This code has been rightfully stolen from the Extension Manager plugin (sorry Sybre!).
 	 *
 	 * @since 2.8.0
-	 * @since 2.9.0 : 1. Removed word boundary requirement for strong.
-	 *                2. Now accepts regex count their numeric values in string.
-	 *                3. Fixed header 1~6 calculation.
-	 * @since 2.9.3 : Added $args parameter.
+	 * @since 2.9.0 1. Removed word boundary requirement for strong.
+	 *              2. Now accepts regex count their numeric values in string.
+	 *              3. Fixed header 1~6 calculation.
+	 * @since 2.9.3 Added $args parameter.
+	 * @since 4.0.3 Added a workaround for connected em/strong elements.
 	 * @link https://wordpress.org/plugins/about/readme.txt
 	 *
 	 * @param string $text    The text that might contain markdown. Expected to be escaped.
@@ -785,11 +794,10 @@ class Core {
 	 */
 	public function convert_markdown( $text, $convert = [], $args = [] ) {
 
-		preprocess : {
-			$text = str_replace( "\r\n", "\n", $text );
-			$text = str_replace( "\t", ' ', $text );
-			$text = trim( $text );
-		}
+		// preprocess
+		$text = str_replace( "\r\n", "\n", $text );
+		$text = str_replace( "\t", ' ', $text );
+		$text = trim( $text );
 
 		// You need 3 chars to make a markdown: *m*
 		if ( strlen( $text ) < 3 )
@@ -815,6 +823,17 @@ class Core {
 		];
 
 		$md_types = empty( $convert ) ? $conversions : array_intersect( $conversions, $convert );
+
+		if ( 2 === count( array_intersect( $md_types, [ 'em', 'strong' ] ) ) ) :
+			$count = preg_match_all( '/(?:\*{3})([^\*{\3}]+)(?:\*{3})/', $text, $matches, PREG_PATTERN_ORDER );
+			for ( $i = 0; $i < $count; $i++ ) {
+				$text = str_replace(
+					$matches[0][ $i ],
+					sprintf( '<strong><em>%s</em></strong>', \esc_html( $matches[1][ $i ] ) ),
+					$text
+				);
+			}
+		endif;
 
 		foreach ( $md_types as $type ) :
 			switch ( $type ) :
@@ -860,9 +879,11 @@ class Core {
 				case 'h3':
 				case 'h2':
 				case 'h1':
-					$amount = filter_var( $type, FILTER_SANITIZE_NUMBER_INT );
 					//* Considers word non-boundary. @TODO consider removing this?
-					$expression = sprintf( '/(?:\={%1$s})\B([^\={\%1$s}]+)\B(?:\={%1$s})/', $amount );
+					$expression = sprintf(
+						'/(?:\={%1$d})\B([^\={\%1$s}]+)\B(?:\={%1$d})/',
+						filter_var( $type, FILTER_SANITIZE_NUMBER_INT )
+					);
 
 					$count = preg_match_all( $expression, $text, $matches, PREG_PATTERN_ORDER );
 
