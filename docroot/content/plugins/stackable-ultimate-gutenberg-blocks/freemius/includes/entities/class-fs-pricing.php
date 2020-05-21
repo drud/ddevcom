@@ -34,6 +34,16 @@
 		 * @var null|float
 		 */
 		public $lifetime_price;
+<<<<<<< HEAD
+=======
+        /**
+         * @author Leo Fajardo (@leorw)
+         * @since 2.3.1
+         *
+         * @var string One of the following: `usd`, `gbp`, `eur`.
+         */
+        public $currency;
+>>>>>>> add gutenblock plugin that was used on production
 
 		#endregion Properties
 
@@ -138,4 +148,16 @@
 			return ( $this->monthly_price * 12 - $this->annual_price ) * ( $this->is_unlimited() ? 1 : $this->licenses );
 		}
 
+<<<<<<< HEAD
+=======
+        /**
+         * @author Leo Fajardo (@leorw)
+         * @since  2.3.1
+         *
+         * @return bool
+         */
+        function is_usd() {
+            return ( 'usd' === $this->currency );
+        }
+>>>>>>> add gutenblock plugin that was used on production
 	}

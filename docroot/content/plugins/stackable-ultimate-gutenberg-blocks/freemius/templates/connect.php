@@ -40,8 +40,13 @@
 
 	$freemius_site_www = 'https://freemius.com';
 
+<<<<<<< HEAD
 	$freemius_usage_tracking_url = $freemius_site_www . '/wordpress/usage-tracking/' . $fs->get_id() . "/{$slug}/";
 	$freemius_plugin_terms_url   = $freemius_site_www . '/terms/' . $fs->get_id() . "/{$slug}/";
+=======
+	$freemius_usage_tracking_url = $fs->get_usage_tracking_terms_url();
+	$freemius_plugin_terms_url   = $fs->get_eula_url();
+>>>>>>> add gutenblock plugin that was used on production
 
 	$freemius_site_url = $fs->is_premium() ?
 		$freemius_site_www :
@@ -72,7 +77,11 @@
 	$is_optin_dialog = (
 		$fs->is_theme() &&
 		$fs->is_themes_page() &&
+<<<<<<< HEAD
 		( ! $fs->has_settings_menu() || $fs->is_free_wp_org_theme() )
+=======
+		$fs->show_opt_in_on_themes_page()
+>>>>>>> add gutenblock plugin that was used on production
 	);
 
 	if ( $is_optin_dialog ) {
@@ -131,6 +140,17 @@
 	?>
 	<?php
 		}
+<<<<<<< HEAD
+=======
+
+		/**
+		 * Allows developers to include custom HTML before the opt-in content.
+		 *
+		 * @author Vova Feldman
+		 * @since 2.3.2
+		 */
+		$fs->do_action( 'connect/before' );
+>>>>>>> add gutenblock plugin that was used on production
 	?>
 	<div id="fs_connect"
 	     class="wrap<?php if ( ! fs_is_network_admin() && ( ! $fs->is_enable_anonymous() || $is_pending_activation || $require_license_key ) ) {
@@ -322,6 +342,10 @@
 					<input type="hidden" name="fs_action"
 					       value="<?php echo $fs->get_unique_affix() ?>_activate_existing">
 					<?php wp_nonce_field( 'activate_existing_' . $fs->get_public_key() ) ?>
+<<<<<<< HEAD
+=======
+					<input type="hidden" name="is_extensions_tracking_allowed" value="1">
+>>>>>>> add gutenblock plugin that was used on production
 					<button class="button button-primary" tabindex="1"
 					        type="submit"><?php echo esc_html( $button_label ) ?></button>
 				</form>
@@ -331,6 +355,10 @@
 					<?php foreach ( $optin_params as $name => $value ) : ?>
 						<input type="hidden" name="<?php echo $name ?>" value="<?php echo esc_attr( $value ) ?>">
 					<?php endforeach ?>
+<<<<<<< HEAD
+=======
+					<input type="hidden" name="is_extensions_tracking_allowed" value="1">
+>>>>>>> add gutenblock plugin that was used on production
 					<button class="button button-primary" tabindex="1"
 					        type="submit"<?php if ( $require_license_key ) {
 						echo ' disabled="disabled"';
@@ -340,12 +368,26 @@
 		</div><?php
 
 			// Set core permission list items.
+<<<<<<< HEAD
 			$permissions = array(
 				'profile' => array(
+=======
+			$permissions = array();
+
+			/**
+			 * When activating a license key the information of the admin is not collected, we gather the user info from the license.
+			 *
+			 * @since 2.3.2
+			 * @author Vova Feldman
+			 */
+			if ( ! $require_license_key ) {
+				$permissions['profile'] = array(
+>>>>>>> add gutenblock plugin that was used on production
 					'icon-class' => 'dashicons dashicons-admin-users',
 					'label'      => $fs->get_text_inline( 'Your Profile Overview', 'permissions-profile' ),
 					'desc'       => $fs->get_text_inline( 'Name and email address', 'permissions-profile_desc' ),
 					'priority'   => 5,
+<<<<<<< HEAD
 				),
 				'site'    => array(
 					'icon-class' => 'dashicons dashicons-admin-settings',
@@ -365,6 +407,30 @@
 					'desc'       => $fs->get_text_inline( 'Activation, deactivation and uninstall', 'permissions-events_desc' ),
 					'priority'   => 20,
 				),
+=======
+				);
+			}
+
+			$permissions['site']    = array(
+				'icon-class' => 'dashicons dashicons-admin-settings',
+				'label'      => $fs->get_text_inline( 'Your Site Overview', 'permissions-site' ),
+				'desc'       => $fs->get_text_inline( 'Site URL, WP version, PHP info', 'permissions-site_desc' ),
+				'priority'   => 10,
+			);
+
+			$permissions['notices'] = array(
+				'icon-class' => 'dashicons dashicons-testimonial',
+				'label'      => $fs->get_text_inline( 'Admin Notices', 'permissions-admin-notices' ),
+				'desc'       => $fs->get_text_inline( 'Updates, announcements, marketing, no spam', 'permissions-newsletter_desc' ),
+				'priority'   => 13,
+			);
+
+			$permissions['events']  = array(
+				'icon-class' => 'dashicons dashicons-admin-' . ( $fs->is_plugin() ? 'plugins' : 'appearance' ),
+				'label'      => sprintf( $fs->get_text_inline( 'Current %s Events', 'permissions-events' ), ucfirst( $fs->get_module_type() ) ),
+				'desc'       => $fs->get_text_inline( 'Activation, deactivation and uninstall', 'permissions-events_desc' ),
+				'priority'   => 20,
+>>>>>>> add gutenblock plugin that was used on production
 			);
 
 			// Add newsletter permissions if enabled.
@@ -377,6 +443,17 @@
 				);
 			}
 
+<<<<<<< HEAD
+=======
+			$permissions['extensions']    = array(
+				'icon-class' => 'dashicons dashicons-menu',
+				'label'      => $fs->get_text_inline( 'Plugins & Themes', 'permissions-extensions' ),
+				'desc'       => $fs->get_text_inline( 'Title, slug, version, and is active', 'permissions-extensions_desc' ),
+				'priority'   => 25,
+				'optional'   => true,
+			);
+
+>>>>>>> add gutenblock plugin that was used on production
 			// Allow filtering of the permissions list.
 			$permissions = $fs->apply_filters( 'permission_list', $permissions );
 
@@ -399,8 +476,18 @@
 								<li id="fs-permission-<?php echo esc_attr( $id ); ?>"
 								    class="fs-permission fs-<?php echo esc_attr( $id ); ?>">
 									<i class="<?php echo esc_attr( $permission['icon-class'] ); ?>"></i>
+<<<<<<< HEAD
 
 									<div>
+=======
+									<?php if ( isset( $permission['optional'] ) && true === $permission['optional'] ) : ?>
+										<div class="fs-switch fs-small fs-round fs-on">
+											<div class="fs-toggle"></div>
+										</div>
+									<?php endif ?>
+
+									<div class="fs-permission-description">
+>>>>>>> add gutenblock plugin that was used on production
 										<span><?php echo esc_html( $permission['label'] ); ?></span>
 
 										<p><?php echo esc_html( $permission['desc'] ); ?></p>
@@ -431,6 +518,17 @@
 		</div>
 	</div>
 	<?php
+<<<<<<< HEAD
+=======
+		/**
+		 * Allows developers to include custom HTML after the opt-in content.
+		 *
+		 * @author Vova Feldman
+		 * @since 2.3.2
+		 */
+		$fs->do_action( 'connect/after' );
+
+>>>>>>> add gutenblock plugin that was used on production
 		if ( $is_optin_dialog ) { ?>
 </div>
 <?php
@@ -659,6 +757,13 @@
 		var ajaxOptin = ( requireLicenseKey || isNetworkActive );
 
 		$form.on('submit', function () {
+<<<<<<< HEAD
+=======
+			var isExtensionsTrackingAllowed = $( '#fs-permission-extensions .fs-switch' ).hasClass( 'fs-on' );
+
+			$( 'input[name=is_extensions_tracking_allowed]' ).val( isExtensionsTrackingAllowed ? 1 : 0 );
+
+>>>>>>> add gutenblock plugin that was used on production
 			/**
 			 * @author Vova Feldman (@svovaf)
 			 * @since 1.1.9
@@ -711,6 +816,11 @@
                         }
 
                         data.is_marketing_allowed = isMarketingAllowed;
+<<<<<<< HEAD
+=======
+
+						data.is_extensions_tracking_allowed = isExtensionsTrackingAllowed;
+>>>>>>> add gutenblock plugin that was used on production
                     }
 
                     $marketingOptin.removeClass( 'error' );
@@ -813,6 +923,15 @@
 			return false;
 		});
 
+<<<<<<< HEAD
+=======
+		$( '.fs-switch' ).click( function () {
+			$(this)
+				.toggleClass( 'fs-on' )
+				.toggleClass( 'fs-off' );
+		});
+
+>>>>>>> add gutenblock plugin that was used on production
 		if (requireLicenseKey) {
 			/**
 			 * Submit license key on enter.

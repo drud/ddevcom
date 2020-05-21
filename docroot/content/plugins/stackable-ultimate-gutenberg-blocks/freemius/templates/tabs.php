@@ -20,7 +20,11 @@
 
     $menu_items = $fs->get_menu_items();
 
+<<<<<<< HEAD
     $is_free_wp_org_theme = $fs->is_free_wp_org_theme();
+=======
+    $show_settings_with_tabs = $fs->show_settings_with_tabs();
+>>>>>>> add gutenblock plugin that was used on production
 
     $tabs = array();
     foreach ( $menu_items as $priority => $items ) {
@@ -34,7 +38,11 @@
                     continue;
                 }
 
+<<<<<<< HEAD
                 if ( ! $is_free_wp_org_theme || ! $fs->is_submenu_item_visible( $submenu_name, true ) ) {
+=======
+                if ( ! $show_settings_with_tabs || ! $fs->is_submenu_item_visible( $submenu_name, true ) ) {
+>>>>>>> add gutenblock plugin that was used on production
                     continue;
                 }
             }

@@ -344,7 +344,15 @@
 		}
 
 		if ( ! isset( $newest_sdk->type ) || 'theme' !== $newest_sdk->type ) {
+<<<<<<< HEAD
 			$in_activation = ( ! is_plugin_active( $plugin_file ) );
+=======
+            if ( ! function_exists( 'is_plugin_active' ) ) {
+                require_once ABSPATH . 'wp-admin/includes/plugin.php';
+            }
+
+            $in_activation = ( ! is_plugin_active( $plugin_file ) );
+>>>>>>> add gutenblock plugin that was used on production
 		} else {
 			$theme         = wp_get_theme();
 			$in_activation = ( $newest_sdk->plugin_path == $theme->stylesheet );

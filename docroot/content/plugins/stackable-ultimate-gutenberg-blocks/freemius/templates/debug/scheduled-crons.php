@@ -19,7 +19,11 @@
 	);
 
 	foreach ( $module_types as $module_type ) {
+<<<<<<< HEAD
 		$modules = $fs_options->get_option( $module_type . 's' );
+=======
+		$modules = fs_get_entities( $fs_options->get_option( $module_type . 's' ), FS_Plugin::get_class_name() );
+>>>>>>> add gutenblock plugin that was used on production
 		if ( is_array( $modules ) && count( $modules ) > 0 ) {
 			foreach ( $modules as $slug => $data ) {
 				if ( WP_FS__MODULE_TYPE_THEME === $module_type ) {

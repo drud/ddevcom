@@ -37,7 +37,11 @@
             $this->_logger->entrance();
             $this->_logger->log( 'id = ' . $id );
 
+<<<<<<< HEAD
             $this->_options = FS_Option_Manager::get_manager( $id, true, true );
+=======
+            $this->_options = FS_Option_Manager::get_manager( $id, true, true, false );
+>>>>>>> add gutenblock plugin that was used on production
         }
 
         /**

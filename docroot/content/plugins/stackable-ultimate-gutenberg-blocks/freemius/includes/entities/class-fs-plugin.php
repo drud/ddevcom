@@ -99,6 +99,14 @@
          * @var null|number
          */
         public $bundle_id;
+<<<<<<< HEAD
+=======
+        /**
+         * @since 2.3.1
+         * @var null|string
+         */
+        public $bundle_public_key;
+>>>>>>> add gutenblock plugin that was used on production
 
         const AFFILIATE_MODERATION_CUSTOMERS = 'customers';
 
