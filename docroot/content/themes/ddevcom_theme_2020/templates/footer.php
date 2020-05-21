@@ -2,7 +2,7 @@
 <?php get_template_part('templates/modal', 'video'); ?>
 
 <footer class="content-info">
-  <div class="container-fluid py-5 bg-primary">
+  <div class="container-fluid py-5">
     <div class="row">
       <div class="col-lg-9 mx-auto">
         <div class="row">
@@ -29,7 +29,7 @@
 
   <?php if (is_active_sidebar('footer-4')): ?>
 
-  <div class="container-fluid py-2 bg-primary">
+  <div class="container-fluid py-2 bg-dark">
     <div class="row">
       <div class="col-lg-12 text-center text-white">
         <?php dynamic_sidebar('footer-4'); ?>

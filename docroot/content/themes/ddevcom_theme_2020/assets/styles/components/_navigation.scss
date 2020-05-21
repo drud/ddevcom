@@ -204,10 +204,6 @@
 .main-navigation__menu li ul.sub-menu li.menu-item-has-children:hover {
   @include media-breakpoint-up(lg) {
     margin-bottom: 0;
-
-      .sub-menu {
-        background-color: theme-color('primary-light');
-      }
   }
 }
 
@@ -571,13 +567,13 @@
 
 .product-navigation__menu li:first-of-type {
   a {
-    color: theme-color('success');
+    color: theme-color('cta');
   }
 
   @include media-breakpoint-up(lg) {
     &:hover {
       a {
-        color: darken(theme-color('success'), 5);
+        color: darken(theme-color('cta'), 5);
       }
     }
   }

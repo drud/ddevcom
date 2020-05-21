@@ -33,11 +33,13 @@
       <div class="row">
         <div class="col-lg-6">
           <p class="product__main-header-heading">Deploy your Local to Live from command line.</p>
-          <p class="product__main-header-lead lead mb-4 mb-lg-5">
+          <p class="product__main-header-lead lead mb-5">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
           </p>
-          <a href="#" class="btn btn-success btn-lg mr-2">Join Now</a>
-          <a href="#" class="btn btn-outline-success btn-lg">Request Demo</a>
+          <div class="mb-5 mb-lg-0">
+            <a href="#" class="btn btn-cta btn-lg mr-2">Start a Free Trial</a>
+            <a href="#" class="btn btn-outline-cta btn-lg">Request Demo</a>
+          </div>
         </div>
         <div class="col-lg-6">
           <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/screenshot-ddev-live.png" alt="DDEV Live Screenshot">
@@ -45,8 +47,296 @@
       </div>
     </div>
   </section>
-  <section class="product__feature-cards">
+  <section class="product__features">
+      <div class="container">
+        <div class="row product__supporting">
+          <div class="col-lg-4 product__supporting-col pr-lg-5">
+            <p class="h4 text-center mb-4">Proudly supporting:</p>
+            <div class="row pb-lg-5">
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+              </div>
+            </div>
+          </div>
+          <div class="col-lg-8 pl-lg-5">
+            <p class="h4 text-center mb-4">Coming Soon:</p>
+            <div class="row">
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 mt-lg-5">
+          <div class="product__feature-card card w-100">
+            <div class="card-body">
+              <div class="row mb-lg-5">
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+                <div class="col">
+                  <h3 class="product__feature-heading mb-4">
+                    <i class="fa fa-bomb"></i> Feature Name
+                  </h3>
+                  <p class="product__feature-description">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col text-center">
+                  <a href="#" class="btn btn-lg btn-cta mr-2">
+                    Start a Free Trial
+                  </a>
+                  <a href="#" class="btn btn-lg btn-outline-cta">
+                    Request Demo
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
+  <section class="product__demo bg-primary-dark">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <p class="h1 text-light text-center mb-5">
+              Nec feugiat in fermentum posuere urna nec tincidunt.
+            </p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-7">
+              <ol class="product__demo-steps bg-dark">
+                <li>
+                  Sign up for your <a class="text-cta" href="#">free trial</a>
+                </li>
+                <li>
+                  Install Local and create a site
+                  <div>
+                    <h6 class="mb-0 my-3">
+                      Install Local on your OS:
+                    </h6>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Mac
+                    </a>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Windows
+                    </a>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Linux
+                    </a>
+                    <h6 class="mb-0 my-3">
+                      Create you new site with Local:
+                    </h6>
+                    <code>
+                      $ ddev create
+                    </code>
+                  </div>
+                </li>
+                <li>
+                  Install Live and deploy to a live website.
+                  <div>
+                    <h6 class="mb-0 my-2">
+                      Install on your OS:
+                    </h6>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Mac
+                    </a>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Windows
+                    </a>
+                    <a href="#" class="btn btn-light btn-sm text-primary-light">
+                      Linux
+                    </a>
+                    <h6 class="mb-0 my-3">
+                      Create deploy your site with Live:
+                    </h6>
+                    <code>
+                      $ ddev-live create
+                    </code>
+                  </div>
+                </li>
+              </ol>
+          </div>
+          <div class="col-lg-5">
 
+          </div>
+        </div>
+      </div>
+  </section>
+  <section class="product__posts bg-light">
+    <div class="container">
+      <?php
+        $args = [
+          'posts_per_page' => 3,
+          'post_type' => 'post',
+          'tax_query' => [
+            'taxonomy' => 'category',
+            'field' => 'slug',
+            'terms' => 'ddev-live',
+          ],
+        ];
+
+        $query = new WP_Query($args);
+        ?>
+
+        <?php if ($query->have_posts()) : ?>
+          <div class="row">
+            <?php while ($query->have_posts()) : $query->the_post(); ?>
+              <div class="col-lg-4 d-flex">
+                <div class="post-card card mb-4">
+                  <a href="<?php the_permalink(); ?>">
+                    <?php
+                      echo wp_get_attachment_image(get_post_thumbnail_id(), 'post-card-header', false, [
+                        'class' => 'post-card__header-image card-img-top img-fluid'
+                      ]);
+                    ?>
+                  </a>
+                  <div class="card-body">
+                    <p class="post-card__date"><?php the_date(); ?></p>
+                    <h4 class="post-card__title card-title">
+                      <a class="text-primary-light" href="<?php the_permalink(); ?>">
+                        <?php the_title(); ?>
+                      </a>
+                    </h4>
+                  </div>
+                  <div class="post-card__footer card-footer text-muted">
+                    <img class="rounded-circle" width="30" src="<?php echo get_avatar_url(get_the_author_meta('ID')); ?>" alt="<?= get_the_author_meta('display_name'); ?>">
+                    <?= __('By', 'sage'); ?> <a href="<?= get_author_posts_url(get_the_author_meta('ID')); ?>" rel="author" class="text-muted d-inline-block mt-2"><?= get_the_author_meta('display_name'); ?></a>
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
+          </div>
+        <?php endif; ?>
+      <div class="row mt-5">
+        <div class="col text-center">
+          <a href="http://eepurl.com/dlqkUD" class="btn btn-lg btn-primary">
+            Join Our Newsletter
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="product__connect bg-primary-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-group product__connect-icon green"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            Community
+          </h3>
+          <p class="product__connect-body mb-5">
+            Lorem ipsum dolor sit amet.
+          </p>
+          <a href="#" class="btn btn-lg btn-primary">
+            View Community
+          </a>
+        </div>
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-comments-o product__connect-icon blue"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            Forum
+          </h3>
+          <p class="product__connect-body mb-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          </p>
+          <a href="#" class="btn btn-lg btn-primary">
+            View Forum
+          </a>
+        </div>
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-slack product__connect-icon pink"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            Slack
+          </h3>
+          <p class="product__connect-body mb-5">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+          <a href="#" class="btn btn-lg btn-primary">
+            Join Slack
+          </a>
+        </div>
+      </div>
+    </div>
   </section>
 </div>
 

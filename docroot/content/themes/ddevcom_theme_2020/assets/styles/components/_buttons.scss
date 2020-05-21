@@ -2,7 +2,11 @@
   border-radius: 0.25rem;
   font-family: $font-family-sans-serif;
   font-weight: 600;
-  min-width: 12rem;
+  min-width: 6rem;
+
+  &.btn-lg {
+    min-width: 12rem;
+  }
 }
 
 button:focus {
