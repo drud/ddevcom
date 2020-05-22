@@ -106,7 +106,7 @@ if ( $posts ) : ?>
         <?php do_action( 'tribe_events_list_widget_after_the_meta' ) ?>
         <div class="container-fluid">
           <div class="row">
-            <div class="col-lg-6 mx-auto">
+            <div class="col-lg-12 mx-auto">
               <div class="text-white">
                 <?php the_excerpt(); ?>
               </div>

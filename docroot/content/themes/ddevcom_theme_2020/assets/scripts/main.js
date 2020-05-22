@@ -89,6 +89,10 @@
           $('.product-navigation__menu').removeClass('show');
           $('.product-navigation-wrapper').removeClass('is-open');
         });
+
+        $('[data-toggle="popover"]').popover({
+          trigger: 'hover'
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired

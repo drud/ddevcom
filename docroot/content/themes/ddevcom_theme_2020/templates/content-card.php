@@ -1,26 +1,21 @@
-<div class="card rounded-0 border-0 bg-white py-5 text-center text-lg-left">
-  <article class="persona-article">
-
-
-    <?php if ($img = get_the_post_thumbnail(get_the_ID(), 'post-thumbnail', ['class' => 'card-img-top mb-4 rounded-0 img-fluid'])) : ?>
-      <?= $img; ?>
-    <?php endif;?>
-
-    <header>
-      <div class="card-header border-0 py-0 bg-white">
-          <h3 class="mb-3">
-            <a href="<?php the_permalink(); ?>" class="text-primary-light"><?php the_title(); ?></a>
-          </h3>
-          <?php get_template_part('templates/entry-meta'); ?>
-      </div>
-    </header>
-    <div class="card-body">
-      <div class="text-muted">
-        <?php the_excerpt(); ?>
-      </div>
-    </div>
-    <div class="card-footer border-0 bg-white">
-      <a href="<?php the_permalink(); ?>" class="btn btn-sm btn-outline-primary-light">View Post</a>
-    </div>
-  </article>
+<div class="post-card card mb-4">
+  <a href="<?php the_permalink(); ?>">
+    <?php
+      echo wp_get_attachment_image(get_post_thumbnail_id(), 'post-card-header', false, [
+        'class' => 'post-card__header-image card-img-top img-fluid'
+      ]);
+    ?>
+  </a>
+  <div class="card-body">
+    <p class="post-card__date"><?php the_date(); ?></p>
+    <h4 class="post-card__title card-title">
+      <a class="text-primary-light" href="<?php the_permalink(); ?>">
+        <?php the_title(); ?>
+      </a>
+    </h4>
+  </div>
+  <div class="post-card__footer card-footer text-muted">
+    <img class="rounded-circle" width="30" src="<?php echo get_avatar_url(get_the_author_meta('ID')); ?>" alt="<?= get_the_author_meta('display_name'); ?>">
+    <?= __('By', 'sage'); ?> <a href="<?= get_author_posts_url(get_the_author_meta('ID')); ?>" rel="author" class="text-muted d-inline-block mt-2"><?= get_the_author_meta('display_name'); ?></a>
+  </div>
 </div>
