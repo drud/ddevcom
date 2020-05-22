@@ -31,7 +31,7 @@
   <section class="product__main-header">
     <div class="container">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-7">
           <p class="product__main-header-heading">Deploy your Local to Live from command line.</p>
           <p class="product__main-header-lead lead mb-5">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
@@ -41,8 +41,8 @@
             <a href="#" class="btn btn-outline-cta btn-lg">Request Demo</a>
           </div>
         </div>
-        <div class="col-lg-6">
-          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/screenshot-ddev-live.png" alt="DDEV Live Screenshot">
+        <div class="col-lg-5">
+          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-live.gif" alt="DDEV Live Screenshot">
         </div>
       </div>
     </div>
@@ -50,49 +50,43 @@
   <section class="product__features">
       <div class="container">
         <div class="row product__supporting">
-          <div class="col-lg-4 product__supporting-col pr-lg-5">
+          <div class="col-lg-5 product__supporting-col pr-lg-5">
             <p class="h4 text-center mb-4">Proudly supporting:</p>
             <div class="row pb-lg-5">
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+                <img data-toggle="popover" data-content="Drupal 7 & 8" data-placement="top" class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="WordPress" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="Typo3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="PHP" data-placement="top"  src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
               </div>
             </div>
           </div>
-          <div class="col-lg-8 pl-lg-5">
-            <p class="h4 text-center mb-4">Coming Soon:</p>
+          <div class="col-lg-7 pl-lg-5">
+            <p class="h4 text-center mb-4">On the Horizon:</p>
             <div class="row">
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Magento" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-magento.svg" alt="Magento">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Node" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-node.svg" alt="Node">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: React" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-react.svg" alt="React">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Vue.js" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-vue.svg" alt="Vue.js">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Python" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-python.svg" alt="Python">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
-              </div>
-              <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
-              </div>
-              <div class="col-3 col-lg">
-                <img class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Ember" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-ember.svg" alt="Ember">
               </div>
             </div>
           </div>
@@ -102,53 +96,71 @@
             <div class="card-body">
               <div class="row mb-lg-5">
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-user-circle text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-thermometer-1 text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-handshake-o text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
               </div>
               <div class="row">
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-code text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-cube text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
                 <div class="col">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-certificate text-dark"></i>
+                  </div>
                   <h3 class="product__feature-heading mb-4">
-                    <i class="fa fa-bomb"></i> Feature Name
+                    Feature Name
                   </h3>
                   <p class="product__feature-description">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
                   </p>
                 </div>
               </div>

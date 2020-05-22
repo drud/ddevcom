@@ -19,5 +19,4 @@
       </div>
     </div>
   </div>
-  <div class="container-fluid py-1 bg-secondary"></div>
 </section>

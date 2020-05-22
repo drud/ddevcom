@@ -23,14 +23,13 @@
   }
 
   &__screenshot {
-    border-radius: 0.5rem;
     max-width: 100%;
+    z-index: -1;
 
     @include media-breakpoint-up(lg) {
       max-width: none;
       width: 800px;
       margin-bottom: -4rem;
-      box-shadow: $shadow;
     }
   }
 
