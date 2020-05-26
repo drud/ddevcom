@@ -1,24 +1,65 @@
 footer {
   background-color: $gray-800;
-  padding: 4rem 0 0 0;
 }
 
-ul#menu-footer-menu {
+footer > .container {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+
+  @include media-breakpoint-up(lg) {
+
+  }
+}
+
+.footer-menu {
   list-style-type: none;
   padding-left: 0;
 }
 
-ul#menu-footer-menu li.menu-item {
+.footer-menu h3 {
+  color: $white;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.footer-menu ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 2rem;
+}
+
+.footer-menu ul li.menu-item {
   margin-bottom: 0.5rem;
 }
 
-ul#menu-footer-menu li.menu-item a {
-  color: #fff;
+.footer-menu ul li.menu-item.menu-item-has-children {
+  margin-bottom: 1rem;
+}
+
+.footer-menu ul li.menu-item.menu-item-has-children ul.sub-menu {
+  margin-top: 0.5rem;
+  padding-left: 1rem;
+}
+
+.footer-menu ul li.menu-item a {
+  color: $gray-500;
   font-size: 1.2rem;
 
-  &:hover {
-    text-decoration: none;
-    color: theme-color('secondary');
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      text-decoration: none;
+      color: $gray-200;
+    }
+  }
+}
+
+.footer-newsletter {
+  h4 {
+    color: $white;
+  }
+
+  p {
+    color: $gray-500;
   }
 }
 
