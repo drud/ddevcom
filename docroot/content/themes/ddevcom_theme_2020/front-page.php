@@ -19,21 +19,22 @@
               <?php the_field('front_page_jumbotron_content'); ?>
             </div>
 
-            <?php $button_1_link = get_field('front_page_jumbotron_button_1_link'); ?>
-            <?php if ($button_1_link) : ?>
-              <div class="text-center text-lg-left">
-                <a href="<?= $button_1_link['url']; ?>" class="btn btn-cta btn-lg">
+            <div class="buttons mb-5">
+              <?php $button_1_link = get_field('front_page_jumbotron_button_1_link'); ?>
+              <?php $button_2_link = get_field('front_page_jumbotron_button_2_link'); ?>
+
+              <?php if ($button_1_link) : ?>
+                <a href="<?= $button_1_link['url']; ?>" class="btn btn-success btn-lg <?php echo $button_2_link ? 'mr-2' : ''; ?>">
                   <?= $button_1_link['title']; ?>
                 </a>
-              </div>
-            <?php endif; ?>
+              <?php endif; ?>
 
-            <?php $button_2_link = get_field('front_page_jumbotron_button_2_link'); ?>
-            <?php if ($button_2_link) : ?>
-              <a href="<?= $button_2_link['url']; ?>" class="btn btn-outline-light btn-lg">
-                <?= $button_2_link['title']; ?>
-              </a>
-            <?php endif; ?>
+              <?php if ($button_2_link) : ?>
+                <a href="<?= $button_2_link['url']; ?>" class="btn btn-cta btn-lg">
+                  <?= $button_2_link['title']; ?>
+                </a>
+              <?php endif; ?>
+            </div>
           </div>
           <div class="col-lg-5">
             <?php if (get_field('front_page_video_embed_url')) : ?>
@@ -43,17 +44,17 @@
             <?php endif; ?>
             <p class="text-light text-center">Proudly supporting:</p>
             <div class="row mb-3">
-              <div class="col-lg-3 py-4 px-4 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-drupal.svg" alt="Drupal" width="200" class="img-fluid mb-3 mb-lg-0">
+              <div class="col-3 text-center">
+                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
               </div>
-              <div class="col-lg-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-5 mb-lg-0">
+              <div class="col-3 text-center">
+                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
               </div>
-              <div class="col-lg-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
+              <div class="col-3 text-center">
+                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="Typo3" class="img-fluid">
               </div>
-              <div class="col-lg-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
+              <div class="col-3 text-center">
+                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
               </div>
             </div>
           </div>
@@ -96,7 +97,7 @@
     </div>
     <div class="row mt-5">
       <div class="col text-center">
-        <a class="btn btn-lg btn-outline-success" href="http://eepurl.com/dlqkUD">
+        <a class="btn btn-lg btn-primary-dark" href="http://eepurl.com/dlqkUD">
           Join Our Newsletter
         </a>
       </div>
