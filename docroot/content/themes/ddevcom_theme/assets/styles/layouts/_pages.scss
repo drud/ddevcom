@@ -60,7 +60,7 @@ section.front-page-recent-posts {
 
 // Landing Pages
 
-body.page {
+.page-template-template-landing-page {
   .coming-soon {
     position: relative;
     &:before {
@@ -113,11 +113,4 @@ body.page {
       font-size: 0.8rem;
     }
   }
-}
-
-body.page .main {
-  min-height: 75vh;
-}
-body.display-header .main {
-  margin-top: $navbar-brand-height * 2.5;
 }
