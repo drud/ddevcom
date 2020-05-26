@@ -59,10 +59,25 @@
   &__feature-card {
     width: 100%;
 
+    .card-header {
+      background-color: $white;
+      border: none;
+
+      h2 {
+        color: $gray-500;
+        font-size: 1.125rem;
+        margin-bottom: 0;
+      }
+    }
+
+
     @include media-breakpoint-up(lg) {
-      padding: 2rem;
       margin-bottom: -4rem;
       box-shadow: $shadow;
+
+      .card-body {
+        padding: 2rem;
+      }
     }
   }
 
