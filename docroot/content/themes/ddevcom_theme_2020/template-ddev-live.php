@@ -37,8 +37,8 @@
             Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
           </p>
           <div class="mb-5">
-            <a href="#" class="btn btn-cta btn-lg mr-2">Start a Free Trial</a>
-            <a href="#" class="btn btn-outline-cta btn-lg">Request Demo</a>
+            <a href="http://dash.ddev.com/account/create" class="btn btn-cta btn-lg mr-2">Start a Free Trial</a>
+            <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-cta btn-lg">Request Demo</a>
           </div>
         </div>
         <div class="col-lg-5">
