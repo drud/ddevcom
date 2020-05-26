@@ -69,7 +69,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Footer 1', 'sage'),
     'id'            => 'footer-1',
-    'before_widget' => '<section class="widget %1$s %2$s">',
+    'before_widget' => '<section class="widget footer-menu %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
@@ -78,7 +78,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Footer 2', 'sage'),
     'id'            => 'footer-2',
-    'before_widget' => '<section class="widget %1$s %2$s">',
+    'before_widget' => '<section class="widget footer-menu %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
@@ -87,7 +87,7 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Footer 3', 'sage'),
     'id'            => 'footer-3',
-    'before_widget' => '<section class="widget %1$s %2$s">',
+    'before_widget' => '<section class="widget footer-menu %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
     'after_title'   => '</h3>'
@@ -96,6 +96,15 @@ function widgets_init() {
   register_sidebar([
     'name'          => __('Footer 4', 'sage'),
     'id'            => 'footer-4',
+    'before_widget' => '<section class="widget footer-menu %1$s %2$s">',
+    'after_widget'  => '</section>',
+    'before_title'  => '<h3>',
+    'after_title'   => '</h3>'
+  ]);
+
+  register_sidebar([
+    'name'          => __('Footer Bottom', 'sage'),
+    'id'            => 'footer-bottom',
     'before_widget' => '<section class="widget %1$s %2$s">',
     'after_widget'  => '</section>',
     'before_title'  => '<h3>',
