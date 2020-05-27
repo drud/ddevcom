@@ -19,6 +19,15 @@ section.front-page-jumbotron .jumbotron {
   }
 }
 
+section.about-jumbotron {
+  h1 {
+    line-height: 3rem;
+  }
+  .lead {
+    color: $gray-500;
+  }
+}
+
 section.front-page-jumbotron .jumbotron h1 {
     @include media-breakpoint-up(lg) {
       font-size: 4rem;
