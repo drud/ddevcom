@@ -29,7 +29,7 @@ Author URI: http://riotlabs.com/
  * GNU General Public License for more details.
  * **********************************************************************
  */
-namespace Riot\GTM;
+namespace DDEV\Segment;
 
 if (! defined('ABSPATH')) {
     exit;
@@ -38,15 +38,15 @@ if (! defined('ABSPATH')) {
  /**
   * Bootstrap the class
   */
- class GTM
+ class Segment
  {
 
    /**
-    * GTM Account ID
+    * Segment Account ID
     *
     * @var string
     */
-   public $container_id = 'GTM-XXXX';
+   public $source_id = '';
 
 
    /**
@@ -75,8 +75,6 @@ if (! defined('ABSPATH')) {
       add_action('init', [$this, 'setContainerId']);
       // render main script
       add_action('wp_head', [$this, 'render']);
-      // render no script
-      add_action('wp_footer', [$this, 'renderNoScript'], 100);
    }
 
    /**
@@ -87,16 +85,16 @@ if (! defined('ABSPATH')) {
    public function setContainerId()
    {
 
-     //  allow overriding via GTM_CONTAINER_ID
-     if (defined('GTM_CONTAINER_ID')) {
-         $this->container_id = GTM_CONTAINER_ID;
+     //  allow overriding via GTM_source_id
+     if (defined('GTM_source_id')) {
+         $this->source_id = GTM_source_id;
      }
 
      //  load value from ACF
      elseif (function_exists('get_field')) {
-         $gtm_container_id = get_field('field_581274da85921', 'option');
-         if ($gtm_container_id) {
-             $this->container_id = $gtm_container_id;
+         $gtm_source_id = get_field('field_581274da85921', 'option');
+         if ($gtm_source_id) {
+             $this->source_id = $gtm_source_id;
          }
      }
    }
@@ -105,11 +103,11 @@ if (! defined('ABSPATH')) {
    /**
     * Get the Container ID
     *
-    * @return $container_id string
+    * @return $source_id string
     */
-   public function getContainerId()
+   public function getSourceID()
    {
-       return $this->container_id;
+       return $this->source_id;
    }
 
    /**
@@ -121,9 +119,9 @@ if (! defined('ABSPATH')) {
    {
        if (function_exists('acf_add_options_page')) {
            acf_add_options_sub_page([
-             'page_title' => 'GTM Settings',
-             'menu_title' => 'GTM Settings',
-             'menu_slug'  => 'gtm-settings',
+             'page_title' => 'Segment Settings',
+             'menu_title' => 'Segment Settings',
+             'menu_slug'  => 'segment-settings',
              'capability' => 'edit_posts',
              'parent'     => 'options-general.php',
              'redirect'   => false,
@@ -142,15 +140,15 @@ if (! defined('ABSPATH')) {
        if (function_exists('acf_add_local_field_group')):
 
          acf_add_local_field_group([
-             'key'    => 'group_581274c5bc77f',
-             'title'  => 'General Settings',
+             'key'    => 'group_581274c5bc712',
+             'title'  => 'Segment Settings',
              'fields' => [
                   [
                      'key'               => 'field_581274da85921',
-                     'label'             => 'Account Key',
-                     'name'              => 'gtm_container_key',
+                     'label'             => 'Segment Source Key',
+                     'name'              => 'segment_source_key',
                      'type'              => 'text',
-                     'instructions'      => 'GTM Container ID',
+                     'instructions'      => 'Segment Source ID',
                      'required'          => 0,
                      'conditional_logic' => 0,
                      'wrapper'           => [
@@ -159,7 +157,7 @@ if (! defined('ABSPATH')) {
                          'id'    => '',
                      ],
                      'default_value' => '',
-                     'placeholder'   => 'GTM-XXXX',
+                     'placeholder'   => 'xxxxxxxxxx',
                      'prepend'       => '',
                      'append'        => '',
                      'maxlength'     => '',
@@ -172,7 +170,7 @@ if (! defined('ABSPATH')) {
                       [
                          'param'    => 'options_page',
                          'operator' => '==',
-                         'value'    => 'gtm-settings',
+                         'value'    => 'segment-settings',
                      ],
                  ],
              ],
@@ -196,38 +194,21 @@ if (! defined('ABSPATH')) {
     */
    public function render()
    {
-     if ('GTM-XXXX' !== self::getContainerId()) {
-       $html = sprintf("
-       <!-- Google Tag Manager -->
-       <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-       new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-       'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-       })(window,document,'script','dataLayer','%s');</script>
-       <!-- End Google Tag Manager -->
-       ", self::getContainerId());
-       echo $html;
-     }
-   }
+     if ('' !== self::getSourceID()) {
 
-
-   /**
-    * Rendering of the No script tag
-    *
-    * @return html
-    */
-   public function renderNoScript()
-   {
-     if ('GTM-XXXX' !== self::getContainerId()) {
-       $html = sprintf('
-       <!-- Google Tag Manager (noscript) -->
-       <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=%s"
-       height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-       <!-- End Google Tag Manager (noscript) -->
-       ', self::getContainerId());
-       echo $html;
+            $html = sprintf(
+                "<script>
+                    !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error('Segment snippet included twice.');else{analytics.invoked=!0;analytics.methods=[\"trackSubmit\",\"trackClick\",\"trackLink\",\"trackForm\",\"pageview\",\"identify\",\"reset\",\"group\",\"track\",\"ready\",\"alias\",\"debug\",\"page\",\"once\",\"off\",\"on\",\"addSourceMiddleware\",\"addIntegrationMiddleware\",\"setAnonymousId\",\"addDestinationMiddleware\"];analytics.factory=function(e){return function(){var t=Array.prototype.slice.call(arguments);t.unshift(e);analytics.push(t);return analytics}};for(var e=0;e<analytics.methods.length;e++){var t=analytics.methods[e];analytics[t]=analytics.factory(t)}analytics.load=function(e,t){var n=document.createElement(\"script\");n.type=\"text/javascript\";n.async=!0;n.src=\"https://cdn.segment.com/analytics.js/v1/\"+e+\"/analytics.min.js\";var a=document.getElementsByTagName(\"script\")[0];a.parentNode.insertBefore(n,a);analytics._loadOptions=t};analytics.SNIPPET_VERSION=\"4.1.0\";
+                    analytics.load(\"%s\");
+                    analytics.page();
+                    }}();
+                </script>",
+                self::getSourceID()
+            );
+            echo $html;
+       
      }
    }
  }
 
- new GTM();
+ new Segment();
