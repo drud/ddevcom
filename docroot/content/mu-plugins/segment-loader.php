@@ -1,11 +1,11 @@
 <?php
 /*
-Plugin Name: GTM Loader
+Plugin Name: Segment Loader
 Plugin URI: https://github.com/newmediadenver/wp
-Description: Loads the GTM code for the theme, adds an ACF Field to update the container ID.
+Description: Loads the Segment code for the theme, adds an ACF Field to update the container ID.
 Version: 0.1
-Author: Riot Labs
-Author URI: http://riotlabs.com/
+Author: DDEV
+Author URI: http://ddev.com/
 */
 
 /**
@@ -86,15 +86,15 @@ if (! defined('ABSPATH')) {
    {
 
      //  allow overriding via GTM_source_id
-     if (defined('GTM_source_id')) {
-         $this->source_id = GTM_source_id;
+     if (defined('SEGMENT_SOURCE_ID')) {
+         $this->source_id = SEGMENT_SOURCE_ID;
      }
 
      //  load value from ACF
      elseif (function_exists('get_field')) {
-         $gtm_source_id = get_field('field_581274da85921', 'option');
-         if ($gtm_source_id) {
-             $this->source_id = $gtm_source_id;
+         $segment_source_id = get_field('field_581274da85456', 'option');
+         if ($segment_source_id) {
+             $this->source_id = $segment_source_id;
          }
      }
    }
@@ -144,7 +144,7 @@ if (! defined('ABSPATH')) {
              'title'  => 'Segment Settings',
              'fields' => [
                   [
-                     'key'               => 'field_581274da85921',
+                     'key'               => 'field_581274da85456',
                      'label'             => 'Segment Source Key',
                      'name'              => 'segment_source_key',
                      'type'              => 'text',
