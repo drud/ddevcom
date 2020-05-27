@@ -125,7 +125,7 @@
 
 
         <?php if (get_field('front_page_tweets_header')) : ?>
-          <h3 class="text-primary text-center mb-4"><?php the_field('front_page_tweets_header'); ?></h3>
+          <h3 class="text-primary text-center mb-4 mx-auto"><?php the_field('front_page_tweets_header'); ?></h3>
         <?php endif; ?>
 
         <div class="card-deck">

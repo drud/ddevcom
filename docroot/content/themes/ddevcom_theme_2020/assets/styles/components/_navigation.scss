@@ -3,6 +3,11 @@
   display: flex;
   position: relative;
   width: 100%;
+  min-height: 5rem;
+
+  @include media-breakpoint-up(lg) {
+    min-height: auto;
+  }
 
   &__logo {
     margin-right: 4rem;
@@ -293,6 +298,10 @@
 
 .main-navigation-wrapper.is-product {
 
+  .main-navigation {
+    min-height: auto;
+  }
+
   .main-navigation__logo {
     img {
       width: 8rem;
@@ -579,7 +588,7 @@
   }
 }
 
-body.ddev-local .product-navigation__menu li:first-of-type {
+body.ddev-local .product-navigation__menu > li:first-of-type {
   a {
     color: theme-color('primary');
   }

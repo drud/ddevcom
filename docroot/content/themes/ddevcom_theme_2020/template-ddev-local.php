@@ -45,8 +45,8 @@
             DDEV simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. We handle the complexity. You get on with the valuable part of your job.
           </p>
           <div class="mb-5">
-            <a href="#" class="btn btn-primary btn-lg mr-2">Get Started</a>
-            <a href="#" class="btn btn-outline-primary btn-lg">Documentation</a>
+            <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
+            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -181,8 +181,8 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="#" class="btn btn-light btn-lg mr-2">Get Started</a>
-                  <a href="#" class="btn btn-outline-light btn-lg">Documentation</a>
+                  <a href="<?php echo home_url('get-started'); ?>" class="btn btn-light btn-lg mr-2">Get Started</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg">Documentation</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -258,8 +258,8 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="#" class="btn btn-primary btn-lg mr-2">Get Started</a>
-                  <a href="#" class="btn btn-outline-primary btn-lg">Documentation</a>
+                  <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg">Documentation</a>
                 </div>
               </div>
             </div>
