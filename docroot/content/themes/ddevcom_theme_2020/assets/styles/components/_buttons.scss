@@ -12,3 +12,12 @@
 button:focus {
   outline: none;
 }
+
+.btn.btn-outline-light:hover {
+  color: theme-color('primary-dark');
+}
+
+.btn.btn-outline-light-success:hover {
+  color: theme-color('success');
+}
+

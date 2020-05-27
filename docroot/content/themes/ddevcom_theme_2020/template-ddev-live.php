@@ -173,7 +173,7 @@
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
                   <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2">Start a Free Trial</a>
-                  <a href="#" class="btn btn-outline-light btn-lg">Request Demo</a>
+                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-light btn-outline-light-success btn-lg">Request Demo</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -252,7 +252,7 @@
                   <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-lg btn-success mr-2">
                     Start a Free Trial
                   </a>
-                  <a href="#" class="btn btn-lg btn-outline-success">
+                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-outline-success">
                     Request Demo
                   </a>
                 </div>
