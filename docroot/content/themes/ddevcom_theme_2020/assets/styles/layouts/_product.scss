@@ -10,7 +10,7 @@
     @include media-breakpoint-up(lg) {
       font-size: 4rem;
       line-height: 5rem;
-
+      margin-top: 4rem;
     }
   }
 
@@ -29,7 +29,7 @@
     @include media-breakpoint-up(lg) {
       max-width: none;
       width: 800px;
-      margin-bottom: -4rem;
+      margin-bottom: -rem;
     }
   }
 
@@ -38,6 +38,8 @@
     background-color: theme-color('light');
 
     @include media-breakpoint-up(lg) {
+      position: relative;
+      z-index: 10;
       padding: 8rem 0 0 0;
     }
   }
@@ -161,5 +163,28 @@
     @include media-breakpoint-up(lg) {
       padding: 8rem 0;
     }
+  }
+}
+
+.product-promo {
+  a {
+    text-decoration: underline;
+    line-height: 1.25rem;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+body.ddev-live .product__screenshot {
+  @include media-breakpoint-up(lg) {
+    margin-bottom: -6rem;
+  }
+}
+
+body.ddev-local .product__screenshot {
+  @include media-breakpoint-up(lg) {
+    margin-bottom: -6rem;
   }
 }
