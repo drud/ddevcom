@@ -5,10 +5,10 @@
 ?>
 
 <section class="product-jumbotron">
-  <div class="jumbotron bg-primary-dark rounded-0 mb-0">
-    <div class="container">
+  <div class="jumbotron bg-primary-gradient rounded-0 mb-0">
+    <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-9 col-xl-8">
+        <div class="col-lg-9 col-xl-8 mx-auto text-center">
           <header>
             <h1 class="text-white mb-4">
               <?php the_field('product_jumbotron_header'); ?>
@@ -20,14 +20,14 @@
 
           <?php $button_1_link = get_field('product_jumbotron_button_1_link'); ?>
           <?php if ($button_1_link): ?>
-            <a href="<?= $button_1_link['url']; ?>" class="btn btn-success btn-lg mb-4 mb-lg-0">
+            <a href="<?= $button_1_link['url']; ?>" class="btn btn-outline-secondary btn-lg">
               <?= $button_1_link['title']; ?>
             </a>
           <?php endif; ?>
 
           <?php $button_2_link = get_field('product_jumbotron_button_2_link'); ?>
           <?php if ($button_2_link): ?>
-            <a href="<?= $button_2_link['url']; ?>" class="btn btn-primary btn-lg">
+            <a href="<?= $button_2_link['url']; ?>" class="btn btn-outline-light btn-lg">
               <?= $button_2_link['title']; ?>
             </a>
           <?php endif; ?>
@@ -155,9 +155,8 @@
           ?>
 
           <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
-            <div class="col-lg-6 mx-auto d-flex">
-              <?php get_template_part('templates/content', 'card'); ?>
-            </div>
+
+            <?php get_template_part('templates/content', 'card'); ?>
 
           <?php endwhile; ?>
           <!-- post navigation -->
@@ -172,3 +171,4 @@
     </div>
   </div>
 </section>
+

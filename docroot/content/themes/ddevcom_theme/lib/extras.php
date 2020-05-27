@@ -21,10 +21,6 @@ function body_class($classes)
         $classes[] = 'sidebar-primary';
     }
 
-    if (is_page() && (get_field('display_header') === false)) {
-      $classes[] = 'display-header';
-    }
-
     return $classes;
 }
 add_filter('body_class', __NAMESPACE__ . '\\body_class');

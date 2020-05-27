@@ -8,7 +8,7 @@
 <div class="product-navigation-wrapper">
   <div class="container d-flex">
     <div class="product-name">
-      <p class="h1 text-cta">Live</p>
+      <h1 class="h1 text-success">Live</h1>
     </div>
     <nav class="product-navigation">
       <?php
@@ -32,13 +32,15 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-7">
-          <p class="product__main-header-heading">Deploy your Local to Live from command line.</p>
-          <p class="product__main-header-lead lead mb-5">
+          <h1 class="product__main-header-heading">
+            Where scalable web hosting meets simplicity.
+          </h1>
+          <p class="product__main-header-lead p lead mb-5">
             Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
           </p>
           <div class="mb-5">
-            <a href="http://dash.ddev.com/account/create" class="btn btn-cta btn-lg mr-2">Start a Free Trial</a>
-            <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-cta btn-lg">Request Demo</a>
+            <a href="http://dash.ddev.com/account/create" class="btn btn-success btn-lg mr-2">Start a Free Trial</a>
+            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -60,7 +62,7 @@
                 <img class="product__supporting-logo" data-toggle="popover"  data-content="WordPress" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" data-toggle="popover"  data-content="Typo3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="TYPO3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="TYPO3">
               </div>
               <div class="col-3 col-lg">
                 <img class="product__supporting-logo" data-toggle="popover" data-content="PHP" data-placement="top"  src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
@@ -106,7 +108,7 @@
                     Git Integration
                   </h3>
                   <p class="product__feature-description">
-                    Connect directly to your GitHub, GitLab, or other <a href="https://docs.ddev.com/providers/">Git repository provider</a>. This allows you to directly move code within your Git workflow and include DDEV-Live where you need it.
+                    Connect directly to your GitHub or other <a href="https://docs.ddev.com/providers/">Git repository provider</a>. This allows you to directly move code within your Git workflow and include DDEV-Live where you need it.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -170,12 +172,23 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="#" class="btn btn-cta btn-lg mr-2">Start a Free Trial</a>
+                  <a href="#" class="btn btn-success btn-lg mr-2">Start a Free Trial</a>
                   <a href="#" class="btn btn-outline-light btn-lg">Request Demo</a>
                 </div>
               </div>
             <div class="card-body py-5">
               <div class="row mb-lg-5">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-cubes text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Enjoy Kubernetes
+                  </h3>
+                  <p class="product__feature-description">
+                    Massively scalable industry standard open-source system for automating deployment, scaling, and management of containerized applications. Designed on the same principles that allow Google and others to run billions of containers a week.
+                  </p>
+                </div>
                 <div class="col-12 col-lg-4">
                   <div class="product__feature-icon mb-2">
                     <i class="fa fa-2x fa-code text-dark"></i>
@@ -195,18 +208,7 @@
                     Continuous Integration
                   </h3>
                   <p class="product__feature-description">
-                    Deployments to our environments are as simple as pushing a branch to your GitHub, GitLab, or other hosted version control system. DDEV-Live also can serve as a testing or QA stage in your CI/CD pipelines.
-                  </p>
-                </div>
-                <div class="col-12 col-lg-4">
-                  <div class="product__feature-icon mb-2">
-                    <i class="fa fa-2x fa-cubes text-dark"></i>
-                  </div>
-                  <h3 class="product__feature-heading mb-4">
-                    Enjoy Kubernetes
-                  </h3>
-                  <p class="product__feature-description">
-                    Massively scalable industry standard open-source system for automating deployment, scaling, and management of containerized applications. Designed on the same principles that allow Google and others to run billions of containers a week.
+                    Deployments to our environments are as simple as pushing a branch to your GitHub or other hosted version control system. DDEV-Live also can serve as a testing or QA stage in your <a href="<?php echo home_url('ddev-live/ci-cd'); ?>">CI/CD</a> pipelines.
                   </p>
                 </div>
               </div>
@@ -235,7 +237,7 @@
                 </div>
                 <div class="col-12 col-lg-4">
                   <div class="product__feature-icon mb-2">
-                    <i class="fa fa-2x fa-certificate text-dark"></i>
+                    <i class="fa fa-2x fa-handshake-o text-dark"></i>
                   </div>
                   <h3 class="product__feature-heading mb-4">
                     Ongoing Support
@@ -247,10 +249,10 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="#" class="btn btn-lg btn-cta mr-2">
+                  <a href="#" class="btn btn-lg btn-success mr-2">
                     Start a Free Trial
                   </a>
-                  <a href="#" class="btn btn-lg btn-outline-cta">
+                  <a href="#" class="btn btn-lg btn-outline-success">
                     Request Demo
                   </a>
                 </div>
@@ -260,75 +262,6 @@
         </div>
       </div>
   </section>
-  <!-- <section class="product__demo bg-primary-dark">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <p class="h1 text-light text-center mb-5">
-              Nec feugiat in fermentum posuere urna nec tincidunt.
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-7">
-              <ol class="product__demo-steps bg-dark">
-                <li>
-                  Sign up for your <a class="text-cta" href="#">free trial</a>
-                </li>
-                <li>
-                  Install Local and create a site
-                  <div>
-                    <h6 class="mb-0 my-3">
-                      Install Local on your OS:
-                    </h6>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Mac
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Windows
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Linux
-                    </a>
-                    <h6 class="mb-0 my-3">
-                      Create you new site with Local:
-                    </h6>
-                    <code>
-                      $ ddev create
-                    </code>
-                  </div>
-                </li>
-                <li>
-                  Install Live and deploy to a live website.
-                  <div>
-                    <h6 class="mb-0 my-2">
-                      Install on your OS:
-                    </h6>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Mac
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Windows
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Linux
-                    </a>
-                    <h6 class="mb-0 my-3">
-                      Create deploy your site with Live:
-                    </h6>
-                    <code>
-                      $ ddev-live create
-                    </code>
-                  </div>
-                </li>
-              </ol>
-          </div>
-          <div class="col-lg-5">
-
-          </div>
-        </div>
-      </div>
-  </section> -->
   <section class="product__posts bg-light">
     <div class="container">
       <?php
@@ -383,53 +316,5 @@
       </div>
     </div>
   </section>
-  <!-- <section class="product__connect bg-primary-dark">
-    <div class="container">
-      <div class="row">
-        <div class="col col-lg-4">
-          <p>
-            <i class="fa fa-2x fa-group product__connect-icon green"></i>
-          </p>
-          <h3 class="product__connect-heading text-white mb-3">
-            Community
-          </h3>
-          <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet.
-          </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            View Community
-          </a>
-        </div>
-        <div class="col col-lg-4">
-          <p>
-            <i class="fa fa-2x fa-comments-o product__connect-icon blue"></i>
-          </p>
-          <h3 class="product__connect-heading text-white mb-3">
-            Forum
-          </h3>
-          <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-          </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            View Forum
-          </a>
-        </div>
-        <div class="col col-lg-4">
-          <p>
-            <i class="fa fa-2x fa-slack product__connect-icon pink"></i>
-          </p>
-          <h3 class="product__connect-heading text-white mb-3">
-            Slack
-          </h3>
-          <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-          </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            Join Slack
-          </a>
-        </div>
-      </div>
-    </div>
-  </section> -->
 </div>
 

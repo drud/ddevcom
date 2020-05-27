@@ -30,7 +30,7 @@
               <?php endif; ?>
 
               <?php if ($button_2_link) : ?>
-                <a href="<?= $button_2_link['url']; ?>" class="btn btn-cta btn-lg">
+                <a href="<?= $button_2_link['url']; ?>" class="btn btn-primary btn-lg">
                   <?= $button_2_link['title']; ?>
                 </a>
               <?php endif; ?>
@@ -71,18 +71,20 @@
         <header>
           <h2 class="text-primary text-center mb-4">Recent Posts</h2>
         </header>
-        <div class="card-deck">
+        <div class="row">
           <?php
           $args = [
             'post_type' => 'post',
-            'posts_per_page' => 3
+            'posts_per_page' => 6
           ];
           $query = new WP_Query($args);
           ?>
 
           <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
+            <div class="col-lg-4 d-flex">
               <?php get_template_part('templates/content', 'card'); ?>
+            </div>
 
           <?php endwhile; ?>
           <!-- post navigation -->
