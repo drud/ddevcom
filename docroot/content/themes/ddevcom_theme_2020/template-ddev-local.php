@@ -4,6 +4,12 @@
  */
 ?>
 
+<div class="product-promo alert alert-success bg-success px-3 py-2 text-white rounded-0 border-0">
+  <p class="mb-0 text-center">
+    DDEV-Live allows you to deploy your DDEV-Local sites to our cloud in just minutes.
+    <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn-outline-light">Sign up for your 10-day free trial.</a>
+  </p>
+</div>
 
 <div class="product-navigation-wrapper">
   <div class="container d-flex">
@@ -44,7 +50,7 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-live.gif" alt="DDEV Live Screenshot">
+          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-local.gif" alt="DDEV Local Screenshot">
         </div>
       </div>
     </div>

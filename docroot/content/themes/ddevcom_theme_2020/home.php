@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col mx-auto">
         <div class="py-lg-5 mt-lg-5">
-          <h1 class="text-primary display-4 mt-lg-5">Blog</h1>
+          <h1 class="text-dark display-4 mt-lg-5">Blog</h1>
         </div>
         <div class="row">
           <div class="col-lg-8">
