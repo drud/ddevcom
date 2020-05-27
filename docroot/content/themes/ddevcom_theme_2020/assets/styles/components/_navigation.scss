@@ -567,13 +567,27 @@
 
 .product-navigation__menu li:first-of-type {
   a {
-    color: theme-color('cta');
+    color: theme-color('success');
   }
 
   @include media-breakpoint-up(lg) {
     &:hover {
       a {
-        color: darken(theme-color('cta'), 5);
+        color: darken(theme-color('success'), 5);
+      }
+    }
+  }
+}
+
+body.ddev-local .product-navigation__menu li:first-of-type {
+  a {
+    color: theme-color('primary');
+  }
+
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      a {
+        color: darken(theme-color('primary'), 5);
       }
     }
   }

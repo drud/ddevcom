@@ -8,7 +8,7 @@
 <div class="product-navigation-wrapper">
   <div class="container d-flex">
     <div class="product-name">
-      <p class="h1 text-success">Local</p>
+      <h1 class="text-primary">Local</h1>
     </div>
     <nav class="product-navigation">
       <?php
@@ -33,14 +33,14 @@
       <div class="row">
         <div class="col-lg-7">
           <p class="product__main-header-heading">
-            Deploy anywhere. Deploy in seconds.
+            Meet your new local development environment.
           </p>
           <p class="product__main-header-lead lead mb-5">
             DDEV simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. We handle the complexity. You get on with the valuable part of your job.
           </p>
           <div class="mb-5">
-            <a href="#" class="btn btn-success btn-lg mr-2">Get Started</a>
-            <a href="#" class="btn btn-outline-success btn-lg">Documentation</a>
+            <a href="#" class="btn btn-primary btn-lg mr-2">Get Started</a>
+            <a href="#" class="btn btn-outline-primary btn-lg">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -52,7 +52,7 @@
   <section class="product__features">
       <div class="container">
         <div class="row product__supporting">
-          <div class="col-lg-5 product__supporting-col pr-lg-5">
+          <div class="col-lg-7 product__supporting-col pr-lg-5">
             <p class="h4 text-center mb-4">Proudly supporting:</p>
             <div class="row pb-lg-5 mb-5 mb-lg-0">
               <div class="col-3 col-lg">
@@ -62,19 +62,22 @@
                 <img class="product__supporting-logo" data-toggle="popover"  data-content="WordPress" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
               </div>
               <div class="col-3 col-lg">
-                <img class="product__supporting-logo" data-toggle="popover"  data-content="Typo3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="Typo3">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="TYPO3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="TYPO3">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Magento" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-magento-supported.svg" alt="Magento">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Backdrop" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-backdrop-cms.svg" alt="Magento">
               </div>
               <div class="col-3 col-lg">
                 <img class="product__supporting-logo" data-toggle="popover" data-content="PHP" data-placement="top"  src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
               </div>
             </div>
           </div>
-          <div class="col-lg-7 pl-lg-5">
+          <div class="col-lg-5 pl-lg-5">
             <p class="h4 text-center mb-4">On the Horizon:</p>
             <div class="row mb-5">
-              <div class="col-3 col-lg mx-auto">
-                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Magento" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-magento.svg" alt="Magento">
-              </div>
               <div class="col-3 col-lg mx-auto">
                 <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Node" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-node.svg" alt="Node">
               </div>
@@ -119,7 +122,7 @@
                     Deployment in seconds
                   </h3>
                   <p class="product__feature-description">
-                    Rapid, simple deployment leads to 100-200X increases in developer code deployment frequency to real production projects.
+                  Rapid, simple deployment leads to faster feedback loops and 100-200x increases in code deployment frequency.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -143,7 +146,7 @@
                     Multiple deployment
                   </h3>
                   <p class="product__feature-description">
-                    DDEV and all of DRUD’s tools can be integrated with the services, hosting providers, and deployment scenario of your choice, including cloud, in-house, or hybrid models.
+                  The DDEV platform can be integrated with other local development environments and hosting providers to create the deployment scenario of your dreams.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -154,7 +157,7 @@
                     Open source for open source
                   </h3>
                   <p class="product__feature-description">
-                    You chose to work with open source CMSs for good reasons. DRUD’s full toolset, from local development to hosting stack, is licensed with the open source Apache 2.0 license and is free to use, modify, and pass on to others.
+                    You chose to work with open source CMSs for good reasons. DDEV-Local is licensed with the open source Apache 2.0 license and is free to use, modify, and pass on to others.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -165,15 +168,15 @@
                     Multiple CMS Platform Support
                   </h3>
                   <p class="product__feature-description">
-                  DDEV currently comes with preconfigured environments for Drupal 6/7/8, TYPO3 CMS, Backdrop CMS, WordPress, and Java applications.
+                    DDEV currently comes with preconfigured environments for Drupal 6/7/8, TYPO3 CMS, Backdrop CMS, WordPress, Magento and other PHP applications.
                   </p>
                 </div>
               </div>
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="#" class="btn btn-success btn-lg mr-2">Get Started</a>
-                  <a href="#" class="btn btn-outline-success btn-lg">Documentation</a>
+                  <a href="#" class="btn btn-light btn-lg mr-2">Get Started</a>
+                  <a href="#" class="btn btn-outline-light btn-lg">Documentation</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -186,7 +189,7 @@
                     Reduce complexity
                   </h3>
                   <p class="product__feature-description">
-                    Docker configuration, development environments, and dependency management—fully supported. We’ve got your back.
+                    Docker configuration, container access, and dependency management are fully supported. We’ve got your back.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -197,7 +200,7 @@
                     Tool consistency
                   </h3>
                   <p class="product__feature-description">
-                    Make your whole dev-to-deploy workflow faster, more efficient, and more reliable.
+                    DDEV supports recent versions of macOS, Windows 10, and Linux distributions that will run Docker.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -208,7 +211,7 @@
                     Identical environments
                   </h3>
                   <p class="product__feature-description">
-                  From your local machine, to testing/QA, to live production (if your hosting supports Docker in production like DDEV-Live).
+                    From your local machine, to testing/QA, to live production, control your configuration and ensure parity across your environments.
                   </p>
                 </div>
               </div>
@@ -221,7 +224,7 @@
                     Dedicated support and maintenance
                   </h3>
                   <p class="product__feature-description">
-                    Backed by an experienced team of CMS, DevOps, and agency experts at DRUD.
+                    The roots of DDEV are in our collective experience in digital agencies, enterprise businesses and open source communities. DDEV is structured around the needs of our core users, informed by our passion for people, process and principles.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -229,10 +232,10 @@
                     <i class="fa fa-2x fa-diamond text-dark"></i>
                   </div>
                   <h3 class="product__feature-heading mb-4">
-                    Battle-tested
+                    Tried and true
                   </h3>
                   <p class="product__feature-description">
-                  Built on strong, industry-standard technologies, including Docker and Kubernetes.
+                    Built on sturdy, industry-standard technologies, including open source projects like Docker and Go.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -243,14 +246,14 @@
                     Focused on simplicity
                   </h3>
                   <p class="product__feature-description">
-                  Opinionated architecture, with a focus on getting the jobs you need to do every day done quickly and easily, but flexible enough to adapt to meet tough challenges and special cases, too.
+                    Opinionated architecture, with a focus on ease of use for daily tasks, but flexible enough to cede configuration control and adapt when you need to customize.
                   </p>
                 </div>
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="#" class="btn btn-success btn-lg mr-2">Get Started</a>
-                  <a href="#" class="btn btn-outline-success btn-lg">Documentation</a>
+                  <a href="#" class="btn btn-primary btn-lg mr-2">Get Started</a>
+                  <a href="#" class="btn btn-outline-primary btn-lg">Documentation</a>
                 </div>
               </div>
             </div>
@@ -258,75 +261,6 @@
         </div>
       </div>
   </section>
-  <!-- <section class="product__demo bg-primary-dark">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-8 mx-auto">
-            <p class="h1 text-light text-center mb-5">
-              Nec feugiat in fermentum posuere urna nec tincidunt.
-            </p>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-lg-7">
-              <ol class="product__demo-steps bg-dark">
-                <li>
-                  Sign up for your <a class="text-success" href="#">free trial</a>
-                </li>
-                <li>
-                  Install Local and create a site
-                  <div>
-                    <h6 class="mb-0 my-3">
-                      Install Local on your OS:
-                    </h6>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Mac
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Windows
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Linux
-                    </a>
-                    <h6 class="mb-0 my-3">
-                      Create you new site with Local:
-                    </h6>
-                    <code>
-                      $ ddev create
-                    </code>
-                  </div>
-                </li>
-                <li>
-                  Install Live and deploy to a live website.
-                  <div>
-                    <h6 class="mb-0 my-2">
-                      Install on your OS:
-                    </h6>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Mac
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Windows
-                    </a>
-                    <a href="#" class="btn btn-light btn-sm text-primary-light">
-                      Linux
-                    </a>
-                    <h6 class="mb-0 my-3">
-                      Create deploy your site with Live:
-                    </h6>
-                    <code>
-                      $ ddev-live create
-                    </code>
-                  </div>
-                </li>
-              </ol>
-          </div>
-          <div class="col-lg-5">
-
-          </div>
-        </div>
-      </div>
-  </section> -->
   <section class="product__posts bg-light">
     <div class="container">
       <?php
@@ -334,9 +268,11 @@
           'posts_per_page' => 3,
           'post_type' => 'post',
           'tax_query' => [
-            'taxonomy' => 'category',
-            'field' => 'slug',
-            'terms' => 'ddev-local',
+            [
+              'taxonomy' => 'category',
+              'field' => 'slug',
+              'terms' => 'ddev-local',
+            ]
           ],
         ];
 
@@ -358,7 +294,7 @@
                   <div class="card-body">
                     <p class="post-card__date"><?php the_date(); ?></p>
                     <h4 class="post-card__title card-title">
-                      <a class="text-primary-light" href="<?php the_permalink(); ?>">
+                      <a class="tetn-success" href="<?php the_permalink(); ?>">
                         <?php the_title(); ?>
                       </a>
                     </h4>
