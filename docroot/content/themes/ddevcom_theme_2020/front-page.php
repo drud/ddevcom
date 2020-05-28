@@ -52,7 +52,7 @@
                   <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
                 </div>
                 <div class="col-3 text-center">
-                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="Typo3" class="img-fluid">
+                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="TYPO3" class="img-fluid">
                 </div>
                 <div class="col-3 text-center">
                   <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
