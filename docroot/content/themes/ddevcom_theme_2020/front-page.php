@@ -101,7 +101,7 @@
     </div>
     <div class="row mt-5">
       <div class="col text-center">
-        <a class="btn btn-lg btn-primary-dark" href="http://eepurl.com/dlqkUD">
+        <a class="btn btn-lg btn-primary-dark" href="http://eepurl.com/dlqkUD" target="_blank" rel="noreferrer nofollow">
           Join Our Newsletter
         </a>
       </div>
