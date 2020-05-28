@@ -36,25 +36,27 @@
               <?php endif; ?>
             </div>
           </div>
-          <div class="col-lg-5">
-            <?php if (get_field('front_page_video_embed_url')) : ?>
-              <div class="video-wrapper mb-4">
-                <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-              </div>
-            <?php endif; ?>
-            <p class="text-light text-center">Proudly supporting:</p>
-            <div class="row mb-3">
-              <div class="col-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
-              </div>
-              <div class="col-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
-              </div>
-              <div class="col-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="Typo3" class="img-fluid">
-              </div>
-              <div class="col-3 text-center">
-                <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
+          <div class="col-lg-5 d-lg-flex flex-direction-lg-column">
+            <div class="my-auto w-100">
+              <?php if (get_field('front_page_video_embed_url')) : ?>
+                <div class="video-wrapper mb-4">
+                  <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                </div>
+              <?php endif; ?>
+              <p class="text-light text-center">Proudly supporting:</p>
+              <div class="row mb-3">
+                <div class="col-3 text-center">
+                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
+                </div>
+                <div class="col-3 text-center">
+                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
+                </div>
+                <div class="col-3 text-center">
+                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="Typo3" class="img-fluid">
+                </div>
+                <div class="col-3 text-center">
+                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
+                </div>
               </div>
             </div>
           </div>
