@@ -46,7 +46,7 @@
           </p>
           <div class="mb-5">
             <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
-            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg">Documentation</a>
+            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -182,7 +182,7 @@
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
                   <a href="<?php echo home_url('get-started'); ?>" class="btn btn-light btn-lg mr-2">Get Started</a>
-                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg">Documentation</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -259,7 +259,7 @@
               <div class="row mt-5">
                 <div class="col text-lg-center">
                   <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
-                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg">Documentation</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
                 </div>
               </div>
             </div>
@@ -328,16 +328,16 @@
       <div class="row">
         <div class="col col-lg-4">
           <p>
-            <i class="fa fa-2x fa-group product__connect-icon green"></i>
+            <i class="fa fa-2x fa-github-alt product__connect-icon green"></i>
           </p>
           <h3 class="product__connect-heading text-white mb-3">
-            Community
+            GitHub
           </h3>
           <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet.
+            Want to see what we're doing? Check us out on GitHub!
           </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            View Community
+          <a href="https://github.com/drud/ddev" class="btn btn-lg btn-primary">
+            View GitHub
           </a>
         </div>
         <div class="col col-lg-4">
@@ -345,27 +345,27 @@
             <i class="fa fa-2x fa-comments-o product__connect-icon blue"></i>
           </p>
           <h3 class="product__connect-heading text-white mb-3">
-            Forum
+            Contributions
           </h3>
           <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            A number of vetted user-contributed recipes for extending and using ddev. Your contributions are welcome.
           </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            View Forum
+          <a href="https://github.com/drud/ddev-contrib" class="btn btn-lg btn-primary">
+            View contributions
           </a>
         </div>
         <div class="col col-lg-4">
           <p>
-            <i class="fa fa-2x fa-slack product__connect-icon pink"></i>
+            <i class="fa fa-2x fa-fire product__connect-icon pink"></i>
           </p>
           <h3 class="product__connect-heading text-white mb-3">
-            Slack
+            Awesome DDEV
           </h3>
           <p class="product__connect-body mb-5">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+            Check out loads of external resources, blog posts, recipes, screencasts, and the like.
           </p>
-          <a href="#" class="btn btn-lg btn-primary">
-            Join Slack
+          <a href="https://github.com/drud/awesome-ddev" class="btn btn-lg btn-primary">
+            View Awesome DDEV
           </a>
         </div>
       </div>

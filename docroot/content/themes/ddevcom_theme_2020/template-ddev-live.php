@@ -40,7 +40,7 @@
           </p>
           <div class="mb-5">
             <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2">Start a Free Trial</a>
-            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg">Documentation</a>
+            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -108,7 +108,7 @@
                     Git Integration
                   </h3>
                   <p class="product__feature-description">
-                    Connect directly to your GitHub or other <a href="https://docs.ddev.com/providers/">Git repository provider</a>. This allows you to directly move code within your Git workflow and include DDEV-Live where you need it.
+                    Connect directly to your GitHub or other <a href="https://docs.ddev.com/providers/" target="_blank" rel="noopen noreferrer">Git repository provider</a>. This allows you to directly move code within your Git workflow and include DDEV-Live where you need it.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -309,7 +309,7 @@
         <?php endif; ?>
       <div class="row mt-5">
         <div class="col text-center">
-          <a href="http://eepurl.com/dlqkUD" class="btn btn-lg btn-primary">
+          <a href="http://eepurl.com/dlqkUD" class="btn btn-lg btn-primary" target="_blank" rel="noopen noreferrer">
             Join Our Newsletter
           </a>
         </div>
