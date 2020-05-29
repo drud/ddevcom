@@ -264,14 +264,18 @@
   </section>
   <section class="product__posts bg-light">
     <div class="container">
+      <h2 class="text-dark text-center mb-4">Recent Posts</h2>
+
       <?php
         $args = [
           'posts_per_page' => 3,
           'post_type' => 'post',
           'tax_query' => [
-            'taxonomy' => 'category',
-            'field' => 'slug',
-            'terms' => 'ddev-live',
+            [
+              'taxonomy' => 'category',
+              'field' => 'slug',
+              'terms' => 'ddev-live',
+            ]
           ],
         ];
 
