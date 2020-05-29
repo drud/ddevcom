@@ -20,14 +20,14 @@
 
           <?php $button_1_link = get_field('product_jumbotron_button_1_link'); ?>
           <?php if ($button_1_link): ?>
-            <a href="<?= $button_1_link['url']; ?>" class="btn btn-success btn-lg mb-4 mb-lg-0">
+            <a href="<?= $button_1_link['url']; ?>" class="btn btn-success btn-lg mb-4 mb-lg-0" <?php echo isset($button_1_link['target']) ? 'target="_blank" rel="noreferrer noopener"' : ''; ?>>
               <?= $button_1_link['title']; ?>
             </a>
           <?php endif; ?>
 
           <?php $button_2_link = get_field('product_jumbotron_button_2_link'); ?>
           <?php if ($button_2_link): ?>
-            <a href="<?= $button_2_link['url']; ?>" class="btn btn-primary btn-lg">
+            <a href="<?= $button_2_link['url']; ?>" class="btn btn-primary btn-lg" <?php echo isset($button_1_link['target']) ? 'target="_blank" rel="noreferrer noopener"' : ''; ?>>
               <?= $button_2_link['title']; ?>
             </a>
           <?php endif; ?>

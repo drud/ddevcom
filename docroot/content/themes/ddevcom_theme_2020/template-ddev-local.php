@@ -46,7 +46,7 @@
           </p>
           <div class="mb-5">
             <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
-            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
+            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -182,7 +182,7 @@
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
                   <a href="<?php echo home_url('get-started'); ?>" class="btn btn-light btn-lg mr-2">Get Started</a>
-                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -259,7 +259,7 @@
               <div class="row mt-5">
                 <div class="col text-lg-center">
                   <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
-                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
                 </div>
               </div>
             </div>

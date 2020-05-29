@@ -39,8 +39,8 @@
             Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
           </p>
           <div class="mb-5">
-            <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer nofollow">Start a Free Trial</a>
-            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg" target="_blank" rel="noopen noreferrer">Documentation</a>
+            <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
+            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -172,7 +172,7 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer nofollow">Start a Free Trial</a>
+                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
                   <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-light btn-outline-light-success btn-lg">Request Demo</a>
                 </div>
               </div>
@@ -249,7 +249,7 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-lg btn-success mr-2" target="_blank" rel="noreferrer nofollow">
+                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-lg btn-success mr-2" target="_blank" rel="noreferrer noopener">
                     Start a Free Trial
                   </a>
                   <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-outline-success">
