@@ -269,6 +269,8 @@
   </section>
   <section class="product__posts bg-light">
     <div class="container">
+      <h2 class="text-dark text-center mb-4">Recent Posts</h2>
+
       <?php
         $args = [
           'posts_per_page' => 3,
@@ -299,11 +301,11 @@
                   </a>
                   <div class="card-body">
                     <p class="post-card__date"><?php the_date(); ?></p>
-                    <h4 class="post-card__title card-title">
+                    <h3 class="post-card__title h4 card-title">
                       <a class="tetn-success" href="<?php the_permalink(); ?>">
                         <?php the_title(); ?>
                       </a>
-                    </h4>
+                      </h3>
                   </div>
                   <div class="post-card__footer card-footer text-muted">
                     <img class="rounded-circle" width="30" src="<?php echo get_avatar_url(get_the_author_meta('ID')); ?>" alt="<?= get_the_author_meta('display_name'); ?>">
