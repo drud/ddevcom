@@ -10,7 +10,7 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2015 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2015 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -59,7 +59,7 @@ class Admin_Init extends Init {
 	}
 
 	/**
-	 * Adds post states in post/page edit.php query
+	 * Adds post states for the post/page edit.php query.
 	 *
 	 * @since 4.0.0
 	 *
@@ -107,7 +107,7 @@ class Admin_Init extends Init {
 			if ( $this->is_archive_admin() ) {
 				$prepare_edit_screen = $this->is_taxonomy_supported();
 			} elseif ( $this->is_singular_admin() ) {
-				$prepare_edit_screen = $this->is_post_type_supported();
+				$prepare_edit_screen = $this->is_post_type_supported( $this->get_admin_post_type() );
 			} else {
 				$prepare_edit_screen = false;
 			}
@@ -199,7 +199,7 @@ class Admin_Init extends Init {
 			'ml_IN' => 100 / 160, // Malayalam (മലയാളം)
 			'ja'    =>  70 / 160, // Japanese (日本語)
 			'ko_KR' =>  82 / 160, // Korean (한국어)
-			'ta_IN' => 120 / 160, // Talim (தமிழ்)
+			'ta_IN' => 120 / 160, // Tamil (தமிழ்)
 			'zh_TW' =>  70 / 160, // Taiwanese Mandarin (Traditional Chinese) (繁體中文)
 			'zh_HK' =>  70 / 160, // Hong Kong (Chinese version) (香港中文版)
 			'zh_CN' =>  70 / 160, // Mandarin (Simplified Chinese) (简体中文)
@@ -365,7 +365,7 @@ class Admin_Init extends Init {
 	 * for alerts, etc.
 	 *
 	 * @since 2.2.2
-	 * @since 2.9.2 : Added user-friendly exception handling.
+	 * @since 2.9.2 Added user-friendly exception handling.
 	 * @since 2.9.3 : 1. Query arguments work again (regression 2.9.2).
 	 *                2. Now only accepts http and https protocols.
 	 *
@@ -379,7 +379,9 @@ class Admin_Init extends Init {
 		if ( empty( $page ) )
 			return;
 
-		$url = html_entity_decode( \menu_page_url( $page, false ) ); // This can be empty... TODO test?
+		// This can be empty... so $target will be empty. TODO test for $success and bail?
+		// Might cause security issues... we _must_ exit, always? Show warning?
+		$url = html_entity_decode( \menu_page_url( $page, false ) );
 
 		foreach ( $query_args as $key => $value ) {
 			if ( empty( $key ) || empty( $value ) )
@@ -397,7 +399,7 @@ class Admin_Init extends Init {
 		 * 1. Change 302 to 500 if you wish to test headers.
 		 * 2. Also force handle_admin_redirect_error() to run.
 		 */
-		\wp_safe_redirect( $target, 302 );
+		$success = \wp_safe_redirect( $target, 302 ); // phpcs:ignore, VariableAnalysis.CodeAnalysis.VariableAnalysis.UnusedVariable
 
 		//* White screen of death for non-debugging users. Let's make it friendlier.
 		if ( $headers_sent ) {
@@ -473,6 +475,7 @@ class Admin_Init extends Init {
 		if ( isset( $_POST['val'] ) ) {
 			$value = (int) $_POST['val'];
 		} else {
+			// TODO use get_default_user_data() value instead.
 			$value = $this->get_user_option( 0, 'counter_type', 3 ) + 1;
 		}
 		$value = \absint( $value );
@@ -505,7 +508,7 @@ class Admin_Init extends Init {
 		// phpcs:disable, WordPress.Security.NonceVerification -- _check_tsf_ajax_referer() does this.
 		$this->_check_tsf_ajax_referer( 'edit_posts' );
 
-		// CLear output buffer.
+		// Clear output buffer.
 		$this->clean_response_header();
 
 		$post_id = \absint( $_POST['post_id'] );
@@ -600,6 +603,8 @@ class Admin_Init extends Init {
 			'data'      => $data,
 			'processed' => $get,
 		] );
+
+		// phpcs:enable, WordPress.Security.NonceVerification
 	}
 
 	/**
@@ -620,7 +625,6 @@ class Admin_Init extends Init {
 	 */
 	public function _wp_ajax_crop_image() {
 
-		// This checks the nonce, re:to all 'WordPress.Security.NonceVerification' below
 		// phpcs:disable, WordPress.Security.NonceVerification -- _check_tsf_ajax_referer does this.
 		$this->_check_tsf_ajax_referer( 'upload_files' );
 

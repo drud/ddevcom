@@ -18,13 +18,14 @@ class Options {
 	 * @since 1.3.0
 	 * @since 1.4.0 Added Mailgun:region.
 	 * @since 1.5.0 Added Outlook/AmazonSES.
+	 * @since 1.8.0 Added Pepipost API.
 	 *
 	 * @since
 	 *
 	 * @var array Map of all the default options of the plugin.
 	 */
 	private static $map = array(
-		'mail'       => array(
+		'mail'        => array(
 			'from_name',
 			'from_email',
 			'mailer',
@@ -32,7 +33,7 @@ class Options {
 			'from_name_force',
 			'from_email_force',
 		),
-		'smtp'       => array(
+		'smtp'        => array(
 			'host',
 			'port',
 			'encryption',
@@ -41,32 +42,35 @@ class Options {
 			'user',
 			'pass',
 		),
-		'gmail'      => array(
+		'gmail'       => array(
 			'client_id',
 			'client_secret',
 		),
-		'outlook'    => array(
+		'outlook'     => array(
 			'client_id',
 			'client_secret',
 		),
-		'amazonses'  => array(
+		'amazonses'   => array(
 			'client_id',
 			'client_secret',
 			'region',
 			'emails_pending',
 		),
-		'mailgun'    => array(
+		'mailgun'     => array(
 			'api_key',
 			'domain',
 			'region',
 		),
-		'sendgrid'   => array(
+		'sendgrid'    => array(
 			'api_key',
 		),
-		'sendinblue' => array(
+		'sendinblue'  => array(
 			'api_key',
 		),
-		'pepipost'   => array(
+		'pepipostapi' => array(
+			'api_key',
+		),
+		'pepipost'    => array(
 			'host',
 			'port',
 			'encryption',
@@ -74,7 +78,7 @@ class Options {
 			'user',
 			'pass',
 		),
-		'license'    => array(
+		'license'     => array(
 			'key',
 		),
 	);
@@ -339,6 +343,8 @@ class Options {
 	 * @since 1.4.0 Added WPMS_MAILGUN_REGION.
 	 * @since 1.5.0 Added Outlook/AmazonSES, license key support.
 	 * @since 1.6.0 Added Sendinblue.
+	 * @since 1.7.0 Added Do Not Send.
+	 * @since 1.8.0 Added Pepipost API.
 	 *
 	 * @param string $group
 	 * @param string $key
@@ -503,11 +509,31 @@ class Options {
 
 				break;
 
+			case 'pepipostapi':
+				switch ( $key ) {
+					case 'api_key':
+						/** @noinspection PhpUndefinedConstantInspection */
+						$return = $this->is_const_defined( $group, $key ) ? WPMS_PEPIPOST_API_KEY : $value;
+						break;
+				}
+
+				break;
+
 			case 'license':
 				switch ( $key ) {
 					case 'key':
 						/** @noinspection PhpUndefinedConstantInspection */
 						$return = $this->is_const_defined( $group, $key ) ? WPMS_LICENSE_KEY : $value;
+						break;
+				}
+
+				break;
+
+			case 'general':
+				switch ( $key ) {
+					case 'do_not_send':
+						/** @noinspection PhpUndefinedConstantInspection */
+						$return = $this->is_const_defined( $group, $key ) ? WPMS_DO_NOT_SEND : $value;
 						break;
 				}
 
@@ -544,6 +570,8 @@ class Options {
 	 * @since 1.0.0
 	 * @since 1.5.0 Added a filter, Outlook/AmazonSES, license key support.
 	 * @since 1.6.0 Added Sendinblue.
+	 * @since 1.7.0 Added Do Not Send.
+	 * @since 1.8.0 Added Pepipost API.
 	 *
 	 * @param string $group
 	 * @param string $key
@@ -685,10 +713,29 @@ class Options {
 
 				break;
 
+			case 'pepipostapi':
+				switch ( $key ) {
+					case 'api_key':
+						$return = defined( 'WPMS_PEPIPOST_API_KEY' ) && WPMS_PEPIPOST_API_KEY;
+						break;
+				}
+
+				break;
+
 			case 'license':
 				switch ( $key ) {
 					case 'key':
 						$return = defined( 'WPMS_LICENSE_KEY' ) && WPMS_LICENSE_KEY;
+						break;
+				}
+
+				break;
+
+			case 'general':
+				switch ( $key ) {
+					case 'do_not_send':
+						/** @noinspection PhpUndefinedConstantInspection */
+						$return = defined( 'WPMS_DO_NOT_SEND' ) && WPMS_DO_NOT_SEND;
 						break;
 				}
 
@@ -725,6 +772,10 @@ class Options {
 							case 'from_email':
 								if ( filter_var( $option_value, FILTER_VALIDATE_EMAIL ) ) {
 									$options[ $group ][ $option_name ] = sanitize_email( $option_value );
+								} else {
+									$options[ $group ][ $option_name ] = sanitize_email(
+										wp_mail_smtp()->get_processor()->get_default_email()
+									);
 								}
 								break;
 							case 'return_path':
@@ -754,7 +805,7 @@ class Options {
 		if (
 			! empty( $options['mail']['mailer'] ) &&
 			isset( $options[ $options['mail']['mailer'] ] ) &&
-			in_array( $options['mail']['mailer'], array( 'pepipost', 'smtp', 'sendgrid', 'mailgun', 'gmail', 'outlook' ), true )
+			in_array( $options['mail']['mailer'], array( 'pepipost', 'pepipostapi', 'smtp', 'sendgrid', 'sendinblue', 'mailgun', 'gmail', 'outlook' ), true )
 		) {
 
 			$mailer = $options['mail']['mailer'];
@@ -782,7 +833,7 @@ class Options {
 						$options[ $mailer ][ $option_name ] = $this->is_const_defined( $mailer, $option_name ) ? '' : trim( (string) $option_value );
 						break;
 
-					case 'api_key': // mailgun/sendgrid/sendinblue.
+					case 'api_key': // mailgun/sendgrid/sendinblue/pepipostapi.
 					case 'domain': // mailgun.
 					case 'client_id': // gmail/outlook/amazonses.
 					case 'client_secret': // gmail/outlook/amazonses.
@@ -863,7 +914,7 @@ class Options {
 	}
 
 	/**
-	 * Check whether the site is using Pepipost or not.
+	 * Check whether the site is using Pepipost SMTP or not.
 	 *
 	 * @since 1.0.0
 	 *

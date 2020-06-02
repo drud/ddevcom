@@ -67,11 +67,11 @@ switch ( $instance ) :
 		$this->description( __( 'The sitemap does not contribute to ranking, only indexing. Therefore, it is perfectly fine not having every indexable page in the sitemap.', 'autodescription' ) );
 
 		if ( $has_sitemap_plugin ) :
+			echo '<hr>';
 			$this->attention_description( __( 'Note: Another active sitemap plugin has been detected. This means that the sitemap functionality has been superseded and these settings have no effect.', 'autodescription' ) );
-			echo '<hr>';
 		elseif ( $sitemap_detected ) :
-			$this->attention_description( __( 'Note: A sitemap has been detected in the root folder of your website. This means that these settings have no effect.', 'autodescription' ) );
 			echo '<hr>';
+			$this->attention_description( __( 'Note: A sitemap has been detected in the root folder of your website. This means that these settings have no effect.', 'autodescription' ) );
 		endif;
 		?>
 		<hr>
@@ -168,7 +168,7 @@ switch ( $instance ) :
 		endif;
 
 		$this->description( __( 'The robots.txt output is the first thing search engines look for before crawling your site. If you add the sitemap location in that output, then search engines may automatically access and index the sitemap.', 'autodescription' ) );
-		$this->description( __( 'If you do not add the sitemap location to the robots.txt output, you should manually notify search engines manually through webmaster-interfaces provided by the search engines.', 'autodescription' ) );
+		$this->description( __( 'If you do not add the sitemap location to the robots.txt output, you should notify search engines manually through webmaster-interfaces provided by the search engines.', 'autodescription' ) );
 
 		echo '<hr>';
 

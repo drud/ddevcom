@@ -1,9 +1,9 @@
 === WP Mail SMTP by WPForms ===
 Contributors: wpforms, jaredatch, smub, slaFFik
-Tags: smtp, wp mail smtp, wordpress smtp, gmail smtp, sendgrid smtp, mailgun smtp, mail, mailer, phpmailer, wp_mail, email, mailgun, sengrid, gmail, wp smtp
+Tags: smtp, wp mail smtp, wordpress smtp, gmail smtp, sendgrid smtp, mailgun smtp, mail, mailer, phpmailer, wp_mail, email, mailgun, sengrid, gmail, pepipost, sendinblue, wp smtp
 Requires at least: 4.9
-Tested up to: 5.2
-Stable tag: 1.6.2
+Tested up to: 5.3
+Stable tag: 1.9.0
 Requires PHP: 5.3
 
 The most popular WordPress SMTP and PHP Mailer plugin. Trusted by over 1 million sites.
@@ -42,21 +42,33 @@ This helps you fix all WordPress not sending email issues.
 
 WP Mail SMTP plugin includes many different SMTP setup options:
 
-1. Sendinblue SMTP <strong>(Recommended)</strong>
-2. Mailgun SMTP
-3. SendGrid SMTP
-4. Gmail SMTP
-5. Microsoft SMTP (Outlook.com and Office 365) <a href="https://wpmailsmtp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion&utm_content=readme" rel="friend">[Pro]</a>
-6. Amazon SES SMTP <a href="https://wpmailsmtp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion&utm_content=readme" rel="friend">[Pro]</a>
-7. All Other SMTP
+1. Pepipost SMTP <strong>(Recommended)</strong>
+2. Sendinblue SMTP <strong>(Recommended)</strong>
+3. Mailgun SMTP
+4. SendGrid SMTP
+5. Gmail SMTP
+6. Microsoft SMTP (Outlook.com and Office 365) <a href="https://wpmailsmtp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion&utm_content=readme" rel="friend">[Pro]</a>
+7. Amazon SES SMTP <a href="https://wpmailsmtp.com/?utm_source=wprepo&utm_medium=link&utm_campaign=liteversion&utm_content=readme" rel="friend">[Pro]</a>
+8. All Other SMTP
 
 For all options, you can specify the "from name" and "email address" for outgoing emails.
 
 Instead of having users use different SMTP plugins and workflows for different SMTP providers, we decided to bring it all in one. This is what makes WP Mail SMTP, the best SMTP solution for WordPress.
 
+= Pepipost SMTP =
+
+Pepipost is a recommended transactional email service.
+
+Every month they delivers over 8 billion emails from 20,000+ customers.
+
+Their mission is to reliably send emails in the most efficient way and at the most disruptive pricing ever.
+Pepipost provides users 30,000 emails the first 30 days.
+
+Read our <a href="https://wpmailsmtp.com/docs/how-to-set-up-the-pepipost-mailer-in-wp-mail-smtp/" rel="friend">Pepipost documentation</a> for more details.
+
 = Sendinblue SMTP =
 
-Sendinblue is our recommended transactional email service.
+Sendinblue is a recommended transactional email service.
 
 They serve 80,000+ growing companies around the world and send over 30 million emails each day.
 
@@ -66,7 +78,7 @@ Read our <a href="https://wpmailsmtp.com/docs/how-to-set-up-the-sendinblue-maile
 
 = Mailgun SMTP =
 
-Mailgun SMTP is a popular SMTP service provider that allows you to send large quantities of emails. They allow you to send your first 10,000 emails for free every month.
+Mailgun SMTP is a popular SMTP service provider that allows you to send large quantities of emails. They provide 5,000 free emails per month for 3 months.
 
 WP Mail SMTP plugin offers a native integration with MailGun. All you have to do is connect your Mailgun account, and you will improve your email deliverability.
 
@@ -207,6 +219,33 @@ By all means please contact us to discuss features or options you'd like to see 
 6. Send a Test Email
 
 == Changelog ==
+
+= 1.9.0 - 2020-03-23 =
+* Added: Add various Status tests and Info section on Tools > Site Health page.
+* Added: Notify admin if there are unsaved changes in plugin admin area options.
+* Fixed: Test email now has a proper bottom margin for better look.
+* Changed: Update "About us" plugin page with relevant information.
+* Changed: Save default WordPress FROM Email address when incorrect FROM Email address is saved by a user.
+
+= 1.8.1 - 2019-12-13 =
+* Fixed: Revert Guzzle version to 6.4.1 because Sendinblue and Gmail mailers may experience issues under certain circumstances while sending emails (not all sites are affected).
+* Fixed: Make compatible the WordPress PhpMailer class inline attachments management with the Sendgrid API.
+
+= 1.8.0 - 2019-12-12 =
+* Added: New recommended mailer: Pepipost.
+* Added: "Suggest a Mailer" link in a list of mailers to send us your ideas about new ones.
+* Fixed: Sendgrid: Content ID for attachments missing.
+* Changed: Timeout to HTTP requests (pepipost, sendgrid, mailgun), same as max_execution_time, to prevent fails when sending emails with big attachments.
+
+= 1.7.1 - 2019-11-11 =
+* Fixed: Compatibility with WordPress 5.3.
+* Fixed: `Processor::get_default_email()` always returns empty value when server incorrectly configured.
+
+= 1.7.0 - 2019-10-24 =
+* Added: Add a new constant `WPMS_DO_NOT_SEND` to block email sending.
+* Fixed: Default email (wordpress@example.com) rewriting in CLI mode.
+* Fixed: Incorrect conflicts detection with certain plugins.
+* Fixed: various typos in plugin settings.
 
 = 1.6.2 - 2019-09-02 =
 * Fixed: Race condition when loading with certain plugins, that send emails very early. Makes email delivery more reliable.

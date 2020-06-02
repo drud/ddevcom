@@ -52,7 +52,7 @@ function dpsp_ajax_send_feedback() {
 
 
 	// Send the email
-	$sent = wp_mail( 'support@devpups.com', 'Social Pug User Feedback', $message, $headers );
+	$sent = wp_mail( 'support@devpups.com', 'Grow by Mediavine User Feedback', $message, $headers );
 
 	// Return
 	echo ( $sent ? 1 : 0 );

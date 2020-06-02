@@ -8,7 +8,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 <!-- Feedback form button -->
 <div id="dpsp-feedback-button" class="dpsp-inactive">
 	
-	<img src="<?php echo DPSP_PLUGIN_DIR_URL . 'inc/admin/feedback-form/assets/img/corgi-100x100.png' ?>" />
+	<img src="<?php echo DPSP_PLUGIN_DIR_URL . 'inc/admin/feedback-form/assets/src/img/corgi-100x100.png' ?>" />
 	<span class="dpsp-close dashicons dashicons-no-alt"></span>
 
 </div>
@@ -20,7 +20,7 @@ if ( ! defined( 'ABSPATH' ) ) exit;
 	<div id="dpsp-feedback-form-header">
 
 		<div id="dpsp-feedback-form-header-image">
-			<img src="<?php echo DPSP_PLUGIN_DIR_URL . 'inc/admin/feedback-form/assets/img/corgi-100x100.png' ?>" />
+			<img src="<?php echo DPSP_PLUGIN_DIR_URL . 'inc/admin/feedback-form/assets/src/img/corgi-100x100.png' ?>" />
 		</div>
 
 		<strong><?php echo __( "I'm here to help", 'social-pug' ); ?></strong>

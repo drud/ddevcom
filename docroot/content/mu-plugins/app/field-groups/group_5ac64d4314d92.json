@@ -1,9 +1,9 @@
 {
     "key": "group_5ac64d4314d92",
-    "title": "Company",
+    "title": "Options: Company",
     "fields": [
         {
-            "key": "field_5ac64d90aa758",
+            "key": "field_5ac66b64b0a62",
             "label": "Social Media",
             "name": "",
             "type": "tab",
@@ -19,10 +19,10 @@
             "endpoint": 0
         },
         {
-            "key": "field_5ac64da1aa759",
-            "label": "Social Media Links",
-            "name": "social_media_links",
-            "type": "repeater",
+            "key": "field_5ac66b6db0a63",
+            "label": "Company - Facebook URL",
+            "name": "company_facebook_url",
+            "type": "link",
             "instructions": "",
             "required": 0,
             "conditional_logic": 0,
@@ -31,47 +31,37 @@
                 "class": "",
                 "id": ""
             },
-            "collapsed": "",
-            "min": 0,
-            "max": 0,
-            "layout": "table",
-            "button_label": "",
-            "sub_fields": [
-                {
-                    "key": "field_5ac64dc0aa75a",
-                    "label": "Icon",
-                    "name": "icon",
-                    "type": "text",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "default_value": "",
-                    "placeholder": "",
-                    "prepend": "",
-                    "append": "",
-                    "maxlength": ""
-                },
-                {
-                    "key": "field_5ac64dc6aa75b",
-                    "label": "Link",
-                    "name": "link",
-                    "type": "link",
-                    "instructions": "",
-                    "required": 0,
-                    "conditional_logic": 0,
-                    "wrapper": {
-                        "width": "",
-                        "class": "",
-                        "id": ""
-                    },
-                    "return_format": "url"
-                }
-            ]
+            "return_format": "url"
+        },
+        {
+            "key": "field_5ac66b7bb0a64",
+            "label": "Company - Twitter URL",
+            "name": "company_twitter_url",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url"
+        },
+        {
+            "key": "field_5ac66b89b0a65",
+            "label": "Company - LinkedIn URL",
+            "name": "company_linkedin_url",
+            "type": "link",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "url"
         }
     ],
     "location": [
@@ -91,5 +81,5 @@
     "hide_on_screen": "",
     "active": 1,
     "description": "",
-    "modified": 1522945532
+    "modified": 1570567614
 }

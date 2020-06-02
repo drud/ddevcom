@@ -1,0 +1,23 @@
+.card-columns {
+  @include media-breakpoint-up(lg) {
+    column-count: 3;
+  }
+}
+
+.post-card {
+  box-shadow: $shadow;
+  position: relative;
+  border: none;
+
+  &__date {
+    color: $gray-500;
+  }
+
+  &__title {
+    color: $gray-700;
+  }
+
+  &__footer {
+    border-top: none;
+  }
+}

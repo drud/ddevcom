@@ -8,7 +8,7 @@ namespace The_SEO_Framework\Builders;
 
 /**
  * The SEO Framework plugin
- * Copyright (C) 2018 - 2019 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
+ * Copyright (C) 2018 - 2020 Sybre Waaijer, CyberWire (https://cyberwire.nl/)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License version 3 as published
@@ -151,11 +151,12 @@ final class Scripts {
 	 * Prints the TSF no-js transform script, using ES2015 (ECMA-262).
 	 *
 	 * @since 4.0.0
+	 * @since 4.0.5 Put the const assignment on front, so it's prone to fail earlier.
 	 * @access private
 	 * @internal
 	 */
 	public function _print_tsfjs_script() {
-		echo "<script>(()=>{document.body.classList.replace('tsf-no-js','tsf-js');const a=0;})()</script>";
+		echo "<script>(()=>{const a=0;document.body.classList.replace('tsf-no-js','tsf-js')})()</script>";
 	}
 
 	/**
@@ -249,11 +250,8 @@ final class Scripts {
 	public static function forward_known_script( $id, $type ) {
 		if ( ! ( static::get_status_of( $id, $type ) & static::REGISTERED ) ) {
 			foreach ( static::$scripts as $s ) {
-				if ( $s['id'] === $id ) {
-					if ( $s['type'] === $type ) {
-						static::forward_script( $s );
-					}
-				}
+				if ( $s['id'] === $id && $s['type'] === $type )
+					static::forward_script( $s );
 			}
 		}
 	}

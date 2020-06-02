@@ -1,0 +1,190 @@
+.product {
+  padding: 4rem 0 0;
+
+  &__main-header-heading {
+    font-size: 3rem;
+    color: $gray-800;
+    line-height: 3.75rem;
+    font-family: $headings-font-family;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 4rem;
+      line-height: 5rem;
+      margin-top: 4rem;
+    }
+  }
+
+  &__main-header-lead {
+    color: $gray-600;
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.25rem;
+    }
+  }
+
+  &__screenshot {
+    max-width: 100%;
+    z-index: -1;
+
+    @include media-breakpoint-up(lg) {
+      max-width: none;
+      width: 800px;
+      margin-bottom: -rem;
+    }
+  }
+
+  &__features {
+    padding: 4rem 0;
+    background-color: theme-color('light');
+
+    @include media-breakpoint-up(lg) {
+      position: relative;
+      z-index: 10;
+      padding: 8rem 0 0 0;
+    }
+  }
+
+  &__supporting {
+    p {
+      color: $gray-600;
+    }
+  }
+
+  &__supporting-logo {
+    fill: $gray-600;
+  }
+
+  &__supporting-col {
+    border-right: 1px solid $gray-400;
+  }
+
+  &__feature-card {
+    width: 100%;
+
+    .card-header {
+      background-color: $white;
+      border: none;
+
+      h2 {
+        color: $gray-500;
+        font-size: 1.125rem;
+        margin-bottom: 0;
+      }
+    }
+
+
+    @include media-breakpoint-up(lg) {
+      margin-bottom: -4rem;
+      box-shadow: $shadow;
+
+      .card-body {
+        padding: 2rem;
+      }
+    }
+  }
+
+  &__card-section-heading {
+    color: $gray-600;
+    font-family: $headings-font-family;
+    font-size: 1rem;
+  }
+
+  &__feature-heading {
+    color: $gray-700;
+  }
+
+  &__feature-description {
+    color: $gray-600;
+    font-size: 1.125rem;
+  }
+
+  &__connect {
+    padding: 8rem 0;
+  }
+
+  &__connect-body {
+    font-size: 1.25rem;
+    color: $gray-500;
+
+    @include media-breakpoint-up(lg) {
+      min-height: 10rem;
+    }
+  }
+
+  &__connect-icon.green {
+    color: theme-color('success');
+  }
+
+  &__connect-icon.blue {
+    color: theme-color('primary-light');
+  }
+
+  &__connect-icon.pink {
+    color: #f50057;
+  }
+
+  &__demo {
+    padding: 8rem 0;
+  }
+
+  &__demo-steps {
+    font-size: 1.25rem;
+    border-radius: 0.25rem;
+    box-shadow: $shadow;
+    color: $gray-400;
+
+    h6 {
+      color: $gray-500;
+    }
+
+    code {
+      background-color: $gray-800;
+      padding: 0.5rem;
+      font-size: 1.125rem;
+      color: $gray-600;
+      display: block;
+      width: 100%;
+    }
+
+    @include media-breakpoint-up(lg) {
+      font-size: 1.5rem;
+      padding: 2rem 2rem 2rem 4rem;
+    }
+  }
+
+  &__demo-steps li {
+    margin-bottom: 1.5rem;
+  }
+
+  &__posts {
+    padding: 4rem 0;
+
+
+    @include media-breakpoint-up(lg) {
+      padding: 8rem 0;
+    }
+  }
+}
+
+.product-promo {
+  a {
+    text-decoration: underline;
+    line-height: 1.25rem;
+
+    &:hover {
+      background-color: transparent;
+    }
+  }
+}
+
+body.ddev-live .product__screenshot {
+  @include media-breakpoint-up(lg) {
+    margin-bottom: -6rem;
+  }
+}
+
+body.ddev-local .product__screenshot {
+  @include media-breakpoint-up(lg) {
+    margin-bottom: -6rem;
+  }
+}

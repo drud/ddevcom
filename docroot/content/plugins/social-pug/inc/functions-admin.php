@@ -16,7 +16,14 @@
 
 		echo '<div class="dpsp-page-header">';
 			echo '<span class="dpsp-logo">';
-				echo '<span class="dpsp-logo-inner">Social Pug <span>Free</span> </span>';
+			echo '<svg version="1.1" class="mv-grow-logo" xmlns="http://www.w3.org/2000/svg" x="0" y="0" viewBox="0 0 20 20" fill="white" xml:space="preserve">
+				<path d="M0 7.2c0 .1-.6 4.7 2 7.2 1.7 1.8 4.3 2 5.9 2h.9A12.7 12.7 0 014.4 14a6.7 6.7 0 01-1.6-2.3c-.3-.9-.5-1.9-.4-3 0-.7.2-1.6.5-2.4h-2l-.7.1-.1.8zM4.7 3.4l-.4.6-.8 1.8 2.4.5 1.3-2c-1-.5-1.7-.7-1.8-.7l-.7-.2z"/>
+				<path d="M3.3 11.5c1.1 2.8 4.3 4 5.5 4.4l-.5-.4-.4-.4a10.7 10.7 0 01-2.2-3c-.4-1-.6-1.9-.6-2.8 0-.7.2-1.4.4-2.1l.1-.2.1-.3a10.8 10.8 0 00-2.1-.4h-.3v.4a7.4 7.4 0 000 4.8zM10.6 2.8l-.6-.4-.6.4L8 4.2l2 1.3c.6-.5 1.3-1 2-1.3l-1.4-1.4zM6.5 6.6h.2l1.6 1.1a6.4 6.4 0 011.4-1.9L8 4.8l-.2-.2-.2-.1-.2.2-.1.2c-.4.4-.8 1-1 1.6h.1z"/>
+				<path d="M6 7.1v.2a6 6 0 00-.4 2c0 3 2.4 5.4 3.4 6.2l-.3-.5-.2-.6a12.5 12.5 0 01-.8-3.4A7 7 0 018 8.4l.1-.3a6 6 0 00-1.6-1L6.3 7h-.2V7zM15.3 3.5l-.7.1s-.8.2-1.8.7c.5.7 1 1.3 1.3 2l.5-.1a11 11 0 011.9-.4l-.8-1.7-.4-.6zM13.4 6.6l.3-.1-1-1.6-.2-.2-.2-.2-.2.1-.2.1-1.6 1.1.2.2.1.2c.5.4.8 1 1 1.5a6.6 6.6 0 011.8-1.1zM10.3 6.5l-.2-.2-.1-.1-.2.1-.1.2a5.8 5.8 0 00-1 1.6v.1h.1l.2.2c.4.5.7 1.1 1 1.8a7 7 0 011-1.8l.1-.2.2-.2c-.2-.6-.6-1-1-1.5z"/>
+				<path d="M8.7 8.9v-.2h-.1l-.2-.2V9h-.1c-.6 2.5.5 5 1 6.1v-.6-.6-1.1l.2-1 .1-.5.1-.4a6.9 6.9 0 00-1-2zM17 6.3h-.4c-.7 0-1.5.2-2.3.4l-.2.1-.3.1h-.2l-.2.2A6 6 0 0012 8l-.2.2-.2.2-.2.2-.1.2c-.5.6-.8 1.3-1 2l-.1.4-.1.3v.2l-.1.5v.2a12 12 0 000 3V16.4h.5l.2.1H12c1.6 0 4.2-.2 6-2 2.5-2.5 1.8-7 1.8-7.3v-.7H19a10.2 10.2 0 00-2-.1zm-.4 6.8c-1.3 1.2-3.3 1.4-4.6 1.4h-.3c0-1.3.1-3.6 1.4-4.9 1.2-1.2 3.3-1.4 4.5-1.4h.4c0 1.2 0 3.5-1.4 4.9z"/>
+			  </svg>
+			  ';
+				echo '<span class="dpsp-logo-inner">Grow by Mediavine</span>';
 				echo '<small class="dpsp-version">v.' . DPSP_VERSION . '</small>';
 			echo '</span>';
 
@@ -25,11 +32,6 @@
 				//echo '<a href="https://wordpress.org/support/view/plugin-reviews/social-pug?filter=5#postform" target="_blank">5<i class="dashicons dashicons-star-filled"></i>Leave a Review</a>';
 			echo '</nav>';
 
-			/*
-			echo '<nav style="float: right; margin-right: 10px;">';
-				echo '<a id="dpsp-to-premium" href="http://www.devpups.com/social-pug/features/?utm_source=plugin&utm_medium=header-to-premium&utm_campaign=social-pug" target="_blank"><i class="dashicons dashicons-external"></i>' . __( 'Upgrade to Pro', 'social-pug' ) . '</a>';
-			echo '</nav>';
-			*/
 		echo '</div>';
 
 	}
@@ -523,7 +525,7 @@
 			__( 'Settings imported.', 'social-pug' ),
 			__( 'Please select an import file.', 'social-pug' ),
 			__( 'Import file is not valid.', 'social-pug' ),
-			__( 'Social Pug App authorized successfully.', 'social-pug' )
+			__( 'Grow App authorized successfully.', 'social-pug' )
 		));
 
 		return $messages[ $message_id ];
@@ -559,7 +561,7 @@
 
 				echo '<div class="dpsp-card-inner">';
 
-					echo '<img data-pin-nopin="true" src="' . DPSP_PLUGIN_DIR_URL . 'assets/img/social-pug-upgrade.png" />';
+					echo '<img data-pin-nopin="true" src="' . DPSP_PLUGIN_DIR_URL . 'assets/src/img/social-pug-upgrade.png" />';
 
 					echo '<h3>' . __( 'Skyrocket your social media marketing', 'social-pug' ) . '</h3>';
 
@@ -621,19 +623,6 @@
 <?php
 			*/
 
-			echo '<br /><hr />';
-
-			echo '<div id="dpsp-settings-sidebar-opt-in-hound">';
-
-				echo '<h3><img src="' . DPSP_PLUGIN_DIR_URL . 'assets/img/opt-in-hound-icon-256x256.png" />' . __( 'Start Growing Your Email List', 'social-pug' ) . '</h3>';
-
-				echo '<p>' . sprintf( __( '%sOpt-In Hound%s is the easiest way for you to create beautiful popup and widget email optin forms and start growing your email subscriber lists.', 'social-pug' ), '<a href="https://devpups.com/opt-in-hound/?utm_source=plugin-sidebar&amp;utm_medium=opt-in-hound-crosspromo&amp;utm_campaign=social-pug" target="_blank">', '</a>' ) . '</p>';
-
-				echo '<a href="https://devpups.com/opt-in-hound/?utm_source=plugin-sidebar&amp;utm_medium=opt-in-hound-crosspromo&amp;utm_campaign=social-pug" target="_blank" class="dpsp-button-secondary">' . __( 'Learn More', 'social-pug' ) . '</a>';
-
-			echo '</div>';
-
-		echo '</div>';
 
 	}
 	add_action( 'dpsp_submenu_page_bottom', 'dpsp_add_submenu_page_sidebar' );
@@ -666,11 +655,11 @@
 		// Echo the admin notice
 		echo '<div class="dpsp-admin-notice dpsp-admin-notice-activation notice">';
 
-        	echo '<h4>' . __( 'Thank you for installing Social Pug. Let\'s start pumping up those social shares.', 'social-pug' ) . '</h4>';
+        	echo '<h4>' . __( 'Thank you for installing Grow by Mediavine. Let\'s start pumping up those social shares.', 'social-pug' ) . '</h4>';
 
         	echo '<a class="dpsp-admin-notice-link" href="' . add_query_arg( array( 'dpsp_admin_notice_activation' => 1 ), admin_url('admin.php?page=dpsp-toolkit') ) . '"><span class="dashicons dashicons-admin-settings"></span>' . __( 'Go to the Plugin', 'social-pug' ) . '</a>';
         	echo '<a class="dpsp-admin-notice-link" href="http://docs.devpups.com/?utm_source=plugin&utm_medium=plugin-activation&utm_campaign=social-pug" target="_blank"><span class="dashicons dashicons-book"></span>' . __( 'View Documentation', 'social-pug' ) . '</a>';
-        	echo '<a class="dpsp-admin-notice-link" href="https://www.devpups.com/social-pug/features/?utm_source=plugin&utm_medium=plugin-activation&utm_campaign=social-pug" target="_blank"><span class="dashicons dashicons-external"></span>' . __( 'Upgrade to Pro', 'social-pug' ) . '</a>';
+        	echo '<a class="dpsp-admin-notice-link" href="https://marketplace.mediavine.com/grow-social-pro/?utm_source=plugin&utm_medium=plugin-activation&utm_campaign=social-pug" target="_blank"><span class="dashicons dashicons-external"></span>' . __( 'Upgrade to Pro', 'social-pug' ) . '</a>';
 
         	echo '<a href="' . add_query_arg( array( 'dpsp_admin_notice_activation' => 1 ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>';
 
@@ -679,47 +668,6 @@
 	}
 	add_action( 'admin_notices', 'dpsp_admin_notice_first_activation' );
 
-
-	/**
-	 * Add admin notice to promote Opt-In Hound
-	 *
-	 */
-	function dpsp_admin_notice_promo_opt_in_hound() {
-
-		// Get first activation of the plugin
-		$first_activation = get_option( 'dpsp_first_activation', '' );
-
-		if( empty( $first_activation ) )
-			return;
-
-		// Do not display this notice if user cannot activate plugins
-		if( ! current_user_can( 'activate_plugins' ) )
-			return;
-
-		if( time() <= $first_activation + 2 * DAY_IN_SECONDS )
-			return;
-
-		// Do not display this notice for users that have dismissed it
-		if( get_user_meta( get_current_user_id(), 'dpsp_admin_notice_promo_opt_in_hound', true ) != '' )
-			return;
-
-		// Echo the admin notice
-		echo '<div class="dpsp-admin-notice dpsp-admin-notice-opt-in-hound notice">';
-
-			echo '<img src="' . DPSP_PLUGIN_DIR_URL . 'assets/img/opt-in-hound-icon-256x256.png" />';
-
-			echo '<h3>' . __( 'Start Growing Your Email List', 'social-pug' ) . '</h3>';
-
-        	echo '<p>' . __( 'We, the team behind <strong>Social Pug</strong>, have been working hard the past months to create a brand new plugin. We would love to hear your thoughts!', 'social-pug' ) . '</p>';
-
-        	echo '<p><a class="button-primary" href="' . admin_url( 'admin.php?page=dpsp-extensions&sub-page=opt-in-hound&dpsp_admin_notice_promo_opt_in_hound=1' ) . '">' . __( 'Check It Out!', 'social-pug' ) . '</a></p>';
-
-        	echo '<a href="' . add_query_arg( array( 'dpsp_admin_notice_promo_opt_in_hound' => 1 ) ) . '" type="button" class="notice-dismiss"><span class="screen-reader-text">Dismiss this notice.</span></a>'; 
-
-        echo '</div>';
-
-	}
-	add_action( 'admin_notices', 'dpsp_admin_notice_promo_opt_in_hound' );
 
 
 	/**
@@ -744,18 +692,18 @@
 
 		$settings = get_option( 'dpsp_settings', array() );
 
-		// Do not display the notice if the Facebook share count provider isn't set to Social Pug's app
+		// Do not display the notice if the Facebook share count provider isn't set to Grow by Mediavine's app
 		if( ! empty( $settings['facebook_share_counts_provider'] ) && $settings['facebook_share_counts_provider'] != 'authorized_app' )
 			return;
 
 		// Echo the admin notice
 		echo '<div class="dpsp-admin-notice notice notice-error">';
 
-			echo '<h4>' . __( 'Social Pug Important Notification', 'social-pug' ) . '</h4>';
+			echo '<h4>' . __( 'Grow Important Notification', 'social-pug' ) . '</h4>';
 
-			echo '<p>' . __( 'Your Social Pug Facebook app authorization has expired. Please reauthorize the app for continued Facebook share counts functionality.', 'social-pug' ) . '</p>';
+			echo '<p>' . __( 'Your Grow by Mediavine Facebook app authorization has expired. Please reauthorize the app for continued Facebook share counts functionality.', 'social-pug' ) . '</p>';
 
-        	echo '<p><a class="dpsp-button-primary" href="' . add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) . '#dpsp-card-misc">' . __( 'Reauthorize Social Pug App', 'social-pug' ) . '</a></p>';
+        	echo '<p><a class="dpsp-button-primary" href="' . add_query_arg( array( 'page' => 'dpsp-settings' ), admin_url( 'admin.php' ) ) . '#dpsp-card-misc">' . __( 'Reauthorize Grow App', 'social-pug' ) . '</a></p>';
 
         echo '</div>';
 
@@ -789,9 +737,9 @@
 		// Echo the admin notice
 		echo '<div class="dpsp-admin-notice notice notice-error">';
 
-			echo '<h4>' . __( 'Social Pug Important Notification', 'social-pug' ) . '</h4>';
+			echo '<h4>' . __( 'Grow by Mediavine Important Notification', 'social-pug' ) . '</h4>';
 
-			echo '<p>' . __( 'As you may already know, Google+ has shut down. As a result, with this latest update, Social Pug no longer supports Google+ functionality.', 'social-pug' ) . '</p>';
+			echo '<p>' . __( 'As you may already know, Google+ has shut down. As a result, with this latest update, Grow by Mediavine no longer supports Google+ functionality.', 'social-pug' ) . '</p>';
 
 			echo '<p>' . __( 'Please make sure to verify your settings and remove any Google+ buttons you may have placed within your website.', 'social-pug' ) . '</p>';
 
@@ -801,6 +749,52 @@
 
 	}
 	add_action( 'admin_notices', 'dpsp_admin_notice_google_plus_removal' );
+
+	/**
+	 * Add admin notice to anounce the name change
+	 *
+	 */
+	function dpsp_admin_notice_grow_name_change() {
+
+		// Do not display this notice if user cannot activate plugins
+		if( ! current_user_can( 'activate_plugins' ) )
+			return;
+
+		// Don't show this if the plugin has been activated after 30th of Nov 2019
+		$first_activation = get_option( 'dpsp_first_activation', '' );
+
+		if( empty( $first_activation ) )
+			return;
+
+		if( $first_activation > strtotime( '2019-11-30 00:00:00' ) )
+			return;
+
+		// Do not display this notice for users that have dismissed it
+		if( get_user_meta( get_current_user_id(), 'dpsp_admin_notice_grow_name_change', true ) != '' )
+			return;
+
+		// Echo the admin notice
+		echo '<div class="dpsp-admin-notice dpsp-admin-grow-notice notice notice-info">';
+		echo '<div class="notice-img-wrap" >';
+		echo '<img src="' . DPSP_PLUGIN_DIR_URL . 'assets/src/img/grow-logo-sq-navy.png" />';
+		echo '</div>';
+		echo '<div class="notice-text-wrap">';
+
+			echo '<h4>' . __( 'Social Pug is now Grow by Mediavine!', 'social-pug' ) . '</h4>';
+
+			echo '<p>' . __( 'You\'re going to notice some new paint and a new name today and we wanted to let you know what that\'s all about. The short version is that Grow by Mediavine is the same plugin you know and love but with a new, larger development team!', 'social-pug' ) . '</p>';
+			
+			echo '<p><a href="https://www.mediavine.com/social-pug-is-now-grow-mediavines-new-social-sharing-buttons-marketplace-more/"  target="_blank">' . __( 'Check out the blog post', 'social-pug') . '</a>' . __( ' for all the details on this development and our exciting plans to continue Growing an already awesome plugin.', 'social-pug' ) . '</p>';
+
+			echo '<p class="notice-subtext">' . __( '(Those who are familiar with Mediavine for our full-service ad management, rest assured that this plugin is totally independent of ads and available to anyone and everyone who wants to Grow their social presence.)', 'social-pug' ) . '</p>';
+
+        	echo '<p><a href="' . add_query_arg( array( 'dpsp_admin_notice_grow_name_change' => 1 ) ) . '">' . __( 'Thank you, I understand.', 'social-pug' ) . '</a></p>';
+
+			echo '</div>';
+        echo '</div>';
+
+	}
+	add_action( 'admin_notices', 'dpsp_admin_notice_grow_name_change' );
 
 
 	/**
@@ -832,9 +826,9 @@
 
 			echo '<a class="notice-dismiss" href="' . add_query_arg( array( 'dpsp_admin_notice_facebook_app_authorized' => 1 ) ) . '"></a>';
 
-			echo '<h4>' . __( 'Social Pug Notification', 'social-pug' ) . '</h4>';
+			echo '<h4>' . __( 'Grow Notification', 'social-pug' ) . '</h4>';
 
-        	echo '<p>' . __( "To activate social share counts for Facebook, connecting Social Pug to a Facebook App is required. Please click the button below for a step-by-step guide on how to achieve this.", 'social-pug' ) . '</p>';
+        	echo '<p>' . __( "To activate social share counts for Facebook, connecting Grow to a Facebook App is required. Please click the button below for a step-by-step guide on how to achieve this.", 'social-pug' ) . '</p>';
 
         	echo '<p><a class="dpsp-button-primary" target="_blank" href="https://docs.devpups.com/social-pug/activate-facebook-share-counts/">Learn how to activate Facebook share counts</a></p>';
 
@@ -862,6 +856,8 @@
 		if( isset( $_GET['dpsp_admin_notice_facebook_app_authorized'] ) )
 			add_user_meta( get_current_user_id(), 'dpsp_admin_notice_facebook_app_authorized', 1, true );
 
+		if( isset( $_GET['dpsp_admin_notice_grow_name_change'] ) )
+			add_user_meta( get_current_user_id(), 'dpsp_admin_notice_grow_name_change', 1, true );
 	}
 	add_action( 'admin_init', 'dpsp_admin_notice_dismiss' );
 

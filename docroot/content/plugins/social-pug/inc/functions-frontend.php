@@ -254,7 +254,7 @@
 				$rel = apply_filters( 'dpsp_network_button_attribute_rel', array( 'nofollow' ) );
 
 				// Output the network button
-				$output .= '<a ' . ( ! empty( $rel ) ? 'rel="' . esc_attr( implode( ' ', $rel ) ) . '"' : '' ) . ' href="' . $network_share_link . '" class="' . implode( ' ', $button_classes ) . '">';
+				$output .= '<a ' . ( ! empty( $rel ) ? 'rel="' . esc_attr( implode( ' ', $rel ) ) . '"' : '' ) . ' href="' . $network_share_link . '" class="' . implode( ' ', $button_classes ) . '" title="' . esc_attr( dpsp_get_link_title_attribute( $network_slug ) ) . '">';
 
 					$output .= '<span class="dpsp-network-icon"></span>';
 
@@ -286,6 +286,48 @@
 		$output .= '</ul>';
 
 		return $output;
+
+	}
+
+
+	/**
+	 * Returns the value that should be populated in the link's "title" attribute,
+	 * based on the provided network
+	 *
+	 * @param string $network_slug
+	 *
+	 * @return string
+	 *
+	 */
+	function dpsp_get_link_title_attribute( $network_slug ) {
+
+		$title    = '';
+		$networks = dpsp_get_networks( 'all' );
+
+		$title = sprintf( __( 'Share on %s', 'social-pug' ), $networks[$network_slug] );
+
+		if( $network_slug == 'pinterest' ) {
+			$title = __( 'Save to Pinterest', 'social-pug' );
+		}
+
+		if( $network_slug == 'email' ) {
+			$title = __( 'Send over email', 'social-pug' );
+		}
+
+		if( $network_slug == 'print' ) {
+			$title = __( 'Print this webpage', 'social-pug' );
+		}
+
+		/**
+		 * Filter the title before returning it
+		 *
+		 * @param string $title
+		 * @param string $network_slug
+		 *
+		 */
+		$title = apply_filters( 'dpsp_link_title_attribute', $title, $network_slug );
+
+		return $title;
 
 	}
 

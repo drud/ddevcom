@@ -2,7 +2,7 @@
 
 	<div id="opt-in-hound-promo-box">
 		<div id="opt-in-hound-promo-box-banner">
-			<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/opt-in-hound-banner.png'; ?>" />
+			<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/opt-in-hound-banner.png'; ?>" />
 		</div>
 
 		<div id="opt-in-hound-promo-box-inner">
@@ -24,7 +24,7 @@
 				<div class="dpsp-col-1-3">
 					<div class="browser-window">
 						<div class="browser-header"></div>
-						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/tool-opt-in-icon-pop-up.png'; ?>" />
+						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/tool-opt-in-icon-pop-up.png'; ?>" />
 					</div>
 					<h4><?php echo __( 'Email Opt-in Pop-up', 'social-pug' ); ?></h4>
 					<p><?php echo __( 'Add email opt-in pop-up forms in your posts and pages.', 'social-pug' ); ?></p>
@@ -33,7 +33,7 @@
 				<div class="dpsp-col-1-3">
 					<div class="browser-window">
 						<div class="browser-header"></div>
-						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/tool-opt-in-icon-widget.png'; ?>" />
+						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/tool-opt-in-icon-widget.png'; ?>" />
 					</div>
 					<h4><?php echo __( 'Email Opt-in Widget', 'social-pug' ); ?></h4>
 					<p><?php echo __( 'Add email opt-in widget forms in any widget area.', 'social-pug' ); ?></p>
@@ -42,7 +42,7 @@
 				<div class="dpsp-col-1-3">
 					<div class="browser-window">
 						<div class="browser-header"></div>
-						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/tool-opt-in-icon-fly-in.png'; ?>" />
+						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/tool-opt-in-icon-fly-in.png'; ?>" />
 					</div>
 					<h4><?php echo __( 'Email Opt-in Fly-in', 'social-pug' ); ?></h4>
 					<p><?php echo __( 'Add email opt-in fly-in forms in your posts and pages.', 'social-pug' ); ?></p>
@@ -53,7 +53,7 @@
 				<div class="dpsp-col-1-3">
 					<div class="browser-window">
 						<div class="browser-header"></div>
-						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/tool-opt-in-icon-shortcode.png'; ?>" />
+						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/tool-opt-in-icon-shortcode.png'; ?>" />
 					</div>
 					<h4><?php echo __( 'Email Opt-in Shortcode', 'social-pug' ); ?></h4>
 					<p><?php echo __( 'Place email opt-in forms anywhere in your pages with the shortcode.', 'social-pug' ); ?></p>
@@ -62,7 +62,7 @@
 				<div class="dpsp-col-1-3">
 					<div class="browser-window">
 						<div class="browser-header"></div>
-						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/img/tool-opt-in-icon-after-content.png'; ?>" />
+						<img src="<?php echo DPSP_PLUGIN_DIR_URL . '/assets/src/img/tool-opt-in-icon-after-content.png'; ?>" />
 					</div>
 					<h4><?php echo __( 'Email Opt-in After Content', 'social-pug' ); ?></h4>
 					<p><?php echo __( 'Add email opt-in forms after your posts and pages content.', 'social-pug' ); ?></p>

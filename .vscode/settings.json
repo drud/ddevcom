@@ -1,3 +1,5 @@
 {
-  "phpcs.standard": "PSR2"
+  "[php]": {
+    "editor.formatOnSave": false
+  },
 }

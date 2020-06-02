@@ -15,11 +15,11 @@
 			<key>host</key>
 			<string>127.0.0.1</string>
 			<key>name</key>
-			<string>drud/drud-com.ddev.local</string>
+			<string>drud/drud-com.ddev.site</string>
 			<key>password</key>
 			<string>db</string>
 			<key>port</key>
-			<integer>32776</integer>
+			<integer>32771</integer>
 			<key>rdbms_type</key>
 			<string>mysql</string>
 			<key>sslCACertFileLocation</key>

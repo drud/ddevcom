@@ -195,12 +195,30 @@ var tribeDateFormat = function() {
 			date = undefined;
 		}
 
+		let numSeparators = 0;
+
 		if ( typeof date === 'string' ) {
-			date = date.replace( /-/g, "/" );
+			numSeparators = ( date.replace( /\//g, "-" ).match( /[\.\-\/]/g ) || [] ).length;
 		}
 
-		// Passing date through Date applies Date.parse, if necessary
-		date = date ? new Date( date ) : new Date;
+		mask = mask || '0';
+		let dateFormat = tribeDateFormat.masks[mask] || 'yyyy-mm-dd';
+
+		// convert the passed date into a moment object
+		theMoment = date ? moment( date, dateFormat.toUpperCase() ) : moment();
+		nowMoment = moment();
+
+		// If the number of separators on the passed in date is less than 2, we are handling a month view (2020-10)
+		// so we need to set the day to the current date if the month we are looking at is the current month.
+		if ( 2 > numSeparators ) {
+			if ( theMoment.month() === nowMoment.month() ) {
+				theMoment = theMoment.date(nowMoment.date());
+			} else {
+				theMoment = theMoment.date(1);
+			}
+		}
+
+		date = theMoment.toDate();
 		if ( isNaN( date ) ) {
 			return;
 		}
@@ -322,6 +340,131 @@ var tribeUtils = {
 		} );
 
 		return queryVars;
+	},
+	/**
+	 * Gets a momentjs object from a date with the given formatMask
+	 *
+	 * @param string|Date date Date string or object
+	 * @param string formatMaskKey tribeDateFormat.mask string indicating format
+	 *
+	 * @return {} MomentJS Object
+	 */
+	'getMomentFromDate': function( date, formatMaskKey ) {
+		if ( 'function' === typeof date.isMoment ) {
+			return date;
+		}
+
+		if ( 'function' === typeof date.getMonth ) {
+			return moment( date );
+		}
+
+		// if we can't identify the mask, make a vain attempt at translating the date string
+		if ( 'undefined' === typeof tribeDateFormat.masks[formatMaskKey] ) {
+			return moment( date );
+		}
+
+		if ( ! date ) {
+			return moment();
+		}
+
+		return moment( date, tribeDateFormat.masks[formatMaskKey].toUpperCase() );
+	},
+	/**
+	 * Formats a momentjs date with the given mask
+	 *
+	 * @param {} theMoment MomentJS object
+	 * @param string formatMaskKey tribeDateFormat.mask string indicating format
+	 *
+	 * @return string
+	 */
+	'formatMoment': function( theMoment, formatMaskKey ) {
+		// if we can't identify the formatMaskKey, format using YYYY-MM-DD
+		if ( 'undefined' === typeof tribeDateFormat.masks[formatMaskKey] ) {
+			return theMoment.format(tribeDateFormat.masks['0']);
+		}
+
+		return theMoment.format( tribeDateFormat.masks[formatMaskKey].toUpperCase() );
+	},
+	/**
+	 * Formats a date with the given mask
+	 *
+	 * @param {}|Date|string date MomentJS, Date, or string representing the date
+	 * @param string formatMaskKey tribeDateFormat.mask string indicating format
+	 * @param string inputMaskKey tribeDateFormat.mask string indicating the format of the provided date
+	 *
+	 * @return string
+	 */
+	'formatDateWithMoment': function( date, formatMaskKey, inputMaskKey ) {
+		if ( 'function' !== typeof date.isMoment ) {
+			if ( 'undefined' !== typeof inputMaskKey ) {
+				date = tribeUtils.getMomentFromDate( date, inputMaskKey );
+			} else {
+				date = tribeUtils.getMomentFromDate( date );
+			}
+		}
+
+		return tribeUtils.formatMoment( date, formatMaskKey );
+	},
+	/**
+	 * Accepts a date string and returns a momentjs object with an adjusted date based on the month being viewed
+	 *
+	 * @param string date
+	 * @param string formatMaskKey tribeDateFormat.mask string indicating the format of the date string
+	 *
+	 * @return {} MomentJS object
+	 */
+	'maybeAlterMonthViewDate': function( date, formatMaskKey ) {
+		let numSeparators = 0;
+
+		if ( typeof date === 'string' ) {
+			numSeparators = ( date.replace( /[\/\.]/g, "-").match( /[\.\-\/]/g ) || [] ).length;
+		}
+
+		// convert the passed date into a moment object
+		let theMoment = tribeUtils.getMomentFromDate( date, formatMaskKey );
+		let nowMoment = moment();
+
+		// If the number of separators on the passed in date is less than 2, we are handling a month view (2020-10)
+		// so we need to set the day to the current date if the month we are looking at is the current month.
+		if ( 2 > numSeparators ) {
+			if ( theMoment.month() === nowMoment.month() ) {
+				theMoment = theMoment.date(nowMoment.date());
+			} else {
+				theMoment = theMoment.date(1);
+			}
+		}
+
+		return theMoment;
+	},
+	/**
+	 *
+	 */
+	'getInitialDateInfo': function( formatMaskKey, dateFormat, isMonth ) {
+		let initialDate = tribe_ev.fn.get_url_param( 'tribe-bar-date' ) || jQuery( document.getElementById( 'tribe-bar-date-day' ) ).val();
+		let dateMoment  = null;
+
+		// if the initialDate wasn't grabbed from the URL, we need to grab the date from the field, which will have a formatted value
+		if ( 'undefined' === typeof initialDate || ! initialDate ) {
+			initialDate = jQuery( document.getElementById( 'tribe-bar-date' ) ).val() || moment().format( dateFormat.toUpperCase() );
+			dateMoment  = tribeUtils.getMomentFromDate( initialDate, formatMaskKey );
+		} else {
+			dateMoment = tribeUtils.getMomentFromDate( initialDate );
+		}
+
+		if ( true === isMonth ) {
+			dateMoment = tribeUtils.maybeAlterMonthViewDate( dateMoment );
+		}
+
+		let formattedDate = tribeUtils.formatMoment( dateMoment, formatMaskKey );
+
+		return {
+			'formatMaskKey':        formatMaskKey,
+			'initialDate':          initialDate,
+			'dateMoment':           dateMoment,
+			'dateFormat':           dateFormat,
+			'defaultFormattedDate': tribeUtils.formatMoment( dateMoment, 'tribeQuery' ),
+			'formattedDate':        formattedDate
+		};
 	}
 };
 
@@ -579,6 +722,33 @@ Date.prototype.format = function( mask, utc ) {
 				} );
 			}
 		},
+
+		/**
+		 * @function tribe_ev.fn.ensure_datepicker_i18n
+		 * @desc tribe_ev.fn.ensure_datepicker_i18n Ensures some specific strings for Bootstrap Datepicker are translatable. We manually enforce strings in this way because
+		 * we do not use locales for the datepicker other than the default 'en' locale, since we provide the strings via PHP and don't use the datepicker library's versions of
+		 * non-English locales.
+		 * @see https://bootstrap-datepicker.readthedocs.io/en/latest/i18n.html
+		 */
+		ensure_datepicker_i18n : function() {
+
+			if ( 'undefined' == typeof $.fn.bootstrapDatepicker ) {
+				return;
+			}
+			var tribe_l10n = window.tribe_l10n_datatables || {};
+			var datepickeri18n = tribe_l10n.datepicker || {};
+			$.fn.bootstrapDatepicker.dates['en'].days        = datepickeri18n.dayNames;
+			$.fn.bootstrapDatepicker.dates['en'].daysShort   = datepickeri18n.dayNamesShort;
+			$.fn.bootstrapDatepicker.dates['en'].daysMin     = datepickeri18n.dayNamesMin;
+			$.fn.bootstrapDatepicker.dates['en'].months      = datepickeri18n.monthNames;
+			// Provide a fallback as it might not be always available
+			if ( datepickeri18n.monthNamesMin ) {
+				$.fn.bootstrapDatepicker.dates[ 'en' ].monthsShort = datepickeri18n.monthNamesMin;
+			}
+			$.fn.bootstrapDatepicker.dates['en'].today       = datepickeri18n.today;
+			$.fn.bootstrapDatepicker.dates['en'].clear       = datepickeri18n.clear;
+		},
+
 		/**
 		 * @function tribe_ev.fn.execute_resize
 		 * @desc tribe_ev.fn.execute_resize groups together functions that should execute at the end of the window resize event.
@@ -795,7 +965,7 @@ Date.prototype.format = function( mask, utc ) {
 			}
 
 			var $views             = $( '.tribe-bar-views-option' );
-			var view_class_filter  = '.tribe-bar-views-option-' + tribe_ev.data.default_mobile_view;
+			var view_class_filter  = '#tribe-bar-views-option-' + tribe_ev.data.default_mobile_view;
 			var $default_view_link = $views.filter( view_class_filter );
 			$( view_class_filter ).data( 'redirected', true );
 
@@ -1063,7 +1233,8 @@ Date.prototype.format = function( mask, utc ) {
 					$bar_date.val( '' );
 					$bar_date.bootstrapDatepicker( tribe_ev.data.datepicker_opts );
 				}
-				$bar_date.bootstrapDatepicker( "setDate", date );
+				$bar_date.bootstrapDatepicker( "setDate", moment( date ).toDate() );
+				$( document.getElementById( 'tribe-bar-date-day' ) ).val( tribeUtils.formatDateWithMoment( date, 'tribeQuery' ) );
 				tribe_ev.state.updating_picker = false;
 				// @ifdef DEBUG
 				dbug && tec_debug.info( 'TEC Debug: tribe_ev.fn.update_picker sent "' + date + '" to the boostrapDatepicker' );
