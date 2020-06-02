@@ -1,6 +1,7 @@
 # Testing Plan
 
 - [ ] Verify that the testing plan located at docs/test-plan.md of the repository is up to date and accurate.
+- [ ] Release plan is documented
 - [ ] Verify that code is tagged with appropriate version
 - [ ] Verify that all tests pass on all supported browsers and devices
 
