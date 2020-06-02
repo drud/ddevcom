@@ -54,7 +54,7 @@
     position: relative;
     display: flex;
     opacity: 1;
-    pointer-events: none;
+    pointer-events: auto;
     background-color: transparent;
     display: inline-flex;
     padding: 0;
@@ -292,7 +292,7 @@
 .main-navigation-wrapper.is-open {
   .main-navigation__menu {
     opacity: 1;
-    pointer-events: auto;
+    pointer-events: all;
   }
 }
 
