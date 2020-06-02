@@ -39,7 +39,7 @@
             Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
           </p>
           <div class="mb-5">
-            <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
+            <a href="https://docs.ddev.com/getting-started/" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Get Started</a>
             <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
           </div>
         </div>
@@ -70,7 +70,7 @@
             </div>
           </div>
           <div class="col-lg-7 pl-lg-5">
-            <p class="h4 text-center mb-4">On the Horizon:</p>
+            <p class="h4 text-center mb-4">On the horizon:</p>
             <div class="row mb-5">
               <div class="col-3 col-lg mx-auto">
                 <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Magento" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-magento.svg" alt="Magento">
@@ -172,7 +172,7 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
+                  <a href="https://docs.ddev.com/getting-started/" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Get Started</a>
                   <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-light btn-outline-light-success btn-lg">Request Demo</a>
                 </div>
               </div>
@@ -249,8 +249,8 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="https://ddev-live-qa.firebaseapp.com/account/create" class="btn btn-lg btn-success mr-2" target="_blank" rel="noreferrer noopener">
-                    Start a Free Trial
+                  <a href="https://docs.ddev.com/getting-started/" class="btn btn-lg btn-success mr-2" target="_blank" rel="noreferrer noopener">
+                    Get Started
                   </a>
                   <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-outline-success">
                     Request Demo
