@@ -5,8 +5,6 @@
 - [ ] Verify that code is tagged with appropriate version
 - [ ] Verify that all tests pass on all supported browsers and devices
 
-Work in progress
-
 ## **Main Navigation**
 
 [Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
