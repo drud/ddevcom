@@ -5,7 +5,9 @@
 - [ ] Verify that code is tagged with appropriate version
 - [ ] Verify that all tests pass on all supported browsers and devices
 
-## Main Navigation
+Work in progress
+
+## **Main Navigation**
 
 [Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
 
@@ -27,36 +29,36 @@
 - [ ] Click **Deploy to our cloud** button and confirm it navigates to the DDEV-Live product page
 - [ ] Click **Develop locally** button and confirm it navigates to the DDEV-Local product page
 - [ ] Confirm the Recent Posts section is displaying the most recent six posts.
-- [ ] Click the **Join Newsletter** button and confirm it navigates to our Mailchimp newsletter signup form.  [Should open in new tab, issue here](https://github.com/drud/ddevcom/issues/151)
+- [ ] Click the **Join Newsletter** button and confirm it navigates to our Mailchimp newsletter signup form.
 ## DDEV-Live Page
 
 [Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/ddev-live) | [Production](https://ddev.com/ddev-live)
 
 ### Navigation
 
-- [ ] Click **Start a free trial** and confirm it navigates to the DDEV-Live dashboard registration page.  [Should open in a new tab, issue here](https://github.com/drud/ddevcom/issues/153)
-- [ ] Click **Pricing** and confirm it navigates to the DDEV-Live dashboard pricing page.  [Should open in a new tab, issue here](https://github.com/drud/ddevcom/issues/154)
+- [ ] Click **Start a free trial** and confirm it navigates to the DDEV-Live dashboard registration page.
+- [ ] Click **Pricing** and confirm it navigates to the DDEV-Live dashboard pricing page.
 - [ ] Click **Developers -> Documentation** and confirm it navigates to the DDEV-Live documentation in a new tab
 - [ ] Click **Developers -> Get Started** and confirm it navigates to the Get Started section of the DDEV-Live documentation in a new tab
 
 ### Main Hero
 
-- [ ] Click **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.  [Should open in a new tab, see issue 153](https://github.com/drud/ddevcom/issues/153)
+- [ ] Click **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.
 - [ ] Click **Documentation** button and confirm it navigates to the DDEV-Live documentation in a new tab.
 
 ### Features
 
 - [ ] Click **Git Integration -> Git repository provider** link and confirm it navigates to the DDEV-Live Providers documentation in a new tab
 - [ ] Click **Continuous Integration -> CI/CD** link and confirm it navigates to the DDEV-Live CI/CD page
-- [ ] Click **Tutorial: DDEV-LIve + Jenkins** button and confirm it navigates to the DDEV-Live Jenkins tutorial documentation.  [Should open in a new tab, issue here](https://github.com/drud/ddevcom/issues/155)
-- [ ] Click the next **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.  [Should open in a new tab, see issue 153](https://github.com/drud/ddevcom/issues/153)
+- [ ] Click **Tutorial: DDEV-LIve + Jenkins** button and confirm it navigates to the DDEV-Live Jenkins tutorial documentation.
+- [ ] Click the next **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page. 
 - [ ] Click the next **Request Demo** button and confirm it navigates to the Contact page
-- [ ] Click the final **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page. [ Should open in a new tab, see issue 153](https://github.com/drud/ddevcom/issues/153)
+- [ ] Click the final **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.
 - [ ] Click the final **Request Demo** button and confirm it navigates to the Contact page
 
 ### Recent Posts
 
-- [ ] Verify the **Recent Posts** section only displays the most recent posts with DDEV Live category.  [Missing a Recent Post header, posts are for DDEV Local not Live](https://github.com/drud/ddevcom/issues/156)
+- [ ] Verify the **Recent Posts** section only displays the most recent posts with DDEV Live category.
 - [ ] Check the blog cards using the **Blog Posts** checklist below
 - [ ] Verify the **Join Newsletter** button links to our Mailchimp form in a new tab
 
@@ -90,7 +92,7 @@
 
 ### Recent Posts
 
-- [ ] Verify the **Recent Posts** section only displays the most recent posts with DDEV Local category.  Blocked by #157 
+- [ ] Verify the **Recent Posts** section only displays the most recent posts with DDEV Local category.
 - [ ] Check the blog cards using the **Blog Posts** checklist below
 - [ ] Verify the **Join Newsletter** button links to our Mailchimp form in a new tab
 
@@ -100,4 +102,4 @@
 
 - [ ] Click a blog card's image and confirm it goes to that blog post
 - [ ] Click a blog card's title and confirm it goes to that blog post
-- [ ] Click a blog card's author and confirm it goes to that author's post archive. Blocked by #158
+- [ ] Click a blog card's author and confirm it goes to that author's post archive.
