@@ -7,7 +7,7 @@
 
 ## **Main Navigation**
 
-[Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
+[Alpha](https://preview-ddev-alpha-ddev-external-sites.sites.ddev.live/) | [QA](https://preview-ddev-qa-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
 
 - [ ] Click **DDEV Logo** and confirm it navigates to the home page
 - [ ] Click **Products -> DDEV-Live** and confirm it navigates to the DDEV-Live product page
@@ -16,32 +16,33 @@
 - [ ] Click **Developers -> Documentation -> DDEV-Live Docs** and confirm it navigates to the [DDEV-Live documentation ](https://docs.ddev.com) in a new tab
 - [ ] Click **Developers -> Documentation -> GitHub** and confirm it navigates to the [Drud GitHub](https://github.com/drud) in a new tab
 - [ ] Click **Developers -> Documentation -> Jobs** and confirm it navigates to the Jobs page
-- [ ] Click **Events** and confirm it navigates to the Events page. 
+- [ ] Click **Events** and confirm it navigates to the Events page.
 - [ ] Click **Blog** and confirm it navigates to the Blog page
 - [ ] Click **Contact** and confirm it navigates to the Contact page
 
 ## Front Page
 
-[Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
+[Alpha](https://preview-ddev-alpha-ddev-external-sites.sites.ddev.live/) | [QA](https://preview-ddev-qa-ddev-external-sites.sites.ddev.live/) | [Production](https://ddev.com/)
 
 - [ ] Click **Deploy to our cloud** button and confirm it navigates to the DDEV-Live product page
 - [ ] Click **Develop locally** button and confirm it navigates to the DDEV-Local product page
 - [ ] Confirm the Recent Posts section is displaying the most recent six posts.
 - [ ] Click the **Join Newsletter** button and confirm it navigates to our Mailchimp newsletter signup form.
+
 ## DDEV-Live Page
 
-[Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/ddev-live) | [Production](https://ddev.com/ddev-live)
+[Alpha](https://preview-ddev-alpha-ddev-external-sites.sites.ddev.live/ddev-live) | [QA](https://preview-ddev-qa-ddev-external-sites.sites.ddev.live/ddev-live) | [Production](https://ddev.com/ddev-live)
 
 ### Navigation
 
-- [ ] Click **Start a free trial** and confirm it navigates to the DDEV-Live dashboard registration page.
+- [ ] Click **Start a free trial** and confirm it navigates to the DDEV-Live dashboard registration page in a new tab.
 - [ ] Click **Pricing** and confirm it navigates to the DDEV-Live dashboard pricing page.
 - [ ] Click **Developers -> Documentation** and confirm it navigates to the DDEV-Live documentation in a new tab
 - [ ] Click **Developers -> Get Started** and confirm it navigates to the Get Started section of the DDEV-Live documentation in a new tab
 
 ### Main Hero
 
-- [ ] Click **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.
+- [ ] Click **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page in a new tab.
 - [ ] Click **Documentation** button and confirm it navigates to the DDEV-Live documentation in a new tab.
 
 ### Features
@@ -49,9 +50,9 @@
 - [ ] Click **Git Integration -> Git repository provider** link and confirm it navigates to the DDEV-Live Providers documentation in a new tab
 - [ ] Click **Continuous Integration -> CI/CD** link and confirm it navigates to the DDEV-Live CI/CD page
 - [ ] Click **Tutorial: DDEV-LIve + Jenkins** button and confirm it navigates to the DDEV-Live Jenkins tutorial documentation.
-- [ ] Click the next **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page. 
+- [ ] Click the next **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page in a new tab.
 - [ ] Click the next **Request Demo** button and confirm it navigates to the Contact page
-- [ ] Click the final **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page.
+- [ ] Click the final **Start a free trial** button and confirm it navigates to the DDEV-Live dashboard registration page in a new tab.
 - [ ] Click the final **Request Demo** button and confirm it navigates to the Contact page
 
 ### Recent Posts
@@ -62,7 +63,7 @@
 
 ## DDEV-Local Page
 
-[Staging](https://preview-ddev-staging-ddev-external-sites.sites.ddev.live/ddev-local) | [Production](https://ddev.com/ddev-local)
+[Alpha](https://preview-ddev-alpha-ddev-external-sites.sites.ddev.live/ddev-local) | [QA](https://preview-ddev-qa-ddev-external-sites.sites.ddev.live/ddev-local) | [Production](https://ddev.com/ddev-local)
 
 ### Navigation
 
