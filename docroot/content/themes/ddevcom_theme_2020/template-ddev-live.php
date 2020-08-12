@@ -51,6 +51,17 @@
   </section>
   <section class="product__features">
       <div class="container">
+        <div class="row product__testimonial">
+          <div class="col col-lg-9 text-center mx-auto">
+            <div class="testimonial">
+              <img src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/testimonial-1.jpg" alt="Mike A." class="testimonial__image rounded-circle d-block m-auto">
+              <p class="h4 mt-2 mb-4">Mike A.</p>
+              <p class="lead text-muted mb-5">
+                "Having written a book on DDEV-Local, I'm very pleased to say migrating the DrupalEasy Academy site to DDEV-Live hosting was straightforward and fast. Plus the support team is always eager to help out with everything from basics to weird edge-cases!"
+              </p>
+            </div>
+          </div>
+        </div>
         <div class="row product__supporting">
           <div class="col-lg-5 product__supporting-col pr-lg-5">
             <p class="h4 text-center mb-4">Proudly supporting:</p>
