@@ -53,13 +53,35 @@
       <div class="container">
         <div class="row product__testimonial">
           <div class="col col-lg-9 text-center mx-auto">
-            <div class="testimonial">
-              <img src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/testimonial-1.jpg" alt="Mike A." class="testimonial__image rounded-circle d-block m-auto">
-              <p class="h4 mt-2 mb-4">Mike A.</p>
-              <p class="lead text-muted mb-5">
-                "Having written a book on DDEV-Local, I'm very pleased to say migrating the DrupalEasy Academy site to DDEV-Live hosting was straightforward and fast. Plus the support team is always eager to help out with everything from basics to weird edge-cases!"
-              </p>
-            </div>
+
+            <?php if( have_rows('testimonials') ): ?>
+              <div class="testimonials-carousel">
+
+                  <?php while( have_rows('testimonials') ): the_row(); ?>
+
+                    <div class="testimonial">
+                      
+                      <?php $testimonial_image = get_sub_field('testimonial_image'); ?>
+                      <?php echo wp_get_attachment_image( $testimonial_image['ID'], 'testimonial-image', '', [
+                        'class' => 'testimonial__image rounded-circle d-block m-auto'
+                      ]); ?>
+                      
+                      <?php if( get_sub_field('testimonial_name') ): ?>
+                        <p class="h4 mt-2 mb-4"><?php the_sub_field('testimonial_name'); ?></p>
+                      <?php endif; ?>
+
+                      <?php if( get_sub_field('testimonial_content') ): ?>
+                        <p class="lead text-muted mb-5">
+                          <?php the_sub_field('testimonial_content'); ?>
+                        </p>
+                      <?php endif; ?>
+
+                    </div>
+                    
+                  <?php endwhile; ?>
+              </div>
+            <?php endif; ?>
+
           </div>
         </div>
         <div class="row product__supporting">
