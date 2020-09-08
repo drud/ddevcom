@@ -93,6 +93,11 @@
         $('[data-toggle="popover"]').popover({
           trigger: 'hover'
         });
+
+        $('.testimonials-carousel').slick({
+          autoplay: true,
+          arrows: false
+        });
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired
