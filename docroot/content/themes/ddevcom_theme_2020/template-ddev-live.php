@@ -71,9 +71,17 @@
                       <?php endif; ?>
 
                       <?php if( get_sub_field('testimonial_content') ): ?>
-                        <p class="lead text-muted mb-5">
+                        <p class="lead text-muted mb-4">
                           <?php the_sub_field('testimonial_content'); ?>
                         </p>
+                      <?php endif; ?>
+
+                      <?php if( get_sub_field('testimonial_link') ): ?>
+                        <?php $testimonial_link = get_sub_field('testimonial_link'); ?>
+                        <?php $link_target = $testimonial_link['target'] ? $testimonial_link['target'] : '_self'; ?>
+                        <a class="btn btn-lg btn-primary-dark mb-5" href="<?php echo $testimonial_link['url']; ?>" target="<?php echo esc_attr( $link_target ); ?>">
+                        <?php echo $testimonial_link['title']; ?>
+                        </a>
                       <?php endif; ?>
 
                     </div>

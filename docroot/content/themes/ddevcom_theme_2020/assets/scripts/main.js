@@ -96,7 +96,9 @@
 
         $('.testimonials-carousel').slick({
           autoplay: true,
-          arrows: false
+          autoplaySpeed: 5000,
+          arrows: false,
+
         });
       },
       finalize: function() {
