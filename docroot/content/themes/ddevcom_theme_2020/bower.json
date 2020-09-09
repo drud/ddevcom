@@ -18,7 +18,8 @@
     "bootstrap": "git://github.com/twbs/bootstrap.git#v4.0.0-beta",
     "prism": "Prism#^1.13.0",
     "font-awesome": "^4.7.0",
-    "css-hamburgers": "^1.1.3"
+    "css-hamburgers": "^1.1.3",
+    "slick-carousel": "^1.8.1"
   },
   "overrides": {
     "font-awesome": {
