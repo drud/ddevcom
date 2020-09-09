@@ -38,6 +38,7 @@ function setup() {
   // http://codex.wordpress.org/Function_Reference/add_image_size
   add_theme_support('post-thumbnails');
   add_image_size('post-card-header', 600, 400, true);
+  add_image_size('testimonial-image', 200, 200, true);
 
   // Enable post formats
   // http://codex.wordpress.org/Post_Formats
