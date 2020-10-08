@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### v0.1.2
+
+**Released October 8, 2020**
+
+- Added Redirection plugin to replace Simple 301 Redirects
+- Added Schema plugin to implement structured data throughout the site
+
 ### v0.1.1
 
 **Released June 11, 2020**
