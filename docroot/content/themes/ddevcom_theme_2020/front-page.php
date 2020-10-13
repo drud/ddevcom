@@ -55,8 +55,8 @@
                         "logo": {
                           "@type": "ImageObject",
                           "url": "https://www.ddev.com/content/themes/ddevcom_theme/dist/images/ddev-logo.svg",
-                          "width": ,
-                          "height": 
+                          "width": 160,
+                          "height": 38
                         }
                       },
                       "contentUrl": "https://youtu.be/rj4WTnZcjjY",
