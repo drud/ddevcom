@@ -1,0 +1,74 @@
+/*  
+ *  Star Rating field styles for ACF
+ *  -------------------------------------------------------
+ *  
+ *  Uses FontAwesome icons
+ */
+
+/* Ratings */
+.rating-group {
+    display: inline-block;
+    border: 0;
+}
+/* Hide radio */
+.rating-group > input {
+    display: none;
+}
+/* Order correctly by floating highest to the right */
+.rating-group > label {
+    float: right;
+	color: #ccc;
+}
+/* The star of the show */
+.rating-group > label:before {
+    display: inline-block;
+    font-size: 1.1rem;
+    padding: .3rem .2rem;
+    margin: 0;
+    cursor: pointer;
+    font-family: FontAwesome;
+    content: "\f005 "; /* full star */
+}
+/* Zero stars rating */
+.rating-group > label:last-child:before {
+    content: "\f05e "; /* empty star outline */
+	color: #ccc;
+}
+.rating-group .rating_no_star:hover:before {
+	color: #cc0000;
+}
+.rating-group .rating_no_star_input:checked + label:before {
+	color: #cc0000 !important;
+}
+/* Half star trick */
+.rating-group .half:before {
+    content: "\f089 "; /* half star no outline */
+    position: absolute;
+    padding-right: 0;
+}
+/* Fix for Gutenberg and WP5 */
+.rating-group input[type=radio]:checked + label:before {
+	color: #73B100;
+}
+/* Click + hover color */
+.rating-group input:checked ~ label, /* color current and previous stars on checked */
+.rating-group label:hover, .rating-group label:hover ~ label { color: #73B100; } /* color previous stars on hover */
+
+/* Hover highlights */
+.rating-group input:checked + label:hover, .rating-group input:checked ~ label:hover, /* highlight current and previous stars */
+.rating-group input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+.rating-group label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #A6E72D; } 
+
+
+/* Fix for Gutenberg and WP5 */
+.rating-group input[type=radio]:checked + label:before {
+	color: #191e23;
+}
+/* Click + hover color */
+.rating-group input:checked ~ label, /* color current and previous stars on checked */
+.rating-group label:hover, .rating-group label:hover ~ label { color: #191e23; } /* color previous stars on hover */
+
+/* Hover highlights */
+.rating-group input:checked + label:hover, .rating-group input:checked ~ label:hover, /* highlight current and previous stars */
+.rating-group input:checked ~ label:hover ~ label, /* highlight previous selected stars for new rating */
+.rating-group label:hover ~ input:checked ~ label /* highlight previous selected stars */ { color: #666; } 

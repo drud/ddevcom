@@ -1,0 +1,5921 @@
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: Schema Premium\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-03-19 22:44+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: \n"
+"Language: \n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Loco https://localise.biz/\n"
+"X-Loco-Version: 2.3.1; wp-5.3.2"
+
+#: includes/admin/class-notices.php:104
+msgid ""
+"\">Go to Schema Settings</a></p>\n"
+"\t\t\t\t<p style=\"font-size:smaller\">The Schema Premium plugin includes "
+"Advanced Custom Fields PRO (ACF PRO) plugin in its core, \n"
+"\t\t\t\tthis means when you install Schema Premium you will have the latest "
+"ACF PRO version loaded to your site."
+msgstr ""
+
+#: includes/admin/updater/class-license-handler.php:176
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: includes/functions.php:1142 includes/schemas/types/Event.php:267
+#: includes/schemas/types/BlogPosting.php:220
+msgid ".class selector for the cssSelector property"
+msgstr ""
+
+#: includes/admin/extensions.php:53
+#, php-format
+msgid ""
+"<b style=\"color:green\">Coming Soon!</b> Premium Extensions are only "
+"available with a Professional or Ultimate license. If you already have one "
+"of these licenses, simply <a href=\"%s\">log in to your account</a> to "
+"download any of these extensions."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Bakery.php:52
+msgid "A bakery."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/BarOrPub.php:52
+msgid "A bar or pub."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/BikeStore.php:52
+msgid "A bike store."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:66
+#: includes/schemas/sub-types/Article/BlogPosting.php:63
+msgid "A blog post."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/BookStore.php:52
+msgid "A bookstore."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/BowlingAlley.php:52
+msgid "A bowling alley."
+msgstr ""
+
+#: includes/schemas/types/Service.php:162
+#: includes/schemas/types/LocalBusiness.php:373
+msgid ""
+"A business phone number meant to be the primary contact method for customers."
+" Be sure to include the country code and area code in the phone number."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness.php:52
+msgid "A business providing entertainment."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /HVACBusiness.php:52
+msgid ""
+"A business that provide Heating, Ventilation and Air Conditioning services."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/CafeOrCoffeeShop.php:52
+msgid "A cafe or coffee shop."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Campground.php:52
+msgid ""
+"A camping site, campsite, or Campground is a place used for overnight stay "
+"in the outdoors, typically containing individual CampingPitch locations."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/CampingPitch.php:52
+msgid ""
+"A CampingPitch is an individual place for overnight stay in the outdoors, "
+"typically being part of a larger camping site, or Campground."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoDealer.php:52
+msgid "A car dealership."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoRental.php:52
+msgid "A car rental business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoWash.php:52
+msgid "A car wash business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/Casino.php:52
+msgid "A casino."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/ChildCare.php:52
+msgid "A Childcare center."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ClothingStore.php:52
+msgid "A clothing store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/ComedyClub.php:52
+msgid "A comedy club."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ComputerStore.php:52
+msgid "A computer store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness.php:52
+msgid "A construction business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ConvenienceStore.php:52
+msgid "A convenience store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/DaySpa.php:52
+msgid "A day spa."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Dentist.php:52
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Dentist.php:52
+msgid "A dentist."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/DepartmentStore.php:52
+msgid "A department store."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:65
+msgid "A description of all the options are provided beside their input boxes."
+msgstr ""
+
+#: includes/schemas/types/Event.php:161 includes/schemas/types/FAQPage.php:188
+#: includes/schemas/types/HowTo.php:196 includes/schemas/types/Article.php:166
+msgid "A description of the article."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:192
+#: includes/schemas/sub-types/Article/BlogPosting.php:189
+msgid "A description of the blog post."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:397
+msgid "A description of the business."
+msgstr ""
+
+#: includes/schemas/types/Course.php:185
+msgid "A description of the course. Display limit of 60 characters."
+msgstr ""
+
+#: includes/functions.php:1232 includes/schemas/types/Review.php:228
+msgid "A description of the item."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:253
+msgid "A description of the job."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:213
+msgid "A description of the movie."
+msgstr ""
+
+#: includes/schemas/types/Person.php:200
+msgid "A description of the person."
+msgstr ""
+
+#: includes/schemas/types/Place.php:241
+msgid "A description of the place."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:217
+#: includes/schemas/sub-types/WebPage/QAPage.php:111
+msgid "A description of the web page."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:198
+msgid ""
+"A director of e.g. tv, radio, movie, video gaming etc. content, or of an "
+"event."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Distillery.php:52
+msgid "A distillery."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Physician.php:52
+msgid "A doctor's office."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/DryCleaningOrLaundry.php:52
+msgid "A dry-cleaning business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/MedicalClinic.php:52
+msgid ""
+"A facility, often associated with a hospital or medical school, that is "
+"devoted to the specific diagnosis and/or healthcare. Previously limited to "
+"outpatients but with evolution it may be open to inpatients as well."
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:63
+msgid ""
+"A FAQPage is a WebPage presenting one or more \"Frequently asked questions\"."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/FastFoodRestaurant.php:52
+msgid "A fast-food restaurant."
+msgstr ""
+
+#: includes/schemas/sub-types/Event/Festival.php:52
+msgid "A Festival."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/CommunityHealth.php:52
+msgid ""
+"A field of public health focusing on improving health characteristics of a "
+"defined population in relation with their geographical or environment areas."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/FireStation.php:52
+msgid "A fire station. With firemen."
+msgstr ""
+
+#: includes/functions.php:1122 includes/schemas/types/Event.php:247
+#: includes/schemas/types/BlogPosting.php:200
+msgid "A flag to signal that the item, event, or place is accessible for free."
+msgstr ""
+
+#: includes/schemas/types/Place.php:220
+msgid "A flag to signal that the Place is open to public visitors."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/Florist.php:52
+msgid "A florist."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment.php:52
+msgid "A food-related business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/FurnitureStore.php:52
+msgid "A furniture store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/GardenStore.php:52
+msgid "A garden store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/GasStation.php:52
+msgid "A gas station."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /GeneralContractor.php:52
+msgid "A general contractor."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/AdministrativeArea.php:52
+msgid ""
+"A geographical region, typically under the jurisdiction of a particular "
+"government."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/GolfCourse.php:52
+msgid "A golf course."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/GovernmentOffice.php:52
+msgid "A government office—for example, an IRS or DMV office."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/GroceryStore.php:52
+msgid "A grocery store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/ExerciseGym.php:52
+msgid "A gym."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/HairSalon.php:52
+msgid "A hair salon."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/HardwareStore.php:52
+msgid "A hardware store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/HealthClub.php:52
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/HealthClub.php:52
+msgid "A health club."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Nursing.php:52
+msgid ""
+"A health profession of a person formally educated and trained in the care of "
+"the sick or infirm person."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/HomeGoodsStore.php:52
+msgid "A home goods store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/Hospital.php:52
+msgid "A hospital."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Hostel.php:52
+msgid "A hostel - cheap accommodation, often in shared dormitories."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Hotel.php:52
+msgid ""
+"A hotel is an establishment that provides lodging paid on a short-term basis "
+"(Source: Wikipedia, the free encyclopedia, see http://en.wikipedia."
+"org/wiki/Hotel)."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/House.php:52
+msgid ""
+"A house is a building or structure that has the ability to be occupied for "
+"habitation by humans or other creatures."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /HousePainter.php:52
+msgid "A house painting service."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/JewelryStore.php:52
+msgid "A jewelry store."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Landform.php:52
+msgid ""
+"A landform or physical feature. Landform elements include mountains, plains, "
+"lakes, rivers, seascape and oceanic waterbody interface features such as "
+"bays, peninsulas, seas and so forth, including sub-aqueous terrain features "
+"such as submersed mountain ranges, volcanoes, and the great ocean basins."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LegalService.php:52
+msgid ""
+"A Legal Service is a business that provides legally-oriented services, "
+"advice and representation, e.g. law firms."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Library.php:52
+msgid "A library."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:216
+msgid "A link to a screenshot image of the app."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:63
+msgid "A listing that describes a job opening in a certain organization."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Locksmith.php:52
+msgid "A locksmith."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness.php:52
+msgid "A lodging business, such as a motel, hotel, or inn."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MensClothingStore.php:52
+msgid "A men's clothing store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Motel.php:52
+msgid "A motel."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/MotorcycleDealer.php:52
+msgid "A motorcycle dealer."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/MotorcycleRepair.php:52
+msgid "A motorcycle repair shop."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MovieRentalStore.php:52
+msgid "A movie rental store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/MovieTheater.php:52
+msgid "A movie theater."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:63
+msgid "A movie."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /MovingCompany.php:52
+msgid "A moving company."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MusicStore.php:52
+msgid "A music store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/NailSalon.php:52
+msgid "A nail salon."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:55
+msgid ""
+"A NewsArticle is an article whose content reports news, or provides "
+"background context and supporting materials for understanding the news."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/NightClub.php:52
+msgid "A nightclub or discotheque."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LegalService/Notary.php:52
+msgid "A notary."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Midwifery.php:52
+msgid ""
+"A nurse-like health profession that deals with pregnancy, childbirth, and "
+"the postpartum period (including care of the newborn), besides sexual and "
+"reproductive health of women throughout their lives."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:64
+msgid ""
+"A particular physical business or branch of an organization. Examples of "
+"LocalBusiness include a restaurant, a particular branch of a restaurant "
+"chain, a branch of a bank, a medical practice, a club, a bowling alley, etc."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness.php:52
+msgid ""
+"A particular physical or virtual business of an organization for medical "
+"purposes. Examples of Medical Business include differents business run by "
+"health professionals."
+msgstr ""
+
+#: includes/schemas/types/Person.php:63
+msgid "A person (alive, dead, undead, or fictional)."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/PetStore.php:52
+msgid "A pet store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Pharmacy.php:52
+msgid "A pharmacy or drugstore."
+msgstr ""
+
+#: includes/schemas/types/Person.php:176
+msgid "A Photograph of the person."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Plumber.php:52
+msgid "A plumbing service."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/PoliceStation.php:52
+msgid "A police station."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/GovernmentOffice/PostOffice.php:52
+msgid "A post office."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/SocialMediaPosting.php:55
+msgid ""
+"A post to a social media platform, including blog posts, tweets, Facebook "
+"posts, etc."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/SocialMediaPosting/DiscussionForumPosting.php:56
+msgid "A posting to a discussion forum."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/CivicStructure.php:52
+msgid "A public structure, such as a town hall or concert hall."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/PublicSwimmingPool.php:52
+msgid "A public swimming pool."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:52
+msgid ""
+"A QAPage is a WebPage focussed on a specific Question and its Answer(s), e.g."
+" in a question answering site or documenting Frequently Asked Questions "
+"(FAQs)."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/RadioStation.php:52
+msgid "A radio station."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/RealEstateAgent.php:52
+msgid "A real-estate agent."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/RecyclingCenter.php:52
+msgid "A recycling center."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/Report.php:55
+msgid "A Report generated by governmental or non-governmental organization."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Resort.php:52
+msgid ""
+"A resort is a place used for relaxation or recreation, attracting visitors "
+"for holidays or vacations. Resorts are places, towns or sometimes commercial "
+"establishment operated by a single company (Source: Wikipedia, the free "
+"encyclopedia, see http://en.wikipedia.org/wiki/Resort)."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Restaurant.php:52
+msgid "A restaurant."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store.php:52
+msgid "A retail good store."
+msgstr ""
+
+#: includes/schemas/types/Review.php:63
+msgid "A review of an item - for example, of a restaurant, movie, or store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /RoofingContractor.php:52
+msgid "A roofing contractor."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/Room.php:52
+msgid ""
+"A room is a distinguishable space within a structure, usually separated from "
+"other spaces by interior walls."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/ScholarlyArticle.php:55
+msgid "A scholarly article."
+msgstr ""
+
+#: includes/schemas/types/Course.php:146
+msgid "A secondary title of the CreativeWork."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SelfStorage.php:52
+msgid "A self-storage facility."
+msgstr ""
+
+#: includes/schemas/types/Service.php:63
+msgid ""
+"A service provided by an organization, e.g. delivery service, print services,"
+" etc."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ShoeStore.php:52
+msgid "A shoe store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/LiquorStore.php:52
+msgid ""
+"A shop that sells alcoholic drinks such as wine, beer, whisky and other "
+"spirits."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/PawnShop.php:52
+msgid ""
+"A shop that will buy, or lend money against the security of, personal "
+"possessions."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/ShippingCenter.php:52
+msgid "A shopping center or mall."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:191
+msgid "A short summary describing the dish."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/SkiResort.php:53
+msgid "A ski resort."
+msgstr ""
+
+#: includes/schemas/sub-types/SoftwareApplication/MobileApplication.php:52
+msgid ""
+"A software application designed specifically to work well on a mobile device "
+"such as a telephone."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:63
+msgid "A software application."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Oncologic.php:52
+msgid ""
+"A specific branch of medical science that deals with benign and malignant "
+"tumors, including the study of their development, diagnosis, treatment and "
+"prevention."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Emergency.php:52
+msgid ""
+"A specific branch of medical science that deals with the evaluation and "
+"initial treatment of medical conditions caused by trauma or sudden illness."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Geriatric.php:52
+msgid ""
+"A specific branch of medical science that is concerned with the diagnosis "
+"and treatment of diseases, debilities and provision of care to the aged."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Otolaryngologic.php:52
+msgid ""
+"A specific branch of medical science that is concerned with the ear, nose "
+"and throat and their respective disease states."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Psychiatric.php:52
+msgid ""
+"A specific branch of medical science that is concerned with the study, "
+"treatment, and prevention of mental illness, using both medical and "
+"psychological therapies."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Dermatology.php:52
+msgid ""
+"A specific branch of medical science that pertains to diagnosis and "
+"treatment of disorders of skin."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Gynecologic.php:52
+msgid ""
+"A specific branch of medical science that pertains to the health care of "
+"women, particularly in the diagnosis and treatment of disorders affecting "
+"the female reproductive system."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PlasticSurgery.php:52
+msgid ""
+"A specific branch of medical science that pertains to therapeutic or "
+"cosmetic repair or re-formation of missing, injured or malformed tissues or "
+"body parts by manual and instrumental means."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Pediatric.php:52
+msgid ""
+"A specific branch of medical science that specializes in the care of infants,"
+" children and adolescents."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Obstetric.php:52
+msgid ""
+"A specific branch of medical science that specializes in the care of women "
+"during the prenatal and postnatal care and with the delivery of the child."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/SportingGoodsStore.php:52
+msgid "A sporting goods store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/SportsClub.php:53
+msgid "A sports club."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation.php:52
+msgid "A sports location, such as a playing field."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/StadiumOrArena.php:52
+msgid "A stadium."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/HobbyShop.php:52
+msgid "A store that sells materials useful or necessary for various hobbies."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MobilePhoneStore.php:52
+msgid "A store that sells mobile phones and related accessories."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Optician.php:52
+msgid ""
+"A store that sells reading glasses and similar devices for improving vision."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/Suite.php:52
+msgid ""
+"A suite in a hotel or other public accommodation, denotes a class of luxury "
+"accommodations, the key feature of which is multiple rooms."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/TattooParlor.php:52
+msgid "A tattoo parlor."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/TechArticle.php:55
+msgid ""
+"A technical article - Example: How-to (task) topics, step-by-step, "
+"procedural troubleshooting, specifications, etc."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/TelevisionStation.php:52
+msgid "A television station."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/TennisComplex.php:52
+msgid "A tennis complex."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/TireShop.php:52
+msgid "A tire shop."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/TouristInformationCenter.php:52
+msgid "A tourist information center."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ToyStore.php:52
+msgid "A toy store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/TravelAgency.php:52
+msgid "A travel agency."
+msgstr ""
+
+#: includes/schemas/types/Product.php:130
+msgid "A URL to the product web page (that includes the Offer)."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:138
+msgid "A URL to the software web page (that includes the Offer)."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/MedicalWebPage.php:52
+msgid "A web page that provides medical information."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:63
+msgid "A web page."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/WholesaleStore.php:52
+msgid "A wholesale store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Winery.php:52
+msgid "A winery."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:613
+#: includes/admin/class-setup-wizard.php:616
+#: includes/admin/settings/register-settings.php:619
+#: includes/schemas/types/WebPage.php:112
+#: includes/schemas/sub-types/WebPage/AboutPage.php:41
+msgid "About Page"
+msgstr ""
+
+#: includes/functions.php:1103
+msgid "Abstract"
+msgstr ""
+
+#: includes/schemas/types/Place.php:141
+#: includes/schemas/sub-types/Place/Accommodation.php:41
+msgid "Accommodation"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/AccountingService.php:52
+msgid "Accountancy business."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:201
+msgid "Accounting Service"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/AccountingService.php:41
+msgid "AccountingService"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:230
+msgid "Actor name"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:216
+msgid "Actors"
+msgstr ""
+
+#: includes/schemas/types/Place.php:249
+msgid "Add Amenity"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:221
+msgid "Add an actor"
+msgstr ""
+
+#: includes/functions.php:1133 includes/schemas/types/Event.php:258
+#: includes/schemas/types/BlogPosting.php:211
+msgid "Add css Selector"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:79
+msgid "Add Enable Rule"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:243
+msgid "Add Exclution Rule"
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:197
+msgid "Add FAQ"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:434
+msgid "Add fixed text here"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:253
+msgid "Add igredient"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:272
+msgid "Add instruction"
+msgstr ""
+
+#: includes/schemas/types/Product.php:63
+msgid ""
+"Add markup to your product pages so Google can provide detailed product "
+"information in rich Search results."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:28
+msgctxt "add new on admin bar"
+msgid "Schema"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:30
+msgid "Add New Schema"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:624
+msgid "Add schema.org markup for AboutPage automatically on the selected page."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:642
+msgid ""
+"Add schema.org markup for CheckoutPage automatically on the selected page."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:633
+msgid ""
+"Add schema.org markup for ContactPaage automatically on the selected page."
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:254
+msgid "Add Step"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:255
+msgid "Add step title, text, and upload an image."
+msgstr ""
+
+#: includes/extensions/audio-object.php:71
+msgid ""
+"Add Structured Data for embedded audio when using <a href=\"https://codex."
+"wordpress.org/Embeds\" target=\"_blank\">oEmbed</a> method."
+msgstr ""
+
+#: includes/extensions/video-object.php:71
+msgid ""
+"Add Structured Data for embedded videos when using <a href=\"https://codex."
+"wordpress.org/Embeds\" target=\"_blank\">oEmbed</a> method."
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:235
+msgid "Add supplies that has been used."
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:234
+msgid "Add Supply"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:214
+msgid "Add Tool"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:215
+msgid "Add tools that has been used."
+msgstr ""
+
+#: includes/admin/meta-tax.php:46
+msgid "Add URL"
+msgstr ""
+
+#: includes/functions.php:1198
+msgid "Additional Type"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-address.php:46
+msgid "Address"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:475
+msgid "Address of the specific business location."
+msgstr ""
+
+#: includes/schemas/types/Place.php:269
+msgid "Address of the specific place."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:27
+msgctxt "admin menu"
+msgid "Schema"
+msgstr ""
+
+#: includes/schemas/types/Place.php:142
+#: includes/schemas/sub-types/Place/AdministrativeArea.php:41
+msgid "Administrative Area"
+msgstr ""
+
+#: includes/schemas/types/Place.php:264
+#: includes/schemas/types/LocalBusiness.php:470
+msgid "Adress"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:191
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/AdultEntertainment.php:41
+msgid "Adult Entertainment"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:992
+#: includes/admin/settings/contextual-help.php:62
+msgid "Advanced"
+msgstr ""
+
+#: includes/schemas/types/Article.php:117
+#: includes/schemas/sub-types/Article/AdvertiserContentArticle.php:44
+msgid "Advertiser Content Article"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:34
+msgid "All Schemas"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:393
+#: includes/admin/post-type/schema-columns.php:132
+msgid "All Singulars"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:150
+msgid "Alternate Name"
+msgstr ""
+
+#: includes/functions.php:1069 includes/functions.php:1214
+#: includes/functions.php:1221 includes/schemas/types/WebPage.php:155
+#: includes/schemas/types/Movie.php:142 includes/schemas/types/Review.php:179
+#: includes/schemas/types/BlogPosting.php:150
+#: includes/schemas/types/Course.php:142 includes/schemas/types/FAQPage.php:142
+#: includes/schemas/types/HowTo.php:150 includes/schemas/types/Recipe.php:149
+#: includes/schemas/sub-types/Article/BlogPosting.php:147
+msgid "Alternative Headline"
+msgstr ""
+
+#: includes/schemas/types/Place.php:244
+msgid "Amenity Feature"
+msgstr ""
+
+#: includes/schemas/types/Place.php:258
+msgid "Amenity name"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:192
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/AmusementPark.php:41
+msgid "Amusement Park"
+msgstr ""
+
+#: includes/functions.php:1107
+msgid "An abstract is a short description that summarizes a CreativeWork."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:52
+msgid ""
+"An accommodation is a place that can accommodate human beings, e.g. a hotel "
+"room, a camping pitch, or a meeting room."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:222
+msgid ""
+"An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors "
+"can be associated with individual items or with a series, episode, clip."
+msgstr ""
+
+#: includes/functions.php:1202
+msgid ""
+"An additional type for the item, typically used for adding more specific "
+"types from external vocabularies in microdata syntax."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/AdultEntertainment.php:52
+msgid "An adult entertainment establishment."
+msgstr ""
+
+#: includes/functions.php:1225
+msgid "An alias for the item."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:154
+msgid "An alias for the software."
+msgstr ""
+
+#: includes/schemas/types/Place.php:250
+msgid ""
+"An amenity feature (e.g. a characteristic or service) of the Accommodation. "
+"This generic property does not make a statement about whether the feature is "
+"included in an offer for the main accommodation or available at extra costs."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/AmusementPark.php:52
+msgid "An amusement park."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/Apartment.php:52
+msgid ""
+"An apartment (in American English) or flat (in British English) is a self-"
+"contained housing unit (a type of residential real estate) that occupies "
+"only part of a building."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/ArtGallery.php:52
+msgid "An art gallery."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/AdvertiserContentArticle.php:55
+msgid ""
+"An Article that an external entity has paid to place or to produce to its "
+"specifications. Includes advertorials, sponsored content, native advertising "
+"and other paid content."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/SatiricalArticle.php:55
+msgid ""
+"An Article whose content is primarily [satirical] in nature, i.e. unlikely "
+"to be literally true."
+msgstr ""
+
+#: includes/schemas/types/Article.php:66
+msgid ""
+"An article, such as a news article or piece of investigative report. "
+"Newspapers and magazines have articles of many different types and this is "
+"intended to cover them all. (See also blog post)."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoPartsStore.php:52
+#: includes/schemas/sub-types/LocalBusiness/Store/AutoPartsStore.php:52
+msgid "An auto parts store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Electrician.php:52
+msgid "An electrician."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/ElectronicsStore.php:52
+msgid "An electronics store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService.php:52
+msgid "An emergency service, such as a fire station or ER."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/EmploymentAgency.php:52
+msgid "An employment agency."
+msgstr ""
+
+#: includes/schemas/types/Event.php:66
+msgid ""
+"An event happening at a certain time and location, such as a concert, "
+"lecture, or festival."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/LandmarksOrHistoricalBuildings.php:52
+msgid "An historical landmark or building."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/IceCreamShop.php:52
+msgid "An ice cream shop."
+msgstr ""
+
+#: includes/functions.php:1257 includes/schemas/types/FAQPage.php:153
+#: includes/schemas/types/HowTo.php:161
+msgid "An image of the article."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:161
+#: includes/schemas/sub-types/Article/BlogPosting.php:158
+msgid "An image of the blog post."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:365
+msgid "An image of the business."
+msgstr ""
+
+#: includes/schemas/types/Event.php:187
+msgid "An image of the event."
+msgstr ""
+
+#: includes/schemas/types/Course.php:153
+msgid "An image of the item."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:246
+msgid "An image of the job posting."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:161
+msgid "An image of the movie."
+msgstr ""
+
+#: includes/schemas/types/Place.php:195
+msgid "An image of the place."
+msgstr ""
+
+#: includes/schemas/types/Product.php:154
+#: includes/schemas/types/SoftwareApplication.php:208
+msgid "An image of the product."
+msgstr ""
+
+#: includes/schemas/types/Review.php:190
+msgid "An image of the reviewed item."
+msgstr ""
+
+#: includes/schemas/types/Service.php:154
+msgid "An image of the service."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:166
+msgid "An image of the web page."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:254
+msgid "An ingredient used in the recipe."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/InsuranceAgency.php:52
+msgid "An Insurance agency."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/InternetCafe.php:52
+msgid "An internet cafe."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/OfficeEquipmentStore.php:52
+msgid "An office equipment store."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/OutletStore.php:52
+msgid "An outlet store."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:141
+#: includes/schemas/sub-types/LocalBusiness/AnimalShelter.php:41
+msgid "Animal Shelter"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AnimalShelter.php:52
+msgid "Animal shelter."
+msgstr ""
+
+#: includes/integrations/dw-question-answer.php:80
+#: includes/integrations/dw-question-answer.php:110
+msgid "Anonymous"
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:209
+#: includes/schemas/types/FAQPage.php:214
+msgid "Answer"
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:83
+msgid "Answer Count"
+msgstr ""
+
+#: includes/schemas/types/Place.php:152
+#: includes/schemas/sub-types/Place/Accommodation/Apartment.php:41
+msgid "Apartment"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:164
+msgid "Application Category"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:193
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/ArtGallery.php:41
+msgid "Art Gallery"
+msgstr ""
+
+#: includes/schemas/types/Article.php:55
+msgid "Article"
+msgstr ""
+
+#: includes/schemas/types/Article.php:162
+msgid "Article Body"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/AutomatedTeller.php:52
+msgid "ATM/cash machine."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:245
+#: includes/schemas/sub-types/LocalBusiness/LegalService/Attorney.php:41
+msgid "Attorney"
+msgstr ""
+
+#: includes/extensions/audio-object.php:60
+msgid "Audio Markups"
+msgstr ""
+
+#: includes/extensions/audio-object.php:35
+msgid "Audio Object"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:664
+msgid "AudioObject"
+msgstr ""
+
+#: includes/functions.php:455
+msgid "Australian Dollars"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1042
+msgid "Author"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:514
+msgid "Author Archives"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:671
+msgid "Author Image"
+msgstr ""
+
+#: includes/functions.php:1095 includes/admin/meta-types-properties.php:644
+#: includes/schemas/types/WebPage.php:205 includes/schemas/types/Movie.php:201
+#: includes/schemas/types/Review.php:209
+#: includes/schemas/types/BlogPosting.php:180
+#: includes/schemas/types/Course.php:174 includes/schemas/types/FAQPage.php:176
+#: includes/schemas/types/HowTo.php:184 includes/schemas/types/Recipe.php:179
+#: includes/schemas/sub-types/Article/BlogPosting.php:177
+#: includes/schemas/sub-types/WebPage/QAPage.php:91
+msgid "Author Name"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:520
+msgid "Author URL"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:173
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoBodyShop.php:41
+msgid "Auto Body Shop"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoBodyShop.php:52
+msgid "Auto body shop."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:174
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoDealer.php:41
+msgid "Auto Dealer"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:175
+#: includes/schemas/types/LocalBusiness.php:298
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoPartsStore.php:41
+#: includes/schemas/sub-types/LocalBusiness/Store/AutoPartsStore.php:41
+msgid "Auto Parts Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:176
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoRental.php:41
+msgid "Auto Rental"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:177
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoRepair.php:41
+msgid "Auto Repair"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:178
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoWash.php:41
+msgid "Auto Wash"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:202
+msgid "Automated Teller"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/AutomatedTeller.php:41
+msgid "AutomatedTeller"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:594
+msgid ""
+"Automatically, add additional schema.org markups to your website content."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:142
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness.php:41
+msgid "Automotive Business"
+msgstr ""
+
+#: includes/schemas/types/Product.php:271
+#: includes/schemas/types/SoftwareApplication.php:259
+msgid "Availability"
+msgstr ""
+
+#: includes/schemas/types/Article.php:169
+msgid "Backstory"
+msgstr ""
+
+#: includes/admin/admin-functions.php:254
+msgid "Baggage Tracking"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:208
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Bakery.php:41
+msgid "Bakery"
+msgstr ""
+
+#: includes/functions.php:456
+msgid "Bangladeshi Taka"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/BankOrCreditUnion.php:52
+msgid "Bank or credit union."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:203
+msgid "Bank or CreditUnion"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/BankOrCreditUnion.php:41
+msgid "BankOrCreditUnion"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/BarOrPub.php:41
+msgid "Bar Or Pub"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:209
+msgid "Bar or Pub"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:193
+msgid "Base Salary"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:225
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/BeautySalon.php:41
+msgid "Beauty Salon"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/BeautySalon.php:52
+msgid "Beauty salon."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/Suite.php:71
+msgid "Bed"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/BedAndBreakfast.php:41
+msgid "Bed And Breakfast"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:250
+msgid "Bed and Breakfast"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/BedAndBreakfast.php:52
+msgid "Bed and breakfast."
+msgstr ""
+
+#: includes/admin/updater/class-enable-beta.php:31
+msgid "Beta Releases"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:299
+#: includes/schemas/sub-types/LocalBusiness/Store/BikeStore.php:41
+msgid "Bike Store"
+msgstr ""
+
+#: includes/admin/admin-functions.php:249
+msgid "Bill Payment"
+msgstr ""
+
+#: includes/admin/admin-functions.php:248
+msgid "Billing Support"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:584
+#: includes/admin/settings/register-settings.php:1044
+#: includes/admin/settings/register-settings.php:1805
+msgid "Blog"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:579
+msgid "Blog Markup"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:248
+msgid "Blog or Personal"
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:55
+#: includes/schemas/types/Article.php:127
+#: includes/schemas/sub-types/Article/BlogPosting.php:52
+msgid "Blog Posting"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:300
+#: includes/schemas/sub-types/LocalBusiness/Store/BookStore.php:41
+msgid "Book Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/BowlingAlley.php:41
+msgid "Bowling Alley"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:286
+msgid "Bowling Alleyt"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PublicHealth.php:52
+msgid ""
+"Branch of medicine that pertains to the health services to improve and "
+"protect community health, especially epidemiology, sanitation, immunization, "
+"and preventive medicine."
+msgstr ""
+
+#: includes/schemas/types/Product.php:142
+msgid "Brand"
+msgstr ""
+
+#: includes/functions.php:457
+msgid "Brazilian Real"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:633
+#: includes/admin/class-setup-wizard.php:636
+#: includes/admin/settings/register-settings.php:538
+#: includes/admin/settings/register-settings.php:1043
+msgid "Breadcrumbs"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:210
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Brewery.php:41
+msgid "Brewery"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Brewery.php:52
+msgid "Brewery."
+msgstr ""
+
+#: includes/admin/extensions.php:43 includes/admin/extensions.php:61
+#: includes/admin/extensions.php:61
+msgid "Browse all extensions"
+msgstr ""
+
+#: includes/functions.php:458
+msgid "Bulgarian Lev"
+msgstr ""
+
+#: includes/schemas/types/Event.php:115
+#: includes/schemas/sub-types/Event/BusinessEvent.php:41
+msgid "Business Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/BusinessEvent.php:52
+msgid "Business event."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/CafeOrCoffeeShop.php:41
+msgid "Cafe Or Coffee Shop"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:211
+msgid "Cafe or Coffee Shop"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:251
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Campground.php:41
+msgid "Campground"
+msgstr ""
+
+#: includes/schemas/types/Place.php:153
+#: includes/schemas/sub-types/Place/Accommodation/CampingPitch.php:41
+msgid "Camping Pitch"
+msgstr ""
+
+#: includes/functions.php:459
+msgid "Canadian Dollars"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:323
+#: includes/admin/class-schema-wizard.php:354
+msgid "Cancel"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/AutoRepair.php:52
+msgid "Car repair business."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness.php:52
+msgid "Car repair, sales, or parts."
+msgstr ""
+
+#: includes/schemas/sub-types/SoftwareApplication/MobileApplication.php:68
+msgid "Carrier Requirements"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:194
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/Casino.php:41
+msgid "Casino"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:591
+msgid "Categories"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-categories-select.php:295
+msgid "Categories Select"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:554
+msgid "Change"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:698
+msgid ""
+"Check this box if you would like Schema to completely remove all of its data "
+"when uninstalling via Plugins > Delete."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:637
+#: includes/schemas/types/WebPage.php:113
+#: includes/schemas/sub-types/WebPage/CheckoutPage.php:41
+msgid "Checkout Page"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:143
+#: includes/schemas/sub-types/LocalBusiness/ChildCare.php:41
+msgid "Child Care"
+msgstr ""
+
+#: includes/schemas/types/Event.php:116
+#: includes/schemas/sub-types/Event/ChildrensEvent.php:41
+msgid "Childrens Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/ChildrensEvent.php:52
+msgid "Childrens event"
+msgstr ""
+
+#: includes/functions.php:460
+msgid "Chilean Peso"
+msgstr ""
+
+#: includes/functions.php:461
+msgid "Chinese Yuan"
+msgstr ""
+
+#: includes/acf/acf-fields/acf-star-rating.php:275
+msgid "Choices not available!"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:725
+msgid "Choose the output format of the schema.org json-ld markup."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:712
+msgid "Choose where to output the schema.org json-ld markup."
+msgstr ""
+
+#: includes/schemas/types/Place.php:143
+#: includes/schemas/sub-types/Place/CivicStructure.php:41
+msgid "Civic Structure"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:301
+#: includes/schemas/sub-types/LocalBusiness/Store/ClothingStore.php:41
+msgid "Clothing Store"
+msgstr ""
+
+#: includes/functions.php:462
+msgid "Colombian Peso"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:195
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/ComedyClub.php:41
+msgid "Comedy Club"
+msgstr ""
+
+#: includes/schemas/types/Event.php:117
+#: includes/schemas/sub-types/Event/ComedyEvent.php:41
+msgid "Comedy Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/ComedyEvent.php:52
+msgid "Comedy event."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:642
+#: includes/admin/class-setup-wizard.php:645
+#: includes/admin/settings/register-settings.php:498
+msgid "Comments"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:259
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/CommunityHealth.php:41
+msgid "Community Health"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:141
+msgid "Complete Setup!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:302
+#: includes/schemas/sub-types/LocalBusiness/Store/ComputerStore.php:41
+msgid "Computer Store"
+msgstr ""
+
+#: includes/schemas/types/Product.php:292
+#: includes/schemas/types/SoftwareApplication.php:279
+msgid "Condition"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:418
+msgid "Configure"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:675
+msgid "Configure Your Schema Types!"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:427
+msgid "Configuring properties"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:425
+msgid "Configuring sub type"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:623
+#: includes/admin/class-setup-wizard.php:626
+#: includes/admin/settings/register-settings.php:628
+msgid "Contact Page"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:417
+msgid "Contact Type"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1691
+#: includes/admin/settings/register-settings.php:1781
+msgid "Content type"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:353
+#: includes/admin/class-setup-wizard.php:372
+#: includes/admin/class-setup-wizard.php:435
+#: includes/admin/class-setup-wizard.php:579
+#: includes/admin/class-setup-wizard.php:652
+msgid "Continue"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:303
+#: includes/schemas/sub-types/LocalBusiness/Store/ConvenienceStore.php:41
+msgid "Convenience Store"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:203
+msgid "Cook Time"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1053
+msgid "Corporate Contacts"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:252
+msgid "Corporation"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-countries-select.php:46
+msgid "Countries Select"
+msgstr ""
+
+#: includes/schemas/types/Event.php:349 includes/schemas/types/Place.php:325
+#: includes/schemas/types/JobPosting.php:303
+#: includes/schemas/types/Service.php:229 includes/schemas/types/Person.php:250
+#: includes/schemas/types/LocalBusiness.php:531
+msgid "Country"
+msgstr ""
+
+#: includes/schemas/types/Course.php:52
+msgid "Course"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:72
+msgid "Create a set of rules to determine the target of this schema.org type"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:319
+msgid "Create New Schema Type"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:165
+msgid "Created Date"
+msgstr ""
+
+#: includes/admin/admin-functions.php:252
+msgid "Credit Card Support"
+msgstr ""
+
+#: includes/functions.php:468
+msgid "Croatia kuna"
+msgstr ""
+
+#: includes/functions.php:1128 includes/schemas/types/Event.php:253
+#: includes/schemas/types/BlogPosting.php:206
+msgid "CSS Selector"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:201
+#: includes/schemas/types/Product.php:207
+#: includes/schemas/types/SoftwareApplication.php:233
+msgid "Currency"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-currencies-select.php:46
+msgid "Currency Select"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:93
+msgid "Custom field deleted."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:92
+msgid "Custom field updated."
+msgstr ""
+
+#: includes/admin/admin-functions.php:246
+msgid "Customer Support"
+msgstr ""
+
+#: includes/functions.php:463
+msgid "Czech Koruna"
+msgstr ""
+
+#: includes/schemas/types/Event.php:118
+#: includes/schemas/sub-types/Event/DanceEvent.php:41
+msgid "Dance Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/DanceEvent.php:52
+msgid "Dance event."
+msgstr ""
+
+#: includes/functions.php:464
+msgid "Danish Krone"
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:98
+msgid "Date Created"
+msgstr ""
+
+#: includes/schemas/types/Person.php:155
+msgid "Date of Birth"
+msgstr ""
+
+#: includes/schemas/types/Person.php:159
+msgid "Date of death"
+msgstr ""
+
+#: includes/functions.php:1080 includes/schemas/types/FAQPage.php:161
+#: includes/schemas/types/HowTo.php:169
+msgid "Date of first publication of the article."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:169
+#: includes/schemas/sub-types/Article/BlogPosting.php:166
+msgid "Date of first publication of the blog post."
+msgstr ""
+
+#: includes/schemas/types/Course.php:160
+msgid "Date of first publication of the CreativeWork."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:168
+msgid "Date of first publication of the recipe."
+msgstr ""
+
+#: includes/schemas/types/Review.php:198
+msgid "Date of first publication of the review."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:174
+#: includes/schemas/sub-types/WebPage/QAPage.php:102
+msgid "Date of first publication of the web page."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:179
+msgid "Date of first publication of this web page."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:193
+msgid ""
+"Date on which the content on this web page was last reviewed for accuracy "
+"and/or completeness."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:223
+msgid "Date Posted"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:226
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/DaySpa.php:41
+msgid "Day Spa"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:2005
+msgid "Deactivate License"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:505
+msgid "Default image"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:697
+msgid "Delete Data on Uninstall?"
+msgstr ""
+
+#: includes/admin/post-type/schema-wp-submit.php:90
+msgid "Delete Permanently"
+msgstr ""
+
+#: includes/schemas/types/Event.php:119
+#: includes/schemas/sub-types/Event/DeliveryEvent.php:41
+msgid "Delivery Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/DeliveryEvent.php:52
+msgid "Delivery event."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:144
+#: includes/schemas/types/LocalBusiness.php:260
+#: includes/schemas/sub-types/LocalBusiness/Dentist.php:41
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Dentist.php:41
+msgid "Dentist"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:304
+#: includes/schemas/sub-types/LocalBusiness/Store/DepartmentStore.php:41
+msgid "Department Store"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/TechArticle.php:83
+msgid "Dependencies"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:261
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Dermatology.php:41
+msgid "Dermatology"
+msgstr ""
+
+#: includes/functions.php:1228 includes/schemas/types/Event.php:157
+#: includes/schemas/types/WebPage.php:213 includes/schemas/types/Place.php:237
+#: includes/schemas/types/JobPosting.php:249
+#: includes/schemas/types/Movie.php:209 includes/schemas/types/Product.php:158
+#: includes/schemas/types/Review.php:224 includes/schemas/types/Person.php:196
+#: includes/schemas/types/BlogPosting.php:188
+#: includes/schemas/types/SoftwareApplication.php:219
+#: includes/schemas/types/Course.php:181
+#: includes/schemas/types/LocalBusiness.php:393
+#: includes/schemas/types/FAQPage.php:184 includes/schemas/types/HowTo.php:192
+#: includes/schemas/types/Recipe.php:187
+#: includes/schemas/sub-types/Article/BlogPosting.php:185
+msgid "Description"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:64
+msgid "Description is not available for this type!"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:230
+msgid "Description of what changed in this version."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:43
+msgid "Description."
+msgstr ""
+
+#: includes/admin/post-type/schema-columns.php:83
+msgid "Details"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:262
+msgid "Diet Nutrition"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/DietNutrition.php:52
+msgid "Dietetic and nutrition as a medical speciality."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/DietNutrition.php:41
+msgid "DietNutrition"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:194
+msgid "Director"
+msgstr ""
+
+#: includes/integrations/rank-math.php:52
+msgid "Disable Duplicate Features that Rank Math Offers?"
+msgstr ""
+
+#: includes/integrations/yoast-seo.php:95
+msgid "Disable Duplicate Features that Yoast SEO Offers?"
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:47
+#: includes/admin/meta-types-properties.php:654
+#: includes/admin/meta-types-properties.php:680
+#: includes/admin/meta-types-properties.php:697
+#: includes/admin/meta-types-properties.php:715
+msgid "Disabled"
+msgstr ""
+
+#: includes/schemas/types/Article.php:128
+#: includes/schemas/sub-types/Article/SocialMediaPosting/DiscussionForumPosting.php:45
+msgid "Discussion Forum Posting"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:217
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Distillery.php:41
+msgid "Distillery"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:387
+msgid "Does your site represent a Person or Organization?"
+msgstr ""
+
+#: includes/functions.php:465
+msgid "Dominican Peso"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:145
+#: includes/schemas/sub-types/LocalBusiness/DryCleaningOrLaundry.php:41
+msgid "Dry Cleaning or Laundry"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:32
+msgid "Edit Schema"
+msgstr ""
+
+#: includes/schemas/types/Event.php:120
+#: includes/schemas/sub-types/Event/EducationEvent.php:41
+msgid "Education Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/EducationEvent.php:52
+msgid "Education event."
+msgstr ""
+
+#: includes/functions.php:498
+msgid "Egyptian Pound"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:234
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Electrician.php:41
+msgid "Electrician"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:305
+#: includes/schemas/sub-types/LocalBusiness/Store/ElectronicsStore.php:41
+msgid "Electronics Store"
+msgstr ""
+
+#: includes/schemas/types/Person.php:180
+msgid "Email Address"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1047
+msgid "Embeds"
+msgstr ""
+
+#: includes/admin/admin-functions.php:253
+#: includes/schemas/types/LocalBusiness.php:263
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Emergency.php:41
+msgid "Emergency"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:146
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService.php:41
+msgid "Emergency Service"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:147
+#: includes/schemas/sub-types/LocalBusiness/EmploymentAgency.php:41
+msgid "Employment Agency"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:173
+msgid "Employment Type"
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:75
+msgid "Enable ACF PRO admin menu?"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:755
+msgid "Enable Properties Instructions?"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:742
+msgid "Enable Properties Tabs?"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:71
+msgid "Enable Rules"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:87
+msgid "Enable Schema markup on"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:456
+msgid "Enable Site Name?"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:447
+msgid "Enable Sitelinks Search Box?"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:729
+msgid "Enable Test Schema Link in Admin Top Toolbar?"
+msgstr ""
+
+#: includes/admin/updater/class-enable-beta.php:32
+msgid "Enable to receive updates for pre-release versions."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:637
+#: includes/admin/class-setup-wizard.php:646
+#: includes/admin/settings/register-settings.php:487
+#: includes/admin/settings/register-settings.php:493
+#: includes/admin/settings/register-settings.php:499
+#: includes/admin/settings/register-settings.php:515
+#: includes/admin/settings/register-settings.php:521
+#: includes/admin/settings/register-settings.php:529
+#: includes/admin/settings/register-settings.php:539
+#: includes/admin/settings/register-settings.php:545
+#: includes/admin/settings/register-settings.php:592
+#: includes/admin/settings/register-settings.php:598
+#: includes/admin/settings/register-settings.php:606
+#: includes/admin/settings/register-settings.php:612
+#: includes/admin/settings/register-settings.php:649
+#: includes/admin/settings/register-settings.php:657
+#: includes/admin/settings/register-settings.php:665
+msgid "enable?"
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:46
+msgid "Enabled"
+msgstr ""
+
+#: includes/admin/post-type/schema-columns.php:52
+msgid "Enabled on"
+msgstr ""
+
+#: includes/schemas/types/Event.php:174
+msgid "End Date"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:71
+#: includes/admin/class-setup-wizard.php:52
+msgctxt "enhanced select"
+msgid "%qty% results are available, use up and down arrow keys to navigate."
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:73
+#: includes/admin/class-setup-wizard.php:54
+msgctxt "enhanced select"
+msgid "Loading failed"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:80
+#: includes/admin/class-setup-wizard.php:61
+msgctxt "enhanced select"
+msgid "Loading more results&hellip;"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:72
+#: includes/admin/class-setup-wizard.php:53
+msgctxt "enhanced select"
+msgid "No matches found"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:70
+#: includes/admin/class-setup-wizard.php:51
+msgctxt "enhanced select"
+msgid "One result is available, press enter to select it."
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:77
+#: includes/admin/class-setup-wizard.php:58
+msgctxt "enhanced select"
+msgid "Please delete %qty% characters"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:76
+#: includes/admin/class-setup-wizard.php:57
+msgctxt "enhanced select"
+msgid "Please delete 1 character"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:75
+#: includes/admin/class-setup-wizard.php:56
+msgctxt "enhanced select"
+msgid "Please enter %qty% or more characters"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:74
+#: includes/admin/class-setup-wizard.php:55
+msgctxt "enhanced select"
+msgid "Please enter 1 or more characters"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:81
+#: includes/admin/class-setup-wizard.php:62
+msgctxt "enhanced select"
+msgid "Searching&hellip;"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:79
+#: includes/admin/class-setup-wizard.php:60
+msgctxt "enhanced select"
+msgid "You can only select %qty% items"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:78
+#: includes/admin/class-setup-wizard.php:59
+msgctxt "enhanced select"
+msgid "You can only select 1 item"
+msgstr ""
+
+#: includes/admin/updater/class-license-handler.php:483
+msgid "Enter valid license key for automatic updates."
+msgstr ""
+
+#: includes/admin/updater/class-license-handler.php:212
+#, php-format
+msgid ""
+"Enter your extension license keys here to receive updates for purchased "
+"extensions. If your license key has expired, please <a href=\"%s\" "
+"target=\"_blank\">renew your license</a>."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:148
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness.php:41
+msgid "Entertainment Business"
+msgstr ""
+
+#: includes/schemas/types/Place.php:64
+msgid "Entities that have a somewhat fixed, physical extension."
+msgstr ""
+
+#: includes/admin/class-notices.php:82
+#: includes/admin/updater/class-license-handler.php:327
+msgid "Error"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-categories-select.php:62
+#: includes/acf/acf-extensions/acf-post-categories-select.php:306
+#: includes/acf/acf-extensions/acf-post-formats-select.php:62
+#: includes/acf/acf-extensions/acf-countries-select.php:62
+#: includes/acf/acf-extensions/acf-address.php:62
+#: includes/acf/acf-extensions/acf-currencies-select.php:62
+#: includes/acf/acf-extensions/acf-post-statuses-select.php:62
+#: includes/acf/acf-extensions/acf-post-type-select.php:62
+msgid "Error! Please enter a higher value"
+msgstr ""
+
+#: includes/functions.php:466
+msgid "Euros"
+msgstr ""
+
+#: includes/schemas/types/Event.php:55
+msgid "Event"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:251
+msgid "Exclude schema markup on"
+msgstr ""
+
+#: includes/admin/post-type/schema-columns.php:62
+msgid "Excluded on"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:235
+msgid "Exclusion Rules"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:287
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/ExerciseGym.php:41
+msgid "Exercise Gym"
+msgstr ""
+
+#: includes/schemas/types/Event.php:121
+#: includes/schemas/sub-types/Event/ExhibitionEvent.php:41
+msgid "Exhibition Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/ExhibitionEvent.php:52
+msgid "Exhibition event."
+msgstr ""
+
+#: includes/admin/class-menu.php:65 includes/admin/class-menu.php:66
+#: includes/admin/settings/register-settings.php:986
+msgid "Extensions"
+msgstr ""
+
+#: includes/admin/extensions.php:41
+msgid "Extensions for"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:458
+#: includes/admin/class-setup-wizard.php:461
+#: includes/admin/settings/register-settings.php:342
+msgid "Facebook"
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:198
+msgid "FAQ (Frequently asked questions), and answers."
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:52
+msgid "FAQ Page"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:212
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/FastFoodRestaurant.php:41
+msgid "Fast Food Restaurant"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:670
+msgid "Featured Image"
+msgstr ""
+
+#: includes/integrations/yoast-seo.php:104
+msgid ""
+"Features that will be disabled:<br /><ol><li>Organization/Person</li><li>"
+"Social Profiles</li><li>Corporate Contacts\n"
+"</li><li>Breadcrumb</li><li>Sitelink Search Box</li></ol>"
+msgstr ""
+
+#: includes/schemas/types/Event.php:122
+#: includes/schemas/sub-types/Event/Festival.php:41
+msgid "Festival"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:149
+#: includes/schemas/sub-types/LocalBusiness/FinancialService.php:41
+msgid "Financial Service"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService.php:52
+msgid "Financial services business."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:185
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/FireStation.php:41
+msgid "Fire Station"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:674
+msgid "Fixed Image"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:727
+msgid "Fixed Price Range"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:692
+#: includes/admin/meta-types-properties.php:710
+msgid "Fixed Rating"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:649
+msgid "Fixed Text"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:71
+msgid "Floor Level"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:306
+#: includes/schemas/sub-types/LocalBusiness/Store/Florist.php:41
+msgid "Florist"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:150
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment.php:41
+msgid "Food Establishment"
+msgstr ""
+
+#: includes/schemas/types/Event.php:123
+#: includes/schemas/sub-types/Event/FoodEvent.php:41
+msgid "Food Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/FoodEvent.php:52
+msgid "Food event."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:708
+msgid "Footer"
+msgstr ""
+
+#: includes/schemas/types/Article.php:173
+msgid ""
+"For an Article, typically a NewsArticle, the backstory property provides a "
+"textual summary giving a brief explanation of why and how an article was "
+"created."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:316
+#, php-format
+msgid ""
+"For jobs in which the employee works remotely 100% of the time and therefore "
+"works from home."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:26
+msgid "For more information:"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:307
+#: includes/schemas/sub-types/LocalBusiness/Store/FurnitureStore.php:41
+msgid "Furniture Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:308
+#: includes/schemas/sub-types/LocalBusiness/Store/GardenStore.php:41
+msgid "Garden Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:179
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/GasStation.php:41
+msgid "Gas Station"
+msgstr ""
+
+#: includes/schemas/types/Person.php:142
+msgid "Gender"
+msgstr ""
+
+#: includes/schemas/types/Person.php:151
+msgid "Gender of the person."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:134
+#: includes/admin/settings/register-settings.php:981
+#: includes/admin/settings/register-settings.php:1041
+#: includes/admin/settings/contextual-help.php:36
+msgid "General"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:235
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /GeneralContractor.php:41
+msgid "General Contractor"
+msgstr ""
+
+#: includes/schemas/types/Event.php:358
+msgid "Geo Latitude"
+msgstr ""
+
+#: includes/schemas/types/Place.php:339
+#: includes/schemas/types/LocalBusiness.php:546
+msgid "Geo Location"
+msgstr ""
+
+#: includes/schemas/types/Event.php:365
+msgid "Geo Longitude"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:264
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Geriatric.php:41
+msgid "Geriatric"
+msgstr ""
+
+#: includes/admin/extensions.php:118
+msgid "Get this Extension"
+msgstr ""
+
+#: schema-premium.php:215
+msgid "Go back!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:288
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/GolfCourse.php:41
+msgid "Golf Course"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:482
+#: includes/admin/class-setup-wizard.php:485
+msgid "Google+"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:151
+#: includes/schemas/sub-types/LocalBusiness/GovernmentOffice.php:41
+msgid "Government Office"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:528
+msgid "Gravatar ImageObject"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:309
+#: includes/schemas/sub-types/LocalBusiness/Store/GroceryStore.php:41
+msgid "Grocery Store"
+msgstr ""
+
+#: includes/schemas/types/Product.php:179
+msgid "GTIN-12"
+msgstr ""
+
+#: includes/schemas/types/Product.php:186
+msgid "GTIN-13"
+msgstr ""
+
+#: includes/schemas/types/Product.php:193
+msgid "GTIN-14"
+msgstr ""
+
+#: includes/schemas/types/Product.php:172
+msgid "GTIN-8"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:265
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Gynecologic.php:41
+msgid "Gynecologic"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:227
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/HairSalon.php:41
+msgid "Hair Salon"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:310
+#: includes/schemas/sub-types/LocalBusiness/Store/HardwareStore.php:41
+msgid "Hardware Store"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:410
+msgid "has been created!"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:707
+msgid "Head"
+msgstr ""
+
+#: includes/functions.php:1061 includes/schemas/types/WebPage.php:147
+#: includes/schemas/types/Movie.php:134
+#: includes/schemas/types/BlogPosting.php:142
+#: includes/schemas/types/FAQPage.php:134 includes/schemas/types/HowTo.php:142
+#: includes/schemas/types/Recipe.php:142
+#: includes/schemas/sub-types/Article/BlogPosting.php:139
+msgid "Headline"
+msgstr ""
+
+#: includes/functions.php:1065 includes/schemas/types/FAQPage.php:138
+#: includes/schemas/types/HowTo.php:146
+msgid "Headline of the article"
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:146
+#: includes/schemas/sub-types/Article/BlogPosting.php:143
+msgid "Headline of the blog post."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:146
+msgid "Headline of the content"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:138
+msgid "Headline of the movie."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:151
+msgid "Headline of the web page"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:152
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness.php:41
+msgid "Health and Beauty Business"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness.php:52
+msgid "Health and beauty."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:228
+#: includes/schemas/types/LocalBusiness.php:289
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/HealthClub.php:41
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/HealthClub.php:41
+msgid "Health Club"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:669
+msgid "here"
+msgstr ""
+
+#. Author of the plugin
+msgid "Hesham"
+msgstr ""
+
+#: includes/schemas/types/Product.php:231
+msgid "High Price"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:142
+msgid "Hiring Organization"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:158
+msgid "Hiring Organization Logo"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:150
+msgid "Hiring Organization URL"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:311
+#: includes/schemas/sub-types/LocalBusiness/Store/HobbyShop.php:41
+msgid "Hobby Shop"
+msgstr ""
+
+#: includes/extensions/breadcrumbs.php:118
+#: includes/admin/settings/register-settings.php:553
+msgid "Home"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:153
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness.php:41
+msgid "Home and Construction Business"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:312
+msgid "Home Goods Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/HomeGoodsStore.php:41
+msgid "HomeGoods Store"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:550
+msgid "Homepage Text"
+msgstr ""
+
+#: includes/functions.php:467
+msgid "Hong Kong Dollar"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:186
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/Hospital.php:41
+msgid "Hospital"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:252
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Hostel.php:41
+msgid "Hostel"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:253
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Hotel.php:41
+msgid "Hotel"
+msgstr ""
+
+#: includes/schemas/types/Place.php:154
+#: includes/schemas/sub-types/Place/Accommodation/House.php:41
+msgid "House"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:237
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /HousePainter.php:41
+msgid "House Painter"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:52
+msgid "How To"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "http://zebida.com"
+msgstr ""
+
+#. URI of the plugin
+msgid "https://schema.press"
+msgstr ""
+
+#: includes/functions.php:469
+msgid "Hungarian Forint"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:236
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /HVACBusiness.php:41
+msgid "HVAC Business"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:213
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/IceCreamShop.php:41
+msgid "Ice Cream Shop"
+msgstr ""
+
+#: includes/functions.php:470
+msgid "Icelandic krona"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:101
+msgid ""
+"If this NewsArticle appears in print, this field indicates the name of the "
+"page on which the article is found. Please note that this field is intended "
+"for the exact page name (e.g. A5, B18)."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:108
+msgid ""
+"If this NewsArticle appears in print, this field indicates the print section "
+"in which the article appeared."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:524
+msgid "if you don't want to expose author profile url."
+msgstr ""
+
+#: includes/admin/extensions.php:54
+#, php-format
+msgid ""
+"If you have a Personal or Plus license, you can easily upgrade from your "
+"account page to <a href=\"%s\">get access to all of these extensions</a>!"
+msgstr ""
+
+#: includes/functions.php:1253 includes/schemas/types/Event.php:183
+#: includes/schemas/types/WebPage.php:162 includes/schemas/types/Place.php:191
+#: includes/schemas/types/JobPosting.php:242
+#: includes/schemas/types/Movie.php:157 includes/schemas/types/Product.php:150
+#: includes/schemas/types/Review.php:186 includes/schemas/types/Service.php:150
+#: includes/schemas/types/BlogPosting.php:157
+#: includes/schemas/types/SoftwareApplication.php:204
+#: includes/schemas/types/Course.php:149
+#: includes/schemas/types/LocalBusiness.php:361
+#: includes/schemas/types/FAQPage.php:149 includes/schemas/types/HowTo.php:157
+#: includes/schemas/types/HowTo.php:275 includes/schemas/types/Recipe.php:156
+#: includes/schemas/sub-types/Article/BlogPosting.php:154
+msgid "Image"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:160
+msgid "Image of the completed dish."
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:675
+msgid "Image URL"
+msgstr ""
+
+#: includes/schemas/types/Event.php:217
+msgid "In Stock"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:319
+msgid "In-Office"
+msgstr ""
+
+#: includes/functions.php:472
+msgid "Indian Rupee"
+msgstr ""
+
+#: includes/schemas/types/Place.php:231
+msgid ""
+"Indicates whether it is allowed to smoke in the place, e.g. in the "
+"restaurant, hotel or hotel room."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:115
+msgid ""
+"Indicates whether pets are allowed to enter the accommodation or lodging "
+"business."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:107
+msgid "Indications regarding the permitted usage of the accommodation."
+msgstr ""
+
+#: includes/functions.php:471
+msgid "Indonesia Rupiah"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:166
+msgid "Industry"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:257
+msgid "Ingredient"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:494
+#: includes/admin/class-setup-wizard.php:497
+#: includes/admin/settings/register-settings.php:358
+msgid "Instagram"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:276
+msgid "Instruction"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:63
+msgid ""
+"Instructions that explain how to achieve a result by performing a sequence "
+"of steps."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:764
+msgid "Instructions will show under each property post meta field."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:204
+msgid "Insurance Agency"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/FinancialService/InsuranceAgency.php:41
+msgid "InsuranceAgency"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:154
+#: includes/schemas/sub-types/LocalBusiness/InternetCafe.php:41
+msgid "Internet Cafe"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:131
+#: includes/admin/class-setup-wizard.php:124
+msgid "Introduction"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1890
+#, php-format
+msgid ""
+"Invalid license. Please <a href=\"%s\" target=\"_blank\">visit your account "
+"page</a> and verify it."
+msgstr ""
+
+#: includes/functions.php:1117 includes/schemas/types/Event.php:242
+#: includes/schemas/types/BlogPosting.php:195
+msgid "Is Accessible For Free"
+msgstr ""
+
+#: includes/functions.php:474
+msgid "Israeli Shekel"
+msgstr ""
+
+#: includes/schema-output/class-schema-wpfooter.php:84
+#: includes/schema-output/class-schema-wpheader.php:84
+msgid "It looks like nothing was found at this location!"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:585
+msgid "ItemList"
+msgstr ""
+
+#: includes/functions.php:475
+msgid "Japanese Yen"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:313
+#: includes/schemas/sub-types/LocalBusiness/Store/JewelryStore.php:41
+msgid "Jewelry Store"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:52
+msgid "Job Posting"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:134
+#: includes/schemas/types/Person.php:165
+msgid "Job Title"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:716
+msgid "JSON-LD Output Format"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:523
+msgid "Keep disabled"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:212
+msgid "Keywords"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:982
+#: includes/admin/settings/contextual-help.php:42
+msgid "Knowledge Graph"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:453
+msgid ""
+"Knowledge panels prominently display your social profile information in some "
+"Google Search results."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:259
+msgid "Knowledgebase / Wiki"
+msgstr ""
+
+#: includes/schemas/types/Place.php:144
+#: includes/schemas/sub-types/Place/Landform.php:41
+msgid "Landform"
+msgstr ""
+
+#: includes/schemas/types/Place.php:145
+#: includes/schemas/sub-types/Place/LandmarksOrHistoricalBuildings.php:41
+msgid "Landmarks Or Historical Buildings"
+msgstr ""
+
+#: includes/functions.php:476
+msgid "Lao Kip"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:646
+msgid "Last Modified Date"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:189
+msgid "Last Reviewed Date"
+msgstr ""
+
+#: includes/schemas/types/Place.php:347 includes/schemas/types/Service.php:238
+#: includes/schemas/types/LocalBusiness.php:554
+msgid "Latitude"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:423
+msgid "Learn More"
+msgstr ""
+
+#: includes/admin/class-notices.php:114 includes/admin/class-notices.php:131
+msgid "Learn more"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:155
+#: includes/schemas/sub-types/LocalBusiness/LegalService.php:41
+msgid "Legal Service"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:322
+#: includes/admin/class-setup-wizard.php:324
+msgid "Let's Go!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:156
+#: includes/schemas/sub-types/LocalBusiness/Library.php:41
+msgid "Library"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1959
+msgid "License key never expires."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:989
+msgid "Licenses"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:518
+#: includes/admin/settings/register-settings.php:374
+msgid "LinkedIn"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:521
+msgid "Linkedin"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:314
+#: includes/schemas/sub-types/LocalBusiness/Store/LiquorStore.php:41
+msgid "Liquor Store"
+msgstr ""
+
+#: includes/schemas/types/Event.php:124
+#: includes/schemas/sub-types/Event/LiteraryEvent.php:41
+msgid "Literary Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/LiteraryEvent.php:52
+msgid "Literary event."
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:42
+msgid "Load ACF PRO?"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:53
+msgid "Local Business"
+msgstr ""
+
+#: includes/schemas/types/Event.php:325 includes/schemas/types/Place.php:298
+#: includes/schemas/types/JobPosting.php:279
+#: includes/schemas/types/Service.php:205 includes/schemas/types/Person.php:226
+#: includes/schemas/types/LocalBusiness.php:504
+msgid "Locality / City"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:30
+msgid "Locations"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:238
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Locksmith.php:41
+msgid "Locksmith"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:157
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness.php:41
+msgid "Lodging Business"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:667
+#: includes/admin/class-setup-wizard.php:425
+#: includes/admin/settings/register-settings.php:323
+msgid "Logo"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:426
+#: includes/admin/class-setup-wizard.php:605
+#: includes/admin/settings/register-settings.php:269
+#: includes/admin/settings/register-settings.php:324
+msgid "Logo guidelines"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:163
+msgid "Logo of the Hiring Organization."
+msgstr ""
+
+#: includes/schemas/types/Place.php:354 includes/schemas/types/Service.php:246
+#: includes/schemas/types/LocalBusiness.php:562
+msgid "Longitude"
+msgstr ""
+
+#: includes/schemas/types/Product.php:223
+msgid "Low Price"
+msgstr ""
+
+#. Publish box date format, see http://php.net/date
+#: includes/admin/post-type/schema-post-type.php:103
+msgid "M j, Y @ G:i"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1056
+msgid "Main"
+msgstr ""
+
+#: includes/functions.php:478
+msgid "Malaysian Ringgits"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:592
+msgid "Mark Up Your Content"
+msgstr ""
+
+#: includes/schemas/types/Course.php:63
+msgid ""
+"Mark up your course lists with structured data so prospective students find "
+"you through Google Search."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:63
+msgid ""
+"Mark up your recipe content with structured data to provide rich results and "
+"host-specific lists for your recipes."
+msgstr ""
+
+#: includes/schemas/types/Place.php:207
+msgid "Maximum Attendee Capacity"
+msgstr ""
+
+#: includes/acf/acf-fields/acf-star-rating.php:305
+msgid "Maximum number of stars"
+msgstr ""
+
+#: includes/acf/acf-fields/acf-star-rating.php:304
+msgid "Maximum Rating"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:158
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness.php:41
+msgid "Medical Business"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:266
+msgid "Medical Clinic"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:118
+#: includes/schemas/sub-types/WebPage/MedicalWebPage.php:41
+msgid "Medical Web Page"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/MedicalClinic.php:41
+msgid "MedicalClinic"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:315
+msgid "Mens Clothing Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MensClothingStore.php:41
+msgid "MensClothing Store"
+msgstr ""
+
+#: includes/functions.php:479
+msgid "Mexican Peso"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:267
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Midwifery.php:41
+msgid "Midwifery"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:720
+msgid "Minified"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:114
+#: includes/schemas/sub-types/SoftwareApplication/MobileApplication.php:41
+msgid "Mobile Application"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:316
+msgid "Mobile Phone Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MobilePhoneStore.php:41
+msgid "MobilePhone Store"
+msgstr ""
+
+#: includes/functions.php:1086 includes/schemas/types/WebPage.php:180
+#: includes/schemas/types/Movie.php:185 includes/schemas/types/Review.php:202
+#: includes/schemas/types/BlogPosting.php:173
+#: includes/schemas/types/Course.php:165 includes/schemas/types/FAQPage.php:167
+#: includes/schemas/types/HowTo.php:175 includes/schemas/types/Recipe.php:172
+#: includes/schemas/sub-types/Article/BlogPosting.php:170
+msgid "Modified Date"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:254
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Motel.php:41
+msgid "Motel"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:180
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/MotorcycleDealer.php:41
+msgid "Motorcycle Dealer"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:181
+#: includes/schemas/sub-types/LocalBusiness/AutomotiveBusiness/MotorcycleRepair.php:41
+msgid "Motorcycle Repair"
+msgstr ""
+
+#: includes/admin/post-type/schema-wp-submit.php:92
+msgid "Move to Trash"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:52
+msgid "Movie"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:317
+msgid "Movie Rental Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:196
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/MovieTheater.php:41
+msgid "Movie Theater"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/MovieRentalStore.php:41
+msgid "MovieRental Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:239
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /MovingCompany.php:41
+msgid "Moving Company"
+msgstr ""
+
+#: includes/schemas/types/Product.php:200
+msgid "MPN"
+msgstr ""
+
+#: includes/extensions/audio-object.php:67
+msgid "Multiple audios"
+msgstr ""
+
+#: includes/extensions/video-object.php:67
+msgid "Multiple videos"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:255
+msgid "Music"
+msgstr ""
+
+#: includes/schemas/types/Event.php:125
+#: includes/schemas/sub-types/Event/MusicEvent.php:41
+msgid "Music Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/MusicEvent.php:52
+msgid "Music event."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:318
+#: includes/schemas/sub-types/LocalBusiness/Store/MusicStore.php:41
+msgid "Music Store"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:530
+#: includes/admin/class-setup-wizard.php:533
+#: includes/admin/settings/register-settings.php:381
+msgid "Myspace"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:229
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/NailSalon.php:41
+msgid "Nail Salon"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:408
+#: includes/admin/class-setup-wizard.php:411
+#: includes/admin/settings/register-settings.php:305
+#: includes/admin/post-type/schema-columns.php:19
+#: includes/schemas/types/Event.php:149 includes/schemas/types/Place.php:175
+#: includes/schemas/types/Place.php:253 includes/schemas/types/Movie.php:149
+#: includes/schemas/types/Movie.php:225 includes/schemas/types/Product.php:134
+#: includes/schemas/types/Service.php:126 includes/schemas/types/Person.php:126
+#: includes/schemas/types/SoftwareApplication.php:142
+#: includes/schemas/types/Course.php:134
+#: includes/schemas/types/LocalBusiness.php:345
+#: includes/schemas/types/HowTo.php:134 includes/schemas/types/HowTo.php:218
+#: includes/schemas/types/HowTo.php:238 includes/schemas/types/Recipe.php:134
+#: includes/schemas/sub-types/WebPage/QAPage.php:75
+msgid "Name"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:138
+msgid "Name of the article"
+msgstr ""
+
+#: includes/functions.php:473
+msgid "Nepali Rupee"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:650
+#: includes/admin/meta-types-properties.php:676
+#: includes/admin/meta-types-properties.php:693
+#: includes/admin/meta-types-properties.php:711
+#: includes/admin/meta-types-properties.php:728
+msgid "New Custom Field"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:31
+msgid "New Schema"
+msgstr ""
+
+#: includes/functions.php:482
+msgid "New Zealand Dollar"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:250
+msgid "News and Magazine"
+msgstr ""
+
+#: includes/schemas/types/Article.php:118
+#: includes/schemas/sub-types/Article/NewsArticle.php:44
+msgid "News Article"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:673
+msgid "Next Step"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:416
+msgid "Next Steps"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:256
+msgid "Niche Affiliate / Reviews"
+msgstr ""
+
+#: includes/functions.php:480
+msgid "Nigerian Naira"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:197
+#: includes/schemas/sub-types/LocalBusiness/EntertainmentBusiness/NightClub.php:41
+msgid "Night Club"
+msgstr ""
+
+#: includes/functions.php:1125 includes/acf/acf-admin-settings.php:80
+#: includes/extensions/video-object-details.php:269
+#: includes/integrations/yoast-seo.php:100
+#: includes/integrations/rank-math.php:57
+#: includes/admin/settings/register-settings.php:734
+#: includes/admin/settings/register-settings.php:747
+#: includes/admin/settings/register-settings.php:760
+#: includes/schemas/types/Event.php:250 includes/schemas/types/Place.php:223
+#: includes/schemas/types/Place.php:234
+#: includes/schemas/types/BlogPosting.php:203
+#: includes/schemas/sub-types/Place/Accommodation.php:118
+msgid "No"
+msgstr ""
+
+#: includes/admin/meta-properties.php:286
+msgid "No properties are set!"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:38
+msgid "No schema found in Trash."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:37
+msgid "No schema found."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:322
+msgid ""
+"No time right now? If you don’t want to go through the wizard, you can skip "
+"and return to the WordPress dashboard. Come back anytime if you change your "
+"mind!"
+msgstr ""
+
+#: includes/admin/updater/class-license-handler.php:327
+msgid "Nonce verification failed"
+msgstr ""
+
+#: includes/extensions/audio-object.php:65
+#: includes/extensions/video-object.php:65
+#: includes/admin/settings/register-settings.php:1714
+#: includes/admin/settings/register-settings.php:1801
+msgid "None"
+msgstr ""
+
+#: includes/functions.php:481
+msgid "Norwegian Krone"
+msgstr ""
+
+#: includes/admin/meta-properties.php:313
+msgid "Not available?"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:325
+msgid "Not right now"
+msgstr ""
+
+#: includes/admin/post-type/schema-columns.php:34
+msgid "Not set!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:246
+#: includes/schemas/sub-types/LocalBusiness/LegalService/Notary.php:41
+msgid "Notary"
+msgstr ""
+
+#: includes/extensions/audio-object.php:84
+msgid ""
+"Note: You can enable markups to multiple audios on the same page. However, "
+"this may slow down your site, make sure your site is hosted on a reliable "
+"web host and cache your site pages by a good caching plugin. (Recommended "
+"setting: Single Audio)"
+msgstr ""
+
+#: includes/extensions/video-object.php:84
+msgid ""
+"Note: You can enable markups to multiple videos on the same page. However, "
+"this may slow down your site, make sure your site is hosted on a reliable "
+"web host and cache your site pages by a good caching plugin. (Recommended "
+"setting: Single Video)"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:79
+msgid "Number Of Bathrooms Total"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:87
+msgid "Number Of Full Bathrooms"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:91
+msgid "Number of full bathrooms - The total number of full and ¾ bathrooms."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:95
+msgid "Number Of Rooms"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:268
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Nursing.php:41
+msgid "Nursing"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:240
+msgid "Nutrition Calories"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:269
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Obstetric.php:41
+msgid "Obstetric"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:673
+msgid ""
+"Obtain a YouTube API Key from your  <a href=\"https://console.developers."
+"google.com/project\" target=\"_blank\"> Google Developer console</a>."
+msgstr ""
+
+#: includes/schemas/types/Event.php:212
+msgid "Offer Availability"
+msgstr ""
+
+#: includes/schemas/types/Product.php:239
+msgid "Offer Count"
+msgstr ""
+
+#: includes/schemas/types/Event.php:198
+msgid "Offer Price"
+msgstr ""
+
+#: includes/schemas/types/Event.php:234
+msgid "Offer URL"
+msgstr ""
+
+#: includes/schemas/types/Event.php:225
+msgid "Offer Valid From"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:319
+msgid "Office Equipment Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/OfficeEquipmentStore.php:41
+msgid "OfficeEquipment Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:270
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Oncologic.php:41
+msgid "Oncologic"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:257
+msgid "Online Business Directory"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:258
+msgid "Online Job Board"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:249
+msgid "Online Shop"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:157
+msgid "Operating System"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:161
+msgid "Operating systems supported (Windows 7, OSX 10.6, Android 1.6)"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:271
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Optician.php:41
+msgid "Optician"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:272
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Optometric.php:41
+msgid "Optometric"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1050
+msgid "Organization Info"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:420
+msgid "Organization Logo"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:397
+msgid "Organization or Person?"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:216
+msgid ""
+"Other terms for your recipe such as the season (“summer”), the holiday "
+"(“Halloween“), or other descriptors (“quick”, “easy”, “authentic”), comma "
+"separated."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:273
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Otolaryngologic.php:41
+msgid "Otolaryngologic"
+msgstr ""
+
+#: includes/admin/extensions.php:56
+msgid "Our official free extensions are available to all license holders!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:320
+#: includes/schemas/sub-types/LocalBusiness/Store/OutletStore.php:41
+msgid "Outlet Store"
+msgstr ""
+
+#: includes/admin/admin-functions.php:256
+msgid "Package Tracking"
+msgstr ""
+
+#: includes/schema-output/class-schema-wpfooter.php:83
+#: includes/schema-output/class-schema-wpheader.php:83
+msgid "Page not found"
+msgstr ""
+
+#: includes/functions.php:483
+msgid "Paraguayan Guaraní"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:36
+msgid "Parent Schemas:"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:321
+#: includes/schemas/sub-types/LocalBusiness/Store/PawnShop.php:41
+msgid "Pawn Shop"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:274
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Pediatric.php:41
+msgid "Pediatric"
+msgstr ""
+
+#: includes/schemas/types/Event.php:191
+msgid "Performer Name"
+msgstr ""
+
+#: includes/schemas/types/Event.php:195
+msgid "Performer name."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:103
+msgid "Permitted Usage"
+msgstr ""
+
+#: includes/schemas/types/Person.php:52
+msgid "Person"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:385
+#: includes/admin/settings/register-settings.php:284
+msgid "Person or Organization"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:202
+msgid ""
+"Person that have reviewed the content on this web page for accuracy and/or "
+"completeness."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:322
+#: includes/schemas/sub-types/LocalBusiness/Store/PetStore.php:41
+msgid "Pet Store"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:111
+msgid "Pets Allowed"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:275
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Pharmacy.php:41
+msgid "Pharmacy"
+msgstr ""
+
+#: includes/functions.php:484
+msgid "Philippine Pesos"
+msgstr ""
+
+#: includes/schemas/types/Person.php:172
+msgid "Photograph"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:254
+msgid "Photography"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:276
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Physician.php:41
+msgid "Physician"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:277
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Physiotherapy.php:41
+msgid "Physiotherapy"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:542
+#: includes/admin/class-setup-wizard.php:545
+#: includes/admin/settings/register-settings.php:389
+msgid "Pinterest"
+msgstr ""
+
+#: includes/schemas/types/Place.php:53
+msgid "Place"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:278
+msgid "Plastic Surgery"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PlasticSurgery.php:41
+msgid "PlasticSurgery"
+msgstr ""
+
+#: includes/admin/class-notices.php:128
+msgid ""
+"Please, deactivate the free Advanced Custom Fields (ACF) plugin for Schema "
+"Premium to work properly! \n"
+"\t\t\t\t<br><br>The Schema Premium plugin includes Advanced Custom Fields "
+"PRO (ACF PRO) plugin in its core, \n"
+"\t\t\t\tthis means when you install Schema Premium you will have the latest "
+"ACF PRO version loaded to your site."
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:428
+msgid "Plugin documentation"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:240
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /Plumber.php:41
+msgid "Plumber"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:279
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Podiatric.php:41
+msgid "Podiatric"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Podiatric.php:52
+msgid ""
+"Podiatry is the care of the human foot, especially the diagnosis and "
+"treatment of foot disorders."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:187
+#: includes/schemas/sub-types/LocalBusiness/EmergencyService/PoliceStation.php:41
+msgid "Police Station"
+msgstr ""
+
+#: includes/functions.php:485
+msgid "Polish Zloty"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:253
+msgid "Portfolio"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-categories-select.php:46
+msgid "Post Categories Select"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:399
+#: includes/admin/post-type/schema-columns.php:136
+msgid "Post Category"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:641
+msgid "Post Content"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:642
+msgid "Post Excerpt"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:397
+#: includes/admin/post-type/schema-columns.php:134
+msgid "Post Format"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-formats-select.php:46
+msgid "Post Formats Select"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:410
+#: includes/admin/post-type/schema-columns.php:143
+msgid "Post id"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:221
+#: includes/schemas/sub-types/LocalBusiness/GovernmentOffice/PostOffice.php:41
+msgid "Post Office"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:643
+msgid "Post Permalink"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:398
+#: includes/admin/post-type/schema-columns.php:135
+msgid "Post Status"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-statuses-select.php:46
+msgid "Post Status Select"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:640
+msgid "Post Title"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:396
+#: includes/admin/post-type/schema-columns.php:133
+msgid "Post Type"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:605
+msgid "Post Type Archives"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:25
+msgctxt "post type general name"
+msgid "Schema"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:26
+msgctxt "post type singular name"
+msgid "Schema"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1045
+msgid "Post Types"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-post-type-select.php:46
+msgid "Post Types Select"
+msgstr ""
+
+#: includes/functions.php:486
+msgid "Pounds Sterling"
+msgstr ""
+
+#: includes/schemas/types/Event.php:219
+msgid "Pre Order"
+msgstr ""
+
+#: includes/admin/extensions.php:31
+msgid "Premium"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:194
+msgid "Preparation Time"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/TechArticle.php:87
+msgid "Prerequisites needed to fulfill steps in article."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:721
+msgid "Pretty Print"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:118
+msgid "Preview schema"
+msgstr ""
+
+#: includes/schemas/types/Product.php:215
+#: includes/schemas/types/SoftwareApplication.php:241
+msgid "Price"
+msgstr ""
+
+#: includes/schemas/types/Event.php:205
+msgid "Price Currency"
+msgstr ""
+
+#: includes/schemas/types/Service.php:166
+#: includes/schemas/types/LocalBusiness.php:377
+msgid "Price Range"
+msgstr ""
+
+#: includes/schemas/types/Product.php:261
+#: includes/schemas/types/SoftwareApplication.php:249
+msgid "Price Valid Until"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:280
+msgid "Primary Care"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PrimaryCare.php:41
+msgid "PrimaryCare"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:83
+msgid "Print Column"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:90
+#: includes/schemas/sub-types/Article/NewsArticle.php:104
+msgid "Print Edition"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:97
+msgid "Print page"
+msgstr ""
+
+#: includes/schemas/types/Product.php:52
+msgid "Product"
+msgstr ""
+
+#: includes/schemas/types/Product.php:288
+#: includes/schemas/types/SoftwareApplication.php:276
+msgid "Product availability."
+msgstr ""
+
+#: includes/schemas/types/Product.php:304
+#: includes/schemas/types/SoftwareApplication.php:291
+msgid "Product condition."
+msgstr ""
+
+#: includes/schemas/types/Product.php:162
+#: includes/schemas/types/SoftwareApplication.php:223
+msgid "Product description."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:159
+#: includes/schemas/sub-types/LocalBusiness/ProfessionalService.php:41
+msgid "Professional Service"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/LegalService/Attorney.php:52
+msgid "Professional service: Attorney."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/TechArticle.php:90
+msgid "Proficiency Level"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/TechArticle.php:94
+msgid ""
+"Proficiency needed for this content; expected values: (Beginner, Expert)"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:119
+#: includes/schemas/sub-types/WebPage/ProfilePage.php:41
+msgid "Profile Page"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:129
+msgid "Properties"
+msgstr ""
+
+#: includes/admin/meta-properties.php:315
+msgid ""
+"Properties maybe not be available before saving the post! (If you are using "
+"Gutenberg editor, save and refresh the page)"
+msgstr ""
+
+#: includes/functions.php:1057 includes/functions.php:1194
+#: includes/schemas/types/Article.php:158
+#: includes/schemas/sub-types/Article/SatiricalArticle.php:74
+#: includes/schemas/sub-types/Article/ScholarlyArticle.php:74
+#: includes/schemas/sub-types/Article/NewsArticle.php:79
+#: includes/schemas/sub-types/Article/NewsArticle.php:125
+#: includes/schemas/sub-types/Article/TechArticle.php:79
+#: includes/schemas/sub-types/Article/TechArticle.php:111
+#: includes/schemas/sub-types/Article/SocialMediaPosting.php:74
+#: includes/schemas/sub-types/Article/AdvertiserContentArticle.php:74
+#: includes/schemas/sub-types/Article/Report.php:79
+#: includes/schemas/sub-types/Article/Report.php:104
+#: includes/schemas/sub-types/WebPage/QAPage.php:71
+#: includes/schemas/sub-types/Article/SocialMediaPosting/DiscussionForumPosting.php:86
+msgid "Properties of"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:751
+msgid "Properties will show under tabs."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:337
+msgid "Provide your social profile information to a Google Knowledge panel."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:451
+msgid "Provide your social profiles information to a Google Knowledge panel."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/ProfessionalService.php:52
+msgid "Provider of professional services."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:281
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Psychiatric.php:41
+msgid "Psychiatric"
+msgstr ""
+
+#: includes/schemas/types/Place.php:215
+msgid "Public Access"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:282
+msgid "Public Health"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:290
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/PublicSwimmingPool.php:41
+msgid "Public Swimming Pool"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:227
+msgid "Publication date for the job posting."
+msgstr ""
+
+#: includes/schemas/types/Event.php:126
+#: includes/schemas/sub-types/Event/PublicationEvent.php:41
+msgid "Publication Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/PublicationEvent.php:52
+msgid "Publication event."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PublicHealth.php:41
+msgid "PublicHealth"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:645
+msgid "Publish Date"
+msgstr ""
+
+#: includes/functions.php:1076 includes/schemas/types/WebPage.php:170
+#: includes/schemas/types/Movie.php:175 includes/schemas/types/Review.php:194
+#: includes/schemas/types/BlogPosting.php:165
+#: includes/schemas/types/Course.php:156 includes/schemas/types/FAQPage.php:157
+#: includes/schemas/types/HowTo.php:165 includes/schemas/types/Recipe.php:164
+#: includes/schemas/sub-types/Article/BlogPosting.php:162
+msgid "Published Date"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:599
+#: includes/admin/class-setup-wizard.php:604
+#: includes/admin/settings/register-settings.php:268
+msgid "Publisher Logo"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:605
+#: includes/admin/settings/register-settings.php:269
+msgid ""
+"Publisher Logo should have a wide aspect ratio, not a square icon, it should "
+"be no wider than 600px, and no taller than 60px."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:120
+#: includes/schemas/sub-types/WebPage/QAPage.php:41
+msgid "Q&A Page"
+msgstr ""
+
+#: includes/schemas/types/FAQPage.php:201
+#: includes/schemas/types/FAQPage.php:206
+msgid "Question"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:260
+#: includes/schemas/types/FAQPage.php:191
+msgid "Question & Answer"
+msgstr ""
+
+#: includes/admin/settings/display-settings.php:86
+msgid "Quick Configuration Wizard"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:160
+#: includes/schemas/sub-types/LocalBusiness/RadioStation.php:41
+msgid "Radio Station"
+msgstr ""
+
+#: includes/integrations/rank-math.php:61
+msgid "Rank Math schema.org markup output will be removed."
+msgstr ""
+
+#: includes/functions.php:959
+msgid "Rating can not be larger than Scale!"
+msgstr ""
+
+#: includes/schemas/types/Product.php:346 includes/schemas/types/Review.php:231
+#: includes/schemas/types/SoftwareApplication.php:333
+#: includes/schemas/types/LocalBusiness.php:432
+#: includes/schemas/types/Recipe.php:319
+msgid "Rating Value"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:149
+msgid "Ready!"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:161
+#: includes/schemas/sub-types/LocalBusiness/RealEstateAgent.php:41
+msgid "Real Estate Agent"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:52
+msgid "Recipe"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:226
+msgid "Recipe Category"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:233
+msgid "Recipe Cuisine"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:247
+msgid "Recipe Ingredients"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:266
+msgid "Recipe Instructions"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:426
+msgid ""
+"Recommended. An internationalized version of the phone number, starting with "
+"the \"+\" symbol and country code (+1 in the US and Canada)."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:434
+msgid "Recommended. The URL of contact page."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:162
+#: includes/schemas/sub-types/LocalBusiness/RecyclingCenter.php:41
+msgid "Recycling Center"
+msgstr ""
+
+#: includes/schemas/types/Event.php:333
+#: includes/schemas/types/JobPosting.php:287
+#: includes/schemas/types/Service.php:213 includes/schemas/types/Person.php:234
+msgid "Region / State or Province"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:226
+msgid "Release Notes"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:318
+msgid "Remotly"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:100 includes/admin/scripts.php:36
+#: includes/admin/class-setup-wizard.php:81
+msgid "Remove"
+msgstr ""
+
+#: includes/schemas/types/Article.php:119
+#: includes/schemas/sub-types/Article/Report.php:44
+msgid "Report"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/Report.php:83
+msgid "Report Number"
+msgstr ""
+
+#: includes/admin/admin-functions.php:251
+msgid "Reservations"
+msgstr ""
+
+#: includes/schemas/types/Place.php:146
+#: includes/schemas/sub-types/Place/Residence.php:41
+msgid "Residence"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:255
+#: includes/schemas/sub-types/LocalBusiness/LodgingBusiness/Resort.php:41
+msgid "Resort"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:214
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Restaurant.php:41
+msgid "Restaurant"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:277
+#: includes/admin/class-setup-wizard.php:259
+msgid "Return to the WordPress Dashboard"
+msgstr ""
+
+#: includes/acf/acf-fields/acf-star-rating.php:311
+msgid "Return Type"
+msgstr ""
+
+#: includes/schemas/types/Product.php:314 includes/schemas/types/Review.php:52
+#: includes/schemas/types/SoftwareApplication.php:301
+#: includes/schemas/types/LocalBusiness.php:400
+#: includes/schemas/types/Recipe.php:286
+msgid "Review"
+msgstr ""
+
+#: includes/schemas/types/Product.php:339
+#: includes/schemas/types/SoftwareApplication.php:326
+#: includes/schemas/types/LocalBusiness.php:425
+#: includes/schemas/types/Recipe.php:311
+msgid "Review Author"
+msgstr ""
+
+#: includes/schemas/types/Review.php:217
+msgid "Review Body"
+msgstr ""
+
+#: includes/schemas/types/Product.php:353
+#: includes/schemas/types/SoftwareApplication.php:340
+#: includes/schemas/types/LocalBusiness.php:439
+#: includes/schemas/types/Recipe.php:326
+msgid "Review Count"
+msgstr ""
+
+#: includes/schemas/types/Review.php:171
+msgid "Review Name"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:198
+msgid "Reviewed By Person"
+msgstr ""
+
+#: includes/schemas/types/Review.php:155
+msgid "Reviewed Item Name"
+msgstr ""
+
+#: includes/schemas/types/Review.php:151
+msgid "Reviewed item or content type."
+msgstr ""
+
+#: includes/schemas/types/Review.php:126
+msgid "Reviewed Item Type"
+msgstr ""
+
+#: includes/admin/admin-bar-menu.php:58 includes/admin/admin-bar-menu.php:70
+#: includes/admin/admin-bar-menu.php:78 includes/admin/admin-bar-menu.php:82
+msgid "Rich Results Test"
+msgstr ""
+
+#: includes/admin/admin-functions.php:255
+msgid "Roadside Assistance"
+msgstr ""
+
+#: includes/functions.php:487
+msgid "Romanian Leu"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:241
+#: includes/schemas/sub-types/LocalBusiness/HomeAndConstructionBusiness
+#: /RoofingContractor.php:41
+msgid "Roofing Contractor"
+msgstr ""
+
+#: includes/schemas/types/Place.php:155
+#: includes/schemas/sub-types/Place/Accommodation/Room.php:41
+msgid "Room"
+msgstr ""
+
+#: includes/functions.php:488
+msgid "Russian Ruble"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:208
+msgid "Salary Per Unit"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:220
+msgid "Salary per unit."
+msgstr ""
+
+#: includes/schemas/types/Event.php:127
+#: includes/schemas/sub-types/Event/SaleEvent.php:41
+msgid "Sale Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/SaleEvent.php:52
+msgid "Sale event."
+msgstr ""
+
+#: includes/admin/admin-functions.php:250
+msgid "Sales"
+msgstr ""
+
+#: includes/admin/meta-tax.php:31 includes/extensions/sameAs.php:81
+msgid "sameAs"
+msgstr ""
+
+#: includes/schemas/types/Article.php:120
+#: includes/schemas/sub-types/Article/SatiricalArticle.php:44
+msgid "Satirical Article"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:136 includes/admin/class-menu.php:28
+#: includes/admin/class-menu.php:29 includes/admin/meta-tax.php:27
+#: includes/admin/post-type/schema-wp-submit.php:67
+msgid "Schema"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:29
+msgctxt "schema"
+msgid "Add New"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:178
+#: includes/admin/class-setup-wizard.php:186
+msgid "Schema &rsaquo; Setup Wizard"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:99
+msgid "Schema added."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:97
+msgid "Schema created."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:105
+msgid "Schema draft updated."
+msgstr ""
+
+#: includes/admin/class-capabilities.php:36
+msgid "Schema Manager"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:703
+msgid "Schema Markup Output"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:711
+#: includes/admin/settings/register-settings.php:724
+msgid "Schema markup script output"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:343
+msgid "Schema Markup Type"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:668
+msgid ""
+"Schema plugin will fetch audio data automatically from embedded audio. "
+"(configure it under Schema > Types)"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:652
+msgid ""
+"Schema plugin will fetch video data automatically from embedded video. "
+"(configure it under Schema > Types)"
+msgstr ""
+
+#: includes/integrations/yoast-seo.php:104
+msgid ""
+"Schema plugin will override Yoast SEO output to avoid markup duplication. "
+"Check this box if you would like to disable Schema markup and use Yoast SEO "
+"output instead."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:738
+msgid ""
+"Schema plugin will show a Test link in admin toolbar. Clicking on that link "
+"will take you directly to Google Rich Snippets Testing Tool."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:660
+msgid ""
+"Schema plugin will show new post meta feilds to allow you insert video "
+"details in page editor."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:677
+msgid "Schema plugin will use YoouTube API to fetch video data automatically."
+msgstr ""
+
+#. Name of the plugin
+msgid "Schema Premium"
+msgstr ""
+
+#: schema-premium.php:215
+msgid ""
+"Schema Premium plugin can not be activated, and it has deactivated! To avoid "
+"any conflict, deactivate Schema free plugin and try again."
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:84
+msgid ""
+"Schema Premium plugin will show Advanced Custom Fields (ACF) admin menu item."
+msgstr ""
+
+#: includes/admin/meta-properties.php:53
+msgid "Schema Properties"
+msgstr ""
+
+#. %s: date and time of the revision
+#: includes/admin/post-type/schema-post-type.php:96
+#, php-format
+msgid "Schema restored to revision from %s"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:94
+#: includes/admin/post-type/schema-post-type.php:98
+msgid "Schema saved."
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:101
+#, php-format
+msgid "Schema scheduled for: <strong>%1$s</strong>."
+msgstr ""
+
+#: includes/admin/class-menu.php:37
+msgid "Schema Settings"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:105
+msgid "Schema Setup"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:105
+msgid "Schema Setup Wizard"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:39
+#: includes/admin/post-type/schema-columns.php:27
+msgid "Schema Type"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:410
+msgid "Schema type"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:112
+msgid "Schema Type Setup"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:112
+msgid "Schema Type Wizard"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:91
+msgid "Schema updated."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:667
+msgid ""
+"Schema will now take care of all the needed technical optimization of your "
+"site content."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:144
+#: includes/admin/settings/register-settings.php:983
+#: includes/admin/settings/contextual-help.php:48
+msgid "Schemas"
+msgstr ""
+
+#: includes/schemas/types/Article.php:121
+#: includes/schemas/sub-types/Article/ScholarlyArticle.php:44
+msgid "Scholarly Article"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:261
+msgid "School or College"
+msgstr ""
+
+#: includes/schemas/types/Event.php:128
+#: includes/schemas/sub-types/Event/ScreeningEvent.php:41
+msgid "Screening Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/ScreeningEvent.php:52
+msgid "Screening Event."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:212
+msgid "Screenshot"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1051
+msgid "Search Results"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:35
+msgid "Search Schemas"
+msgstr ""
+
+#: includes/functions.php:1073 includes/schemas/types/FAQPage.php:146
+#: includes/schemas/types/HowTo.php:154
+msgid "Secondary title for this article."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:153
+msgid "Secondary title for this content."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:146
+msgid "Secondary title for this movie."
+msgstr ""
+
+#: includes/schemas/types/Review.php:183
+msgid "Secondary title for this review."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:159
+msgid "Secondary title for this web page."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:154
+#: includes/schemas/sub-types/Article/BlogPosting.php:151
+msgid "Secondary title of the blog post."
+msgstr ""
+
+#: includes/admin/class-notices.php:82
+msgid "Security check failed"
+msgstr ""
+
+#: includes/schemas/types/Product.php:276
+#: includes/schemas/types/Product.php:297 includes/schemas/types/Review.php:131
+#: includes/schemas/types/SoftwareApplication.php:169
+#: includes/schemas/types/SoftwareApplication.php:264
+#: includes/schemas/types/SoftwareApplication.php:284
+msgid "Select"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:623
+msgid "Select About Page"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:641
+msgid "Select Checkout Page"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:632
+msgid "Select Contact Page"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:402
+msgid "Select custom field key"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:814
+msgid "Select Image"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:583
+msgid "Select Markup Type"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:91
+msgid "Select more specific type of"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:783
+#: includes/admin/settings/register-settings.php:1646
+msgid "Select One"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:333
+msgid "Select Schema Type"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:344
+msgid "Select Schema type which describes your content best"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:247
+msgid "Select Site Type"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:163
+#: includes/schemas/sub-types/LocalBusiness/SelfStorage.php:41
+msgid "Self Storage"
+msgstr ""
+
+#: includes/schemas/types/Product.php:307
+#: includes/schemas/types/SoftwareApplication.php:294
+msgid "Seller"
+msgstr ""
+
+#: includes/schemas/types/Service.php:52
+msgid "Service"
+msgstr ""
+
+#: includes/schemas/types/Service.php:134
+msgid "Service Type"
+msgstr ""
+
+#: includes/extensions/video-object-details.php:266
+msgid "Set to true if the video is, has been, or will be streamed live."
+msgstr ""
+
+#: includes/admin/class-menu.php:38
+msgid "Settings"
+msgstr ""
+
+#: includes/admin/class-notices.php:61
+msgid "Settings successfully imported"
+msgstr ""
+
+#: includes/admin/class-notices.php:49
+#: includes/admin/settings/register-settings.php:857
+msgid "Settings updated."
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:426
+msgid "Setup location rules"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:323
+#: includes/schemas/sub-types/LocalBusiness/Store/ShoeStore.php:41
+msgid "Shoe Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:164
+#: includes/schemas/sub-types/LocalBusiness/ShippingCenter.php:41
+msgid "Shopping Center"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:544
+msgid "Show Homepage"
+msgstr ""
+
+#: includes/functions.php:489
+msgid "Singapore Dollar"
+msgstr ""
+
+#: includes/extensions/audio-object.php:66
+msgid "Single audio"
+msgstr ""
+
+#: includes/extensions/video-object.php:66
+msgid "Single video"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:471
+msgid "Site Alternate Name"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:636
+msgid "Site Description"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:635
+#: includes/admin/settings/register-settings.php:463
+msgid "Site Name"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:129
+#: includes/admin/class-setup-wizard.php:335
+#: includes/admin/class-setup-wizard.php:347
+#: includes/admin/settings/register-settings.php:243
+msgid "Site Type"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:637
+msgid "Site URL"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:291
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/SkiResort.php:42
+msgid "Ski Resort"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:373
+#: includes/admin/class-setup-wizard.php:436
+#: includes/admin/class-setup-wizard.php:580
+#: includes/admin/class-setup-wizard.php:653
+msgid "Skip this step"
+msgstr ""
+
+#: includes/schemas/types/Product.php:165
+msgid "SKU"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:251
+msgid "Small Offline Business"
+msgstr ""
+
+#: includes/schemas/types/Place.php:226
+msgid "Smoking Allowed"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:139
+msgid "Social"
+msgstr ""
+
+#: includes/schemas/types/Event.php:129
+#: includes/schemas/sub-types/Event/SocialEvent.php:41
+msgid "Social Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/SocialEvent.php:52
+msgid "Social event."
+msgstr ""
+
+#: includes/schemas/types/Article.php:122
+#: includes/schemas/sub-types/Article/SocialMediaPosting.php:44
+msgid "Social Media Posting"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:449
+#: includes/admin/settings/register-settings.php:336
+#: includes/admin/settings/register-settings.php:1052
+msgid "Social Profiles"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:52
+msgid "Software Application"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:197
+msgid "Software Version"
+msgstr ""
+
+#: includes/schemas/types/Event.php:218
+msgid "Sold Out"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:262
+msgid "Something else"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:554
+#: includes/admin/class-setup-wizard.php:557
+#: includes/admin/settings/register-settings.php:397
+msgid "SoundCloud"
+msgstr ""
+
+#: includes/functions.php:490
+msgid "South African rand"
+msgstr ""
+
+#: includes/functions.php:477
+msgid "South Korean Won"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1046
+msgid "Special Pages"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:407
+#: includes/admin/post-type/schema-columns.php:142
+msgid "Specific Page"
+msgstr ""
+
+#: includes/admin/meta-types-locations.php:401
+#: includes/admin/post-type/schema-columns.php:138
+msgid "Specific Post"
+msgstr ""
+
+#: includes/admin/post-type/schema-columns.php:40
+msgid "Specific Type"
+msgstr ""
+
+#: includes/schemas/sub-types/SoftwareApplication/MobileApplication.php:72
+msgid ""
+"Specifies specific carrier(s) requirements for the application (e.g. an "
+"application may only work on a specific carrier network)."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:506
+msgid ""
+"Specify a default image to be a fallback for missing Featured Images. "
+"(should be at least 1200 pixels wide)"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:426
+#: includes/admin/settings/register-settings.php:324
+msgid ""
+"Specify the image of your organization's logo to be used in Google Search "
+"results and in the Knowledge Graph.<br />Learn more about"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:324
+msgid "Sporting Goods Store"
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/Store/SportingGoodsStore.php:41
+msgid "SportingGoods Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:165
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation.php:41
+msgid "Sports Activity Location"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:292
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/SportsClub.php:42
+msgid "Sports Club"
+msgstr ""
+
+#: includes/schemas/types/Event.php:130
+#: includes/schemas/sub-types/Event/SportsEvent.php:41
+msgid "Sports Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/SportsEvent.php:52
+msgid "Sports event."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/StadiumOrArena.php:41
+msgid "Stadium Or Arena"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:293
+msgid "Stadium or Arena"
+msgstr ""
+
+#: includes/schemas/types/Event.php:164
+msgid "Start Date"
+msgstr ""
+
+#: includes/schemas/types/Place.php:307
+#: includes/schemas/types/LocalBusiness.php:513
+msgid "State or Province"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:248
+msgid "Steps"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:166
+#: includes/schemas/sub-types/LocalBusiness/Store.php:41
+msgid "Store"
+msgstr ""
+
+#: includes/schemas/types/Event.php:303 includes/schemas/types/Place.php:272
+#: includes/schemas/types/JobPosting.php:257
+#: includes/schemas/types/Service.php:183 includes/schemas/types/Person.php:204
+#: includes/schemas/types/LocalBusiness.php:478
+msgid "Street Address"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-address.php:173
+#: includes/acf/acf-extensions/acf-address.php:195
+msgid "Street address"
+msgstr ""
+
+#: includes/schemas/types/Event.php:311 includes/schemas/types/Place.php:281
+#: includes/schemas/types/JobPosting.php:265
+#: includes/schemas/types/Service.php:191 includes/schemas/types/Person.php:212
+#: includes/schemas/types/LocalBusiness.php:487
+msgid "Street Address 2"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-address.php:179
+#: includes/acf/acf-extensions/acf-address.php:201
+msgid "Street address 2"
+msgstr ""
+
+#: includes/schemas/types/Event.php:318 includes/schemas/types/Place.php:290
+#: includes/schemas/types/JobPosting.php:272
+#: includes/schemas/types/Service.php:198 includes/schemas/types/Person.php:219
+#: includes/schemas/types/LocalBusiness.php:496
+msgid "Street Address 3"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-address.php:185
+#: includes/acf/acf-extensions/acf-address.php:207
+msgid "Street address 3"
+msgstr ""
+
+#: includes/acf/acf-extensions/acf-address.php:213
+msgid "Street address 4"
+msgstr ""
+
+#: includes/admin/admin-bar-menu.php:46 includes/admin/admin-bar-menu.php:54
+msgid "Structured Data Testing Tool"
+msgstr ""
+
+#: includes/schemas/types/Place.php:156
+#: includes/schemas/sub-types/Place/Accommodation/Suite.php:41
+msgid "Suite"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:228
+msgid "Supplies"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:243
+msgid "Supply name"
+msgstr ""
+
+#: includes/functions.php:491
+msgid "Swedish Krona"
+msgstr ""
+
+#: includes/functions.php:492
+msgid "Swiss Franc"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:597
+msgid "Tags"
+msgstr ""
+
+#: includes/functions.php:493
+msgid "Taiwan New Dollars"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:230
+#: includes/schemas/sub-types/LocalBusiness/HealthAndBeautyBusiness/TattooParlor.php:41
+msgid "Tattoo Parlor"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:611
+msgid "Taxonomies"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1692
+#: includes/admin/settings/register-settings.php:1780
+msgid "Taxonomy"
+msgstr ""
+
+#: includes/schemas/types/Article.php:123
+#: includes/schemas/sub-types/Article/TechArticle.php:44
+msgid "Tech Article"
+msgstr ""
+
+#: includes/admin/admin-functions.php:247
+msgid "Technical Support"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:312
+msgid "Telecommuting"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:425
+#: includes/schemas/types/Place.php:199 includes/schemas/types/Service.php:158
+#: includes/schemas/types/Person.php:188
+#: includes/schemas/types/LocalBusiness.php:369
+msgid "Telephone"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:167
+#: includes/schemas/sub-types/LocalBusiness/TelevisionStation.php:41
+msgid "Television Station"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:448
+msgid "Tell Google to show a Sitelinks search box."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:457
+msgid "Tell Google to show your site name in search results."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:294
+#: includes/schemas/sub-types/LocalBusiness/SportsActivityLocation/TennisComplex.php:41
+msgid "Tennis Complex"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:266
+#: includes/schemas/sub-types/WebPage/QAPage.php:107
+msgid "Text"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:555
+msgid "Text for the Homepage. Default is Home"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:271
+msgid "Text of this step"
+msgstr ""
+
+#: includes/functions.php:494
+msgid "Thai Baht"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:321
+msgid ""
+"Thank you for choosing Schema to power your website! This quick setup wizard "
+"will help you configure the basic settings. <strong>It’s completely optional "
+"and shouldn’t take longer than two minutes.</strong>"
+msgstr ""
+
+#: includes/schemas/types/Event.php:209
+msgid "The 3-letter currency code."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:197
+msgid ""
+"The actual base salary for the job, as provided by the employer (not an "
+"estimate)."
+msgstr ""
+
+#: includes/schemas/types/Review.php:221
+msgid "The actual body of the review."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:436
+msgid "The aggregate rating for the business."
+msgstr ""
+
+#: includes/schemas/types/Product.php:350
+#: includes/schemas/types/SoftwareApplication.php:337
+msgid "The aggregate rating for the product."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:323
+msgid "The aggregate rating for the service."
+msgstr ""
+
+#: includes/functions.php:1099 includes/schemas/types/FAQPage.php:180
+#: includes/schemas/types/HowTo.php:188
+msgid "The author name of this article."
+msgstr ""
+
+#: includes/schemas/types/Course.php:178 includes/schemas/types/Recipe.php:183
+msgid "The author name of this content."
+msgstr ""
+
+#: includes/schemas/types/Product.php:343
+#: includes/schemas/types/SoftwareApplication.php:330
+msgid "The author name of this product review."
+msgstr ""
+
+#: includes/schemas/types/Review.php:213
+#: includes/schemas/types/LocalBusiness.php:429
+msgid "The author name of this review."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:315
+msgid "The author name of this service review."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:209 includes/schemas/types/Movie.php:205
+msgid "The author name of this web page."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:95
+msgid "The author of the question."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:184
+#: includes/schemas/sub-types/Article/BlogPosting.php:181
+msgid ""
+"The author of this content or rating. Please note that author is special in "
+"that HTML 5 provides a special mechanism for indicating authorship via the "
+"rel tag. That is equivalent to this and may be used interchangeably."
+msgstr ""
+
+#: includes/schemas/types/Event.php:222
+msgid "The availability of the offer."
+msgstr ""
+
+#: includes/schemas/types/Product.php:146
+msgid "The brand of the product."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1365
+#, php-format
+msgid "The callback function used for the %s setting is missing."
+msgstr ""
+
+#: includes/schemas/types/Product.php:380
+#: includes/schemas/types/SoftwareApplication.php:344
+#: includes/schemas/types/LocalBusiness.php:466
+#: includes/schemas/types/Recipe.php:330
+msgid "The count of total number of reviews."
+msgstr ""
+
+#: includes/schemas/types/Event.php:353
+#: includes/schemas/types/JobPosting.php:307
+#: includes/schemas/types/Service.php:233 includes/schemas/types/Person.php:254
+msgid ""
+"The country. For example, USA. You can also provide the two-letter ISO 3166-"
+"1 alpha-2 country code."
+msgstr ""
+
+#: includes/functions.php:1134 includes/schemas/types/Event.php:259
+#: includes/schemas/types/BlogPosting.php:212
+msgid ""
+"The cssSelector references the class name. (Add a class name around each "
+"paywalled section of your page)"
+msgstr ""
+
+#: includes/schemas/types/Product.php:211
+#: includes/schemas/types/SoftwareApplication.php:237
+msgid "The currency of the price."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:205
+msgid "The currency used for the main salary information in this job posting."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:237
+msgid "The date after when the job posting is not valid."
+msgstr ""
+
+#: includes/schemas/types/Product.php:265
+#: includes/schemas/types/SoftwareApplication.php:253
+msgid "The date after which the price will no longer be available."
+msgstr ""
+
+#: includes/schemas/types/Event.php:229
+msgid ""
+"The date and time when tickets go on sale (only required on date-restricted "
+"offers)."
+msgstr ""
+
+#: includes/functions.php:1090 includes/schemas/types/FAQPage.php:171
+#: includes/schemas/types/HowTo.php:179
+msgid "The date on which the article was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:177
+#: includes/schemas/sub-types/Article/BlogPosting.php:174
+msgid "The date on which the blog post was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/Course.php:169
+msgid "The date on which the CreativeWork was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:189
+msgid "The date on which the movie or this web page was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/Movie.php:169
+msgid "The date on which the movie was created."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:176
+msgid "The date on which the recipe was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/Review.php:206
+msgid "The date on which the review was most recently modified"
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:184
+msgid "The date on which the web page was most recently modified"
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:94
+msgid "The edition of the print product in which the NewsArticle appears."
+msgstr ""
+
+#: includes/schemas/types/Person.php:184
+msgid "The email address of the person."
+msgstr ""
+
+#: includes/schemas/types/Event.php:178
+msgid "The end date and time of the event."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:75
+msgid "The floor level for an Accommodation in a multi-storey building."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:79
+msgid "The full text of the short form of the question."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:357
+msgid "The fully-qualified URL of the specific business location."
+msgstr ""
+
+#: includes/schemas/types/Service.php:146
+msgid "The fully-qualified URL of the specific service location."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:551
+msgid ""
+"The Geo location of the business. The precision should be at least 5 decimal "
+"places."
+msgstr ""
+
+#: includes/schemas/types/Place.php:344
+msgid ""
+"The Geo location of the place. The precision should be at least 5 decimal "
+"places."
+msgstr ""
+
+#: includes/schemas/types/Product.php:183
+msgid ""
+"The GTIN-12 code of the product, or the product to which the offer refers."
+msgstr ""
+
+#: includes/schemas/types/Product.php:190
+msgid ""
+"The GTIN-13 code of the product, or the product to which the offer refers."
+msgstr ""
+
+#: includes/schemas/types/Product.php:197
+msgid ""
+"The GTIN-14 code of the product, or the product to which the offer refers."
+msgstr ""
+
+#: includes/schemas/types/Product.php:176
+msgid ""
+"The GTIN-8 code of the product, or the product to which the offer refers."
+msgstr ""
+
+#: includes/schemas/types/Product.php:235
+msgid ""
+"The highest price of all offers available. (use this if you have aggregate "
+"offers within a product)"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:170
+msgid "The industry associated with the job position."
+msgstr ""
+
+#: includes/schemas/types/Person.php:169
+msgid "The job title of the person (for example, Financial Manager)."
+msgstr ""
+
+#: includes/schemas/types/Event.php:362
+msgid ""
+"The latitude of the business location. The precision should be at least 5 "
+"decimal places."
+msgstr ""
+
+#: includes/schemas/types/Service.php:242
+msgid ""
+"The latitude of the serviice location. The precision should be at least 5 "
+"decimal places."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:198
+msgid "The length of time it takes to prepare the dish."
+msgstr ""
+
+#: includes/schemas/types/Event.php:329
+#: includes/schemas/types/JobPosting.php:283
+#: includes/schemas/types/Service.php:209 includes/schemas/types/Person.php:230
+msgid "The locality. For example, Mountain View."
+msgstr ""
+
+#: includes/schemas/types/Event.php:369
+msgid ""
+"The longitude of the business location. The precision should be at least 5 "
+"decimal places"
+msgstr ""
+
+#: includes/schemas/types/Service.php:250
+msgid ""
+"The longitude of the serviice location. The precision should be at least 5 "
+"decimal places."
+msgstr ""
+
+#: includes/schemas/types/Event.php:202
+msgid ""
+"The lowest available price, including service charges and fees, of this type "
+"of ticket."
+msgstr ""
+
+#: includes/schemas/types/Product.php:227
+msgid ""
+"The lowest price of all offers available. (use this if you have aggregate "
+"offers within a product)"
+msgstr ""
+
+#: includes/schemas/types/Product.php:204
+msgid ""
+"The Manufacturer Part Number (MPN) of the product, or the product to which "
+"the offer refers."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/PrimaryCare.php:52
+msgid ""
+"The medical care by a physician, or other health-care professional, who is "
+"the patient's first contact with the health-care system and who may "
+"recommend a specialist if necessary."
+msgstr ""
+
+#: includes/functions.php:1058
+msgid ""
+"The most generic kind of creative work, including books, movies, photographs,"
+" software programs, etc."
+msgstr ""
+
+#: includes/functions.php:1195
+msgid "The most generic type of item."
+msgstr ""
+
+#: includes/schemas/types/Product.php:311
+#: includes/schemas/types/SoftwareApplication.php:298
+msgid "The name of organization offering the product."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:349
+msgid "The name of the business."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:138
+msgid "The name of the dish."
+msgstr ""
+
+#: includes/schemas/types/Event.php:153
+msgid "The name of the event."
+msgstr ""
+
+#: includes/functions.php:1218
+msgid "The name of the item."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:153
+msgid "The name of the movie."
+msgstr ""
+
+#: includes/schemas/types/Person.php:130
+msgid "The name of the person."
+msgstr ""
+
+#: includes/schemas/types/Place.php:179
+msgid "The name of the place."
+msgstr ""
+
+#: includes/schemas/types/Product.php:138
+msgid "The name of the product."
+msgstr ""
+
+#: includes/schemas/types/Review.php:159
+msgid "The name of the reviewed item."
+msgstr ""
+
+#: includes/schemas/types/Service.php:130
+msgid "The name of the service."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:146
+msgid "The name of the software."
+msgstr ""
+
+#. Description of the plugin
+msgid "The next generation of Structured Data."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/QAPage.php:87
+msgid ""
+"The number of answers this question has received. This may also be 0 for "
+"questions with no answers."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:244
+msgid "The number of calories in each serving."
+msgstr ""
+
+#: includes/schemas/types/Product.php:243
+msgid ""
+"The number of offers for the product. (use this if you have aggregate offers "
+"within a product)"
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:99
+msgid ""
+"The number of rooms (excluding bathrooms and closets) of the accommodation "
+"or lodging business."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/NewsArticle.php:87
+msgid ""
+"The number of the column in which the NewsArticle appears in the print "
+"edition."
+msgstr ""
+
+#: includes/schemas/sub-types/Article/Report.php:87
+msgid ""
+"The number or other unique designator assigned to a Report by the publishing "
+"organization."
+msgstr ""
+
+#: includes/schemas/types/Product.php:219
+#: includes/schemas/types/SoftwareApplication.php:245
+msgid "The offer price of a product."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:146
+msgid "The organization offering the job position."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Residence.php:52
+msgid "The place where a person lives."
+msgstr ""
+
+#: includes/schemas/types/Event.php:345
+#: includes/schemas/types/JobPosting.php:299
+#: includes/schemas/types/Service.php:225 includes/schemas/types/Person.php:246
+msgid "The postal code. For example, 94043."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Physiotherapy.php:52
+msgid ""
+"The practice of treatment of disease, injury, or deformity by physical "
+"methods such as massage, heat treatment, and exercise rather than by drugs "
+"or surgery."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:389
+msgid "The price range of the business, for example: $$$."
+msgstr ""
+
+#: includes/schemas/types/Service.php:178
+msgid "The price range of the service, for example: $$$."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:223
+msgid ""
+"The quantity produced by the recipe. For example: number of people served, "
+"or number of servings."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:404
+msgid "The rating given for this business."
+msgstr ""
+
+#: includes/schemas/types/Product.php:318
+#: includes/schemas/types/SoftwareApplication.php:305
+msgid "The rating given for this product."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:290
+msgid "The rating given for this service."
+msgstr ""
+
+#: includes/schemas/types/Review.php:235
+msgid "The rating given in this review."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:237
+msgid ""
+"The region associated with your recipe. For example, \"French\", "
+"Mediterranean\", or \"American\"."
+msgstr ""
+
+#: includes/schemas/types/Event.php:337
+#: includes/schemas/types/JobPosting.php:291
+#: includes/schemas/types/Service.php:217 includes/schemas/types/Person.php:238
+msgid "The region. For example, CA."
+msgstr ""
+
+#: includes/schemas/sub-types/LocalBusiness/MedicalBusiness/Optometric.php:52
+msgid ""
+"The science or practice of testing visual acuity and prescribing corrective "
+"lenses."
+msgstr ""
+
+#: includes/schemas/types/Event.php:168
+msgid "The start date and time of the event."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:273
+msgid "The steps to make the dish."
+msgstr ""
+
+#: includes/schemas/types/Product.php:169
+msgid "The Stock Keeping Unit (SKU)."
+msgstr ""
+
+#: includes/schemas/types/Event.php:307
+#: includes/schemas/types/JobPosting.php:261
+#: includes/schemas/types/Service.php:187 includes/schemas/types/Person.php:208
+msgid "The street address. For example, 1600 Amphitheatre Pkwy."
+msgstr ""
+
+#: includes/schemas/types/Person.php:192
+msgid "The telephone number of the person."
+msgstr ""
+
+#: includes/schemas/types/Place.php:203
+msgid "The telephone number."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:207
+msgid "The time it takes to actually cook the dish."
+msgstr ""
+
+#: includes/schemas/types/Course.php:138
+msgid "The title of the course."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:138
+msgid ""
+"The title of the job (not the title of the posting). For example, \"Software "
+"Engineer\" or \"Barista\"."
+msgstr ""
+
+#: includes/schemas/types/Review.php:175
+msgid "The title or headline of the review."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation.php:83
+msgid ""
+"The total integer number of bathrooms. For example for a property with two "
+"Full Bathrooms and one Half Bathroom, the Bathrooms Total Integer will be 3."
+msgstr ""
+
+#: includes/schemas/types/Place.php:211
+msgid "The total number of individuals that may attend an event or venue."
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:203
+msgid "The total time required to perform instructions or a direction."
+msgstr ""
+
+#: includes/schemas/sub-types/Place/Accommodation/Suite.php:75
+msgid ""
+"The type of bed or beds included in the accommodation. For the single case "
+"of just one bed of a certain type, you use bed directly with a text."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:230
+msgid ""
+"The type of meal or course your recipe is about. For example: \"dinner\", "
+"\"entree\", or \"dessert, snack\"."
+msgstr ""
+
+#: includes/schemas/types/Service.php:138
+msgid ""
+"The type of service being offered, e.g. veterans' benefits, emergency relief,"
+" etc."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:194
+msgid "The type of software application."
+msgstr ""
+
+#: includes/schemas/types/Event.php:238
+msgid "The URL of a page providing the ability to buy tickets."
+msgstr ""
+
+#: includes/schemas/types/Event.php:299
+msgid "The venue's detailed name."
+msgstr ""
+
+#: includes/schemas/types/Event.php:131
+#: includes/schemas/sub-types/Event/TheaterEvent.php:41
+msgid "Theater Event"
+msgstr ""
+
+#: includes/schemas/sub-types/Event/TheaterEvent.php:52
+msgid "Theater event."
+msgstr ""
+
+#: includes/admin/extensions.php:129
+msgid ""
+"There was an error retrieving the extensions list from the server. Please "
+"try again later."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1915
+#, php-format
+msgid "This appears to be an invalid license key for %s."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:339
+msgid ""
+"This information can help us to prioritize future additions to our plugin "
+"for specific types of sites"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:389
+#: includes/admin/settings/register-settings.php:285
+msgid ""
+"This information will be used in Google's Knowledge Graph Card, the big "
+"block of information you see on the right side of the search results."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:64
+msgid ""
+"This screen provides advanced options such as deleting plugin data on "
+"uninstall."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:49
+msgid "This screen provides settings for configuring Schemas."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:43
+msgid ""
+"This screen provides settings for configuring the Knowledge Graph. You can "
+"set Organization Info, Search Results, Social Profiles, and Corporate "
+"Contacts."
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:37
+msgid ""
+"This screen provides the most basic settings for configuring Schema plugin "
+"on your site. You can set Schema for About and Contact pages, and turn "
+"automatic <em>Feature image</em> on and off...etc"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:320
+msgid ""
+"This step-by-step configuration wizard will take you though creating and "
+"enabling a new Schema type for your website content. <strong>It should take "
+"less than a minute!</strong>"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:394
+#: includes/admin/settings/register-settings.php:291
+msgid "This Website Represent"
+msgstr ""
+
+#: includes/extensions/video-object-details.php:306
+msgid "Time and date of when the livestream ends or is expected to end."
+msgstr ""
+
+#: includes/extensions/video-object-details.php:283
+msgid "Time and date of when the livestream starts or is expected to start."
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:325
+#: includes/schemas/sub-types/LocalBusiness/Store/TireShop.php:41
+msgid "Tire Shop"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:258 includes/schemas/types/HowTo.php:263
+msgid "Title"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:412
+msgid ""
+"To complete setup, set Location Rules and Properties for this Schema type to "
+"take effect and take care of all the needed technical optimization of your "
+"site content."
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:51
+msgid ""
+"To enable/disable loading the included version of Advanced Custom Fields PRO "
+"(ACF PRO) plugin. (disabled only if you want to loaad ACF PRO as a normal "
+"plugin, or if it is loaded by the Theme or another plugin)"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1994
+#, php-format
+msgid "To receive updates, please enter your valid %s license key."
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:223
+msgid "Tool name"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:208
+msgid "Tools"
+msgstr ""
+
+#: includes/schemas/types/HowTo.php:199
+msgid "Total Time"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:168
+#: includes/schemas/sub-types/LocalBusiness/TouristInformationCenter.php:41
+msgid "Tourist Information Center"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:326
+#: includes/schemas/sub-types/LocalBusiness/Store/ToyStore.php:41
+msgid "Toy Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:169
+#: includes/schemas/sub-types/LocalBusiness/TravelAgency.php:41
+msgid "Travel Agency"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:566
+#: includes/admin/class-setup-wizard.php:569
+#: includes/admin/settings/register-settings.php:405
+msgid "Tumblr"
+msgstr ""
+
+#: includes/functions.php:495
+msgid "Turkish Lira"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:470
+#: includes/admin/class-setup-wizard.php:473
+#: includes/admin/settings/register-settings.php:350
+msgid "Twitter"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:90
+msgid "Type"
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:188
+msgid "Type of employment."
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:418
+msgid "type!"
+msgstr ""
+
+#: includes/admin/class-menu.php:54 includes/admin/class-menu.php:55
+msgid "Types"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1512
+#: includes/admin/settings/register-settings.php:1543
+msgid "Upload File"
+msgstr ""
+
+#: includes/functions.php:1206 includes/admin/meta-tax.php:50
+#: includes/admin/settings/register-settings.php:433
+#: includes/schemas/types/WebPage.php:139 includes/schemas/types/Place.php:183
+#: includes/schemas/types/Movie.php:126 includes/schemas/types/Product.php:126
+#: includes/schemas/types/Review.php:163 includes/schemas/types/Service.php:142
+#: includes/schemas/types/Person.php:134
+#: includes/schemas/types/BlogPosting.php:134
+#: includes/schemas/types/SoftwareApplication.php:134
+#: includes/schemas/types/Course.php:126
+#: includes/schemas/types/LocalBusiness.php:353
+#: includes/schemas/types/FAQPage.php:126 includes/schemas/types/HowTo.php:126
+#: includes/schemas/types/Recipe.php:126
+#: includes/schemas/sub-types/Article/BlogPosting.php:131
+msgid "URL"
+msgstr ""
+
+#: includes/admin/meta-tax.php:34
+msgid ""
+"URL of a reference Web page that unambiguously indicates the item's identity."
+" E.g. the URL of the item's Wikipedia page, Freebase page, or official "
+"website."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:154
+msgid ""
+"URL of a reference Web page that unambiguously indicates the item's identity."
+" E.g. the URL of the item's Wikipedia page, Wikidata entry, or official "
+"website."
+msgstr ""
+
+#: includes/functions.php:1210 includes/schemas/types/Course.php:130
+#: includes/schemas/types/FAQPage.php:130 includes/schemas/types/HowTo.php:130
+msgid "URL of the article."
+msgstr ""
+
+#: includes/schemas/types/BlogPosting.php:138
+#: includes/schemas/sub-types/Article/BlogPosting.php:135
+msgid "URL of the blog post."
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:130
+msgid "URL of the content."
+msgstr ""
+
+#: includes/schemas/types/Place.php:187
+msgid "URL of the item."
+msgstr ""
+
+#: includes/schemas/types/Movie.php:130
+msgid "URL of the movie."
+msgstr ""
+
+#: includes/schemas/types/Person.php:138
+msgid "URL of the peron page."
+msgstr ""
+
+#: includes/schemas/types/Review.php:167
+msgid "URL of the review."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:143
+msgid "URL of the web page."
+msgstr ""
+
+#: includes/functions.php:496
+msgid "US Dollars"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:651
+#: includes/admin/meta-types-properties.php:677
+#: includes/admin/meta-types-properties.php:694
+#: includes/admin/meta-types-properties.php:712
+#: includes/admin/meta-types-properties.php:729
+msgid "Use Existing Field"
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:50
+msgid "Use this feature"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:99 includes/admin/scripts.php:35
+#: includes/admin/class-setup-wizard.php:80
+msgid "Use This File"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:532
+msgid "User gravatar.com image will be used in author markup."
+msgstr ""
+
+#: includes/schemas/types/JobPosting.php:233
+msgid "Valid Through"
+msgstr ""
+
+#: includes/schemas/types/Event.php:295
+msgid "Venue Name"
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:201
+msgid "Version of the software instance"
+msgstr ""
+
+#: includes/extensions/video-object-details.php:150
+msgid "Video Details"
+msgstr ""
+
+#: includes/extensions/video-object.php:60
+msgid "Video Markups"
+msgstr ""
+
+#: includes/extensions/video-object.php:35
+msgid "Video Object"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:648
+msgid "VideoObject"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:656
+msgid "VideoObject meta"
+msgstr ""
+
+#: includes/functions.php:497
+msgid "Vietnamese Dong"
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:29
+#, php-format
+msgid "View <a href=\"%s\">extensions</a>"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:33
+msgid "View Schema"
+msgstr ""
+
+#: includes/admin/post-type/schema-post-type.php:111
+msgid "View schema"
+msgstr ""
+
+#: includes/admin/settings/contextual-help.php:27
+#, php-format
+msgid "Visit the <a href=\"%s\">documentation</a> on the schema.press website."
+msgstr ""
+
+#: includes/schemas/sub-types/Event/VisualArtsEvent.php:52
+msgid "Visual art event."
+msgstr ""
+
+#: includes/schemas/types/Event.php:132
+#: includes/schemas/sub-types/Event/VisualArtsEvent.php:41
+msgid "Visual Arts Event"
+msgstr ""
+
+#: includes/admin/class-schema-wizard.php:102 includes/admin/scripts.php:38
+#: includes/admin/class-setup-wizard.php:83
+msgid ""
+"We are sorry but your browser is not compatible with this kind of file "
+"upload. Please upgrade your browser."
+msgstr ""
+
+#: includes/schemas/types/SoftwareApplication.php:116
+#: includes/schemas/sub-types/SoftwareApplication/WebApplication.php:41
+msgid "Web Application"
+msgstr ""
+
+#: includes/schemas/sub-types/SoftwareApplication/WebApplication.php:52
+msgid "Web applications."
+msgstr ""
+
+#: includes/schemas/types/WebPage.php:52
+msgid "Web Page"
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/AboutPage.php:52
+msgid "Web page type: About page."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/CheckoutPage.php:52
+msgid "Web page type: Checkout page."
+msgstr ""
+
+#: includes/schemas/sub-types/WebPage/ProfilePage.php:52
+msgid "Web page type: Profile page."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:314
+msgid "Website URL"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:320
+msgid "Welcome to Schema!"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:337
+msgid "What is your site about?"
+msgstr ""
+
+#: includes/acf/acf-fields/acf-star-rating.php:312
+msgid "What should be returned?"
+msgstr ""
+
+#: includes/integrations/yoast-seo.php:103
+#: includes/integrations/rank-math.php:60
+msgid "When disabled"
+msgstr ""
+
+#: includes/acf/acf-admin-settings.php:83
+#: includes/admin/settings/register-settings.php:531
+#: includes/admin/settings/register-settings.php:651
+#: includes/admin/settings/register-settings.php:659
+#: includes/admin/settings/register-settings.php:667
+#: includes/admin/settings/register-settings.php:737
+#: includes/admin/settings/register-settings.php:750
+#: includes/admin/settings/register-settings.php:763
+#: includes/admin/updater/class-enable-beta.php:35
+msgid "When enabled"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:676
+msgid "When used"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:327
+#: includes/schemas/sub-types/LocalBusiness/Store/WholesaleStore.php:41
+msgid "Wholesale Store"
+msgstr ""
+
+#: includes/schemas/types/LocalBusiness.php:215
+#: includes/schemas/sub-types/LocalBusiness/FoodEstablishment/Winery.php:41
+msgid "Winery"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:492
+msgid "WPFooter"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:486
+msgid "WPHeader"
+msgstr ""
+
+#: includes/functions.php:1124 includes/acf/acf-admin-settings.php:79
+#: includes/extensions/video-object-details.php:268
+#: includes/integrations/yoast-seo.php:99
+#: includes/integrations/rank-math.php:56
+#: includes/admin/settings/register-settings.php:733
+#: includes/admin/settings/register-settings.php:746
+#: includes/admin/settings/register-settings.php:759
+#: includes/schemas/types/Event.php:249 includes/schemas/types/Place.php:222
+#: includes/schemas/types/Place.php:233
+#: includes/schemas/types/BlogPosting.php:202
+#: includes/schemas/sub-types/Place/Accommodation.php:117
+msgid "Yes"
+msgstr ""
+
+#: includes/schemas/types/Recipe.php:219
+msgid "Yield"
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:669
+msgid "You can change settings from"
+msgstr ""
+
+#: includes/admin/meta-properties.php:288
+msgid ""
+"You can set property fields to \"New Custom Field\" in Schema > Types for "
+"fields to show here."
+msgstr ""
+
+#: schema-premium.php:150 schema-premium.php:162
+msgid "You don’t have permission to do this"
+msgstr ""
+
+#: includes/admin/updater/class-license-handler.php:444
+#, php-format
+msgid ""
+"You have invalid or expired license keys for Schema. Please go to the <a "
+"href=\"%s\">Licenses page</a> to correct this issue."
+msgstr ""
+
+#: includes/admin/updater/class-enable-beta.php:36
+msgid ""
+"You will receive pre-release updates for the selected extensions when "
+"available."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:665
+msgid "You've done it!"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1903
+#, php-format
+msgid ""
+"Your %s is not active for this URL. Please <a href=\"%s\" target=\"_blank\">"
+"visit your account page</a> to manage your license key URLs."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1865
+#, php-format
+msgid ""
+"Your license key expired on %s. Please <a href=\"%s\" target=\"_blank\">"
+"renew your license key</a>."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1976
+#, php-format
+msgid "Your license key expires on %s."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1966
+#, php-format
+msgid ""
+"Your license key expires soon! It expires on %s. <a href=\"%s\" "
+"target=\"_blank\">Renew your license key</a>."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1878
+#, php-format
+msgid ""
+"Your license key has been disabled. Please <a href=\"%s\" target=\"_blank\">"
+"contact support</a> for more information."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1924
+#, php-format
+msgid ""
+"Your license key has reached its activation limit. <a href=\"%s\">View "
+"possible upgrades</a> now."
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:1933
+#, php-format
+msgid ""
+"Your license key is not activable. Get the specific valid license within "
+"your <a href=\"%s\">account</a>."
+msgstr ""
+
+#: schema-premium.php:198
+msgid ""
+"Your version of PHP is below the minimum version of PHP required by Schema "
+"Premium plugin. Please contact your host and request that your version be "
+"upgraded to 5.6.20 or later."
+msgstr ""
+
+#: includes/admin/class-setup-wizard.php:506
+#: includes/admin/class-setup-wizard.php:509
+#: includes/admin/settings/register-settings.php:366
+msgid "YouTube"
+msgstr ""
+
+#: includes/admin/settings/register-settings.php:672
+msgid "YouTube API Key"
+msgstr ""
+
+#: includes/schemas/types/Event.php:341 includes/schemas/types/Place.php:316
+#: includes/schemas/types/JobPosting.php:295
+#: includes/schemas/types/Service.php:221 includes/schemas/types/Person.php:242
+#: includes/schemas/types/LocalBusiness.php:522
+msgid "Zip / Postal Code"
+msgstr ""
+
+#: includes/admin/meta-types-properties.php:633
+#: includes/admin/meta-types-properties.php:665
+#: includes/admin/meta-types-properties.php:690
+#: includes/admin/meta-types-properties.php:708
+#: includes/admin/meta-types-properties.php:725
+#: includes/admin/meta-types-locations.php:391
+msgid "— Select —"
+msgstr ""
