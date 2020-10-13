@@ -40,6 +40,30 @@
             <div class="my-auto w-100">
               <?php if (get_field('front_page_video_embed_url')) : ?>
                 <div class="video-wrapper mb-4">
+                  <script type="application/ld+json">
+                    {
+                      "@context": "https://schema.org",
+                      "@type": "VideoObject",
+                      "name": "DDEV",
+                      "description": "",
+                      "thumbnailUrl": "",
+                      "uploadDate": "2018-04-05",
+                      "duration": "PT1M28S",  
+                      "publisher": {
+                        "@type": "Organization",
+                        "name": "Drud Technology",
+                        "logo": {
+                          "@type": "ImageObject",
+                          "url": "https://www.ddev.com/content/themes/ddevcom_theme/dist/images/ddev-logo.svg",
+                          "width": ,
+                          "height": 
+                        }
+                      },
+                      "contentUrl": "https://youtu.be/rj4WTnZcjjY",
+                      "embedUrl": "https://www.youtube.com/embed/rj4WTnZcjjY"
+                    }
+                  </script>
+                
                   <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
               <?php endif; ?>
