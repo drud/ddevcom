@@ -1,0 +1,56 @@
+<?php
+/**
+ * @package Schema Premium - Class Schema ExerciseGym
+ * @category Core
+ * @author Hesham Zebida
+ * @version 1.0.0
+ */
+
+// Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) exit;
+
+if ( ! class_exists('Schema_WP_ExerciseGym') ) :
+	/**
+	 * Schema ExerciseGym
+	 *
+	 * @since 1.0.0
+	 */
+	class Schema_WP_ExerciseGym extends Schema_WP_SportsActivityLocation {
+		
+		/** @var string Currenct Type */
+    	protected $type = 'ExerciseGym';
+		
+		/**
+	 	* Constructor
+	 	*
+	 	* @since 1.0.0
+	 	*/
+		public function __construct () {
+		
+			// emty __construct
+		}
+		
+		/**
+		* Get schema type label
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function label() {
+			
+			return __('Exercise Gym', 'schema-premium');
+		}
+		
+		/**
+		* Get schema type comment
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function comment() {
+			
+			return __('A gym.', 'schema-premium');
+		}
+	}
+	
+endif;
