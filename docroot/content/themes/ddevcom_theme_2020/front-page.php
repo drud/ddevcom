@@ -45,8 +45,8 @@
                       "@context": "https://schema.org",
                       "@type": "VideoObject",
                       "name": "DDEV",
-                      "description": "",
-                      "thumbnailUrl": "",
+                      "description": "Learn about the DDEV platform in 90 seconds",
+                      "thumbnailUrl": "https://ddev.com/content/uploads/2020/10/YouTube-Screenshot.png",
                       "uploadDate": "2018-04-05",
                       "duration": "PT1M28S",  
                       "publisher": {
@@ -54,7 +54,7 @@
                         "name": "Drud Technology",
                         "logo": {
                           "@type": "ImageObject",
-                          "url": "https://www.ddev.com/content/themes/ddevcom_theme/dist/images/ddev-logo.svg",
+                          "url": "https://www.ddev.com/content/uploads/2020/08/DDEV.png",
                           "width": 160,
                           "height": 38
                         }
