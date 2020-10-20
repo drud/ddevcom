@@ -2,6 +2,12 @@
 
 ## Changelog
 
+Hotfix
+
+**Released October 20, 2020**
+
+- Meta descriptions for events and jobs archives
+
 ### v0.1.3
 
 **Released October 19, 2020**
