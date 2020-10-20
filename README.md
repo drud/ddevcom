@@ -2,7 +2,7 @@
 
 ## Changelog
 
-Hotfix
+### Hotfix
 
 **Released October 20, 2020**
 
