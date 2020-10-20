@@ -2,6 +2,13 @@
 
 ## Changelog
 
+### v0.1.3
+
+**Released October 19, 2020**
+
+- Added ability to add meta descriptions to Events and Event Categories
+
+
 ### v0.1.2
 
 **Released October 8, 2020**
