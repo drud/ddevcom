@@ -67,16 +67,33 @@ function content_image_sizes_attr($sizes, $size, $image_src, $image_meta)
 }
 add_filter('wp_calculate_image_sizes', __NAMESPACE__ . '\\content_image_sizes_attr', 10, 4);
 
-
+/**
+ * Handle meta descriptions where not supported by The SEO Framework
+ */
 add_action( 'wp_head', function () {
+        $description = '';
+
+        // The Events Calendar Event
         if( is_single() && 'tribe_events' == get_post_type() ) {
             $description = sprintf( __( 'DDEV Event: %s', 'ddev' ), get_the_excerpt() );
         }
 
+        // The Events Calendar Event Category
         if( is_tax('tribe_events_cat') ) {
             $queried = get_queried_object();
             $description = sprintf( __( 'DDEV Events: %s', 'ddev' ), $queried->description );
         }
+
+        // Our Events Page
+        if( is_post_type_archive('tribe_events') ) {
+            $description = 'DDEV sponsors, speaks, and supports various tech community events around the world. Here’s where to find us next!';
+        }
+        
+        // Our Jobs Page
+        if( is_post_type_archive('job') ) {
+            $description = 'View current job openings and join the DDEV team!';
+        }
+
 
         echo '<meta name="description" content="' . esc_attr( $description ) . '">';
     }  
