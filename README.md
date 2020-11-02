@@ -4,6 +4,12 @@
 
 ### Hotfix
 
+**Released November 2, 2020**
+
+- Updated main CTA button on DDEV-Live page to go to Contact page and changed button text
+
+### Hotfix
+
 **Released October 20, 2020**
 
 - Meta descriptions for events and jobs archives
