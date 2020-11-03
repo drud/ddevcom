@@ -213,8 +213,7 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="https://dash.ddev.com/account/create" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
-                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-outline-light btn-outline-light-success btn-lg">Request Demo</a>
+                  <a href="<?php echo home_url('contact') ?>" class="btn btn-success btn-lg mr-2">Request a Demo</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -290,11 +289,8 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="https://dash.ddev.com/account/create" class="btn btn-lg btn-success mr-2" target="_blank" rel="noreferrer noopener">
-                    Start a Free Trial
-                  </a>
-                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-outline-success">
-                    Request Demo
+                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-success mr-2">
+                    Request a Demo
                   </a>
                 </div>
               </div>
