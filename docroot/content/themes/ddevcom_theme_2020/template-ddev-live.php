@@ -213,7 +213,7 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="https://dash.ddev.com/account/create" class="btn btn-success btn-lg mr-2">Request a Demo</a>
+                  <a href="<?php echo home_url('contact') ?>" class="btn btn-success btn-lg mr-2">Request a Demo</a>
                 </div>
               </div>
             <div class="card-body py-5">
