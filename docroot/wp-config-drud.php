@@ -2,11 +2,8 @@
 // site URL
 $current_environment = getenv('CURRENT_ENVIRONMENT') ? getenv('CURRENT_ENVIRONMENT') : 'development';
 $home_url = ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
-
-if('alpha' === $current_environment) {
+if('production' === $current_environment) {
     $home_url = 'https://www.ddev.com';
-    var_dump($home_url);
-    die;
 }
 define('WP_HOME', $home_url);
 
