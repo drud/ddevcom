@@ -8,7 +8,7 @@ if('alpha' === $current_environment) {
     var_dump($home_url);
     die;
 }
-define('WP_HOME', );
+define('WP_HOME', $current_environment);
 
 /** WP in Sub-directory */
 // WP URL
