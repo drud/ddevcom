@@ -1,6 +1,11 @@
 <?php
 // site URL
-define('WP_HOME', ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST']);
+$current_environment = getenv('CURRENT_ENVIRONMENT') ? getenv('CURRENT_ENVIRONMENT') : 'development';
+$home_url = ($_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https' ? 'https://' : 'http://') . $_SERVER['HTTP_HOST'];
+if('production' === $current_environment) {
+    $home_url = 'https://www.ddev.com';
+}
+define('WP_HOME', $home_url);
 
 /** WP in Sub-directory */
 // WP URL
