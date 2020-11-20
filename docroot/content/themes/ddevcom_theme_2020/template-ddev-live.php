@@ -377,7 +377,7 @@
                     Site Expirations
                   </h3>
                   <p class="product__feature-description">
-                    Manage and maintain an automated workflow: Set an expiration timer for any site. Automatically delete sites at a configured interval from the creation timestamp.
+                    Manage and maintain an automated workflow: Set an <a href="https://docs.ddev.com/sites/#setting-expiration-on-your-site">expiration</a> timer for any site. Automatically delete sites at a configured interval from the creation timestamp.
                   </p>
                 </div>
                 <div class="col-12 col-lg-4">
@@ -388,7 +388,7 @@
                     Site Tags
                   </h3>
                   <p class="product__feature-description">
-                    Quickly identify projects in your sites list by client, lifecycle stage, or another taxonomy that suits your process. Set tags on your deployed sites in order to sort and identify projects quickly.
+                    Quickly identify projects in your sites list by client, lifecycle stage, or another taxonomy that suits your process. Set <a href="https://docs.ddev.com/site-tags/">tags</a> on your deployed sites in order to sort and identify projects quickly.
                   </p>
                 </div>
               </div>
