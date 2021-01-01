@@ -42,7 +42,7 @@
         </div>
         <div class="footer-social-icons py-3 d-flex mt-3">
           <div class="mr-3">
-            <a href="https://twitter.com/drud">
+            <a href="https://twitter.com/ddevHQ">
               <i class="fa fa-twitter fa-2x text-light"></i>
             </a>
           </div>
