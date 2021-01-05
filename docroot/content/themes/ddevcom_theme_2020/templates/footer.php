@@ -67,6 +67,7 @@
     <div class="row">
       <div class="col-lg-12 text-center text-white">
         <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
+        <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +1 (877) 228-8125</p>
       </div>
     </div>
   </div>
