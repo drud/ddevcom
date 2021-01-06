@@ -1,0 +1,411 @@
+@import './mixins';
+
+/**************************************************/
+/* General button styling, for content and other
+/**************************************************/
+.dpsp-networks-btns-wrapper {
+	list-style: none !important;
+	padding: 0 !important;
+	margin: 0 !important;
+}
+
+.dpsp-networks-btns-wrapper:after {
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+.dpsp-networks-btns-wrapper li {
+	float: left;
+
+	-moz-transition: all 0.15s ease-in;
+	-webkit-transition: all 0.15s ease-in; 
+	-o-transition: all 0.15s ease-in;
+	transition: all 0.15s ease-in;
+
+	margin: 0;
+	padding: 0;
+	border: 0;
+	list-style-type: none !important;
+}
+
+.dpsp-networks-btns-wrapper li:before {
+	display: none !important;
+}
+
+.dpsp-networks-btns-wrapper li:first-child {
+	margin-left: 0 !important;
+}
+
+/*
+ * Share button
+ */
+.dpsp-networks-btns-wrapper .dpsp-network-btn {
+	position: relative;
+	text-align: center;
+	display: inline-flex;
+	text-decoration: none !important;
+	text-transform: unset !important;
+	height: 40px;
+	min-width: 40px;
+
+	font-family: 'Arial', sans-serif;
+	font-weight: bold;
+	font-size: 14px;
+	line-height: 36px;
+	vertical-align: middle;
+
+	padding: 0;
+	border: 2px solid;
+	max-height: 40px;
+
+	width: 100%;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	-moz-transition: all 0.15s ease-in;
+	-webkit-transition: all 0.15s ease-in;
+	-o-transition: all 0.15s ease-in;
+	transition: all 0.15s ease-in;
+
+	box-shadow: none;
+
+	cursor: pointer;
+
+	border-radius: 0;
+	.dpsp-network-label {
+		padding-left: 0.5em;
+		padding-right: 0.5em;
+	}
+	&.dpsp-has-count .dpsp-network-label {
+		padding-right: 0.25em;
+	}
+}
+
+.dpsp-networks-btns-wrapper .dpsp-network-btn {
+	&:hover, &:focus {
+		border: 2px solid;
+		box-shadow: 0 0 0 3px rgba(21, 156, 228, 0.4);
+		box-shadow: 0 0 0 3px var(--networkHover);
+		outline: none;
+	}
+}
+
+.dpsp-networks-btns-wrapper .dpsp-network-btn:after {
+	content: '';
+	display: block;
+	height: 0;
+	clear: both;
+}
+
+/*
+ * Buttons with no labels
+ */
+ .dpsp-networks-btns-wrapper .dpsp-network-btn {
+	&.dpsp-no-label {
+	}
+}
+
+.dpsp-networks-btns-wrapper.dpsp-column-auto .dpsp-network-btn {
+	&.dpsp-no-label {
+		padding-left: 0 !important;
+	}
+}
+
+// Inline content and pop-up buttons with no labels
+.dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn.dpsp-no-label .dpsp-network-icon {
+}
+// Small size
+.dpsp-size-small .dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn.dpsp-no-label .dpsp-network-icon {
+	width: 28px;
+}
+
+
+/*
+ * Button label
+ */
+
+
+.dpsp-networks-btns-wrapper .dpsp-network-btn .dpsp-network-count {
+	font-size: 13px;
+	font-weight: normal;
+	padding-left: 0.25em;
+	padding-right: 0.5em;
+	white-space: nowrap;
+}
+.dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar):not(.dpsp-networks-btns-sticky-bar ) {
+	&.dpsp-column-2, &.dpsp-column-1 {
+		.dpsp-network-btn .dpsp-network-icon + .dpsp-network-count {
+
+		}
+	}
+}
+
+.dpsp-networks-btns-wrapper.dpsp-networks-btns-sidebar .dpsp-network-btn .dpsp-network-count {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	margin-left: 0;
+	font-size: 11px;
+	text-align: center;
+	height: 20px;
+	line-height: 20px;
+}
+
+.dpsp-networks-btns-wrapper .dpsp-network-btn.dpsp-no-label .dpsp-network-label-wrapper {
+	display: none;
+}
+
+.dpsp-button-style-6, .dpsp-button-style-7 {
+	.dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar):not(.dpsp-column-auto):not(.dpsp-column-6) .dpsp-network-btn.dpsp-has-count-only .dpsp-network-label-wrapper {
+		display: inline-block;
+		text-indent: 2em;
+	}
+}
+
+
+
+/*
+ * Buttons columns
+ */
+.dpsp-networks-btns-wrapper.dpsp-column-1 li { width: 100%; margin-left: 0;}
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-1 li { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-2 li { width: 50%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-2 li { width: 49%; }
+.dpsp-networks-btns-wrapper.dpsp-column-2 li:nth-child(2n) { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-3 li { width: 33.3333%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-3 li { width: 32%; }
+.dpsp-networks-btns-wrapper.dpsp-column-3 li:nth-child(3n) { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-4 li { width: 25%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-4 li { width: 23.5%; }
+.dpsp-networks-btns-wrapper.dpsp-column-4 li:nth-child(4n) { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-5 li { width: 20%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-5 li { width: 18.4%; }
+.dpsp-networks-btns-wrapper.dpsp-column-5 li:nth-child(5n) { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-6 li { width: 16.6666%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-6 li { width: 15%; }
+.dpsp-networks-btns-wrapper.dpsp-column-6 li:nth-child(6n) { margin-right: 0; }
+
+.dpsp-networks-btns-wrapper.dpsp-column-7 li { width: 14.285%; }
+.dpsp-has-spacing .dpsp-networks-btns-wrapper.dpsp-column-7 li { width: 13%; }
+.dpsp-networks-btns-wrapper.dpsp-column-7 li:nth-child(6n) { margin-right: 0; }
+
+.dpsp-shape-circle .dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn:not(.dpsp-no-label) { padding-right: 10px; }
+
+/*
+ * Buttons width no labels
+ */
+.dpsp-no-labels .dpsp-networks-btns-wrapper .dpsp-network-btn { padding: 0 !important; text-align: center; }
+
+
+/* 
+ * Buttons colors 
+ */
+ /* Facebook */
+@include networkColor( "facebook", #3a579a, #334d87 );
+
+/* Twitter */
+@include networkColor( "twitter", #00abf0, #0099d7 );
+
+/* Pinterest */
+@include networkColor( "pinterest", #c92228, #b31e24 );
+
+/* LinkedIn */
+@include networkColor( "linkedin", #0077b5, #00669c );
+
+/* Reddit */
+@include networkColor( "reddit", #ff5700, #ff4200 );
+
+/* VK */
+@include networkColor( "vkontakte", #4d75a3, #456992 );
+
+/* WhatsApp */
+@include networkColor( "whatsapp", #25D366, #21c960 );
+
+/* Instagram */
+@include networkColor( "instagram", #bc2a8d, #a9257e );
+
+/* YouTube */
+@include networkColor( "youtube", #bb0000, #a20000 );
+
+/* Vimeo */
+@include networkColor( "vimeo", #4bf, #2bb2ff );
+
+/* SoundCloud */
+@include networkColor( "soundcloud", #f50, #e64c00 );
+
+/* Twitch */
+@include networkColor( "twitch", #6441A5, #593a93 );
+
+/* Yummly */
+@include networkColor( "yummly", #e55a27, #d84d1a );
+
+/* Behance */
+@include networkColor( "behance", #005cff, #0053e6 );
+
+/* Email */
+@include networkColor( "email", #27ae60, #239e57 );
+
+/* Print */
+@include networkColor( "print", #bdc3c7, #afb6bb );
+
+/* Pocket */
+@include networkColor( "pocket", #ed4055, #e63c51 );
+
+/* Buffer */
+@include networkColor( "buffer", #29323b, #21282f );
+
+/* Tumblr */
+@include networkColor( "tumblr", #35465c, #2e3d50 );
+
+/* Xing */
+@include networkColor( "xing", #00888d, #006a6c );
+
+/* Github */
+@include networkColor( "github", #333333, #222222 );
+
+/* Flipboard */
+@include networkColor( "flipboard", #e12828, #d21d1d );
+
+/* Telegram */
+@include networkColor( "telegram", #0088cc, #0077b3 );
+
+/* Medium */
+@include networkColor( "medium", #333, #111 );
+
+/* Mix */
+@include networkColor( "mix", #fd8235, #fd721c );
+
+
+/* 
+ * Buttons Shapes
+ */
+.dpsp-shape-rounded .dpsp-network-btn,
+.dpsp-shape-rounded .dpsp-network-btn .dpsp-network-icon {
+	-webkit-border-top-left-radius: 4px;
+	-webkit-border-bottom-left-radius: 4px;
+	-moz-border-radius-topleft: 4px;
+	-moz-border-radius-bottomleft: 4px;
+	border-top-left-radius: 4px;
+	border-bottom-left-radius: 4px;
+}
+
+.dpsp-shape-rounded .dpsp-network-btn,
+.dpsp-shape-rounded .dpsp-no-label.dpsp-network-btn .dpsp-network-icon {
+	-webkit-border-top-right-radius: 4px;
+	-webkit-border-bottom-right-radius: 4px;
+	-moz-border-radius-topright: 4px;
+	-moz-border-radius-bottomright: 4px;
+	border-top-right-radius: 4px;
+	border-bottom-right-radius: 4px;
+}
+
+.dpsp-shape-circle .dpsp-network-btn {
+	border-radius: 30px;
+	.dpsp-network-icon {
+		border-radius: 30px; overflow: hidden;
+	}
+}
+
+/* 
+ * Buttons Margins/Spacings
+ */
+.dpsp-has-spacing .dpsp-networks-btns-wrapper li {
+	margin-bottom: 10px;
+	margin-right: 2%;
+	margin-left: 0 !important;
+}
+
+/*
+ * Button sizes
+ */
+/* Size Small */
+.dpsp-size-small {
+	.dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar):not(.dpsp-networks-btns-sticky-bar) .dpsp-network-btn {
+		height: 32px;
+		min-width: 32px;
+		line-height: 28px;
+		max-height: 32px;
+		&.dpsp-no-label {
+			.dpsp-network-icon {
+				width: 32px;
+			}
+		}
+		.dpsp-network-icon {
+			line-height: 28px;
+			width: 32px;
+			height: 32px;
+		}
+		.dpsp-network-icon-inner {
+			height: 28px;
+		}
+	}
+}
+
+/* Size Large */
+.dpsp-size-large .dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn {
+	height: 46px;
+	min-width: 46px;
+	line-height: 42px;
+	max-height: 46px;
+	.dpsp-network-icon {
+		line-height: 42px;
+		width: 46px;
+		height: 46px;
+	}
+	.dpsp-network-icon-inner {
+		height: 42px;
+	}
+}
+
+/* Floating Sidebar */
+.dpsp-size-medium .dpsp-networks-btns-sidebar .dpsp-network-btn {
+	height: 45px;
+	min-width: 45px;
+	line-height: 41px;
+	max-height: 45px;
+	padding-left: 0;
+	.dpsp-network-icon {
+		line-height: 41px;
+		width: 45px;
+	}
+}
+
+.dpsp-size-medium .dpsp-networks-btns-sidebar.dpsp-networks-btns-wrapper .dpsp-network-btn.dpsp-has-count .dpsp-network-icon {
+	height: 26px;
+	line-height: 26px;
+}
+
+.dpsp-size-large .dpsp-networks-btns-sidebar .dpsp-network-btn {
+	height: 50px;
+	min-width: 50px;
+	line-height: 46px;
+	max-height: 50px;
+	padding-left: 0;
+	.dpsp-network-icon {
+		line-height: 46px;
+		width: 50px;
+	}
+}
+
+.dpsp-size-large .dpsp-networks-btns-wrapper.dpsp-networks-btns-sidebar .dpsp-network-btn.dpsp-has-count .dpsp-network-icon {
+	height: 30px;
+	line-height: 30px;
+}
+
+
+/*
+ * Buttons on mobile
+ */
+@media screen and ( max-width : 720px ) {
+	.dpsp-hide-on-mobile {
+		display: none !important;
+	}
+}

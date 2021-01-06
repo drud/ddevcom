@@ -1,8 +1,5 @@
 <?php
 
-// Exit if accessed directly
-if ( ! defined( 'ABSPATH' ) ) exit;
-
 /**
  * AJAX callback to send the feedback
  *
@@ -52,11 +49,10 @@ function dpsp_ajax_send_feedback() {
 
 
 	// Send the email
-	$sent = wp_mail( 'support@devpups.com', 'Grow by Mediavine User Feedback', $message, $headers );
+	$sent = wp_mail( 'grow@mediavine.com', 'Grow Social by Mediavine User Feedback', $message, $headers );
 
 	// Return
 	echo ( $sent ? 1 : 0 );
 	wp_die();
 
 }
-add_action( 'wp_ajax_dpsp_ajax_send_feedback', 'dpsp_ajax_send_feedback' );

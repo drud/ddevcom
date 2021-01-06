@@ -1,0 +1,45 @@
+@mixin networkColor($slug, $default, $hover) {
+  .dpsp-#{$slug} {
+    --networkColor: #{rgba($default, 0.4)};
+    --networkHover: #{rgba($hover, 0.4)};
+  }
+  .dpsp-networks-btns-wrapper .dpsp-network-btn.dpsp-#{$slug} {
+    border-color: $default;
+    background: $default;
+    color: $default;
+    .dpsp-network-icon {
+      border-color: $default;
+      background: $default;
+      color: $default;
+
+      svg {
+        fill: $default;
+      }
+    }
+
+    &:hover, &:focus {
+      border-color: $hover;
+      background: $hover;
+      color: $hover;
+
+      .dpsp-network-icon {
+        border-color: $hover;
+        background: $hover;
+        color: $hover;
+
+        svg {
+          fill: $hover;
+        }
+      }
+    }
+  }
+}
+
+@mixin style2Colors($slug, $default, $hover) {
+  .dpsp-button-style-2 .dpsp-networks-btns-wrapper .dpsp-#{$slug} {
+    &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label), .dpsp-network-icon {
+      background: $default;
+      border-color: $default;
+    }
+  }
+}
