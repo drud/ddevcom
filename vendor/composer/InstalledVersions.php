@@ -29,20 +29,11 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '89205adcfd5ab93a15fe44282ab354c8907c8a5c',
+    'reference' => 'a891313b24cd99cab2a0073b7c165773c2566bc2',
     'name' => 'newmediadenver/wp',
   ),
   'versions' => 
   array (
-    'a5hleyrich/wp-background-processing' => 
-    array (
-      'pretty_version' => 'v1.3',
-      'version' => '1.3.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '3fb239ecb5261f7eeff76d430d54028d297c176c',
-    ),
     'advanced-custom-fields/advanced-custom-fields-pro' => 
     array (
       'pretty_version' => '5.9.1',
@@ -70,39 +61,12 @@ private static $installed = array (
       ),
       'reference' => NULL,
     ),
-    'jamesryanbell/cloudflare' => 
-    array (
-      'pretty_version' => '1.11.1',
-      'version' => '1.11.1.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '75e93bb822619d8ddb8b1843588caa2fad739491',
-    ),
     'johnpbloch/wordpress-core-installer' => 
     array (
       'replaced' => 
       array (
         0 => '*',
       ),
-    ),
-    'matthiasmullie/minify' => 
-    array (
-      'pretty_version' => '1.3.66',
-      'version' => '1.3.66.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => '45fd3b0f1dfa2c965857c6d4a470bea52adc31a6',
-    ),
-    'matthiasmullie/path-converter' => 
-    array (
-      'pretty_version' => '1.1.3',
-      'version' => '1.1.3.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e7d13b2c7e2f2268e1424aaed02085518afa02d9',
     ),
     'monolog/monolog' => 
     array (
@@ -120,7 +84,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '89205adcfd5ab93a15fe44282ab354c8907c8a5c',
+      'reference' => 'a891313b24cd99cab2a0073b7c165773c2566bc2',
     ),
     'oscarotero/env' => 
     array (
@@ -139,6 +103,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '994ecccd8f3283ecf5ac33254543eb0ac946d525',
+    ),
+    'psr/container' => 
+    array (
+      'pretty_version' => '1.0.0',
+      'version' => '1.0.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'b7ce3b176482dbbc1245ebf52b181af44c2cf55f',
     ),
     'psr/log' => 
     array (
@@ -217,12 +190,12 @@ private static $installed = array (
     ),
     'wp-media/wp-rocket' => 
     array (
-      'pretty_version' => 'v3.2.6',
-      'version' => '3.2.6.0',
+      'pretty_version' => 'v3.8.1',
+      'version' => '3.8.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'de4009f5931f92362d9b841bfbb2c6b995fdf576',
+      'reference' => '3f4de3116cbd9c97f1ac5bff0002f31587353d1d',
     ),
     'wpackagist-plugin/autodescription' => 
     array (

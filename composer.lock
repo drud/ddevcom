@@ -4,46 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "084b13341be19062052640ffc571a63d",
+    "content-hash": "318a27fe00984845392c3f8def50505c",
     "packages": [
-        {
-            "name": "a5hleyrich/wp-background-processing",
-            "version": "v1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Tabrisrp/wp-background-processing.git",
-                "reference": "3fb239ecb5261f7eeff76d430d54028d297c176c"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Tabrisrp/wp-background-processing/zipball/3fb239ecb5261f7eeff76d430d54028d297c176c",
-                "reference": "3fb239ecb5261f7eeff76d430d54028d297c176c",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "classes/"
-                ]
-            },
-            "license": [
-                "GPLv2+"
-            ],
-            "authors": [
-                {
-                    "name": "Ashley Rich",
-                    "email": "hello@ashleyrich.com"
-                }
-            ],
-            "description": "WP Background Processing can be used to fire off non-blocking asynchronous requests or as a background processing tool, allowing you to queue tasks.",
-            "support": {
-                "source": "https://github.com/Tabrisrp/wp-background-processing/tree/v1.3"
-            },
-            "time": "2018-10-23T18:30:25+00:00"
-        },
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
             "version": "5.9.1",
@@ -202,182 +164,6 @@
                 "url": "https://github.com/wp-premium/gravityforms/archive/2.4.20.zip"
             },
             "type": "wordpress-plugin"
-        },
-        {
-            "name": "jamesryanbell/cloudflare",
-            "version": "1.11.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/jamesryanbell/cloudflare.git",
-                "reference": "75e93bb822619d8ddb8b1843588caa2fad739491"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/jamesryanbell/cloudflare/zipball/75e93bb822619d8ddb8b1843588caa2fad739491",
-                "reference": "75e93bb822619d8ddb8b1843588caa2fad739491",
-                "shasum": ""
-            },
-            "require-dev": {
-                "phpunit/phpunit": "< 6",
-                "satooshi/php-coveralls": "dev-master"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "Cloudflare\\": "src/CloudFlare"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "James Bell",
-                    "email": "james@james-bell.co.uk"
-                }
-            ],
-            "description": "CloudFlare API - PHP",
-            "keywords": [
-                "api",
-                "cloudflare"
-            ],
-            "support": {
-                "issues": "https://github.com/jamesryanbell/cloudflare/issues",
-                "source": "https://github.com/jamesryanbell/cloudflare/tree/master"
-            },
-            "time": "2017-08-04T19:01:02+00:00"
-        },
-        {
-            "name": "matthiasmullie/minify",
-            "version": "1.3.66",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matthiasmullie/minify.git",
-                "reference": "45fd3b0f1dfa2c965857c6d4a470bea52adc31a6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/minify/zipball/45fd3b0f1dfa2c965857c6d4a470bea52adc31a6",
-                "reference": "45fd3b0f1dfa2c965857c6d4a470bea52adc31a6",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "matthiasmullie/path-converter": "~1.1",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "friendsofphp/php-cs-fixer": "~2.0",
-                "matthiasmullie/scrapbook": "dev-master",
-                "phpunit/phpunit": ">=4.8"
-            },
-            "suggest": {
-                "psr/cache-implementation": "Cache implementation to use with Minify::cache"
-            },
-            "bin": [
-                "bin/minifycss",
-                "bin/minifyjs"
-            ],
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MatthiasMullie\\Minify\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthias Mullie",
-                    "email": "minify@mullie.eu",
-                    "homepage": "http://www.mullie.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "CSS & JavaScript minifier, in PHP. Removes whitespace, strips comments, combines files (incl. @import statements and small assets in CSS files), and optimizes/shortens a few common programming patterns.",
-            "homepage": "http://www.minifier.org",
-            "keywords": [
-                "JS",
-                "css",
-                "javascript",
-                "minifier",
-                "minify"
-            ],
-            "support": {
-                "issues": "https://github.com/matthiasmullie/minify/issues",
-                "source": "https://github.com/matthiasmullie/minify/tree/1.3.66"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/[user1",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/matthiasmullie] # Replace with up to 4 GitHub Sponsors-enabled usernames e.g.",
-                    "type": "github"
-                },
-                {
-                    "url": "https://github.com/user2",
-                    "type": "github"
-                }
-            ],
-            "time": "2021-01-06T15:18:10+00:00"
-        },
-        {
-            "name": "matthiasmullie/path-converter",
-            "version": "1.1.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/matthiasmullie/path-converter.git",
-                "reference": "e7d13b2c7e2f2268e1424aaed02085518afa02d9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/matthiasmullie/path-converter/zipball/e7d13b2c7e2f2268e1424aaed02085518afa02d9",
-                "reference": "e7d13b2c7e2f2268e1424aaed02085518afa02d9",
-                "shasum": ""
-            },
-            "require": {
-                "ext-pcre": "*",
-                "php": ">=5.3.0"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~4.8"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "MatthiasMullie\\PathConverter\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Matthias Mullie",
-                    "email": "pathconverter@mullie.eu",
-                    "homepage": "http://www.mullie.eu",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Relative path converter",
-            "homepage": "http://github.com/matthiasmullie/path-converter",
-            "keywords": [
-                "converter",
-                "path",
-                "paths",
-                "relative"
-            ],
-            "support": {
-                "issues": "https://github.com/matthiasmullie/path-converter/issues",
-                "source": "https://github.com/matthiasmullie/path-converter/tree/1.1.3"
-            },
-            "time": "2019-02-05T23:41:09+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -581,6 +367,59 @@
                 }
             ],
             "time": "2020-07-20T17:29:33+00:00"
+        },
+        {
+            "name": "psr/container",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/php-fig/container.git",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/php-fig/container/zipball/b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "reference": "b7ce3b176482dbbc1245ebf52b181af44c2cf55f",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Psr\\Container\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "PHP-FIG",
+                    "homepage": "http://www.php-fig.org/"
+                }
+            ],
+            "description": "Common Container Interface (PHP FIG PSR-11)",
+            "homepage": "https://github.com/php-fig/container",
+            "keywords": [
+                "PSR-11",
+                "container",
+                "container-interface",
+                "container-interop",
+                "psr"
+            ],
+            "support": {
+                "issues": "https://github.com/php-fig/container/issues",
+                "source": "https://github.com/php-fig/container/tree/master"
+            },
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/log",
@@ -978,42 +817,100 @@
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.2.6",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "de4009f5931f92362d9b841bfbb2c6b995fdf576"
+                "reference": "3f4de3116cbd9c97f1ac5bff0002f31587353d1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/de4009f5931f92362d9b841bfbb2c6b995fdf576",
-                "reference": "de4009f5931f92362d9b841bfbb2c6b995fdf576",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/3f4de3116cbd9c97f1ac5bff0002f31587353d1d",
+                "reference": "3f4de3116cbd9c97f1ac5bff0002f31587353d1d",
                 "shasum": ""
             },
             "require": {
-                "a5hleyrich/wp-background-processing": "1.3",
                 "composer/installers": "~1.0",
-                "jamesryanbell/cloudflare": "^1.11",
-                "matthiasmullie/minify": "1.3.*",
                 "monolog/monolog": "^1.0",
-                "php": ">=5.4.0"
+                "php": ">=7.0",
+                "psr/container": "^1.0"
             },
             "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
-                "phpcompatibility/phpcompatibility-wp": "*",
-                "squizlabs/php_codesniffer": "^3.2",
-                "wp-coding-standards/wpcs": "^2.0.0"
+                "brain/monkey": "^2.0",
+                "coenjacobs/mozart": "0.6.0-beta-3",
+                "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
+                "mikey179/vfsstream": "^1.6",
+                "mnsami/composer-custom-directory-installer": "^2.0",
+                "mobiledetect/mobiledetectlib": "^2.8",
+                "php": "^7",
+                "phpcompatibility/phpcompatibility-wp": "^2.0",
+                "phpstan/phpstan": "^0.12.3",
+                "phpunit/phpunit": "^7",
+                "roave/security-advisories": "dev-master",
+                "szepeviktor/phpstan-wordpress": "^0.5.0",
+                "woocommerce/woocommerce": "^3.9",
+                "wp-coding-standards/wpcs": "^2",
+                "wp-media/background-processing": "^1.3",
+                "wp-media/cloudflare": "^1.0",
+                "wp-media/module-rocketcdn": "^1.0",
+                "wp-media/module-varnish": "^1.0",
+                "wp-media/phpunit": "^1.0",
+                "wp-media/rocket-lazyload-common": "^2",
+                "wp-media/wp-imagify-partner": "^1.0",
+                "wpackagist-plugin/amp": "^1.1.4",
+                "wpackagist-plugin/hummingbird-performance": "2.0.1",
+                "wpackagist-plugin/pdf-embedder": "^4.6",
+                "wpackagist-plugin/simple-custom-css": "^4.0.3",
+                "wpackagist-plugin/spinupwp": "^1.1",
+                "wpackagist-plugin/wp-smushit": "^3.0"
             },
             "type": "wordpress-plugin",
+            "extra": {
+                "installer-paths": {
+                    "vendor/{$vendor}/{$name}/": [
+                        "type:wordpress-plugin"
+                    ],
+                    "./inc/Addon/Cloudflare/": [
+                        "wp-media/cloudflare"
+                    ],
+                    "./inc/Addon/Varnish/": [
+                        "wp-media/module-varnish"
+                    ],
+                    "./inc/Engine/CDN/RocketCDN/": [
+                        "wp-media/module-rocketcdn"
+                    ]
+                },
+                "mozart": {
+                    "dep_namespace": "WP_Rocket\\Dependencies\\",
+                    "dep_directory": "/inc/Dependencies/",
+                    "classmap_directory": "/inc/classes/dependencies/",
+                    "classmap_prefix": "WP_Rocket_",
+                    "packages": [
+                        "mobiledetect/mobiledetectlib",
+                        "wp-media/background-processing",
+                        "wp-media/rocket-lazyload-common",
+                        "wp-media/wp-imagify-partner"
+                    ]
+                }
+            },
             "autoload": {
                 "classmap": [
                     "inc/classes",
-                    "inc/vendors/classes"
-                ]
+                    "inc/vendors/classes",
+                    "inc/deprecated"
+                ],
+                "exclude-from-classmap": [
+                    "inc/vendors/classes/class-rocket-mobile-detect.php",
+                    "inc/classes/class-wp-rocket-requirements-check.php"
+                ],
+                "psr-4": {
+                    "WP_Rocket\\": "inc/",
+                    "WPMedia\\Cloudflare\\": "inc/Addon/Cloudflare/"
+                }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -1034,7 +931,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2019-02-20T17:12:34+00:00"
+            "time": "2020-12-22T10:20:11+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",

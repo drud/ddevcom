@@ -3,12 +3,13 @@ namespace WP_Rocket\Logger;
 
 use Monolog\Logger as Monologger;
 use Monolog\Registry;
-use Monolog\Processor;
+use Monolog\Processor\IntrospectionProcessor;
 use Monolog\Handler\StreamHandler as MonoStreamHandler;
+use Monolog\Formatter\LineFormatter;
 use WP_Rocket\Logger\HTML_Formatter as HtmlFormatter;
 use WP_Rocket\Logger\Stream_Handler as StreamHandler;
 
-defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
+defined( 'ABSPATH' ) || exit;
 
 /**
  * Class used to log events.
@@ -35,7 +36,17 @@ class Logger {
 	 * @since  3.1.4
 	 * @author Grégory Viguier
 	 */
-	const LOG_FILE_NAME = 'wp-rocket-debug.log';
+	const LOG_FILE_NAME = 'wp-rocket-debug.log.html';
+
+	/**
+	 * A unique ID given to the current thread.
+	 *
+	 * @var    string
+	 * @since  3.3
+	 * @access private
+	 * @author Grégory Viguier
+	 */
+	private static $thread_id;
 
 
 	/** ----------------------------------------------------------------------------------------- */
@@ -53,7 +64,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function debug( $message, array $context = array() ) {
+	public static function debug( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->debug( $message, $context ) : null;
 	}
 
@@ -68,7 +79,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function info( $message, array $context = array() ) {
+	public static function info( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->info( $message, $context ) : null;
 	}
 
@@ -83,7 +94,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function notice( $message, array $context = array() ) {
+	public static function notice( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->notice( $message, $context ) : null;
 	}
 
@@ -98,7 +109,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function warning( $message, array $context = array() ) {
+	public static function warning( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->warning( $message, $context ) : null;
 	}
 
@@ -113,7 +124,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function error( $message, array $context = array() ) {
+	public static function error( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->error( $message, $context ) : null;
 	}
 
@@ -128,7 +139,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function critical( $message, array $context = array() ) {
+	public static function critical( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->critical( $message, $context ) : null;
 	}
 
@@ -143,7 +154,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function alert( $message, array $context = array() ) {
+	public static function alert( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->alert( $message, $context ) : null;
 	}
 
@@ -158,7 +169,7 @@ class Logger {
 	 * @param  array  $context The log context.
 	 * @return bool|null       Whether the record has been processed.
 	 */
-	public static function emergency( $message, array $context = array() ) {
+	public static function emergency( $message, array $context = [] ) {
 		return static::debug_enabled() ? static::get_logger()->emergency( $message, $context ) : null;
 	}
 
@@ -190,9 +201,9 @@ class Logger {
 
 		/**
 		 * Thanks to the processors, add data to each log:
-		 * - `debug_backtrace()` (exclude this class).
+		 * - `debug_backtrace()` (exclude this class and Abstract_Buffer).
 		 */
-		$trace_processor = new Processor\IntrospectionProcessor( $log_level, [ get_called_class() ] );
+		$trace_processor = new IntrospectionProcessor( $log_level, [ get_called_class(), 'Abstract_Buffer' ] );
 
 		// Create the logger.
 		$logger = new Monologger( $logger_name, [ $handler ], [ $trace_processor ] );
@@ -496,6 +507,23 @@ class Logger {
 	/** ----------------------------------------------------------------------------------------- */
 
 	/**
+	 * Get the thread identifier.
+	 *
+	 * @since  3.3
+	 * @access public
+	 * @author Grégory Viguier
+	 *
+	 * @return string
+	 */
+	public static function get_thread_id() {
+		if ( ! isset( self::$thread_id ) ) {
+			self::$thread_id = uniqid( '', true );
+		}
+
+		return self::$thread_id;
+	}
+
+	/**
 	 * Remove cookies related to WP auth.
 	 *
 	 * @since  3.1.4
@@ -520,7 +548,7 @@ class Logger {
 
 		foreach ( $cookies as $cookie_name => $value ) {
 			if ( preg_match( $pattern, $cookie_name ) ) {
-				unset( $cookies[ $cookie_name ] );
+				$cookies[ $cookie_name ] = 'Value removed by WP Rocket.';
 			}
 		}
 

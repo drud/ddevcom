@@ -1,0 +1,24 @@
+{
+	"name": "wp-media/wp-imagify-partner",
+	"description": "A php class allowing WordPress plugin developers to promote Imagify through their own plugin" ,
+	"keywords": [
+		"wordpress",
+		"imagify"
+	],
+	"homepage": "https://github.com/wp-media/wp-imagify-partner",
+	"license": "GPL-2.0+",
+	"authors": [
+		{
+			"name": "WP Media",
+			"email": "contact@wp-media.me",
+			"homepage": "https://wp-media.me"
+		}
+	],
+	"config": {
+		"sort-packages": true
+	},
+	"support": {
+		"issues": "https://github.com/wp-media/wp-imagify-partner/issues",
+		"source": "https://github.com/wp-media/wp-imagify-partner"
+	}
+}

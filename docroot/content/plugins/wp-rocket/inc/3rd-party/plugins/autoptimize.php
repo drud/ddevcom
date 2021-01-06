@@ -1,7 +1,8 @@
 <?php
-defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
-if ( function_exists( 'autoptimize_do_cachepurged_action' ) ) :
+defined( 'ABSPATH' ) || exit;
+
+if ( class_exists( 'autoptimizeCache' ) ) :
 	/**
 	 * Improvement with Autoptimize: clear the cache when Autoptimize's cache is cleared
 	 *
@@ -12,20 +13,23 @@ endif;
 
 if ( class_exists( 'autoptimizeConfig' ) ) :
 	/**
-	 * Deactivate WP Rocket HTML Minification if Autoptimize HTML minification is enabled
+	 * Deactivate WP Rocket lazyload if Autoptimize lazyload is enabled
 	 *
-	 * @since 2.9.5
+	 * @since 3.3.4
 	 * @author Remy Perona
 	 *
 	 * @param string $old_value Previous autoptimize option value.
 	 * @param string $value New autoptimize option value.
+	 * @return void
 	 */
-	function rocket_maybe_deactivate_minify_html( $old_value, $value ) {
-		if ( $value !== $old_value && 'on' === $value ) {
-			update_rocket_option( 'minify_html', 0 );
+	function rocket_maybe_deactivate_lazyload( $old_value, $value ) {
+		if ( empty( $old_value['autoptimize_imgopt_checkbox_field_3'] ) && ! empty( $value['autoptimize_imgopt_checkbox_field_3'] ) ) {
+			update_rocket_option( 'lazyload', 0 );
+			update_rocket_option( 'lazyload_iframes', 0 );
+			update_rocket_option( 'lazyload_youtube', 0 );
 		}
 	}
-	add_action( 'update_option_autoptimize_html', 'rocket_maybe_deactivate_minify_html', 10, 2 );
+	add_action( 'update_option_autoptimize_imgopt_settings', 'rocket_maybe_deactivate_lazyload', 10, 2 );
 
 	/**
 	 * Deactivate WP Rocket CSS Minification if Autoptimize CSS minification is enabled
@@ -86,10 +90,6 @@ endif;
  * @author Remy Perona
  */
 function rocket_activate_autoptimize() {
-	if ( 'on' === get_option( 'autoptimize_html' ) ) {
-		update_rocket_option( 'minify_html', 0 );
-	}
-
 	if ( 'on' === get_option( 'autoptimize_css' ) ) {
 		update_rocket_option( 'minify_css', 0 );
 		update_rocket_option( 'minify_concatenate_css', 0 );
@@ -103,21 +103,33 @@ function rocket_activate_autoptimize() {
 	if ( 'on' === get_option( 'autoptimize_css_defer' ) ) {
 		update_rocket_option( 'async_css', 0 );
 	}
+
+	$lazyload = get_option( 'autoptimize_imgopt_settings' );
+
+	if ( ! empty( $lazyload['autoptimize_imgopt_checkbox_field_3'] ) ) {
+		update_rocket_option( 'lazyload', 0 );
+		update_rocket_option( 'lazyload_iframes', 0 );
+		update_rocket_option( 'lazyload_youtube', 0 );
+	}
 }
 add_action( 'activate_autoptimize/autoptimize.php', 'rocket_activate_autoptimize', 11 );
 
 /**
- * Disable WP Rocket HTML minification field if Autoptimize HTML minification is enabled
+ * Disable WP Rocket lazyload fields if Autoptimize lazyload is enabled
  *
- * @since 2.9.5
+ * @since 3.3.4
  * @author Remy Perona
  *
- * @return bool|null True if it is active
+ * @return bool
  */
-function rocket_maybe_disable_minify_html() {
-	if ( is_plugin_active( 'autoptimize/autoptimize.php' ) && 'on' === get_option( 'autoptimize_html' ) ) {
+function rocket_maybe_disable_lazyload() {
+	$lazyload = get_option( 'autoptimize_imgopt_settings' );
+
+	if ( is_plugin_active( 'autoptimize/autoptimize.php' ) && ! empty( $lazyload['autoptimize_imgopt_checkbox_field_3'] ) ) {
 		return true;
 	}
+
+	return false;
 }
 
 /**
