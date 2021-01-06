@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_ClothingStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'ClothingStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_ClothingStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'ClothingStore';
+		}
+
 		/**
 		* Get schema type label
 		*

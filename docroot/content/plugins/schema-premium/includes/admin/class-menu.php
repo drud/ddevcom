@@ -18,6 +18,7 @@ class Schema_WP_Admin_Menu {
 		add_action( 'admin_menu', array( $this, 'register_main_menus' 		),	10 );
 		add_action( 'admin_menu', array( $this, 'register_types_menus' 		),  20 );
 		add_action( 'admin_menu', array( $this, 'register_extensions_menus' ),  30 );
+		add_action( 'admin_menu', array( $this, 'register_settings_menus' 	),  40 );
 	}
 
 	public function register_main_menus() {
@@ -32,6 +33,10 @@ class Schema_WP_Admin_Menu {
 			'schema_wp_options_page'
 		);
 		
+		// This item is hidden by CSS class,
+		// It will be added back in another order
+		// @since 1.2
+		//
 		add_submenu_page(
 			'schema',
 			__( 'Schema Settings', 'schema-premium' ),
@@ -40,19 +45,21 @@ class Schema_WP_Admin_Menu {
 			'schema',
 			'schema_wp_options_page'
 		);
-		
+
 		// Contextual Help
 		// @since 1.5.9.3
-		if ( $schema_wp_options_page )
-		add_action( 'load-' . $schema_wp_options_page, 'schema_wp_settings_contextual_help' );	
+		//
+		if ( $schema_wp_options_page ) {
+			add_action( 'load-' . $schema_wp_options_page, 'schema_wp_settings_contextual_help' );	
+		}
 	}
 	
 	public function register_types_menus() {
 		
 		add_submenu_page(
 			'schema',
-			__( 'Types', 'schema-premium' ),
-			__( 'Types', 'schema-premium' ),
+			__( 'All Types', 'schema-premium' ),
+			__( 'All Types', 'schema-premium' ),
 			'manage_schema_options',
 			'edit.php?post_type=schema'
 		);
@@ -67,6 +74,21 @@ class Schema_WP_Admin_Menu {
 			'manage_schema_options',
 			'schema-extensions',
 			'schema_wp_admin_extensions_page'
+		);
+	}
+
+	public function register_settings_menus() {
+		
+		// Add back settings menu item
+		// @since 1.2
+		//
+		add_submenu_page(
+			'schema',
+			__( 'Schema Settings', 'schema-premium' ),
+			__( 'Settings', 'schema-premium' ),
+			'manage_schema_options',
+			'schema',
+			'schema_wp_options_page'
 		);
 	}
 

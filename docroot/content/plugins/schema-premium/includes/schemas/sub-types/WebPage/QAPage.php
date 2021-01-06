@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_QAPage') ) :
 		/** @var string Currenct Type */
     	protected $type = 'QAPage';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'WebPage';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_QAPage') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'QAPage';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -60,17 +74,8 @@ if ( ! class_exists('Schema_WP_QAPage') ) :
 		*/
 		public function properties() {
 			
-			$Thing_properties 			= schema_premium_get_schema_properties('Thing');
-			$CreativeWork_properties 	= schema_premium_get_schema_properties('CreativeWork');
-			$QAPage_properties 		= array(
-				'Article_properties_info' => array(
-					'label' => '<span style="color:#c90000;">' . $this->type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $this->type,
-					'message'		=> $this->comment(),
-				),
+			$properties = array(
+				
 				'Question_name' => array(
 					'label' 		=> __('Name', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
@@ -112,7 +117,13 @@ if ( ! class_exists('Schema_WP_QAPage') ) :
 				)
 			);
 
-			$properties = array_merge($QAPage_properties, $CreativeWork_properties, $Thing_properties);
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_QAPage', $properties );	
 		}
@@ -138,8 +149,8 @@ if ( ! class_exists('Schema_WP_QAPage') ) :
 
 			// Putting all together
 			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
+			$schema['@context'] =  'https://schema.org';
+			$schema['@type'] 	=  $this->type;
 
 			// Get properties
 			$properties = schema_wp_get_properties_markup_output( $post_id, $this->properties(), $this->type );

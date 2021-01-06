@@ -109,7 +109,8 @@ function schema_premium_video_object_output( $schema ) {
 	// Debug - start of script
 	//$time_start = microtime(true); 
 	
-	if ( empty($schema) ) return;
+	if ( empty($schema) ) 
+		return;
 	
 	$video_object_setting_enable = schema_wp_get_option( 'video_object_enable' );
 	
@@ -118,13 +119,18 @@ function schema_premium_video_object_output( $schema ) {
 			
 	global $wp_query, $post, $wp_embed;
 	
+	if ( ! isset($post->ID) ) 
+		return $schema;
+
 	// Maybe this is not needed!
 	// Or maybe it's needed to make sure video markup included only on main query (Not Sure!)
-	if ( ! $wp_query->is_main_query() ) return $schema;
+	if ( ! $wp_query->is_main_query() ) 
+		return $schema;
 	
 	$locations_match = schema_premium_get_location_target_match( $post->ID );
 	
-    if ( ! is_array($locations_match) ) return $schema;
+	if ( ! is_array($locations_match) ) 
+		return $schema;
     
 	// Make sure WP_oEmbed class is loaded
 	if ( ! class_exists('WP_oEmbed') ) {
@@ -134,18 +140,23 @@ function schema_premium_video_object_output( $schema ) {
 	foreach ( $locations_match as $schema_id => $location ) {
 		
 		if ( $location['match'] ) {
+			
 			$video_object_type = get_post_meta( $schema_id, 'schema_VideoObject', true );
 			// Check and add video markup only on enabled schema.org types
-			if ( isset($video_object_type) && $location['schema_type'] == $schema['@type'] ) {
-				switch ( $video_object_type ) {
-					case 'single' :
-						$video_markup = schema_premium_get_video_object_markup_single( $post->ID );
-						break;
-					case 'multiple' :
-						$video_markup = schema_premium_get_video_object_markup_multiple( $post->ID );
-						break;
+			//
+			
+			if ( isset($video_object_type) ) {
+				if ( $location['schema_type'] == $schema['@type'] || $location['schema_subtype'] == $schema['@type'] ) {
+					switch ( $video_object_type ) {
+						case 'single' :
+							$video_markup = schema_premium_get_video_object_markup_single( $post->ID );
+							break;
+						case 'multiple' :
+							$video_markup = schema_premium_get_video_object_markup_multiple( $post->ID );
+							break;
+					}
 				}
-			}
+			} 	
 			
 			if ( ! empty($video_markup) ) {
 				$schema['video'] = $video_markup;
@@ -175,34 +186,42 @@ function schema_premium_video_object_output( $schema ) {
 function schema_premium_get_video_object_markup_single( $post_id ) {
 	
 	// Get content
+	//
 	$post_object 	= get_post( $post_id );
 	$content 		= $post_object->post_content;
 	$video_markup 	= array();
+	$video_url 		= '';
+
 	// Exctract urls from content
+	//
 	$matches = wp_extract_urls( $content );
-		
+	
 	if ( empty($matches) ) return;
 	
 	// Find and get the first video
+	//
 	foreach ( $matches as $key => $url ) {
 		$domain = str_ireplace('www.', '', parse_url($url, PHP_URL_HOST));
 		$supported_domains	= array ( 'ted.com', 'vimeo.com', 'dailymotion.com', 'videopress.com', 'vine.com', 'youtube.com' );
 		if ( in_array( $domain, $supported_domains) ) {
+			$video_url = trim($url);
 			break;
 		}
 	}
 	
 	$autoembed = new WP_oEmbed();
-	$url = trim($url); // remove white spaces if any
-	$provider = $autoembed->discover( $url );
+	//$provider = $autoembed->discover( $video_url );
+	$provider = $autoembed->get_provider( $video_url );
+	
 	if (filter_var($provider, FILTER_VALIDATE_URL) != FALSE) {
-		$data = $autoembed->fetch( $provider, $url );
-		if ( !empty($data) ) {
-			$data->url = $url; // Add video url to our array
+		$data = $autoembed->fetch( $provider, $video_url );
+		if ( ! empty($data) ) {
+			$data->url = $video_url; // Add video url to our array
+			$data->provider = $provider;
 			$video_markup = schema_premium_get_video_object_array( $data );
 		}
 	}
-	
+
 	return $video_markup;
 }
 
@@ -223,22 +242,27 @@ function schema_premium_get_video_object_markup_multiple( $post_id ) {
 	//$reg = preg_match_all( $regex, $content, $matches );
 	// Or we can use this
 	$matches = wp_extract_urls( $content );
-		
+	
 	if ( empty($matches) ) return;
 	
 	$video_markup = array();
-		
-	//$matches = schema_wp_get_string_urls($content);
+
 	$autoembed = new WP_oEmbed();
 	$video_markup = array();
+	
 	foreach ( $matches as $key => $url ) {
+		
 		$url = trim($url); // remove white spaces if any
-		$provider = $autoembed->discover( $url );
+		$provider = $autoembed->get_provider( $url );
+		
 		if (filter_var($provider, FILTER_VALIDATE_URL) != FALSE) {
+			
 			$data = $autoembed->fetch( $provider, $url );
-			if ( !empty($data) ) {
+			
+			if ( ! empty($data) ) {
 				// Add video url to our array
 				$data->url = $url; 
+				$data->provider = $provider;
 				// Get video object array
 				$video_object_array = schema_premium_get_video_object_array( $data );
 				if ($video_object_array) {
@@ -276,10 +300,7 @@ function schema_premium_get_video_object_array( $data ) {
 	$host 				= isset($data->provider_name) ? $data->provider_name : '';
 	$supported_hosts	= array ( 'TED', 'Vimeo', 'Dailymotion', 'VideoPress', 'Vine', 'YouTube' );
 	
-	
 	if ( ! in_array( $host, $supported_hosts) ) return false;
-	
-	//echo'<pre>';print_r($data);echo'</pre>'; // exit;
 	
 	// Get values from post meta
 	$meta_name			= get_post_meta( $post->ID, '_schema_video_object_name', true );
@@ -293,19 +314,20 @@ function schema_premium_get_video_object_array( $data ) {
 		// Get video ID
 		parse_str( parse_url( $data->url, PHP_URL_QUERY ), $youtube_id );
 		// Get video data; 
-		$data = isset($youtube_id['v']) ? $youtube->get_video_info($youtube_id['v']) : array();
-		
-		if ( !empty($data) ) {
+		$v_data = isset($youtube_id['v']) ? $youtube->get_video_info($youtube_id['v']) : array();
+		//echo'<pre>'; print_r( $v_data ); echo'</pre>'; //exit;
+		if ( ! empty($v_data) ) {
 			// Override values if found via parsing the data
-			$video_id		= isset($data['video_id']) ? $data['video_id'] : '';
-			$name			= isset($data['title']) ? $data['title'] : $meta_name;
-			$description	= isset($data['description']) ? $data['description'] : $meta_description;
-			$upload_date	= isset($data['publishedAt']) ? $data['publishedAt'] : $meta_upload_date;
-			$duration		= isset($data['duration']) ? $data['duration'] : $meta_duration;
-		
+			$video_id		= isset($v_data['video_id']) ? $v_data['video_id'] : '';
+			$name			= isset($v_data['title']) ? $v_data['title'] : $meta_name;
+			$description	= isset($v_data['description']) ? $v_data['description'] : $meta_description;
+			$upload_date	= isset($v_data['publishedAt']) ? $v_data['publishedAt'] : $meta_upload_date;
+			$duration		= isset($v_data['duration']) ? $v_data['duration'] : $meta_duration;
+			$embedUrl		= isset($data->provider) ? $data->provider . '/' . $youtube_id['v'] : '';
+			
 			// Prepare an array of thumbnails
-			if ( ! empty($data['thumbnail']) ) {
-				$thumbnails_array = $data['thumbnail'];
+			if ( ! empty($v_data['thumbnail']) ) {
+				$thumbnails_array = $v_data['thumbnail'];
 				$thumbnail_url = array();
 				foreach ($thumbnails_array as $thumb => $thumb_url ) {
 					$thumbnail_url[] = $thumb_url;
@@ -322,6 +344,7 @@ function schema_premium_get_video_object_array( $data ) {
 		$upload_date	= isset($data->upload_date) ? $data->upload_date : $meta_upload_date;
 		$duration		= isset($data->duration) ? schema_wp_get_time_second_to_iso8601_duration( $data->duration ) : $meta_duration;
 		$thumbnail_url	= isset($data->thumbnail_url) ? $data->thumbnail_url : '';
+		$embedUrl		= isset($data->provider) ? $data->provider . $video_id : '';
 	}
 	
 	if ( '' != $name && '' != $description ) { 
@@ -332,7 +355,8 @@ function schema_premium_get_video_object_array( $data ) {
 			"description"	=> $description,
 			"thumbnailUrl"	=> $thumbnail_url,
 			'uploadDate'	=> $upload_date,
-			"duration"		=> $duration
+			"duration"		=> $duration,
+			'embedUrl'		=> $embedUrl
 		);
 	}
 	

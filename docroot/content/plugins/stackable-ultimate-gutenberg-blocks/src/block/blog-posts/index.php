@@ -39,22 +39,8 @@ if ( ! function_exists( 'stackable_attributes_default' ) ) {
 	}
 }
 
-/**
- * Renders the `ugb/blog-posts` block on server.
- *
- * @since 1.7
- *
- * @param array $attributes The block attributes.
- *
- * @return string Returns the post content with latest posts added.
- */
-if ( ! function_exists( 'stackable_render_blog_posts_block' ) ) {
-    function stackable_render_blog_posts_block( $attributes, $content ) {
-		// Migrate attributes if this is an old block.
-		if ( stackable_block_blog_posts_is_deprecated( $attributes, $content ) ) {
-			$attributes = apply_filters( 'stackable_block_migrate_attributes', $attributes, 'blog-posts' );
-		}
-
+if ( ! function_exists( 'stackable_blog_posts_block_default_attributes' ) ) {
+	function stackable_blog_posts_block_default_attributes( $attributes ) {
 		$defaults = array(
 			'postType' => 'post',
 			'numberOfItems' => 6,
@@ -62,10 +48,10 @@ if ( ! function_exists( 'stackable_render_blog_posts_block' ) ) {
 			'order' => 'desc',
 			'taxonomyType' => 'category',
 			'taxonomy' => '',
+			'taxonomyFilterType' => '__in',
 			'postOffset' => 0,
 			'postExclude' => '',
 			'postInclude' => '',
-
 			'design' => 'basic',
 			'shadow' => 3,
 			'imageSize' => 'large',
@@ -86,23 +72,73 @@ if ( ! function_exists( 'stackable_render_blog_posts_block' ) ) {
 			'columns' => 2,
 		);
 
-		$attributes = stackable_attributes_default( $attributes, $defaults );
+		return stackable_attributes_default( $attributes, $defaults );
+	}
+}
 
-		$post_query = apply_filters( 'stakckable/blog-post/post_query',
-			array(
+if ( ! function_exists( 'stackable_blog_posts_post_query' ) ) {
+	function stackable_blog_posts_post_query( $attributes ) {
+		$passed_attributes = array(
 				'post_type' => $attributes['postType'],
 				'post_status' => 'publish',
 				'order' => $attributes['order'],
 				'orderby' => $attributes['orderBy'],
 				'numberposts' => $attributes['numberOfItems'],
 				'suppress_filters' => false,
-				'category' => $attributes['postType'] === 'post' && $attributes['taxonomyType'] === 'category' ? $attributes['taxonomy'] : '',
-				'tag_id' => $attributes['postType'] === 'post' && $attributes['taxonomyType'] === 'post_tag' ? $attributes['taxonomy'] : '',
-			),
+    	);
+
+		if ( ! empty( $attributes['taxonomy'] ) && ! empty( $attributes['taxonomyType'] ) ) {
+			// Categories.
+			if ( $attributes['taxonomyType'] === 'category' ) {
+				$passed_attributes[ 'category' . $attributes['taxonomyFilterType'] ] = explode( ',', $attributes['taxonomy'] );
+			// Tags.
+			} else if ( $attributes['taxonomyType'] === 'post_tag' ) {
+				$passed_attributes[ 'tag' . $attributes['taxonomyFilterType'] ] = explode( ',', $attributes['taxonomy'] );
+			// Custom taxonomies.
+			} else {
+				$passed_attributes['tax_query'] = array(
+					array(
+						'taxonomy' => $attributes['taxonomyType'],
+						'field' => 'term_id',
+						'terms' => explode( ',', $attributes['taxonomy'] ),
+						'operator' => $attributes['taxonomyFilterType'] === '__in' ? 'IN' : 'NOT IN',
+					),
+				);
+			}
+    	}
+
+		return apply_filters( 'stackable/blog-post/post_query',
+      		$passed_attributes,
 			$attributes
 		);
+	}
+}
+
+/**
+ * Renders the `ugb/blog-posts` block on server.
+ *
+ * @since 1.7
+ *
+ * @param array $attributes The block attributes.
+ *
+ * @return string Returns the post content with latest posts added.
+ */
+if ( ! function_exists( 'stackable_render_blog_posts_block' ) ) {
+    function stackable_render_blog_posts_block( $attributes, $content ) {
+		// Migrate attributes if this is an old block.
+		if ( stackable_block_blog_posts_is_deprecated( $attributes, $content ) ) {
+			$attributes = apply_filters( 'stackable_block_migrate_attributes', $attributes, 'blog-posts' );
+		}
+
+		$attributes = stackable_blog_posts_block_default_attributes( $attributes );
+		$post_query = stackable_blog_posts_post_query( $attributes );
 
 		$recent_posts = wp_get_recent_posts( $post_query );
+
+		// Manually slice the array based on the number of posts per page.
+		if ( is_array( $recent_posts ) && count( $recent_posts ) > (int) $post_query['numberposts'] ) {
+			$recent_posts = array_slice( $recent_posts, 0, (int) $post_query['numberposts'] );
+		}
 
 		$posts_markup = '';
 		$show = stackable_blog_posts_util_show_options( $attributes );
@@ -315,6 +351,8 @@ if ( ! function_exists( 'stackable_render_blog_posts_block' ) ) {
 				);
 			}
 		}
+
+		do_action( 'stackable/blog-posts/render', $attributes, $content );
 
         return apply_filters( 'stackable/blog-posts/edit.output.markup', $posts_markup, $attributes, $content );
     }
@@ -615,17 +653,18 @@ if ( ! function_exists( 'stackable_rest_get_terms' ) ) {
 		}
 
 		foreach ( $taxonomies as $taxonomy_slug => $taxonomy ) {
-			$post_type = $taxonomy->object_type[0];
+			foreach ( $taxonomy->object_type as $post_type ) {
 
-			// Don't include post formats.
-			if ( $post_type === 'post' && $taxonomy_slug === 'post_format' ) {
-				continue;
+				// Don't include post formats.
+				if ( $post_type === 'post' && $taxonomy_slug === 'post_format' ) {
+					continue;
+				}
+
+				$return[ $post_type ]['taxonomies'][ $taxonomy_slug ] = array(
+					'label' => $taxonomy->label,
+					'terms' => get_terms( $taxonomy->name ),
+				);
 			}
-
-			$return[ $post_type ]['taxonomies'][ $taxonomy_slug ] = array(
-				'label' => $taxonomy->label,
-				'terms' => get_terms( $taxonomy->name ),
-			);
 		}
 
 		return new WP_REST_Response( $return, 200 );
@@ -642,6 +681,9 @@ if ( ! function_exists( 'stackable_get_terms_endpoint' ) ) {
 		register_rest_route( 'wp/v2', '/stk_terms', array(
 			'methods' => 'GET',
 			'callback' => 'stackable_rest_get_terms',
+			'permission_callback' => function () {
+				return current_user_can( 'edit_posts' );
+			},
 		) );
 	}
 	add_action( 'rest_api_init', 'stackable_get_terms_endpoint' );

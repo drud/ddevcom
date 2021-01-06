@@ -50,7 +50,7 @@ function schema_wp_admin_scripts() {
 	
 	wp_enqueue_script( 'media-upload' );
 	wp_enqueue_script( 'thickbox' );
-	wp_enqueue_style( 'thickbox' );
+	
 	
 }
 
@@ -66,7 +66,11 @@ function schema_wp_admin_styles() {
 	$suffix = ( defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ) ? '' : '.min';
 	
 	// Dashicons and our main admin CSS need to be on all pages for the menu icon
+	//
 	wp_enqueue_style( 'dashicons' );
+	
+	wp_enqueue_style( 'thickbox' );
+	
 	wp_enqueue_style( 'schema-wp-admin', SCHEMAPREMIUM_PLUGIN_URL . 'assets/css/admin' . $suffix . '.css', SCHEMAPREMIUM_VERSION );
 
 	if( ! schema_wp_is_admin_page() ) {
@@ -74,6 +78,7 @@ function schema_wp_admin_styles() {
 	}
 
 	// jQuery UI styles are loaded on our admin pages only
+	//
 	$ui_style = ( 'classic' == get_user_option( 'admin_color' ) ) ? 'classic' : 'fresh';
 	wp_enqueue_style( 'jquery-ui-css', SCHEMAPREMIUM_PLUGIN_URL . 'assets/css/jquery-ui-' . $ui_style . '.min.css' );
 }

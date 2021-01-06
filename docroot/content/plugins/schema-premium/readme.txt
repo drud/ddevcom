@@ -3,9 +3,9 @@ Contributors: hishaman, schemapress
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=NGVUBT2QXN7YL
 Tags: schema, schema.org, json, json-ld, google, seo, structured data, markup, search engine, search, rich snippets, breadcrumbs, social, post, page, plugin, wordpress, content, article, news, search results, site name, knowledge graph, social, social profiles, keywords, meta-tags, metadata, tags, categories, optimize, ranking, search engine optimization, search engines, serp, sitelinks, google sitelinks, sitelinks search box, google sitelinks search box, semantic, structured, canonical, custom post types, post type, title, terms, media, images, thumb, featured, url, video, video markup, video object, VideoObject, video schema, audio object, AudioObject, audio schema, audio, sameAs, about, contact, amp, mobile, taxonomy
 Requires At Least: 4.0
-Tested Up To: 5.4.2
+Tested Up To: 5.6
 Requires PHP: 5.6.20
-Stable Tag: 1.1.4.4
+Stable Tag: 1.2.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -59,6 +59,89 @@ Indeed, detailed information about the plugin can be found on the [documentation
 Yes!
 
 == Changelog ==
+
+= 1.2.2 =
+
+* Fix: Product:review was not set correctly in markup output.
+* Fix: CreativeWork and Product by adding missing bestRating and worstRating properties.
+* Fix: Corrected update notices CSS classes to notice instead of update-nag.
+* Fix: Function that loads plugin first was missing 2 parameters.
+* Update: Pumped tested WordPress version to 5.6 release.
+
+= 1.2.1 =
+* Fix: Review markup by adding aggregateRating and review to itemReviewed.
+* Fix: JobPosting description property markup to have full content with HTML.
+* Fix: VideoObject extension, use WP_oEmbed get_provider instead of discover function.
+* Fix: PHP error when calling properties function while $itemReviewed is not an object.
+* Fix: PHP warning when trying to get media object.
+* Fix: PHP warning when viewing post type archive page.
+* Fix: PHP warning when multiple parameter is not set in ACF country select field.
+* Fix: PHP warning when trying to get properties of itemReviewed.
+* Fix: hiringOrganization logo property field values select.
+* Fix: ItemList in Post type archive markup. 
+* Fix: Modified time output in Blog posts structured data.
+* Fix: Missing function was required for WPHeader and WPFooter.
+* Enhancement: Added new filter schema_knowledge_graph_output.
+* Enhancement: Added url and description properties to publisher array.
+* Enhancement: Added embedUrl to VideoObject markup.
+* Enhancement: Added @id property.
+* Enhancement: Added $parent_group variable to auto field creation loop.
+* Enhancement: Added full_content type to property fields.
+* Enhancement: Added department property to local server test.
+* Enhancement: Removed Yes/No text on the Opening Hours Close field.
+* Enhancement: Use Website URL from plugin settings in publisher property. 
+* Enhancement: Use site_url and deprecate schema_wp_get_home_url.
+* Modification: Disabled ACF Address field extension since it is not complete.
+* Update: Updated EDD license update class to version 1.8.0 release.
+* Update: Updated ACF Pro to version 5.9.3 release.
+* Update: Pumped tested WordPress version to 5.5.3 release.
+
+= 1.2 =
+* Fix: Markup warning for sameAs property.
+* Fix: PHP notice in author extension and setup wizard.
+* Fix: PHP notice when calling comments markup function.
+* Fix: PHP notice when post id is not set on some edit screens.
+* Fix: Exclusion rules for post ID, and post categories.
+* Fix: General tab key and id was misspelled.
+* Fix: Error due to conflict function name, changed to sp_is_edit_page.
+* Fix: Warnings in VideoObject extension, added contentUrl and embedUrl properties.
+* Fix: Duplicate markup when checking post categories.
+* Enhancement: Added support for schema.org Thing.
+* Enhancement: Added support for schema.org CreativeWork.
+* Enhancement: Added support for schema.org Organization.
+* Enhancement: Added support for schema.org Book, and its subtype Audiobook.
+* Enhancement: Added support for SocialMediaPosting subtypes.
+* Enhancement: Added new options page for creating schema types.
+* Enhancement: Added new integration for WP Job Manager plugin.
+* Enhancement: Added new function to return supported schema.org types.
+* Enhancement: Added new function to return an array of available countries.
+* Enhancement: Added new function to retrieve attachment url from id.
+* Enhancement: Added new function to get address markup.
+* Enhancement: Added new function to subtract words by a number of characters.
+* Enhancement: Added new function to force remove shortcodes from description.
+* Enhancement: Added new feature to fix local server urls when testing.
+* Enhancement: Added new filter schema_location_rules.
+* Enhancement: Added new filter schema_add_to_properties.
+* Enhancement: Added new filter schema_post_type_archive_enable.
+* Enhancement: Added link to Schema post type in edit screen.
+* Enhancement: Added dashicon and conditional_logic parameters to property tabs.
+* Enhancement: Added discussionUrl property.
+* Enhancement: Added missing translations and instructions for VideoObject extension.
+* Enhancement: Added links for specific posts and pages in schema columns page.
+* Enhancement: Do not store schema type comment in post meta.
+* Enhancement: Allow disabling Price Range property field.
+* Enhancement: Moved BlogPosting file under SocialMediaPosting sub folder.
+* Enhancement: Switched all @context urls to https.
+* Enhancement: Switched gravatar urls to https.
+* Enhancement: Schema types properties has its own function for ACF fields.
+* Enhancement: Make sure Thing and CreativeWork classes loads earlier.
+* Enhancement: Allow priceRange example $10-20 in fixed values and post meta.
+* Enhancement: Speed up queries in back-end when getting all post meta keys.
+* Enhancement: Re-order settings admin menu item.
+* Enhancement: Reduced code base by making use of reusable functions.
+* Enhancement: Modified some wording in back-end to make it more informational.
+* Update: Updated ACF Pro to version 5.9.1 release.
+* Update: Pumped tested WordPress version to 5.5.1 release.
 
 = 1.1.4.4 =
 * Fix: Plugin upgrade.

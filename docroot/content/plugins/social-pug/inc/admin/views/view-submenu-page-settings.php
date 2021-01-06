@@ -3,7 +3,7 @@
 	<h1 class="dpsp-page-title"><?php echo __( 'Settings', 'social-pug' ); ?></h1>
 
 	<form method="post" action="options.php">
-		
+
 		<?php
 		 	$dpsp_settings = get_option( 'dpsp_settings', 'not_set' );
 			settings_fields( 'dpsp_settings' );
@@ -22,7 +22,7 @@
 
 					<?php dpsp_settings_field( 'text', 'dpsp_settings[twitter_username]', ( isset($dpsp_settings['twitter_username']) ? $dpsp_settings['twitter_username'] : '' ), __( 'Twitter Username', 'social-pug' ), '' ); ?>
 					<?php dpsp_settings_field( 'switch', 'dpsp_settings[tweets_have_username]', ( isset( $dpsp_settings['tweets_have_username']) ? $dpsp_settings['tweets_have_username'] : '' ), __( 'Add Twitter Username to all tweets', 'social-pug' ), array('yes') ); ?>
-					
+
 				</div>
 
 			</div>
@@ -40,7 +40,7 @@
 
 					<div class="dpsp-setting-field-wrapper dpsp-setting-field-text dpsp-has-field-label dpsp-setting-field-facebook-authorize-app">
 
-						<?php $facebook_access_token = get_transient( 'dpsp_facebook_access_token' ); ?>
+						<?php $facebook_access_token = Mediavine\Grow\Settings::get_setting( 'dpsp_facebook_access_token' ); ?>
 
 						<?php if( ! empty( $facebook_access_token['access_token'] ) && ! empty( $facebook_access_token['expires_in'] ) ): ?>
 

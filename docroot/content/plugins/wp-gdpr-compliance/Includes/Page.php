@@ -31,6 +31,8 @@ class Page {
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_modal_title');
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_modal_explanation_text');
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_explanation_text');
+        register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_more_information_text');
+        register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_button_text');
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_color', array('default' => '#000000'));
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_text_color', array('default' => '#FFFFFF'));
         register_setting(WP_GDPR_C_SLUG . '_settings', WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary', array('default' => '#FFFFFF'));
@@ -164,6 +166,17 @@ class Page {
                                 __('Need a helping hand? Please ask for help on the %s. Be sure to mention your WordPress version and give as much additional information as possible.', WP_GDPR_C_SLUG),
                                 sprintf('<a target="_blank" href="//wordpress.org/support/plugin/wp-gdpr-compliance#new-post" rel="noopener noreferrer">%s</a>', __('Support forum', WP_GDPR_C_SLUG))
                             ); ?></p>
+                    </div>
+
+                    <div class="wpgdprc-sidebar-block">
+                        <h3><?php _e('WordProof Timestamp', WP_GDPR_C_SLUG); ?></h3>
+                        <p><?php echo __('Protect your copyright, improve trust and enjoy future SEO benefits by timestamping your content.', WP_GDPR_C_SLUG) ?></p>
+                        <p><?php echo sprintf(
+                                __('%s or read the %s', WP_GDPR_C_SLUG),
+                                sprintf('<a target="_blank" href="https://wordproof.io/" rel="noopener noreferrer">%s</a>', __('Install WordProof Timestamp', WP_GDPR_C_SLUG)),
+                                sprintf('<a target="_blank" href="https://wplift.com/" rel="noopener noreferrer">%s</a>', __('review by WPLift.com', WP_GDPR_C_SLUG))
+                            ); ?></p>
+                        <div class="wpgdprc-sidebar-block-ribbon"><?php echo __('New', WP_GDPR_C_SLUG) ?></div>
                     </div>
                 </div>
 
@@ -315,6 +328,8 @@ class Page {
         $optionNameAccessRequestFormCheckboxText = WP_GDPR_C_PREFIX . '_settings_access_request_form_checkbox_text';
         $optionNameDeleteRequestFormExplanationText = WP_GDPR_C_PREFIX . '_settings_delete_request_form_explanation_text';
         $optionNameConsentsBarExplanationText = WP_GDPR_C_PREFIX . '_settings_consents_bar_explanation_text';
+        $optionNameConsentsBarMoreInformationText = WP_GDPR_C_PREFIX . '_settings_consents_bar_more_information_text';
+        $optionNameConsentsBarButtonText = WP_GDPR_C_PREFIX . '_settings_consents_bar_button_text';
         $optionNameConsentsModalTitle = WP_GDPR_C_PREFIX . '_settings_consents_modal_title';
         $optionNameConsentsModalExplanationText = WP_GDPR_C_PREFIX . '_settings_consents_modal_explanation_text';
         $optionNameBarColor = WP_GDPR_C_PREFIX . '_settings_consents_bar_color';
@@ -334,6 +349,8 @@ class Page {
         $accessRequestFormCheckboxText = Integration::getAccessRequestFormCheckboxText(false);
         $deleteRequestFormExplanationText = Integration::getDeleteRequestFormExplanationText(false);
         $consentsBarExplanationText = Consent::getBarExplanationText();
+        $consentsBarMoreInformationText = Consent::getBarMoreInformationText();
+        $consentsBarButtonText = Consent::getBarButtonText();
         $consentsModalTitle = Consent::getModalTitle();
         $consentsModalExplanationText = Consent::getModalExplanationText();
         ?>
@@ -506,6 +523,24 @@ class Page {
                 </div>
             </div>
             <div class="wpgdprc-setting">
+                <label for="<?php echo htmlspecialchars($optionNameConsentsBarMoreInformationText); ?>"><?php _e('Bar: More Information Text', WP_GDPR_C_SLUG); ?></label>
+                <div class="wpgdprc-options">
+                    <input type="text" name="<?php echo htmlspecialchars($optionNameConsentsBarMoreInformationText); ?>"
+                            class="regular-text" id="<?php echo htmlspecialchars($optionNameConsentsBarMoreInformationText); ?>"
+                            placeholder="<?php echo htmlspecialchars($consentsBarMoreInformationText); ?>"
+                            value="<?php echo htmlspecialchars($consentsBarMoreInformationText); ?>"/>
+                </div>
+            </div>
+            <div class="wpgdprc-setting">
+                <label for="<?php echo htmlspecialchars($optionNameConsentsBarButtonText); ?>"><?php _e('Bar: Accept Button Text', WP_GDPR_C_SLUG); ?></label>
+                <div class="wpgdprc-options">
+                    <input type="text" name="<?php echo htmlspecialchars($optionNameConsentsBarButtonText); ?>"
+                            class="regular-text" id="<?php echo htmlspecialchars($optionNameConsentsBarButtonText); ?>"
+                            placeholder="<?php echo htmlspecialchars($consentsBarButtonText); ?>"
+                            value="<?php echo htmlspecialchars($consentsBarButtonText); ?>"/>
+                </div>
+            </div>
+            <div class="wpgdprc-setting">
                 <label for="<?php echo $optionNameBarColor; ?>"><?php _e('Bar Color', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
                     <input type="color" name="<?php echo $optionNameBarColor; ?>"
@@ -520,7 +555,7 @@ class Page {
                 </div>
             </div>
             <div class="wpgdprc-setting">
-                <label for="<?php echo $optionNameBarButtonColorPrimary; ?>"><?php _e('Button Color Primary', WP_GDPR_C_SLUG); ?></label>
+                <label for="<?php echo $optionNameBarButtonColorPrimary; ?>"><?php _e('Button Background Color', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
                     <input type="color" name="<?php echo $optionNameBarButtonColorPrimary; ?>"
                            id="<?php echo $optionNameBarButtonColorPrimary; ?>"
@@ -528,7 +563,7 @@ class Page {
                 </div>
             </div>
             <div class="wpgdprc-setting">
-                <label for="<?php echo $optionNameBarButtonColorSecondary; ?>"><?php _e('Button Color Secondary', WP_GDPR_C_SLUG); ?></label>
+                <label for="<?php echo $optionNameBarButtonColorSecondary; ?>"><?php _e('Button Text Color', WP_GDPR_C_SLUG); ?></label>
                 <div class="wpgdprc-options">
                     <input type="color" name="<?php echo $optionNameBarButtonColorSecondary; ?>"
                            id="<?php echo $optionNameBarButtonColorSecondary; ?>"

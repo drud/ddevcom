@@ -1,0 +1,2089 @@
+# Copyright (C) 2020 Mediavine
+# This file is distributed under the same license as the Grow Social Pro by Mediavine plugin.
+msgid ""
+msgstr ""
+"Project-Id-Version: Grow Social Pro by Mediavine 99: Development, this build not for production\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/project\n"
+"Last-Translator:  \n"
+"Language-Team:  \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2020-12-09T20:37:36+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.4.0\n"
+"X-Domain: social-pug\n"
+
+#. Plugin Name of the plugin
+msgid "Grow Social Pro by Mediavine"
+msgstr ""
+
+#. Plugin URI of the plugin
+msgid "https://marketplace.mediavine.com/grow-social-pro/"
+msgstr ""
+
+#. Description of the plugin
+msgid "Add beautiful social sharing buttons to your posts, pages and custom post types."
+msgstr ""
+
+#. Author of the plugin
+msgid "Mediavine"
+msgstr ""
+
+#. Author URI of the plugin
+msgid "https://marketplace.mediavine.com/"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:26
+msgid "Grow: Share Options"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:30
+msgid "Grow: Share Statistics"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:34
+msgid "Grow: Debug Log"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:71
+msgid "Social Media Image"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:72
+msgid "Add an image that will populate the \"og:image\" Open Graph meta tag. For maximum exposure on Facebook, Google+ or LinkedIn we recommend an image size of 1200px X 630px."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:97
+#: inc/admin/admin-metaboxes.php:165
+#: inc/functions-admin.php:289
+msgid "Select Image"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:98
+#: inc/admin/admin-metaboxes.php:166
+#: inc/functions-admin.php:290
+msgid "Remove Image"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:113
+msgid "Social Media Title"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:113
+#: inc/admin/admin-metaboxes.php:126
+#: inc/admin/admin-metaboxes.php:181
+#: inc/admin/admin-metaboxes.php:193
+#: inc/admin/admin-metaboxes.php:211
+msgid "Characters Remaining"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:114
+msgid "Add a title that will populate the \"og:title\" Open Graph meta tag. This will be used when users share your content on Facebook, Google+ or LinkedIn. The title of the post will be used if this field is empty."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:116
+msgid "Write a social media title..."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:126
+msgid "Social Media Description"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:127
+msgid "Add a description that will populate the \"og:description\" Open Graph meta tag. This will be used when users share your content on Facebook, Google+ or LinkedIn."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:129
+msgid "Write a social media description..."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:139
+msgid "Pinterest Image"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:140
+msgid "Add an image that will be used when this post is shared on Pinterest. For maximum exposure we recommend using an image that has a 2:3 aspect ratio, for example 800px X 1200px."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:181
+msgid "Pinterest Title"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:182
+msgid "Write a custom Pinterest title..."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:183
+msgid "Please note: Pinterest does not yet support pin titles. Pinterest is still in the process of releasing this feature. We've added the field in advance, to make sure you're ready for when the feature rolls out."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:193
+msgid "Pinterest Description"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:194
+msgid "Add a customized message that will be used when this post is shared on Pinterest."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:196
+msgid "Write a custom Pinterest description..."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:211
+msgid "Custom Tweet"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:212
+msgid "Add a customized tweet that will be used when this post is shared on Twitter."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:214
+msgid "Write a custom tweet..."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:215
+msgid "Maximum characters is based off of the Twitter maximum, the post permalink, and whether your Twitter username is included in the tweet."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:230
+msgid "Pinterest Hidden Images"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:250
+msgid "Remove image"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:262
+msgid "Add images"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:274
+msgid "Display Options"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:276
+msgid "Hide buttons for the"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:279
+msgid "Show buttons for the"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:304
+msgid "Network"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:305
+#: inc/functions-admin.php:473
+msgid "Shares"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:337
+msgid "Total shares"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:343
+msgid "Refresh shares"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:363
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:5
+msgid "Social Shares Recovery"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:363
+msgid "If you have modified the permalink for this particular post, add the previous URL variations for the post, so that Grow can recover the social shares for each individual URL."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:367
+msgid "If you have ever modified the permalink for this particular post and want to recover lost shares for any previous links this post had, add the old links by pressing the Add Link button."
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:379
+#: inc/admin/admin-metaboxes.php:395
+msgid "Remove"
+msgstr ""
+
+#: inc/admin/admin-metaboxes.php:386
+msgid "Add Link"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:26
+msgid "I'm here to help"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:36
+msgid "Hey there! How can I help you?"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:39
+msgid "I think I found a bug. Something is not working right."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:42
+msgid "I don't know how to set up the plugin."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:45
+msgid "I want to propose a new feature for the plugin."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:48
+msgid "Some other thing..."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:55
+msgid "Please detail a bit more:"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:57
+msgid "Write the details here..."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:59
+msgid "Minimum 80 characters"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:60
+msgid "%s characters remaining"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:67
+msgid "Please enter your email address:"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:69
+msgid "Write the email address here..."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:71
+msgid "Let us know where to contact you regarding your request."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:79
+msgid "Thank you for reaching out! We will get back to you as soon as possible."
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:88
+msgid "Back"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:89
+msgid "Next"
+msgstr ""
+
+#: inc/admin/feedback-form/views/view-feedback-form.php:90
+msgid "Send"
+msgstr ""
+
+#: inc/admin/submenu-page-debugger.php:12
+msgid "Debugger"
+msgstr ""
+
+#: inc/admin/submenu-page-extensions.php:7
+msgid "Extensions"
+msgstr ""
+
+#: inc/admin/submenu-page-settings.php:7
+#: inc/admin/views/view-submenu-page-settings-pro.php:15
+#: inc/admin/views/view-submenu-page-settings.php:3
+#: inc/functions-admin.php:121
+#: mediavine-grow.php:400
+msgid "Settings"
+msgstr ""
+
+#: inc/admin/submenu-page-settings.php:15
+msgid "General Settings"
+msgstr ""
+
+#: inc/admin/submenu-page-settings.php:16
+#: inc/admin/views/view-submenu-page-settings.php:18
+msgid "Social Identity"
+msgstr ""
+
+#: inc/admin/submenu-page-settings.php:121
+msgid "Serial key is valid."
+msgstr ""
+
+#: inc/admin/submenu-page-settings.php:124
+msgid "Serial key is invalid or expired."
+msgstr ""
+
+#: inc/admin/submenu-page-sidebar.php:9
+#: inc/functions.php:13
+#: inc/tools/share-floating-sidebar/class-floating-sidebar.php:13
+#: inc/tools/share-floating-sidebar/share-floating-sidebar.php:14
+#: inc/tools/share-floating-sidebar/submenu-page-sidebar.php:15
+msgid "Floating Sidebar"
+msgstr ""
+
+#: inc/admin/submenu-page-toolkit.php:7
+msgid "Toolkit"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-debugger.php:77
+msgid "System Status"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:11
+msgid "Grow Your Email List in a Simple Way"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:11
+msgid "Create beautiful email subscription popup and widget forms<br /> with just a few clicks."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:15
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:78
+msgid "Install Now"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:21
+msgid "Subscribe users from custom opt-ins"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:29
+msgid "Email Opt-in Pop-up"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:30
+msgid "Add email opt-in pop-up forms in your posts and pages."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:38
+msgid "Email Opt-in Widget"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:39
+msgid "Add email opt-in widget forms in any widget area."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:47
+msgid "Email Opt-in Fly-in"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:48
+msgid "Add email opt-in fly-in forms in your posts and pages."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:58
+msgid "Email Opt-in Shortcode"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:59
+msgid "Place email opt-in forms anywhere in your pages with the shortcode."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:67
+msgid "Email Opt-in After Content"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:68
+msgid "Add email opt-in forms after your posts and pages content."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions-sub-page-opt-in-hound.php:74
+msgid "Simple. Flexible. Reliable."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:3
+msgid "All Social Share Tools in One Plugin"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:5
+msgid "Get <a href=\"https://marketplace.mediavine.com/grow-social-pro/\" target=\"_blank\">Grow by Mediavine, Social Pro</a> to have access to even more tools and offer your users a beautiful social sharing experience."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:7
+msgid "To gain immediate access to the tools below, <a href=\"https://marketplace.mediavine.com/grow-social-pro/\" target=\"_blank\">have a look at our pricing.</a>"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:14
+msgid "Social Networks Pack"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:16
+msgid "Take advantage of all the social networks available."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:21
+msgid "Share Mobile Sticky"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:23
+msgid "Add a mobile sticky share footer to your posts and pages."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:28
+msgid "Share Pop-Up"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:30
+msgid "Add a simple share pop-up that has custom triggers."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:35
+#: inc/tools/share-images-pinterest/class-pinterest.php:12
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:16
+msgid "Image Hover Pinterest Button"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:37
+msgid "Add a Pinterest button to your single posts images when a user hovers on them."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:42
+msgid "Follow Buttons Widget"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:44
+msgid "Link your social profiles with the help of the follow buttons."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:49
+#: inc/tools/share-click-to-tweet/functions-admin.php:13
+msgid "Click to Tweet"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:51
+msgid "Add custom tweetable quotes anywhere in your content."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:56
+msgid "Branch Integration"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:58
+msgid "Shorten share links with the help of Branch."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:63
+msgid "Bitly Integration"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:65
+msgid "Shorten share links with the help of Bitly."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:70
+msgid "Analytics UTM Tracking"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-extensions.php:72
+msgid "Track shared links with the help of the UTM parameters."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:62
+msgid "Google Analytics UTM Tracking"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:67
+msgid "Activate UTM Tracking"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:68
+msgid "Campaign Source"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:68
+msgid "Use utm_source to identify a search engine, newsletter name, or other source. Using \"{{network_name}}\" as value here will add the name of the social network button as the value of the utm_source parameter."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:69
+msgid "Campaign Medium"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:69
+msgid "Use utm_medium to identify a medium such as email or social."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:70
+msgid "Campaign Name"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:70
+msgid "Use utm_campaign to identify a specific product promotion or strategic campaign."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:79
+#: inc/admin/views/view-submenu-page-settings.php:34
+msgid "Misc"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:88
+#: inc/admin/views/view-submenu-page-settings.php:39
+msgid "Facebook Share Counts Provider"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:90
+#: mediavine-grow.php:243
+msgid "Grow Social by Mediavine"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:91
+#: inc/admin/views/view-submenu-page-settings.php:39
+msgid "Facebook Graph API"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:109
+#: inc/admin/views/view-submenu-page-settings.php:51
+msgid "Authorized"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:110
+#: inc/admin/views/view-submenu-page-settings.php:52
+msgid "Expires on %s"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:117
+#: inc/admin/views/view-submenu-page-settings.php:59
+msgid "Authorization Expired"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:118
+#: inc/admin/views/view-submenu-page-settings.php:60
+msgid "Please reauthorize."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:138
+#: inc/admin/views/view-submenu-page-settings.php:63
+msgid "Reauthorize Grow"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:161
+#: inc/admin/views/view-submenu-page-settings.php:69
+msgid "Authorize Grow"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:167
+#: inc/admin/views/view-submenu-page-settings.php:75
+msgid "Facebook App ID"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:168
+#: inc/admin/views/view-submenu-page-settings.php:76
+msgid "Facebook App Secret"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:170
+#: inc/admin/views/view-submenu-page-settings.php:78
+msgid "Enable Twitter Tweet Counts"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:171
+msgid "Tweet Counts Provider"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:171
+msgid "TwitCount"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:171
+msgid "You will need to register your website on %1$sTwitCount%2$s in order for Grow to be able to return the share counts."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:172
+#: inc/admin/views/view-submenu-page-settings.php:77
+msgid "Disable Open Graph Meta Tags"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:173
+msgid "WhatsApp only on mobile devices"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:173
+msgid "The WhatsApp share button will be displayed on all devices by default. By checking this option the WhatsApp button will only be shown on mobile devices."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:174
+msgid "Enable System Debugger"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:175
+msgid "Use jQuery JavaScript"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:178
+msgid "Refresh all share counts"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:190
+msgid "Register Version"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:200
+msgid "Previous Social Pug Serial"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:204
+msgid "Grow Social by Mediavine License"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:222
+msgid "Facebook Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:223
+#: inc/admin/views/view-submenu-page-settings.php:23
+msgid "Twitter Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:224
+#: inc/admin/views/view-submenu-page-settings.php:24
+msgid "Add Twitter Username to all tweets"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:225
+msgid "Pinterest Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:226
+msgid "LinkedIn Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:227
+msgid "Reddit Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:228
+msgid "VK Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:229
+msgid "Instagram Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:230
+msgid "YouTube Channel"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:231
+msgid "Vimeo Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:232
+msgid "SoundCloud Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:233
+msgid "Twitch Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:234
+msgid "Yummly Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:235
+msgid "Behance Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:236
+msgid "Xing Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:237
+msgid "Github Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:238
+msgid "Telegram Username/Channel"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings-pro.php:239
+msgid "Medium Username"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings.php:39
+msgid "Grow by Mediavine App"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-settings.php:78
+msgid "You will need to register your website on %1$sTwitCount%2$s in order for Growto be able to return the share counts."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:12
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:12
+msgid "Configure Sidebar Sharing Buttons"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:22
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:23
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:23
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:23
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:23
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:23
+msgid "Social Networks"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:23
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:24
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:24
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:24
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:24
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:24
+msgid "Select Networks"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:27
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:28
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:28
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:28
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:28
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:28
+msgid "Select which social buttons to display"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:43
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:117
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:82
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:117
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:45
+msgid "Display Settings"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:48
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:127
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:92
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:127
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:127
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:127
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:55
+msgid "Button shape"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:48
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:129
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:94
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:129
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:129
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:129
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:57
+msgid "Rectangular"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:48
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:130
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:95
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:130
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:130
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:130
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:58
+msgid "Rounded"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:48
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:131
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:96
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:131
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:131
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:131
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:59
+msgid "Circle"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:50
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:156
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:121
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:156
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:156
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:67
+msgid "Show icon animation"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:50
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:156
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:121
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:156
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:156
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:67
+msgid "Will animate the social media icon when the user hovers over the button."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:52
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:128
+msgid "Buttons position"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:52
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:186
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:47
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:130
+msgid "Left"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:52
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:188
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:48
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:131
+msgid "Right"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:54
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:196
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:139
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:198
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:179
+msgid "Show button labels"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:56
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:198
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:141
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:200
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:181
+msgid "Button spacing"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:56
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:141
+msgid "Adds bottom spacing for each button."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:58
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:200
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:164
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:202
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:339
+msgid "Show on mobile"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:60
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:166
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:204
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:341
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:118
+msgid "Mobile screen width (pixels)"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:60
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:166
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:204
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:341
+msgid "For screen widths smaller than this value ( in pixels ) the buttons will be displayed on screen if the show on mobile option is checked."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:70
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:177
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:215
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:191
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:150
+msgid "Buttons Share Counts"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:75
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:182
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:220
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:196
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:155
+msgid "Show share count"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:75
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:182
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:220
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:196
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:155
+msgid "Display the share count for each social network."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:77
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:184
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:222
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:198
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:157
+msgid "Show total share count"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:77
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:184
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:222
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:198
+msgid "Display the share count for all social networks."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:79
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:191
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:229
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:205
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:164
+msgid "Total count position"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:79
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:193
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:231
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:207
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:166
+msgid "Before Buttons"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:79
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:194
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:232
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:208
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:167
+msgid "After Buttons"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:81
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:202
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:240
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:216
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:175
+msgid "Share count round"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:81
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:202
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:240
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:216
+msgid "If the share count for each network is bigger than 1000 it will be rounded to one decimal ( eg. 1267 will show as 1.2k ). Applies to Total Share Counts as well."
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-sidebar.php:91
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:233
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:272
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:352
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:208
+msgid "Post Type Display Settings"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-toolkit.php:6
+msgid "Social Share Tools"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-toolkit.php:23
+msgid "Social Follow Tools"
+msgstr ""
+
+#: inc/admin/views/view-submenu-page-toolkit.php:37
+msgid "Misc Tools"
+msgstr ""
+
+#: inc/class-buttons-outputter.php:276
+msgid "Share on %s"
+msgstr ""
+
+#: inc/class-buttons-outputter.php:279
+msgid "Save to Pinterest"
+msgstr ""
+
+#: inc/class-buttons-outputter.php:283
+msgid "Send over email"
+msgstr ""
+
+#: inc/class-buttons-outputter.php:287
+msgid "Print this webpage"
+msgstr ""
+
+#: inc/class-buttons-outputter.php:314
+msgid "Follow on %s"
+msgstr ""
+
+#: inc/functions-admin.php:126
+msgid "Active"
+msgstr ""
+
+#: inc/functions-admin.php:126
+msgid "Inactive"
+msgstr ""
+
+#: inc/functions-admin.php:136
+msgid "Learn More"
+msgstr ""
+
+#: inc/functions-admin.php:370
+msgid "Apply Selection"
+msgstr ""
+
+#: inc/functions-admin.php:403
+msgid "This button has no label text."
+msgstr ""
+
+#: inc/functions-admin.php:624
+msgid "Settings saved."
+msgstr ""
+
+#: inc/functions-admin.php:625
+msgid "Settings imported."
+msgstr ""
+
+#: inc/functions-admin.php:626
+msgid "Please select an import file."
+msgstr ""
+
+#: inc/functions-admin.php:627
+msgid "Import file is not valid."
+msgstr ""
+
+#: inc/functions-admin.php:628
+msgid "Grow Social by Mediavine App authorized successfully."
+msgstr ""
+
+#: inc/functions-admin.php:654
+msgid "Your <strong>Grow Social Pro by Mediavine</strong> license key is empty. Please <a href=\"%1$s\">register your copy</a> to receive automatic updates and support. <br /><br /> Need a license key? <a class=\"dpsp-get-license button button-primary\" target=\"_blank\" href=\"%2$s\">Get your license here</a>"
+msgstr ""
+
+#: inc/functions-admin.php:704
+#: inc/functions-admin.php:744
+msgid "Grow Social by Mediavine Important Notification"
+msgstr ""
+
+#: inc/functions-admin.php:706
+msgid "Your Grow Social by Mediavine Facebook app authorization has expired. Please reauthorize the app for continued Facebook share counts functionality."
+msgstr ""
+
+#: inc/functions-admin.php:708
+msgid "Reauthorize Grow Social by Mediavine App"
+msgstr ""
+
+#: inc/functions-admin.php:746
+msgid "As you may already know, Google+ has shut down on April 2nd. As a result, with this latest update, Grow Social by Mediavine no longer supports Google+ functionality."
+msgstr ""
+
+#: inc/functions-admin.php:748
+msgid "Please make sure to verify your settings, your widgets, your shortcodes, and remove any Google+ buttons you may have placed within your website."
+msgstr ""
+
+#: inc/functions-admin.php:750
+#: inc/functions-admin.php:798
+msgid "Thank you, I understand."
+msgstr ""
+
+#: inc/functions-admin.php:790
+msgid "Social Pug is now Grow Social by Mediavine!"
+msgstr ""
+
+#: inc/functions-admin.php:792
+msgid "You're going to notice some new paint and a new name today and we wanted to let you know what that's all about. The short version is that Grow Social by Mediavine is the same plugin you know and love but with a new, larger development team!"
+msgstr ""
+
+#: inc/functions-admin.php:794
+msgid "Check out the blog post"
+msgstr ""
+
+#: inc/functions-admin.php:794
+msgid " for all the details on this development and our exciting plans to continue Growing an already awesome plugin."
+msgstr ""
+
+#: inc/functions-admin.php:796
+msgid "(Those who are familiar with Mediavine for our full-service ad management, rest assured that this plugin is totally independent of ads and available to anyone and everyone who wants to Grow their social presence.)"
+msgstr ""
+
+#: inc/functions-admin.php:837
+msgid "Grow Social by Mediavine Notification"
+msgstr ""
+
+#: inc/functions-admin.php:839
+msgid "To activate social share counts for Facebook, connecting Grow Social by Mediavine to a Facebook App is required. Please click the button below for a step-by-step guide on how to achieve this."
+msgstr ""
+
+#: inc/functions-admin.php:908
+msgid "Skyrocket your social media marketing"
+msgstr ""
+
+#: inc/functions-admin.php:909
+msgid "Force a custom image to be shared on Pinterest when using the Pinterest button."
+msgstr ""
+
+#: inc/functions-admin.php:910
+msgid "Add unlimited hidden Pinterest images to your posts and pages."
+msgstr ""
+
+#: inc/functions-admin.php:911
+msgid "Add a \"Pin It\" button that appears when visitors hover your in-post images."
+msgstr ""
+
+#: inc/functions-admin.php:912
+msgid "Add custom pin descriptions and repin IDs to your in-post images."
+msgstr ""
+
+#: inc/functions-admin.php:913
+msgid "Recover your lost social share counts if you've ever changed your permalink structure."
+msgstr ""
+
+#: inc/functions-admin.php:914
+msgid "Add unlimited \"Click to Tweet\" boxes so that your users can share your content on Twitter with just one click."
+msgstr ""
+
+#: inc/functions-admin.php:915
+msgid "Get immediate help with priority support."
+msgstr ""
+
+#: inc/functions-admin.php:916
+msgid "And much, much more..."
+msgstr ""
+
+#: inc/functions-admin.php:919
+msgid "Upgrade to Pro"
+msgstr ""
+
+#: inc/functions-cron.php:13
+msgid "Once every two hours"
+msgstr ""
+
+#: inc/functions-cron.php:18
+msgid "Once every week"
+msgstr ""
+
+#: inc/functions-frontend.php:48
+msgid "shares"
+msgstr ""
+
+#: inc/functions.php:14
+msgid "Content"
+msgstr ""
+
+#: inc/functions.php:15
+#: inc/tools/share-sticky-bar/class-sticky-bar.php:13
+#: inc/tools/share-sticky-bar/share-sticky-bar.php:14
+#: inc/tools/share-sticky-bar/submenu-page-sticky-bar.php:15
+msgid "Sticky Bar"
+msgstr ""
+
+#: inc/functions.php:16
+#: inc/tools/share-pop-up/class-pop-up.php:13
+#: inc/tools/share-pop-up/share-pop-up.php:14
+#: inc/tools/share-pop-up/submenu-page-pop-up.php:14
+msgid "Pop-Up"
+msgstr ""
+
+#: inc/functions.php:20
+#: inc/tools/follow-widget/class-follow-widget.php:13
+#: inc/tools/follow-widget/follow-widget.php:14
+#: inc/tools/follow-widget/submenu-page-follow-widget.php:15
+msgid "Follow Widget"
+msgstr ""
+
+#: inc/functions.php:621
+msgid "Sharing is Caring"
+msgstr ""
+
+#: inc/functions.php:622
+msgid "Help spread the word. You're awesome for doing it!"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:13
+msgid "Grow Social by Mediavine: Social Media Follow Buttons"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:14
+msgid "Display social media follow buttons."
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:65
+#: inc/widgets/class-dpsp-top-shared-posts.php:168
+msgid "Title:"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:71
+msgid "Description:"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:77
+msgid "Buttons Settings:"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:78
+msgid "You can edit the look and feel of the buttons by pressing the button below:"
+msgstr ""
+
+#: inc/tools/follow-widget/admin-widget-follow.php:79
+msgid "Buttons Settings"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:12
+msgid "Configure Follow Widget Buttons"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:45
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:45
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:45
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:45
+msgid "Button Style"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:144
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:109
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:144
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:144
+msgid "Button size"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:146
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:111
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:146
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:146
+msgid "Small"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:147
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:112
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:147
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:147
+msgid "Medium"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:148
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:113
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:148
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:148
+msgid "Large"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:163
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:180
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:163
+msgid "Number of columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:165
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:182
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:165
+msgid "Width Auto"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:166
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:183
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:166
+msgid "1 column"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:167
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:184
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:167
+msgid "2 columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:168
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:185
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:168
+msgid "3 columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:169
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:186
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:169
+msgid "4 columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:170
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:187
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:170
+msgid "5 columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:171
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:188
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:171
+msgid "6 columns"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:184
+msgid "Button alignment"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:187
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:117
+msgid "Center"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:211
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:216
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:255
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:230
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:190
+msgid "Buttons Custom Colors"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:216
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:221
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:260
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:235
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:195
+msgid "Buttons color"
+msgstr ""
+
+#: inc/tools/follow-widget/views/view-submenu-page-follow-widget.php:217
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:222
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:261
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:236
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:196
+msgid "Buttons hover color"
+msgstr ""
+
+#: inc/tools/misc-import-export/class-import-export.php:12
+#: inc/tools/misc-import-export/misc-import-export.php:14
+msgid "Import / Export Settings"
+msgstr ""
+
+#: inc/tools/misc-import-export/submenu-page-import-export.php:15
+msgid "Import/Export"
+msgstr ""
+
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:4
+msgid "Import and Export"
+msgstr ""
+
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:12
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:25
+msgid "Import"
+msgstr ""
+
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:17
+msgid "Select a settings file exported by this plugin. Importing the file will result in overwriting all settings saved by the plugin."
+msgstr ""
+
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:35
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:46
+msgid "Export"
+msgstr ""
+
+#: inc/tools/misc-import-export/views/view-submenu-page-import-export.php:40
+msgid "After clicking the button below a file with all settings from the plugin will be saved on your computer. The file will be having the \".json\" extension."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:27
+msgid "Generic Access Token"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:27
+msgid "You will need to create an account on %1$sBitly.com%2$s and generate the Generic Access Token from %3$sthis link%4$s."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:32
+msgid "Bitly Generic Access Token is invalid or expired."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:39
+msgid "Bitly Group"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:41
+msgid "Bitly requires all shortened links to be associated with a group, with a free account you likely only have a single group."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:55
+msgid "Refresh Bitly Groups"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:57
+msgid "Refresh"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/bitly/bitly.php:58
+msgid "Refresh Bitly groups to see any recent changes made in Bitly."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:27
+msgid "Branch Key"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:27
+msgid "You will need to create an account on %1$sBranch.io%2$s and retrieve your Branch Key from %3$sthis link%4$s."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:29
+msgid "ID Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:29
+msgid "Key in %1$slink data object%2$s to contain WordPress post ID. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:31
+msgid "Title Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:31
+msgid "Key in %1$slink data object%2$s to contain post title. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:33
+msgid "Description Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:33
+msgid "Key in %1$slink data object%2$s to contain post description. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:35
+msgid "Image URL Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:35
+msgid "Key in %1$slink data object%2$s to contain post image URL. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:37
+msgid "Date Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:37
+msgid "Key in %1$slink data object%2$s to contain post date. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:39
+msgid "URL Parameter"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/available-services/branch/branch.php:39
+msgid "Key in %1$slink data object%2$s to contain post permalink URL. Not set if blank."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/misc-link-shortening.php:94
+msgid "Something went wrong! Could not remove the shortened links."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/misc-link-shortening.php:98
+msgid "Shortened links purged successfully."
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:5
+msgid "Link Shortening"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:12
+msgid "Activate Link Shortening"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:28
+msgid "Link Shortening Service"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:59
+msgid "Purge Shortened Links"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:61
+msgid "Are you sure you want to purge all shortened links?"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:61
+msgid "Purge %s Links"
+msgstr ""
+
+#: inc/tools/misc-link-shortening/views/view-submenu-page-settings-general-tab-link-shortening.php:65
+msgid "This will remove all shortened links that were previously created with the selected Link Shortening Service and saved for your posts."
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:10
+msgid "Combine HTTP & HTTPS Protocols"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:10
+msgid "Activate this option if you've secured your website by moving it from HTTP to HTTPS and wish to combine the share counts for both versions of the URLs."
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:16
+msgid "Combine Previous Permalink Format"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:16
+msgid "Activate this option if previously you had another permalink format for your website and wish to combine the share counts from the previous and current formats."
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:22
+msgid "Previous Permalink Format"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:24
+msgid "Plain"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:25
+msgid "Day and name"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:26
+msgid "Month and name"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:27
+msgid "Numeric"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:28
+msgid "Post name"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:29
+msgid "Custom Format"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:36
+msgid "Custom Permalink Format"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:42
+msgid "Combine Previous Domain"
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:42
+msgid "Activate this option if you've moved your website from a domain name to another one and wish to combine the share counts from the previous and current domain names."
+msgstr ""
+
+#: inc/tools/misc-social-shares-recovery/views/view-submenu-page-settings-general-tab-social-shares-recovery.php:43
+msgid "Previous Base Domain"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:5
+msgid "Preview"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:20
+msgid "Styling"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:29
+msgid "Tweet Box Theme"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:31
+msgid "Simple"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:32
+msgid "Simple with a twist"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:33
+msgid "Simple border"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:34
+msgid "Double border"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:35
+msgid "Full background"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:39
+msgid "Call to Action Text"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:45
+msgid "Call to Action Position"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:52
+msgid "Show Icon Animation"
+msgstr ""
+
+#: inc/tools/share-click-to-tweet/views/view-submenu-page-settings-tab.php:52
+msgid "Will animate the call to action icon when the user hovers over the Click to Tweet box."
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:148
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:292
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:125
+msgid "Intro Animation"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:150
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:294
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:127
+msgid "No Animation"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:151
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:296
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:128
+msgid "Fade In"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:152
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:129
+msgid "Slide In"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:160
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:306
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:137
+msgid "Show after user scrolls"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:162
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:308
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:139
+msgid "Scroll distance (%)"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:162
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:139
+msgid "The distance in percentage (%) of the total page height the user has to scroll before the buttons will appear."
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:204
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:242
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:218
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:177
+msgid "Minimum global share count"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:204
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:242
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:218
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:177
+msgid "Display share counts only if the total share count is higher than this value."
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:206
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:244
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:220
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:179
+msgid "Minimum individual share count"
+msgstr ""
+
+#: inc/tools/share-floating-sidebar/views/view-submenu-page-sidebar.php:206
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:244
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:220
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:179
+msgid "Display share counts for an individual network only if the share count for that network is higher than this value."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:35
+msgid "Pinterest Settings"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:47
+msgid "Pinterest Share"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:47
+msgid "Pinterest"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:92
+msgid "Save"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:697
+msgid "Grow Social by Mediavine: Pin Title"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:704
+msgid "Grow Social by Mediavine: Pin Description"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:710
+msgid "Grow Social by Mediavine: Pin Repin ID"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:715
+msgid "Grow Social by Mediavine: Disable Pinning"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:716
+msgid "No"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/share-images-pinterest.php:716
+msgid "Yes"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:15
+msgid "Configure Pinterest"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:25
+msgid "General Pinterest Settings"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:34
+msgid "Pin description source"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:36
+msgid "Image Alt Tag"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:37
+msgid "Image Title"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:38
+msgid "Post custom Pinterest description"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:43
+msgid "Select the source for the Pin's description. By default, if the image has a custom Pinterest description set, this will be used. If not, the value selected here will be used. If the value selected here does not exist for the image, the post's custom Pinterest description will be used, if it exists."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:49
+msgid "Pinnable images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:51
+msgid "All available images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:52
+msgid "Only the images from the post's content"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:53
+msgid "Only the Pinterest images set for the post"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:58
+msgid "Select what images should be made available for pinning in single posts or pages. For all images that do not match the selection made in this field, the data-pin-nopin attribute will be set for them."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:64
+msgid "Pinterest button behavior"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:66
+msgid "Show the post custom Pinterest image"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:67
+msgid "Show a selection of all pinnable images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:72
+msgid "Select what should be prompted for sharing when clicking the Pinterest social share button. The default is to prompt a selection of all pinnable images."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:74
+msgid "Add post Pinterest image as hidden"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:74
+msgid "If enabled, the custom Pinterest image you've set for the post will be added as a hidden image to that post, so that it can be pinned from browser extensions."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:75
+msgid "Multiple Pinterest hidden images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:75
+msgid "If enabled, you will be able to add multiple hidden images, for sharing on Pinterest, to each individual post."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:78
+msgid "Page builder compatibility (BETA)"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:78
+msgid "If you're using a page builder for your posts and pages, Elementor or Thrive Architect for example, and not the WordPress editor, and you are having issues with showing the Pinterest description for images, please enable this option."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:79
+msgid "Lazy load compatibility (BETA)"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:79
+msgid "If you're lazy loading for your images and you are having issues with Pinterest not picking up your images, please enable this option."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:81
+msgid "Disable Lazy Load for Hidden Images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:81
+msgid "Some services, such as Tailwind, will not pick up lazy loaded hidden images, this setting tells lazy loading services to skip the hidden Pinterest images. Note that enabling this setting does have a slight negative impact on site speed."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:82
+msgid "Use Large Size for Hidden Images"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:82
+msgid "Some services, such as Tailwind, will not be able to read images that have either the height or width smaller than 150 pixels, even with the “data-pin-media” attribute set to the largest image size. This setting uses the large image size for hidden images."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:83
+msgid "Disable Pinning of iFrames"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:83
+msgid "Pinterest will allow you to pin iframe embeds from certain services like YouTube, some users may not want their YouTube or other iframe embeds showing up as an option to be pinned."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:102
+msgid "Pinterest Image Hover Settings"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:111
+msgid "Button position"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:113
+msgid "Top Left"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:114
+msgid "Top Right"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:115
+msgid "Bottom Left"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:116
+msgid "Bottom Right"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:137
+msgid "Minimum image width (pixels)"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:138
+msgid "Minimum image height (pixels)"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:139
+msgid "Show button label"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:140
+msgid "Button text label"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:141
+msgid "Show image overlay"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:146
+msgid "Pinterest hover button behavior"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:148
+msgid "Share the image that is hovered"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:149
+msgid "Share the post custom Pinterest image"
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:154
+msgid "Select which image the user should be prompted to share when clicking the Pinterest image hover button. The default is to prompt the image being hovered, but you can choose to prompt the custom Pinterest image and description that you have set for the post."
+msgstr ""
+
+#: inc/tools/share-images-pinterest/views/view-submenu-share-images-pinterest.php:156
+msgid "Post type display"
+msgstr ""
+
+#: inc/tools/share-inline-content/class-inline-content.php:13
+#: inc/tools/share-inline-content/share-inline-content.php:14
+#: inc/tools/share-inline-content/submenu-page-content.php:15
+msgid "Inline Content"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:12
+msgid "Configure Content Sharing Buttons"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:163
+msgid "Buttons Position"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:165
+msgid "Above Content"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:166
+msgid "Below Content"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:167
+msgid "Above and Below"
+msgstr ""
+
+#: inc/tools/share-inline-content/views/view-submenu-page-content.php:196
+msgid "Share Text"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:12
+msgid "Configure Pop-Up Sharing Buttons"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:117
+msgid "Buttons Display Settings"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:247
+msgid "Pop-Up Display Settings"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:257
+msgid "Title"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:275
+msgid "Message"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:295
+msgid "Scale"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:297
+msgid "Slide Up"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:298
+msgid "Slide Down"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:308
+msgid "The distance in percentage (%) of the total page height the user has to scroll before the pop-up will appear."
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:310
+msgid "Show when at the bottom of the post"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:312
+msgid "Show on exit intent"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:314
+msgid "Show after \"x\" seconds"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:314
+msgid "Add a time delay ( in seconds ) until the pop-up should appear."
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:321
+msgid "Show once every"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:323
+msgid "Everytime"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:324
+msgid "1 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:325
+msgid "2 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:326
+msgid "3 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:327
+msgid "4 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:328
+msgid "5 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:329
+msgid "6 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:330
+msgid "7 days"
+msgstr ""
+
+#: inc/tools/share-pop-up/views/view-submenu-page-pop-up.php:335
+msgid "The pop-up will appear to users once every X number of days you select. If you select \"Everytime\" the pop-up will appear for each page the user visits."
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:12
+msgid "Configure Sticky Bar Sharing Buttons"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:74
+msgid "Show on device"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:76
+msgid "Mobile Only"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:77
+msgid "Desktop Only"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:78
+msgid "All Devices"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:91
+msgid "Desktop position"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:93
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:109
+msgid "Top"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:94
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:110
+msgid "Bottom"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:107
+msgid "Mobile position"
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:118
+msgid "For screen widths smaller than this value ( in pixels ) the Mobile Sticky will be displayed on screen."
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:157
+msgid "Display the share count for all social networks. Is available only when the buttons are displayed on a desktop."
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:175
+msgid "If the share count for each network is bigger than 1000 it will be rounded to one decimal ( eg. 1267 will show as 1.2k )."
+msgstr ""
+
+#: inc/tools/share-sticky-bar/views/view-submenu-page-sticky-bar.php:197
+msgid "Bar background color"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:18
+msgid "Grow Social by Mediavine: Top Shared Posts"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:19
+msgid "Display the most shared posts from any custom post type."
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:132
+msgid "Shares: "
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:174
+msgid "Post types:"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:184
+msgid "Post Options:"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:186
+msgid "Number of posts to show: "
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:192
+msgid "Display featured image:"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:198
+msgid "Featured image size: "
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:211
+msgid "Display post excerpt:"
+msgstr ""
+
+#: inc/widgets/class-dpsp-top-shared-posts.php:217
+msgid "Display post total share count:"
+msgstr ""
+
+#: mediavine-grow.php:243
+msgid "Grow"
+msgstr ""

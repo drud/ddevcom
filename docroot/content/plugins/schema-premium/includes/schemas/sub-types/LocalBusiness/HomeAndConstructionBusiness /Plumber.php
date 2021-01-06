@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_Plumber') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'Plumber';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HomeAndConstructionBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_Plumber') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Plumber';
+		}
+
 		/**
 		* Get schema type label
 		*

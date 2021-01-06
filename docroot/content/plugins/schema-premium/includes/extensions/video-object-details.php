@@ -75,6 +75,8 @@ function schema_premium_get_video_object_details() {
 			$transcript 		= get_sub_field('feild_schema_VideoObject_details_transcript');
 			$thumbnailUrl 		= get_sub_field('feild_schema_VideoObject_details_thumbnailUrl');
 			$uploadDate 		= get_sub_field('feild_schema_VideoObject_details_uploadDate');
+			$contentUrl 		= get_sub_field('feild_schema_VideoObject_details_contentUrl');
+			$embedUrl 			= get_sub_field('feild_schema_VideoObject_details_embedUrl');
 			
 			$publication 		= array();
 			$isLiveBroadcast 	= get_sub_field('feild_schema_VideoObject_details_isLiveBroadcast');
@@ -90,7 +92,9 @@ function schema_premium_get_video_object_details() {
 				'description' 	=> $description,
 				'transcript' 	=> $transcript,
 				'thumbnailUrl' 	=> isset($thumbnailUrl['url']) ? $thumbnailUrl['url'] : '',
-				'uploadDate' 	=> $uploadDate
+				'uploadDate' 	=> $uploadDate,
+				'contentUrl' 	=> $contentUrl,
+				'embedUrl' 		=> $embedUrl
 			);
 			
 			// is Live Broadcast
@@ -143,7 +147,7 @@ function schema_premium_acf_meta_video_object_details() {
 	if ( function_exists('acf_add_local_field_group') ):
 		
 		// Get setting for display instructions
-		$properties_instructions_enable = schema_wp_get_option( 'properties_instructions_enable' );
+		$instructions_on = schema_wp_get_option( 'properties_instructions_enable' );
 		
 		// ACF Field: Video Details
 		// 
@@ -170,7 +174,7 @@ function schema_premium_acf_meta_video_object_details() {
 			'name'         => 'schema_VideoObject_details_repeater',
 			'type'         => 'repeater',
 			'parent'       => 'group_schema_properties',
-			'instructions' => $properties_instructions_enable == 'yes' ? __('Mark up your video content manually with structured data to make Google Search an entry point for discovering and watching videos. Use this feature if your videos are not supported by Schema Premium plugin.', 'schema-premium') : '',
+			'instructions' => $instructions_on == 'yes' ? __('Mark up your video content manually with structured data to make Google Search an entry point for discovering and watching videos. Use this feature if your videos are not supported by Schema Premium plugin.', 'schema-premium') : '',
 			'layout' 	   => 'block',
 			'button_label' => __('Add Video Details', 'schema-premium')
 		) );
@@ -178,81 +182,122 @@ function schema_premium_acf_meta_video_object_details() {
 		// Sub Repeater
 		// 
 		// Video details: Name
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_name',
-			'label' 	=> 'Name',
+			'label' 	=> __('Name', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_name',
 			'type' 		=> 'text',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'default_value' => '',
-			'placeholder' => ''
+			'placeholder' => '',
+			'instructions' =>  $instructions_on == 'yes' ? __('The name of the video.', 'schema-premium') : '',
 		));
 		
 		// Sub Repeater
 		// 
 		// Video details: Description
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_description',
-			'label' 	=> 'Description',
+			'label' 	=> __('Description', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_description',
 			'type' 		=> 'textarea',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'rows' 		=> '3',
 			'default_value' => '',
-			'placeholder' => ''
+			'placeholder' => '',
+			'instructions' =>  $instructions_on == 'yes' ? __('A description of the video.', 'schema-premium') : '',
 		));
 
 		// Sub Repeater
 		// 
 		// Video details: Transcript
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_transcript',
-			'label' 	=> 'Transcript',
+			'label' 	=> __('Transcript', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_transcript',
 			'type' 		=> 'textarea',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'rows' 		=> '3',
 			'default_value' => '',
-			'placeholder' => ''
+			'placeholder' => '',
+			'instructions' =>  $instructions_on == 'yes' ? __('If this video has audio, the transcript of the audio.', 'schema-premium') : '',
 		));
 		
 		// Sub Repeater
 		// 
 		// Video details: thumbnailUrl
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_thumbnailUrl',
-			'label' 	=> 'Thumbnail',
+			'label' 	=> __('Thumbnail', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_thumbnailUrl',
 			'type' 		=> 'image',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
-			'default_value' => ''
+			'default_value' => '',
+			'instructions' =>  $instructions_on == 'yes' ? __('Thumbnail image for the video.', 'schema-premium') : '',
 		));
 		
 		// Sub Repeater
 		// 
 		// Video details: uploadDate
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_uploadDate',
-			'label' 	=> 'Upload Date',
+			'label' 	=> __('Upload Date', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_uploadDate',
 			'type' 		=> 'date_time_picker',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'return_format' => 'Y-m-d H:i:s',
-			'default_value' => ''
+			'default_value' => '',
+			'instructions' =>  $instructions_on == 'yes' ? __('Date when this video was uploaded to this site.', 'schema-premium') : '',
+		));
+
+		// Sub Repeater
+		// 
+		// Video details: contentUrl
+		//
+		acf_add_local_field(array(
+			'key' 		=> 'feild_schema_VideoObject_details_contentUrl',
+			'label' 	=> __('Content Url', 'schema-premium'),
+			'name' 		=> 'schema_VideoObject_details_contentUrl',
+			'type' 		=> 'url',
+			'parent' 	=> 'field_schema_VideoObject_details_repeater',
+			'default_value' => '',
+			'placeholder' => 'https://',
+			'instructions' =>  $instructions_on == 'yes' ? __('A URL pointing to the actual bytes of the video (for example, url of the video file).', 'schema-premium') : '',
+		));
+		
+		// Sub Repeater
+		// 
+		// Video details: embedUrl
+		//
+		acf_add_local_field(array(
+			'key' 		=> 'feild_schema_VideoObject_details_embedUrl',
+			'label' 	=> __('Embed Url', 'schema-premium'),
+			'name' 		=> 'schema_VideoObject_details_embedUrl',
+			'type' 		=> 'url',
+			'parent' 	=> 'field_schema_VideoObject_details_repeater',
+			'default_value' => '',
+			'placeholder' => 'https://',
+			'instructions' =>  $instructions_on == 'yes' ? __('A URL pointing to a player for this specific video.', 'schema-premium') : '',
 		));
 
 		// Sub Repeater
 		// 
 		// Video details: isLiveBroadcast
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_isLiveBroadcast',
-			'label' 	=> 'Is Live Broadcast?',
+			'label' 	=> __('Is Live Broadcast?', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_isLiveBroadcast',
 			'type' 		=> 'true_false',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'return_format' => 'Y-m-d H:i:s',
 			'default_value' => 0,
-			'instructions' 	=> __('Set to true if the video is, has been, or will be streamed live.', 'schema-premium'),
+			'instructions' 	=> $instructions_on == 'yes' ? __('Set to true if the video is, has been, or will be streamed live.', 'schema-premium') : '',
 			'ui' => 1,
 			'ui_on_text' => __('Yes', 'schema-premium'),
 			'ui_off_text' => __('No', 'schema-premium'),
@@ -261,15 +306,16 @@ function schema_premium_acf_meta_video_object_details() {
 		// Sub Repeater
 		// 
 		// Video details: startDate
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_startDate',
-			'label' 	=> 'Start Date',
+			'label' 	=> __('Start Date', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_startDate',
 			'type' 		=> 'date_time_picker',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'return_format' => 'Y-m-d H:i:s',
 			'default_value' => '',
-			'instructions' 	=> __('Time and date of when the livestream starts or is expected to start.', 'schema-premium'),
+			'instructions' 	=> $instructions_on == 'yes' ? __('Time and date of when the livestream starts or is expected to start.', 'schema-premium') : '',
 			'conditional_logic' => array(
 				array(
 					array(
@@ -284,15 +330,16 @@ function schema_premium_acf_meta_video_object_details() {
 		// Sub Repeater
 		// 
 		// Video details: endDate
+		//
 		acf_add_local_field(array(
 			'key' 		=> 'feild_schema_VideoObject_details_endDate',
-			'label' 	=> 'End Date',
+			'label' 	=> __('End Date', 'schema-premium'),
 			'name' 		=> 'schema_VideoObject_details_endDate',
 			'type' 		=> 'date_time_picker',
 			'parent' 	=> 'field_schema_VideoObject_details_repeater',
 			'return_format' => 'Y-m-d H:i:s',
 			'default_value' => '',
-			'instructions' 	=> __('Time and date of when the livestream ends or is expected to end.', 'schema-premium'),
+			'instructions' 	=> $instructions_on == 'yes' ? __('Time and date of when the livestream ends or is expected to end.', 'schema-premium') : '',
 			'conditional_logic' => array(
 				array(
 					array(

@@ -1,0 +1,261 @@
+
+@import './mixins';
+
+/*****************************************/
+/* Button styles
+/*****************************************/
+
+/*
+ * Buttons Style 1
+ */
+ .dpsp-button-style-1 .dpsp-network-btn {
+  color: #fff !important;
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   justify-content: center;
+  }
+  .dpsp-network-icon svg {
+   fill: #fff !important;
+  }
+ }
+
+ /*
+  * Buttons Style 2
+  */
+ .dpsp-button-style-2 .dpsp-networks-btns-wrapper:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn {
+  color: #fff !important;
+  .dpsp-network-icon svg {
+   fill: #fff !important;
+  }
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   justify-content: center;
+  }
+ }
+@include style2Colors( "facebook", #334d87, #334d87 );
+@include style2Colors( "twitter", #0099d7, #0099d7 );
+@include style2Colors( "pinterest", #b31e24, #b31e24 );
+@include style2Colors( "linkedin", #00669c, #00669c );
+@include style2Colors( "reddit", #ff4200, #ff4200 );
+@include style2Colors( "vkontakte", #456992, #456992 );
+@include style2Colors( "whatsapp", #21c960, #21c960 );
+@include style2Colors( "instagram", #a9257e, #a9257e );
+@include style2Colors( "youtube", #a20000, #a20000 );
+@include style2Colors( "vimeo", #2bb2ff, #2bb2ff );
+@include style2Colors( "soundcloud", #e64c00, #e64c00 );
+@include style2Colors( "twitch", #593a93, #593a93 );
+@include style2Colors( "yummly", #d84d1a, #d84d1a );
+@include style2Colors( "behance", #0053e6, #0053e6 );
+@include style2Colors( "email", #239e57, #239e57 );
+@include style2Colors( "print", #afb6bb, #afb6bb );
+@include style2Colors( "pocket", #e63c51, #e63c51 );
+@include style2Colors( "buffer", #21282f, #21282f );
+@include style2Colors( "tumblr", #2e3d50, #2e3d50 );
+@include style2Colors( "xing", #006a6c, #006a6c );
+@include style2Colors( "github", #222222, #222222 );
+@include style2Colors( "flipboard", #d21d1d, #d21d1d );
+@include style2Colors( "telegram", #0077b3, #0077b3 );
+@include style2Colors( "medium", #111, #111 );
+@include style2Colors( "mix", #fd721c, #fd721c );
+
+ /* For floating sidebar */
+ .dpsp-button-style-2 .dpsp-networks-btns-sidebar .dpsp-network-btn,
+ .dpsp-button-style-2 .dpsp-networks-btns-sidebar .dpsp-network-btn .dpsp-network-icon { background: transparent !important; }
+ 
+ /* 
+  * Buttons Style 3
+  */
+.dpsp-button-style-3 .dpsp-networks-btns-wrapper {
+  .dpsp-network-btn.dpsp-no-label, 
+  .dpsp-network-btn.dpsp-has-count:not(.dpsp-has-label) {
+    justify-content: center;
+  }
+  &:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn .dpsp-network-icon svg {
+    fill: #fff !important;
+  }
+}
+.dpsp-button-style-3 .dpsp-networks-btns-wrapper {
+  .dpsp-network-btn:not(.dpsp-no-label):not(:hover):not(:focus):not(.dpsp-has-count),
+  .dpsp-network-btn.dpsp-has-count.dpsp-has-label:not(:hover):not(:focus) {
+    background: transparent;
+  }
+  &:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn {
+    &:hover, &:focus, &.dpsp-has-count:not(.dpsp-has-label) {
+      color: #fff;
+    }
+  }
+}
+
+/*
+ * Sidebar buttons
+ */
+.dpsp-networks-btns-sidebar .dpsp-network-btn {
+  background: transparent;
+  border-color: transparent;
+  .dpsp-network-icon {
+    background: transparent;
+    border-color: transparent;
+  }
+  &:hover, &:focus {
+    border-color: transparent;
+    .dpsp-network-icon {
+      background: transparent;
+      border-color: transparent;
+    }
+  }
+}
+
+.dpsp-button-style-4 {
+ &.dpsp-shape-rounded .dpsp-network-btn .dpsp-network-icon {
+  border-radius: 4px;
+ }
+ .dpsp-networks-btns-wrapper .dpsp-network-btn {
+  &.dpsp-has-label {
+    color: #fff;
+  }
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   justify-content: center;
+   &:not(:hover):not(:focus) {
+    background-color: transparent;
+   }
+   .dpsp-network-icon {
+    border-color: transparent;
+    background-color: transparent;
+   }
+  }
+  .dpsp-network-icon {
+   background: #fff;
+  }
+  &:hover, &:focus {
+    color: #fff;
+   .dpsp-network-icon {
+    background: transparent;
+    svg {
+     fill: #fff;
+    }
+   }
+  }
+ }
+}
+
+ /* 
+  * Buttons Style 5
+  */
+.dpsp-button-style-5 {
+ .dpsp-network-btn {
+  .dpsp-network-icon {
+   border-color: transparent !important;
+  }
+ }
+ .dpsp-networks-btns-wrapper .dpsp-network-btn {
+  background: transparent;
+  .dpsp-network-icon {
+   background: transparent;
+  }
+  &:hover, &:focus {
+   color: #fff !important;
+   border-color: transparent !important;
+   .dpsp-network-icon {
+    background: transparent;
+    svg {
+     fill: #fff !important;
+    }
+   }
+  }
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   justify-content: center;
+  }
+ }
+}
+
+ /* 
+  * Buttons Style 6
+  */
+.dpsp-button-style-6 {
+ &.dpsp-shape-rounded .dpsp-network-btn .dpsp-network-icon {
+  border-radius: 4px;
+ }
+ .dpsp-networks-btns-wrapper .dpsp-network-btn {
+  background: transparent !important;
+  border-color: transparent !important;
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   max-width: 40px;
+  }
+  .dpsp-network-icon svg {
+   fill: #fff !important;
+  }
+  &:hover, &:focus {
+   border-color: transparent !important;
+  }
+ }
+ &.dpsp-size-small .dpsp-networks-btns-wrapper .dpsp-network-btn {
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   max-width: 32px;
+  }
+ }
+}
+
+ /* 
+  * Buttons Style 7
+  */
+.dpsp-button-style-7 {
+ &.dpsp-shape-rounded .dpsp-network-btn .dpsp-network-icon {
+  border-radius: 4px;
+ }
+ .dpsp-networks-btns-wrapper .dpsp-network-btn {
+  background: transparent;
+  &.dpsp-no-label {
+   border-color: transparent;
+  }
+  .dpsp-network-icon {
+   background: transparent;
+  }
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   max-width: 40px;
+  }
+  &:hover, &:focus {
+   background: transparent !important;
+   .dpsp-network-icon svg {
+    fill: #fff !important;
+   }
+  }
+  &.dpsp-size-small .dpsp-networks-btns-wrapper .dpsp-network-btn {
+   &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+    max-width: 32px;
+   }
+  }
+ }
+}
+
+ /* 
+  * Buttons Style 8
+  */
+.dpsp-button-style-8 .dpsp-networks-btns-wrapper {
+ .dpsp-network-btn {
+  border-color: transparent;
+  background: transparent;
+  &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+   max-width: 40px;
+  }
+  &:hover, &:focus {
+   border-color: transparent;
+   background: transparent;
+   .dpsp-network-icon {
+    border-color: transparent;
+    background: transparent;
+   }
+  }
+  .dpsp-network-icon {
+   border-color: transparent;
+   background: transparent;
+  }
+ }
+ &:not(.dpsp-networks-btns-sidebar) .dpsp-network-btn {
+  .dpsp-network-icon {
+   margin-right: -10px;
+  }
+ }
+}
+.dpsp-button-style-8.dpsp-size-small .dpsp-networks-btns-wrapper .dpsp-network-btn {
+ &.dpsp-no-label, &.dpsp-has-count:not(.dpsp-has-label) {
+  max-width: 32px;
+ }
+}

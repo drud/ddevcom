@@ -145,7 +145,7 @@ if ( ! class_exists('Schema_WP_Terms') ) :
 			
 			$schema = array
        		(
-				'@context' 		=> 'http://schema.org/',
+				'@context' 		=> 'https://schema.org/',
 				'@type' 		=> "CollectionPage",
 				'headline' 		=> strip_tags($term->name),
 				'description' 	=> strip_tags($term->description),

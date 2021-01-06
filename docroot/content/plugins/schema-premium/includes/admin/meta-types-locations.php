@@ -20,34 +20,41 @@ add_action( 'acf/init', 'schema_wp_types_acf_field_locations_group' );
  */
 function schema_wp_types_acf_field_locations_group() {
 	
-	if( function_exists('acf_add_local_field_group') ):
-		
-		// ACF Group: Locations
-		//
-		//
-		acf_add_local_field_group(array (
-			'key' => 'schema_locations_group',
-			'title' => __('Locations', 'schema-premium'),
-			'location' => array (
-				array (
-					array (	 // custom locations
-						'param' => 'post_type',
-						'operator' => '==',
-						'value' => 'schema',
+	global $pagenow;
+
+	// Make sure Location group display only in Schema post type
+	// @since 1.2
+	//
+	if ( 'post.php' === $pagenow && isset($_GET['post']) && 'schema' === get_post_type( $_GET['post'] ) ) {
+		if ( function_exists('acf_add_local_field_group') ):
+			
+			// ACF Group: Locations
+			//
+			//
+			acf_add_local_field_group(array (
+				'key' => 'schema_locations_group',
+				'title' => __('Locations', 'schema-premium'),
+				'location' => array (
+					array (
+						array (	 // custom locations
+							'param' => 'post_type',
+							'operator' => '==',
+							'value' => 'schema',
+						),
 					),
 				),
-			),
-			'menu_order' => 10,
-			'position' => 'normal',
-			'style' => 'default',
-			'label_placement' => 'left',
-			'instruction_placement' => 'label',
-			'hide_on_screen' => '',
-			'active' => 1,
-			'description' => '',
-		));
-	
-	endif;
+				'menu_order' => 10,
+				'position' => 'normal',
+				'style' => 'default',
+				'label_placement' => 'left',
+				'instruction_placement' => 'label',
+				'hide_on_screen' => '',
+				'active' => 1,
+				'description' => '',
+			));
+		
+		endif;
+	}
 }
 
 add_action( 'acf/init', 'schema_wp_types_acf_field_locations_enable_rules' );
@@ -60,7 +67,7 @@ add_action( 'acf/init', 'schema_wp_types_acf_field_locations_enable_rules' );
  */
 function schema_wp_types_acf_field_locations_enable_rules() {
 	
-	if( function_exists('acf_add_local_field_group') ):
+	if ( function_exists('acf_add_local_field_group') ):
 		
 		// Repeater
 		//

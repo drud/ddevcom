@@ -2,14 +2,14 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: WP GDPR Compliance\n"
-"POT-Creation-Date: 2019-05-17 16:07+0200\n"
+"POT-Creation-Date: 2020-05-25 09:44+0200\n"
 "Last-Translator: \n"
 "Language-Team: Van Ons <info@van-ons.nl>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "PO-Revision-Date: \n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 2.2.4\n"
 "X-Poedit-SourceCharset: UTF-8\n"
 "X-Poedit-KeywordsList: __;_e;_ngettext:1,2;_n;_ngettext_noop:1,2;_n_noop:1,2;"
 "_c;_nc:4c,1,2;_x:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;_ex:1,2c;esc_attr__;"
@@ -33,7 +33,7 @@ msgstr ""
 msgid "More information"
 msgstr ""
 
-#: Includes/Action.php:157 Includes/Page.php:492 Includes/Shortcode.php:169
+#: Includes/Action.php:157 Includes/Page.php:503 Includes/Shortcode.php:169
 msgid "My settings"
 msgstr ""
 
@@ -45,14 +45,14 @@ msgstr ""
 msgid "Save my settings"
 msgstr ""
 
-#: Includes/Action.php:230 Includes/Page.php:755
+#: Includes/Action.php:230 Includes/Page.php:766
 msgid "(no title)"
 msgstr ""
 
 #: Includes/Action.php:243 Includes/Helper.php:116 Includes/Helper.php:174
-#: Includes/Page.php:260 Includes/Page.php:355 Includes/Page.php:370
-#: Includes/Page.php:431 Includes/Page.php:487 Includes/Page.php:841
-#: Includes/Page.php:947 Includes/Shortcode.php:164
+#: Includes/Page.php:271 Includes/Page.php:366 Includes/Page.php:381
+#: Includes/Page.php:442 Includes/Page.php:498 Includes/Page.php:852
+#: Includes/Page.php:958 Includes/Shortcode.php:164
 msgid "Note"
 msgstr ""
 
@@ -268,15 +268,15 @@ msgstr ""
 msgid "Do not wrap my code snippet"
 msgstr ""
 
-#: Includes/Consent.php:306 Includes/Page.php:669
+#: Includes/Consent.php:306 Includes/Page.php:680
 msgid "Head"
 msgstr ""
 
-#: Includes/Consent.php:307 Includes/Page.php:674
+#: Includes/Consent.php:307 Includes/Page.php:685
 msgid "Body"
 msgstr ""
 
-#: Includes/Consent.php:308 Includes/Page.php:679
+#: Includes/Consent.php:308 Includes/Page.php:690
 msgid "Footer"
 msgstr ""
 
@@ -303,7 +303,7 @@ msgid "Display Name"
 msgstr ""
 
 #: Includes/Data.php:54 Includes/Data.php:63 Includes/Data.php:70
-#: Includes/Page.php:957
+#: Includes/Page.php:968
 msgid "Email Address"
 msgstr ""
 
@@ -323,7 +323,7 @@ msgstr ""
 msgid "Content"
 msgstr ""
 
-#: Includes/Data.php:64 Includes/Page.php:854 Includes/Page.php:958
+#: Includes/Data.php:64 Includes/Page.php:865 Includes/Page.php:969
 msgid "IP Address"
 msgstr ""
 
@@ -518,7 +518,7 @@ msgid "Activate for this form:"
 msgstr ""
 
 #: Includes/Integration.php:141 Includes/Integration.php:185
-#: Includes/Integration.php:220 Includes/Page.php:462
+#: Includes/Integration.php:220 Includes/Page.php:473
 msgid "Checkbox text"
 msgstr ""
 
@@ -549,7 +549,7 @@ msgstr ""
 msgid "You need to accept this checkbox."
 msgstr ""
 
-#: Includes/Integration.php:302 Includes/Page.php:342 Includes/Page.php:394
+#: Includes/Integration.php:302 Includes/Page.php:353 Includes/Page.php:405
 msgid "Privacy Policy"
 msgstr ""
 
@@ -566,7 +566,7 @@ msgid ""
 "request. When your data is anonymised you will receive an email confirmation."
 msgstr ""
 
-#: Includes/Integration.php:379 Includes/Page.php:834
+#: Includes/Integration.php:379 Includes/Page.php:845
 msgid "WordPress Comments"
 msgstr ""
 
@@ -598,7 +598,7 @@ msgstr ""
 msgid "Gravity Forms"
 msgstr ""
 
-#: Includes/Integration.php:413 Includes/Page.php:836
+#: Includes/Integration.php:413 Includes/Page.php:847
 msgid "WooCommerce"
 msgstr ""
 
@@ -612,7 +612,7 @@ msgstr ""
 msgid "Integrations"
 msgstr ""
 
-#: Includes/Page.php:70 Includes/Page.php:480
+#: Includes/Page.php:70 Includes/Page.php:491
 msgid "Consents"
 msgstr ""
 
@@ -672,32 +672,59 @@ msgstr ""
 msgid "Support forum"
 msgstr ""
 
-#: Includes/Page.php:200
+#: Includes/Page.php:170
+msgid "WordProof Timestamp"
+msgstr ""
+
+#: Includes/Page.php:171
+msgid ""
+"Protect your copyright, improve trust and enjoy future SEO benefits by "
+"timestamping your content."
+msgstr ""
+
+#: Includes/Page.php:173
+#, php-format
+msgid "%s or read the %s"
+msgstr ""
+
+#: Includes/Page.php:174
+msgid "Install WordProof Timestamp"
+msgstr ""
+
+#: Includes/Page.php:175
+msgid "review by WPLift.com"
+msgstr ""
+
+#: Includes/Page.php:177
+msgid "New"
+msgstr ""
+
+#: Includes/Page.php:211
 msgid "Enable:"
 msgstr ""
 
-#: Includes/Page.php:227
+#: Includes/Page.php:238
 #, php-format
 msgid "This plugin is outdated. %s supports version %s and up."
 msgstr ""
 
-#: Includes/Page.php:236
+#: Includes/Page.php:247
 msgid "Couldn't find any supported plugins installed."
 msgstr ""
 
-#: Includes/Page.php:237
+#: Includes/Page.php:248
 msgid "The following plugins are supported as of now:"
 msgstr ""
 
-#: Includes/Page.php:243
+#: Includes/Page.php:254
 msgid "More plugins will be added in the future."
 msgstr ""
 
-#: Includes/Page.php:261
+#: Includes/Page.php:272
 msgid "We think you might have a mail plugin installed."
 msgstr ""
 
-#: Includes/Page.php:264
+#: Includes/Page.php:275
 msgid ""
 "Do you know where you got your email database from? Did you ask all the "
 "people on your newsletter(s) if they consent to receiving it? GDPR requires "
@@ -705,45 +732,45 @@ msgid ""
 "permission to mail them."
 msgstr ""
 
-#: Includes/Page.php:267
+#: Includes/Page.php:278
 msgid ""
 "Below we ask you what private data you currently collect and provide you "
 "with tips to comply."
 msgstr ""
 
-#: Includes/Page.php:344 Includes/Page.php:420
+#: Includes/Page.php:355 Includes/Page.php:431
 msgid "Activate"
 msgstr ""
 
-#: Includes/Page.php:348
+#: Includes/Page.php:359
 msgid "Activate external links"
 msgstr ""
 
-#: Includes/Page.php:357
+#: Includes/Page.php:368
 msgid "Enabling this will allow you to use external Privacy Policy instances"
 msgstr ""
 
-#: Includes/Page.php:372
+#: Includes/Page.php:383
 msgid "Currently you do not have a privacy policy page selected"
 msgstr ""
 
-#: Includes/Page.php:384
+#: Includes/Page.php:395
 msgid "External Privacy Policy Link"
 msgstr ""
 
-#: Includes/Page.php:399 Includes/Page.php:449
+#: Includes/Page.php:410 Includes/Page.php:460
 msgid "Select an option"
 msgstr ""
 
-#: Includes/Page.php:408
+#: Includes/Page.php:419
 msgid "Link text"
 msgstr ""
 
-#: Includes/Page.php:415
+#: Includes/Page.php:426
 msgid "Request User Data"
 msgstr ""
 
-#: Includes/Page.php:417
+#: Includes/Page.php:428
 msgid ""
 "Allow your site's visitors to request their data stored in the WordPress "
 "database (comments, WooCommerce orders etc.). Data found is send to their "
@@ -751,30 +778,30 @@ msgid ""
 "data anonymised."
 msgstr ""
 
-#: Includes/Page.php:424
+#: Includes/Page.php:435
 msgid "Activate page"
 msgstr ""
 
-#: Includes/Page.php:433
+#: Includes/Page.php:444
 #, php-format
 msgid ""
 "Enabling this will create one private page containing the necessary "
 "shortcode: %s. You can determine when and how to publish this page yourself."
 msgstr ""
 
-#: Includes/Page.php:444
+#: Includes/Page.php:455
 msgid "Page"
 msgstr ""
 
-#: Includes/Page.php:456
+#: Includes/Page.php:467
 msgid "Click here to edit this page"
 msgstr ""
 
-#: Includes/Page.php:471
+#: Includes/Page.php:482
 msgid "Anonymise request explanation"
 msgstr ""
 
-#: Includes/Page.php:482
+#: Includes/Page.php:493
 msgid ""
 "Your visitors can give permission to all of the created Consents (scripts) "
 "through a Consent bar at the bottom of their screen. There they can also "
@@ -782,123 +809,123 @@ msgid ""
 "Consents. Once their settings are saved the bar disappears for 365 days."
 msgstr ""
 
-#: Includes/Page.php:489
+#: Includes/Page.php:500
 #, php-format
 msgid ""
 "Let your visitors re-access their settings by placing a link to the modal "
 "with the shortcode %s or add the \"%s\" class to a menu item."
 msgstr ""
 
-#: Includes/Page.php:501
+#: Includes/Page.php:512
 msgid "Bar: Explanation"
 msgstr ""
 
-#: Includes/Page.php:509
+#: Includes/Page.php:520
 msgid "Bar Color"
 msgstr ""
 
-#: Includes/Page.php:516
+#: Includes/Page.php:527
 msgid "Bar Text Color"
 msgstr ""
 
-#: Includes/Page.php:523
+#: Includes/Page.php:534
 msgid "Button Color Primary"
 msgstr ""
 
-#: Includes/Page.php:531
+#: Includes/Page.php:542
 msgid "Button Color Secondary"
 msgstr ""
 
-#: Includes/Page.php:539
+#: Includes/Page.php:550
 msgid "Modal: Title"
 msgstr ""
 
-#: Includes/Page.php:548
+#: Includes/Page.php:559
 msgid "Modal: Explanation"
 msgstr ""
 
-#: Includes/Page.php:592
+#: Includes/Page.php:603
 msgid "Add New Consent"
 msgstr ""
 
-#: Includes/Page.php:594 Includes/Page.php:740 Includes/Page.php:987
+#: Includes/Page.php:605 Includes/Page.php:751 Includes/Page.php:998
 msgid "Active"
 msgstr ""
 
-#: Includes/Page.php:597 Includes/Page.php:690 Includes/Page.php:759
-#: Includes/Page.php:779 wp-gdpr-compliance.php:378 wp-gdpr-compliance.php:414
+#: Includes/Page.php:608 Includes/Page.php:701 Includes/Page.php:770
+#: Includes/Page.php:790 wp-gdpr-compliance.php:378 wp-gdpr-compliance.php:414
 msgid "Yes"
 msgstr ""
 
-#: Includes/Page.php:602 Includes/Page.php:735
+#: Includes/Page.php:613 Includes/Page.php:746
 msgid "Title"
 msgstr ""
 
-#: Includes/Page.php:607
+#: Includes/Page.php:618
 msgid "e.g. \"Google Analytics\" or \"Advertising\""
 msgstr ""
 
-#: Includes/Page.php:612
+#: Includes/Page.php:623
 msgid "Description"
 msgstr ""
 
-#: Includes/Page.php:618
+#: Includes/Page.php:629
 msgid ""
 "Describe your consent script as thoroughly as possible. %privacy_policy% "
 "will not work."
 msgstr ""
 
-#: Includes/Page.php:623
+#: Includes/Page.php:634
 msgid "Code Snippet"
 msgstr ""
 
-#: Includes/Page.php:629
+#: Includes/Page.php:640
 msgid "Code snippets for Google Analytics, Facebook Pixel, etc."
 msgstr ""
 
-#: Includes/Page.php:634
+#: Includes/Page.php:645
 msgid "Code Wrap"
 msgstr ""
 
-#: Includes/Page.php:651
+#: Includes/Page.php:662
 msgid "Placement"
 msgstr ""
 
-#: Includes/Page.php:670
+#: Includes/Page.php:681
 msgid "Snippet will be added at the end of the HEAD tag."
 msgstr ""
 
-#: Includes/Page.php:675
+#: Includes/Page.php:686
 msgid "Snippet will be added directly after the BODY tag."
 msgstr ""
 
-#: Includes/Page.php:680
+#: Includes/Page.php:691
 msgid "Snippet will be added at the end of the BODY tag."
 msgstr ""
 
-#: Includes/Page.php:687 Includes/Page.php:736
+#: Includes/Page.php:698 Includes/Page.php:747
 msgid "Required"
 msgstr ""
 
-#: Includes/Page.php:693
+#: Includes/Page.php:704
 msgid ""
 "Ticking this checkbox means this Consent will always be triggered so users "
 "cannot opt-in or opt-out."
 msgstr ""
 
-#: Includes/Page.php:698
+#: Includes/Page.php:709
 msgid "Update"
 msgstr ""
 
-#: Includes/Page.php:698
+#: Includes/Page.php:709
 msgid "Add"
 msgstr ""
 
-#: Includes/Page.php:700
+#: Includes/Page.php:711
 msgid "Back to overview"
 msgstr ""
 
-#: Includes/Page.php:719
+#: Includes/Page.php:730
 msgid ""
 "Ask your visitors for permission to enable certain scripts for tracking or "
 "advertising purposes. Add a Consent for each type of script you are "
@@ -906,119 +933,119 @@ msgid ""
 "given."
 msgstr ""
 
-#: Includes/Page.php:721
+#: Includes/Page.php:732
 msgctxt "consent"
 msgid "Add New"
 msgstr ""
 
-#: Includes/Page.php:725
+#: Includes/Page.php:736
 msgid ""
 "Click this button if you want to reset the consent bar, this means that the "
 "consent bar will appear again for all users."
 msgstr ""
 
-#: Includes/Page.php:734
+#: Includes/Page.php:745
 msgid "Consent"
 msgstr ""
 
-#: Includes/Page.php:737
+#: Includes/Page.php:748
 msgid "Modified at"
 msgstr ""
 
-#: Includes/Page.php:738
+#: Includes/Page.php:749
 msgid "Created at"
 msgstr ""
 
-#: Includes/Page.php:739 Includes/Page.php:857
+#: Includes/Page.php:750 Includes/Page.php:868
 msgid "Action"
 msgstr ""
 
-#: Includes/Page.php:759 Includes/Page.php:779 wp-gdpr-compliance.php:379
+#: Includes/Page.php:770 Includes/Page.php:790 wp-gdpr-compliance.php:379
 #: wp-gdpr-compliance.php:415
 msgid "No"
 msgstr ""
 
-#: Includes/Page.php:769
+#: Includes/Page.php:780
 msgid "Edit"
 msgstr ""
 
-#: Includes/Page.php:774
+#: Includes/Page.php:785
 msgid "Remove"
 msgstr ""
 
-#: Includes/Page.php:802 Includes/Page.php:918 Includes/Page.php:1010
+#: Includes/Page.php:813 Includes/Page.php:929 Includes/Page.php:1021
 #, php-format
 msgid "%d of %d results found"
 msgstr ""
 
-#: Includes/Page.php:806
+#: Includes/Page.php:817
 msgid "No consents found."
 msgstr ""
 
-#: Includes/Page.php:830
+#: Includes/Page.php:841
 msgid ""
 "Anonymise a request by ticking the checkbox and clicking on the green "
 "anonymise button below."
 msgstr ""
 
-#: Includes/Page.php:832
+#: Includes/Page.php:843
 msgid "WordPress Users"
 msgstr ""
 
-#: Includes/Page.php:842 Includes/Page.php:948
+#: Includes/Page.php:853 Includes/Page.php:959
 #, php-format
 msgid "Requests are automatically anonymised after %d days."
 msgstr ""
 
-#: Includes/Page.php:852
+#: Includes/Page.php:863
 msgid "Request"
 msgstr ""
 
-#: Includes/Page.php:853
+#: Includes/Page.php:864
 msgid "Type"
 msgstr ""
 
-#: Includes/Page.php:855 Includes/Page.php:959
+#: Includes/Page.php:866 Includes/Page.php:970
 msgid "Date"
 msgstr ""
 
-#: Includes/Page.php:856
+#: Includes/Page.php:867
 msgid "Processed"
 msgstr ""
 
-#: Includes/Page.php:878
+#: Includes/Page.php:889
 msgid "View"
 msgstr ""
 
-#: Includes/Page.php:880
+#: Includes/Page.php:891
 msgid "N/A"
 msgstr ""
 
-#: Includes/Page.php:899
+#: Includes/Page.php:910
 msgid "Anonymise selected request(s)"
 msgstr ""
 
-#: Includes/Page.php:924 Includes/Page.php:1016
+#: Includes/Page.php:935 Includes/Page.php:1027
 msgid "No requests found."
 msgstr ""
 
-#: Includes/Page.php:955
+#: Includes/Page.php:966
 msgid "ID"
 msgstr ""
 
-#: Includes/Page.php:956
+#: Includes/Page.php:967
 msgid "Requests to Process"
 msgstr ""
 
-#: Includes/Page.php:960
+#: Includes/Page.php:971
 msgid "Status"
 msgstr ""
 
-#: Includes/Page.php:979
+#: Includes/Page.php:990
 msgid "Manage"
 msgstr ""
 
-#: Includes/Page.php:987
+#: Includes/Page.php:998
 msgid "Expired"
 msgstr ""
 

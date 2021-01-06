@@ -1,6 +1,6 @@
 <?php
 /**
- *	SiteLinks Search Box
+ * SiteLinks Search Box
  *
  * @since 1.0.0
  */
@@ -46,49 +46,39 @@ function schema_premium_get_sitelinks_search_box_markup() {
 	if ( ! isset($sitelinks_search_box) || ! $sitelinks_search_box ) return;
 	
 	$schema = array(
-		'@context'	=> 'http://schema.org',
-		'@type'		=> 'WebSite',
-		'@id'		=> "#website",
-		'url'		=> get_home_url(),
-		'potentialAction' => array(
-			'@type'			=> 'SearchAction',
-			'target'		=> get_home_url() . '/?s={search_term_string}',
-			'query-input' 	=> 'required name=search_term_string'
-		),
+		'@context'		=> 'https://schema.org',
+		'@type'			=> 'WebSite',
+		'@id'			=> "#website",
+		'url'			=> get_home_url(),
+		'inLanguage'	=> get_locale(), //'en-US',
 	);
 	
 	if ( $site_name_enable ) {
 		$schema['name'] = $site_name;
 		if ( $site_alternate_name ) $schema['alternateName'] =  $site_alternate_name;
 	}
+
+	$site_description = get_bloginfo('description');
+
+	if ( isset($site_description) && $site_description != '' ) {
+		$schema['description'] = $site_description;
+	}
 	
+	// creator: Organization or Person
+	//
+	$organization_or_person = schema_premium_get_knowledge_graph_json();
+
+	if ( isset($organization_or_person) && ! empty($organization_or_person) ) {
+		$schema['creator'] 			= $organization_or_person;
+		$schema['publisher'] 		= schema_wp_get_publisher_array();
+		$schema['copyrightHolder'] 	= $organization_or_person;
+	}
+
+	$schema['potentialAction'] = array(
+		'@type'			=> 'SearchAction',
+		'target'		=> get_home_url() . '/?s={search_term_string}',
+		'query-input' 	=> 'required name=search_term_string'
+	);
+
 	return $schema;
 }
-
-
-//add_action('schema_output_before', 'schema_premium_output_sitelinks_search_box_disable');
-/**
- * Disable SiteLinks Search Box
- *
- * This function was disabled @since 1.5.9.2, I don't see it important!
- * @since 1.0.0
- * @return meta
- */
- /*
-function schema_premium_output_sitelinks_search_box_disable() {
-	
-	// Run only on front page 
-	if ( is_front_page() ) {
-		
-		$sitelinks_search_box_disable	= schema_wp_get_option( 'sitelinks_search_box_disable' );
-		
-		if ( isset($sitelinks_search_box_disable) && $sitelinks_search_box_disable == 1 ) {
-			echo "\n";
-			echo '<!-- Tell Google not to show a Sitelinks search box -->';
-			echo "\n";
-			echo '<meta name="google" content="nositelinkssearchbox" />';
-			echo "\n\n";
-		}
-	}
-}
-*/

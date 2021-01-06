@@ -119,6 +119,33 @@
                 }, (delay || 0));
             }
         },
+        trapFocus = function(element) {
+            var focusableEls = element.querySelectorAll('a[href]:not([disabled]), button:not([disabled]), textarea:not([disabled]), input[type="text"]:not([disabled]), input[type="radio"]:not([disabled]), input[type="checkbox"]:not([disabled]), select:not([disabled])'),
+                firstFocusableEl = focusableEls[0],
+                lastFocusableEl = focusableEls[focusableEls.length - 1],
+                KEYCODE_TAB = 9;
+
+            element.addEventListener('keydown', function(e) {
+                var isTabPressed = (e.key === 'Tab' || e.keyCode === KEYCODE_TAB);
+
+                if (!isTabPressed) {
+                    return;
+                }
+
+                if ( e.shiftKey ) /* shift + tab */ {
+                    if (document.activeElement === firstFocusableEl) {
+                        lastFocusableEl.focus();
+                        e.preventDefault();
+                    }
+                } else /* tab */ {
+                    if (document.activeElement === lastFocusableEl) {
+                        firstFocusableEl.focus();
+                        e.preventDefault();
+                    }
+                }
+
+            });
+        },
         initConsentBar = function () {
             if (consentCookie !== null) {
                 return;
@@ -128,6 +155,11 @@
                 return;
             }
 
+            // Move consent bar to the be the first element in the <body>
+            var $body = document.querySelector('body');
+            $body.prepend($consentBar);
+
+            // Show bar
             $consentBar.style.display = 'block';
 
             var $button = $consentBar.querySelector('.wpgdprc-consent-bar__button');
@@ -147,10 +179,17 @@
             if (typeof MicroModal === 'undefined') {
                 return;
             }
+            var $modalTrigger = document.querySelector('[data-micromodal-trigger=wpgdprc-consent-modal]');
+            trapFocus($consentModal);
 
             MicroModal.init({
                 disableScroll: true,
                 disableFocus: true,
+                onShow: function() {
+                    if ($modalTrigger) {
+                        $modalTrigger.setAttribute('aria-expanded', 'true');
+                    }
+                },
                 onClose: function ($consentModal) {
                     var $descriptions = $consentModal.querySelectorAll('.wpgdprc-consent-modal__description'),
                         $buttons = $consentModal.querySelectorAll('.wpgdprc-consent-modal__navigation > a'),
@@ -170,6 +209,9 @@
                         for (var i = 0; i < $checkboxes.length; i++) {
                             $checkboxes[i].checked = false;
                         }
+                    }
+                    if ($modalTrigger) {
+                        $modalTrigger.setAttribute('aria-expanded', 'false');
                     }
                 }
             });
@@ -223,6 +265,9 @@
                         } else {
                             _saveCookie(consentCookieName, 'decline');
                         }
+                    } else {
+                        // Accept all
+                        _saveCookie(consentCookieName, 'accept');
                     }
 
                     window.location.reload(true);

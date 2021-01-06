@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_MedicalBusiness') ) :
 		/** @var string Currenct Type */
     	protected $type = 'MedicalBusiness';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MedicalBusiness') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MedicalBusiness';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_MedicalBusiness') ) :
 		public function comment() {
 			
 			return __('A particular physical or virtual business of an organization for medical purposes. Examples of Medical Business include differents business run by health professionals.', 'schema-premium');
+		}
+
+		/**
+		* Get properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 30 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_MedicalBusiness', $properties );	
 		}
 	}
 	

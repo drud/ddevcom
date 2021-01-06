@@ -2,40 +2,12 @@
 /**
  *  Comment extention
  *
- *  Adds schema Comment for Article types
+ *  Add Comments markup for supported types
  *
  *  @since 1.0.0
  */
  
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
-
-
-add_filter( 'schema_output', 'schema_wp_do_comments_number' );
-/**
- * Add comments number for Article types via schema_output filter  
- *
- * @since 1.0.0
- * @return array 
- */
-function schema_wp_do_comments_number( $schema ) {
-	
-	$comments_enable = schema_wp_get_option( 'comments_enable' );
-	
-	if ( $comments_enable != true )
-		return $schema;
-		
-	global $post;
-	
-	$schema_type = $schema["@type"];
-
-	$support_article_types 	= schema_wp_get_support_article_types();
-	
-	if ( in_array( $schema_type, $support_article_types, false) )
-		$schema["commentCount"] = get_comments_number($post->ID);
-	
-	return $schema;
-}
-
 
 add_filter( 'schema_output', 'schema_wp_do_comment' );
 /**
@@ -46,13 +18,19 @@ add_filter( 'schema_output', 'schema_wp_do_comment' );
  */
 function schema_wp_do_comment( $schema ) {
 	
+	if ( empty($schema) )
+		return;
+
 	$comments_enable = schema_wp_get_option( 'comments_enable' );
 	
 	if ( $comments_enable != true )
 		return $schema;
 		
 	global $post;
-	
+
+	if ( ! isset($post->ID) ) 
+		return $schema;
+
 	$schema_type 			= $schema["@type"];
 	$support_article_types 	= schema_wp_get_support_article_types();
 	$number 				= apply_filters( 'schema_wp_do_comment_number', '10'); // default = 10
@@ -62,10 +40,23 @@ function schema_wp_do_comment( $schema ) {
 		if ( !empty($Comments) )	
 			$schema["comment"] = $Comments;
 	}
+
+	if ( in_array( $schema_type, $support_article_types, false ) ) {
+
+		// Add comments number
+		//
+		$schema['commentCount'] = get_comments_number( $post->ID );
+
+		// Add discussion URL
+		// @since 1.2
+		//
+		if ( comments_open() ) {
+			$schema['discussionUrl'] = get_comments_link( $post->ID );
+		}
+	}
 	
 	return $schema;
 }
-
 
 /**
  * Get comments   
@@ -80,6 +71,9 @@ function schema_wp_get_comments( $post_id = null ) {
 	} else {
 		global $post;
 	}
+
+	if ( ! isset($post->ID) ) 
+		return;
 	
 	// Check comments count first, if no comments, then return an empty array
 	$comment_count = get_comments_number( $post->ID );

@@ -1,0 +1,60 @@
+/*****************************************/
+/* General: Icons
+/*****************************************/
+.dpsp-networks-btns-wrapper .dpsp-network-btn .dpsp-network-icon {
+  align-self: start;
+  display: block;
+  font-size: 14px;
+  line-height: 36px;
+  width: 40px;
+  height:40px;
+  position: relative;
+  top: -2px;
+  left: -2px;
+  text-align: center;
+  border: 2px solid;
+  flex: 0 0 auto;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+
+  -moz-transition: all 0.15s ease-in;
+  -webkit-transition: all 0.15s ease-in;
+  -o-transition: all 0.15s ease-in;
+  transition: all 0.15s ease-in;
+}
+
+.dpsp-network-icon .dpsp-network-icon-inner svg,
+.dpsp-icon-total-share svg {
+  position: relative;
+  top: 0.1em;
+  max-height: 14px;
+  width: auto;
+  overflow:visible;
+  transition: fill 0.15s ease-in-out;
+  .dpsp-size-large & {
+    max-height: 22px;
+  }
+}
+
+.widget_dpsp_social_media_follow .dpsp-network-icon .dpsp-network-icon-inner svg {
+  top: 0.05em;
+}
+
+.dpsp-network-icon-inner,
+.dpsp-icon-total-share {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.dpsp-network-icon-inner {
+  transition: all 0.2s ease;
+  height: 36px;
+}
+
+
+/* Button animations */
+.dpsp-networks-btns-wrapper.dpsp-has-button-icon-animation .dpsp-network-btn:hover .dpsp-network-icon-inner {
+  transition: all 0.2s cubic-bezier(.62, 3.15, .4, -0.64);
+  transform: scale(1.5);
+}
+

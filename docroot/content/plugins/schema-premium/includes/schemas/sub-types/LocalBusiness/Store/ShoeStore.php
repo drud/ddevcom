@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_ShoeStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'ShoeStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_ShoeStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'ShoeStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_ShoeStore') ) :
 			return __('A shoe store.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_ShoeStore();
 	
 endif;

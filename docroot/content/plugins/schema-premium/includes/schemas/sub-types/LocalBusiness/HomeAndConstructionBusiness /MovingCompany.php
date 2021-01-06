@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_MovingCompany') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'MovingCompany';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HomeAndConstructionBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_MovingCompany') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MovingCompany';
+		}
+
 		/**
 		* Get schema type label
 		*

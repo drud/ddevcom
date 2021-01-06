@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Hostel') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Hostel';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LodgingBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Hostel') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Hostel';
+		}
+
 		/**
 		* Get schema type label
 		*

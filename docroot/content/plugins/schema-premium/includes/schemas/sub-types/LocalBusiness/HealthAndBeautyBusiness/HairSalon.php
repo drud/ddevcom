@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_HairSalon') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'HairSalon';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HealthAndBeautyBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_HairSalon') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'HairSalon';
+		}
+
 		/**
 		* Get schema type label
 		*

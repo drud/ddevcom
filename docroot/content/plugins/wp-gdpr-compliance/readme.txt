@@ -1,10 +1,10 @@
 === WP GDPR Compliance ===
-Contributors: donnyoexman, jeffreyvisser, merijnmolenaar, michaelvt, van-ons
+Contributors: van-ons
 Tags: gdpr, law, regulations, compliance, data, protection, privacy, data protection, eu, avg, comments, woocommerce, wc, contact form 7, cf7
 Requires at least: 4.5
-Tested up to: 5.4.1
+Tested up to: 5.6
 Requires PHP: 5.3
-Stable tag: 1.5.3
+Stable tag: 1.5.5
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -44,12 +44,25 @@ You'll find answers to many of your questions on [https://www.wpgdprc.com/faq/](
 
 == Changelog ==
 
+= 1.5.5 =
+*Release date: December 18th, 2020*
+* Resolve deprecation notice for wp_make_content_images_responsive() since WordPress 5.5.0
+
+= 1.5.4 =
+*Release date: June 9th, 2020*
+* Improved Web Content Accessibility Guidelines (WCAG)
+* Improved keyboard navigation
+* Added a setting to change the accept button text
+* Added a setting to change the more information button text
+* Javascript and css assets are now minified
+* Bugfix: The accept button in the consent modal now also works when all consents are mandatory
+
 = 1.5.3 =
-*Release date: 23rd March, 2020*
+*Release date: May 7th, 2020*
 * Tested with WordPress 5.4.1.
 
 = 1.5.2 =
-*Release date: 21th May, 2019*
+*Release date: May 21th, 2019*
 * Tested with WordPress 5.2.
 * Load accepted consents with JavaScript to improve performance.
 * Use different text when all consent is required.

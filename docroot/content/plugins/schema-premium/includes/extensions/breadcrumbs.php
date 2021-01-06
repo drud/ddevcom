@@ -2,7 +2,7 @@
 /**
  * Class Schema WP Breadcrumb.
  *
- * @package  JSON_LD_Breadcrumbs
+ * @package  SCHEMA_WP_Breadcrumbs
  *
  * Credits: https://wordpress.org/plugins/json-ld-breadcrumbs/
  */
@@ -14,17 +14,17 @@ defined( 'ABSPATH' ) or exit;
 if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 
 	/**
-	 * Class JSON LD Breadcrumb.
+	 * Class Schema WP Breadcrumb.
 	 *
 	 * @since  1.0.0
 	 */
 	class SCHEMA_WP_Breadcrumbs {
 
 		/**
-		 * Instance of JSON_LD_Breadcrumbs
+		 * Instance of SCHEMA_WP_Breadcrumbs
 		 *
 		 * @since  v1.0.0
-		 * @var Object JSON_LD_Breadcrumbs
+		 * @var Object SCHEMA_WP_Breadcrumbs
 		 */
 		private static $_instance = null;
 
@@ -45,10 +45,10 @@ if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 		private $crumbs = array();
 
 		/**
-		 * Initiate the class JSON_LD_Breadcrumbs
+		 * Initiate the class SCHEMA_WP_Breadcrumbs
 		 *
 		 * @since  1.0.0
-		 * @return (Object) Instance of JSON_LD_Breadcrumbs
+		 * @return (Object) Instance of SCHEMA_WP_Breadcrumbs
 		 */
 		public static function instance() {
 			if ( ! isset( self::$_instance ) ) {
@@ -94,11 +94,11 @@ if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 			} else {
 				$url = get_permalink();
 			}
-			$breadcrumb['@context'] = 'http://schema.org';
+			$breadcrumb['@context'] = 'https://schema.org';
 			$breadcrumb['@type']    = 'BreadcrumbList';
 			$breadcrumb['@id']  	= $url . '#breadcrumb';
 			$breadcrumb['url']  	= $url;
-			//$breadcrumb['name'] 	= 'Breadcrumb'; // Maybe not needed!
+			$breadcrumb['name'] 	= 'Breadcrumb'; // Maybe not needed!
 
 			return $breadcrumb;
 		}
@@ -109,8 +109,7 @@ if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 		 * @since  1.0.0
 		 */
 		private function maybe_add_home_crumb() {
-			// TODO: (Done) Add option in the admin panel to enable or disable home page in breadcrumb.
-			// TODO: (Done) Add option in the admin panel to choose the text for home page.
+			
 			$breadcrumbs_home_enabled 	= schema_wp_get_option( 'breadcrumbs_home_enable' );
 	
 			if ( $breadcrumbs_home_enabled ) {
@@ -155,7 +154,7 @@ if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 					'position' => $this->crumb_position,
 					'item'     => array(
 						'@type' => 'WebPage',
-						'@id'  	=> $url,
+						'@id'  	=>  $url . '#webpage',
 						'url'  	=> $url,
 						'name' 	=> $name,
 					),
@@ -166,7 +165,7 @@ if ( ! class_exists( 'SCHEMA_WP_Breadcrumbs' ) ) {
 					'position' => $this->crumb_position,
 					'item'     => array(
 						'@type' => 'WebPage',
-						'@id'   => $url,
+						'@id'   => $url . '#webpage',
 						'url'  	=> $url,
 						'name'  => $name,
 						'image' => $image,

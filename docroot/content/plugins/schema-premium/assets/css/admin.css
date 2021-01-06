@@ -12,6 +12,9 @@
 	font-family: 'schema-wp-dashicons' !important;
 	content: "\e900";
 }
+#adminmenu #toplevel_page_schema .wp-first-item {
+	display: none;
+}
 .toplevel_page_schema select {
 	min-width:160px
 }

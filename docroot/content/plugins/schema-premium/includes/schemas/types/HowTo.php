@@ -15,10 +15,13 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_HowTo {
+	class Schema_WP_HowTo extends Schema_WP_CreativeWork {
 		
 		/** @var string Current Type */
     	protected $type = 'HowTo';
+		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'CreativeWork';
 		
 		/**
 	 	* Constructor
@@ -41,6 +44,17 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'HowTo';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -106,8 +120,10 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 		* @return array
 		*/
 		public function subtypes() {
-		
-			$subtypes = array();
+			
+			$subtypes =  array (
+           		'Recipe' => __('Recipe', 'schema-premium')
+			);
 				
 			return apply_filters( 'schema_wp_subtypes_HowTo', $subtypes );
 		}
@@ -121,167 +137,102 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 		public function properties() {
 			
 			$properties = array (
-					
-					'url' => array(
-						'label' 		=> __('URL', 'schema-premium'),
-						'rangeIncludes' => array('URL'),
-						'field_type' 	=> 'url',
-						'markup_value' => 'post_permalink',
-						'instructions' 	=> __('URL of the article.', 'schema-premium'),
-						'placeholder' 	=> 'https://'
-					),
-					'name' => array(
-						'label' 		=> __('Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Name of the article', 'schema-premium'),
-						'required' 		=> true
-					),
-					'headline' => array(
-						'label' 		=> __('Headline', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'disabled',
-						'instructions' 	=> __('Headline of the article', 'schema-premium'),
-						'required' 		=> true
-					),
-					'alternativeHeadline' => array(
-						'label' 		=> __('Alternative Headline', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'disabled',
-						'instructions' 	=> __('Secondary title for this article.', 'schema-premium')
-					),
-					'image' => array(
-						'label' 		=> __('Image', 'schema-premium'),
-						'rangeIncludes' => array('ImageObject', 'URL'),
-						'field_type' 	=> 'image',
-						'markup_value' => 'featured_image',
-						'instructions' 	=> __('An image of the article.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'datePublished' => array(
-						'label'			=> __('Published Date', 'schema-premium'),
-						'rangeIncludes' => array('Date', 'DateTime'),
-						'field_type' 	=> 'date_time_picker',
-						'markup_value' => 'post_date',
-						'instructions' 	=> __('Date of first publication of the article.', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-						'required' 		=> true
-					),
-					'dateModified' => array(
-						'label' 		=> __('Modified Date', 'schema-premium'),
-						'rangeIncludes' => array('Date', 'DateTime'),
-						'field_type' 	=> 'date_time_picker',
-						'markup_value' => 'post_modified',
-						'instructions' 	=> __('The date on which the article was most recently modified', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-					),
-					'author' => array(
-						'label' 		=> __('Author Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'author_name',
-						'instructions' 	=> __('The author name of this article.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'description' => array(
-						'label' 		=> __('Description', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'textarea',
-						'markup_value' => 'post_excerpt',
-						'instructions' 	=> __('A description of the article.', 'schema-premium'),
-					),
-					'totalTime' => array(
-						'label' 		=> __('Total Time', 'schema-premium'),
-						'rangeIncludes' => array('Duration'),
-						'field_type' 	=> 'time_picker',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The total time required to perform instructions or a direction.', 'schema-premium'),
-						'display_format' => 'H:i:s',
-						'return_format' => 'H:i:s',
-					),
-					'howto_tools' => array(
-						'label' 		=> __('Tools', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'repeater',
-						'layout'		=> 'block',
-						'markup_value' => 'new_custom_field',
-						'required' 		=> true,
-						'button_label' 	=> __('Add Tool', 'schema-premium'),
-						'instructions' 	=> __('Add tools that has been used.', 'schema-premium'),
-						'sub_fields' 	=>  array(
-							'tool_name' => array(
-								'label' 		=> __('Name', 'schema-premium'),
-								'rangeIncludes' => array('Text'),
-								'field_type' 	=> 'text',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-								'placeholder' => __('Tool name', 'schema-premium'),
-							),
-						), // end sub fields
-					),
-					'howto_supplies' => array(
-						'label' 		=> __('Supplies', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'repeater',
-						'layout'		=> 'block',
-						'markup_value' => 'new_custom_field',
-						'required' 		=> true,
-						'button_label' 	=> __('Add Supply', 'schema-premium'),
-						'instructions' 	=> __('Add supplies that has been used.', 'schema-premium'),
-						'sub_fields' 	=>  array(
-							'supply_name' => array(
-								'label' 		=> __('Name', 'schema-premium'),
-								'rangeIncludes' => array('Text'),
-								'field_type' 	=> 'text',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-								'placeholder' => __('Supply name', 'schema-premium'),
-							),
-						), // end sub fields
-					),
-					'howto_steps' => array(
-						'label' 		=> __('Steps', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'repeater',
-						'layout'		=> 'block',
-						'markup_value' => 'new_custom_field',
-						'required' 		=> true,
-						'button_label' 	=> __('Add Step', 'schema-premium'),
-						'instructions' 	=> __('Add step title, text, and upload an image.', 'schema-premium'),
-						'sub_fields' 	=>  array(
-							'name_item' => array(
-								'label' 		=> __('Title', 'schema-premium'),
-								'rangeIncludes' => array('Text'),
-								'field_type' 	=> 'text',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-								'placeholder' => __('Title', 'schema-premium'),
-							),
-							'text_item' => array(
-								'label' 		=> __('Text', 'schema-premium'),
-								'rangeIncludes' => array('Text'),
-								'field_type' 	=> 'textarea',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-								'placeholder' => __('Text of this step', 'schema-premium'),
-								'rows' => 2
-							),
-							'image_item' => array(
-								'label' 		=> __('Image', 'schema-premium'),
-								'rangeIncludes' => array('ImageObject', 'URL'),
-								'field_type' 	=> 'image',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-							),
-						), // end sub fields
-					),
-				);
 				
+				'totalTime' => array(
+					'label' 		=> __('Total Time', 'schema-premium'),
+					'rangeIncludes' => array('Duration'),
+					'field_type' 	=> 'time_picker',
+					'markup_value' => 'new_custom_field',
+					'instructions' 	=> __('The total time required to perform instructions or a direction.', 'schema-premium'),
+					'display_format' => 'H:i:s',
+					'return_format' => 'H:i:s',
+				),
+				'howto_tools' => array(
+					'label' 		=> __('Tools', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'repeater',
+					'layout'		=> 'block',
+					'markup_value'  => 'new_custom_field',
+					'required' 		=> true,
+					'button_label' 	=> __('Add Tool', 'schema-premium'),
+					'instructions' 	=> __('Add tools that has been used.', 'schema-premium'),
+					'sub_fields' 	=>  array(
+						'tool_name' => array(
+							'label' 		=> __('Name', 'schema-premium'),
+							'rangeIncludes' => array('Text'),
+							'field_type' 	=> 'text',
+							'markup_value'  => 'new_custom_field',
+							'instructions' 	=> '',
+							'placeholder'   => __('Tool name', 'schema-premium'),
+						),
+					), // end sub fields
+				),
+				'howto_supplies' => array(
+					'label' 		=> __('Supplies', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'repeater',
+					'layout'		=> 'block',
+					'markup_value'  => 'new_custom_field',
+					'required' 		=> true,
+					'button_label' 	=> __('Add Supply', 'schema-premium'),
+					'instructions' 	=> __('Add supplies that has been used.', 'schema-premium'),
+					'sub_fields' 	=>  array(
+						'supply_name' => array(
+							'label' 		=> __('Name', 'schema-premium'),
+							'rangeIncludes' => array('Text'),
+							'field_type' 	=> 'text',
+							'markup_value'  => 'new_custom_field',
+							'instructions' 	=> '',
+							'placeholder'   => __('Supply name', 'schema-premium'),
+						),
+					), // end sub fields
+				),
+				'howto_steps' => array(
+					'label' 		=> __('Steps', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'repeater',
+					'layout'		=> 'block',
+					'markup_value'  => 'new_custom_field',
+					'required' 		=> true,
+					'button_label' 	=> __('Add Step', 'schema-premium'),
+					'instructions' 	=> __('Add step title, text, and upload an image.', 'schema-premium'),
+					'sub_fields' 	=>  array(
+						'name_item' => array(
+							'label' 		=> __('Title', 'schema-premium'),
+							'rangeIncludes' => array('Text'),
+							'field_type' 	=> 'text',
+							'markup_value'  => 'new_custom_field',
+							'instructions' 	=> '',
+							'placeholder'   => __('Title', 'schema-premium'),
+						),
+						'text_item' => array(
+							'label' 		=> __('Text', 'schema-premium'),
+							'rangeIncludes' => array('Text'),
+							'field_type' 	=> 'textarea',
+							'markup_value'  => 'new_custom_field',
+							'instructions' 	=> '',
+							'placeholder'   => __('Text of this step', 'schema-premium'),
+							'rows'			=> 2
+						),
+						'image_item' => array(
+							'label' 		=> __('Image', 'schema-premium'),
+							'rangeIncludes' => array('ImageObject', 'URL'),
+							'field_type' 	=> 'image',
+							'markup_value' 	=> 'new_custom_field',
+							'instructions' 	=> '',
+						),
+					), // end sub fields
+				),
+			);
+			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_HowTo', $properties );	
 		}
 		
@@ -301,17 +252,6 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 			
 			$schema = array();
 			
-			// Putting all together
-			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
-		
-			$schema['mainEntityOfPage'] = array
-			(
-				'@type' => 'WebPage',
-				'@id' => get_permalink( $post->ID )
-			);
-			
 			// Get Tools
 			$schema['tool'] = $this->get_tools();
 			
@@ -322,42 +262,16 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 			$schema['step'] = $this->get_steps();
 						
 			// Get properties
+			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
 			
-			$schema['url'] 				= isset($properties['url'] ) ? $properties['url'] : get_permalink( $post->ID );
-			$schema['name'] 			= isset($properties['name'] ) ? $properties['name'] : '';
-			$schema['headline'] 		= isset($properties['headline'] ) ? $properties['headline'] : '';
-			$schema['description'] 		= isset($properties['description'] ) ? $properties['description'] : schema_wp_get_description( $post->ID );
-			$schema['image'] 			= isset($properties['image']) ? $properties['image'] : schema_wp_get_media( $post->ID );
+			// Override totalTime property
+			//
+			$schema['totalTime'] = isset($properties['totalTime'] ) ? schema_premium_format_time_to_PT($properties['totalTime']) : '';
 			
-			$schema['datePublished']	= isset($properties['datePublished'] ) ? $properties['datePublished'] : get_the_date( 'c', $post->ID );
-			$schema['dateModified']		= isset($properties['dateModified'] ) ? $properties['dateModified'] : get_post_modified_time( 'c', false, $post->ID, false );
-			
-			if( isset($properties['author'] ) ) { 
-				$schema['author'] = array (
-					'@type'	=> 'Person',
-					'name'	=> $properties['author']
-				);
-			} else {
-				$schema['author'] = schema_wp_get_author_array( $post->ID );
-			}
-			
-			$schema['publisher']		= schema_wp_get_publisher_array();
-			
-			$schema['keywords']			= schema_wp_get_post_tags( $post->ID );
-			
-			// Override properties
-			$properties['totalTime']	= isset($properties['totalTime'] ) ? schema_premium_format_time_to_PT($properties['totalTime']) : '';
-			
-			// Unset auto generated properties
-			unset($properties['author']);
-			
-			// Merge schema and properties arrays
-			// Make sure $properties is an array before merging
-			// 
-			if ( is_array($properties) ) {
-				$schema = array_merge($schema, $properties);
-			}
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
 			
 			return $this->schema_output_filter($schema);
 		}
@@ -401,7 +315,6 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 						'name'	=> strip_tags($name),
 					);
 				}
-		
 			}
 	
 			return $output;
@@ -435,7 +348,6 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 						'name'				=> strip_tags($name),
 					);
 				}
-		
 			}
 	
 			return $output;
@@ -475,7 +387,6 @@ if ( ! class_exists('Schema_WP_HowTo') ) :
 						'url'				=> get_permalink( $post->ID ) . '#step' . $step_no,
 					);
 				}
-		
 			}
 	
 			return $output;

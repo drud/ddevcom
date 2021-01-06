@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Casino') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Casino';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'EntertainmentBusiness';
+		
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Casino') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Casino';
+		}
+
 		/**
 		* Get schema type label
 		*

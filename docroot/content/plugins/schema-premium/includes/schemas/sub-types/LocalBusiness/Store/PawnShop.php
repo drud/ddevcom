@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_PawnShop') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'PawnShop';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_PawnShop') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'PawnShop';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_PawnShop') ) :
 			return __('A shop that will buy, or lend money against the security of, personal possessions.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_PawnShop();
 	
 endif;

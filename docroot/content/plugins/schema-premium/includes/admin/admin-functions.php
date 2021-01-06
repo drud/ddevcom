@@ -30,8 +30,9 @@ function schema_premium_get_all_custom_fields() {
 	
 	if ( ! $meta_keys = get_transient( $cache_key ) ) :
 	    
-		$post_types   = schema_premium_get_admin_post_types();
-		/*$query 			= "
+		$post_types = schema_premium_get_admin_post_types();
+		
+		/*$query = "
 			SELECT DISTINCT($wpdb->postmeta.meta_key) 
 			FROM $wpdb->posts 
 			LEFT JOIN $wpdb->postmeta 
@@ -40,17 +41,22 @@ function schema_premium_get_all_custom_fields() {
 			AND $wpdb->postmeta.meta_key NOT RegExp '(^[_0-9].+$)' 
 			AND $wpdb->postmeta.meta_key NOT RegExp '(^[0-9]+$)' 
 		";*/
-		$query 		  = "
+		
+		$query = "
 			SELECT DISTINCT($wpdb->postmeta.meta_key) 
 			FROM $wpdb->posts 
 			LEFT JOIN $wpdb->postmeta 
 			ON $wpdb->posts.ID = $wpdb->postmeta.post_id 
-			WHERE $wpdb->postmeta.meta_key != '' 
+			WHERE $wpdb->posts.post_type != 'schema'
+			AND $wpdb->postmeta.meta_key != ''
+			AND $wpdb->postmeta.meta_key NOT RegExp 'schema_'
 			AND $wpdb->postmeta.meta_key NOT RegExp '(^[0-9]+$)' 
 		";
+
 		$meta_keys_query = $wpdb->get_results($query, ARRAY_A);
 		
 		// debug
+		//echo count($meta_keys_query); 
 		//echo '<pre>'; print_r($meta_keys_query); echo '</pre>'; exit;
 		
 		foreach ( $meta_keys_query as $key => $value) {
@@ -353,7 +359,7 @@ function schema_wp_get_current_post_type() {
  * @param  string  $new_edit what page to check for accepts new - new post page ,edit - edit post page, null for either
  * @return boolean
  */
-function is_edit_page($new_edit = null){
+function sp_is_edit_page($new_edit = null){
     global $pagenow;
     //make sure we are on the backend
     if (!is_admin()) return false;

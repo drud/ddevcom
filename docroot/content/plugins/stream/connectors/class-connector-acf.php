@@ -1,6 +1,15 @@
 <?php
+/**
+ * Connector - Advanced Custom Fields
+ *
+ * @package WP_Stream
+ */
+
 namespace WP_Stream;
 
+/**
+ * Class - Connector_ACF
+ */
 class Connector_ACF extends Connector {
 	/**
 	 * Connector slug
@@ -22,6 +31,8 @@ class Connector_ACF extends Connector {
 	 * @var array
 	 */
 	public $actions = array(
+		'save_post',
+		'post_updated',
 		'added_post_meta',
 		'updated_post_meta',
 		'delete_post_meta',
@@ -126,8 +137,8 @@ class Connector_ACF extends Connector {
 	 *
 	 * @filter wp_stream_action_links_{connector}
 	 *
-	 * @param array  $links   Previous links registered
-	 * @param object $record Stream record
+	 * @param array  $links  Previous links registered.
+	 * @param object $record Stream record.
 	 *
 	 * @return array          Action links
 	 */
@@ -139,12 +150,209 @@ class Connector_ACF extends Connector {
 	}
 
 	/**
+	 * Tracks the creation of custom field group fields and settings (ACF v5+ only)
+	 *
+	 * @action save_post
+	 *
+	 * @param int     $post_id Post ID.
+	 * @param WP_Post $post    Post object.
+	 * @param bool    $update  Whether this is an existing post being updated or not.
+	 */
+	public function callback_save_post( $post_id, $post, $update ) {
+		// Bail if updating existing post.
+		if ( false !== $update ) {
+			return;
+		}
+
+		// Log new ACF field additions to field groups.
+		if ( 'acf-field' === $post->post_type ) {
+			$parent = get_post( $post->post_parent );
+			if ( $parent ) {
+				$this->log_prop( 'added', $post_id, $post, 'parent', $parent );
+			}
+		} elseif ( 'acf-field-group' === $post->post_type ) {
+			$props = maybe_unserialize( $post->post_content );
+
+			if ( ! empty( $props ) && is_array( $props ) ) {
+				foreach ( $props as $prop => $value ) {
+					$this->log_prop( 'added', $post_id, $post, $prop, $value );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Tracks changes to custom field groups settings.
+	 *
+	 * @action post_updated
+	 *
+	 * @param int      $post_id       Post ID.
+	 * @param \WP_Post $posts_after   Newly saved post object.
+	 * @param \WP_Post $posts_before  Old post object.
+	 * @return void
+	 */
+	public function callback_post_updated( $post_id, $posts_after, $posts_before ) {
+		if ( 'acf-field-group' !== $posts_after->post_type ) {
+			return;
+		}
+
+		$_new = ! empty( $posts_after->post_content ) ? maybe_unserialize( $posts_after->post_content ) : array();
+		$_old = ! empty( $posts_before->post_content ) ? maybe_unserialize( $posts_before->post_content ) : array();
+
+		// Get updated settings.
+		$updated_keys = $this->get_changed_keys( $_new, $_old );
+		$updated_keys = empty( $updated_keys ) ? array_keys( $_new ) : $updated_keys;
+
+		// Process updated properties.
+		foreach ( $updated_keys as $prop ) {
+			$old_value = null;
+			$value     = $_new[ $prop ];
+			if ( empty( $value ) && is_array( $_old ) && ! empty( $_old[ $prop ] ) ) {
+				$action    = 'deleted';
+				$old_value = $_old[ $prop ];
+			} else {
+				$action = 'updated';
+			}
+
+			$this->log_prop( $action, $post_id, $posts_after, $prop, $value, $old_value );
+		}
+	}
+
+
+	/**
+	 * Logs field/field group property changes (ACF v5 only).
+	 *
+	 * @param string     $action     Added, updated, deleted.
+	 * @param int        $post_id    Post ID.
+	 * @param WP_Post    $post       Post object.
+	 * @param string     $property   ACF property.
+	 * @param mixed|null $value      Value assigned to property.
+	 * @param mixed|null $old_value  Old value previously assigned to property.
+	 * @return void
+	 */
+	public function log_prop( $action, $post_id, $post, $property, $value = null, $old_value = null ) {
+		$action_labels = $this->get_action_labels();
+
+		// Fields.
+		if ( 'parent' === $property ) {
+			if ( 'deleted' === $action ) {
+				$meta_value = $old_value;
+			}
+
+			$this->log(
+				/* translators: %1$s: field label, %2$s: form title, %3$s: action (e.g. "Message", "Contact", "Created") */
+				esc_html_x( '"%1$s" field in "%2$s" %3$s', 'acf', 'stream' ),
+				array(
+					'label'  => $post->post_title,
+					'title'  => $value->post_title,
+					'action' => strtolower( $action_labels[ $action ] ),
+					'key'    => $post->post_name,
+					'name'   => $post->post_excerpt,
+				),
+				$value->ID,
+				'fields',
+				$action
+			);
+		} elseif ( 'position' === $property ) {
+			if ( 'deleted' === $action ) {
+				return;
+			}
+
+			$options = array(
+				'acf_after_title' => esc_html_x( 'High (after title)', 'acf', 'stream' ),
+				'normal'          => esc_html_x( 'Normal (after content)', 'acf', 'stream' ),
+				'side'            => esc_html_x( 'Side', 'acf', 'stream' ),
+			);
+
+			$this->log(
+				/* translators: %1$s: form title, %2$s a position (e.g. "Contact", "Side") */
+				esc_html_x( 'Position of "%1$s" updated to "%2$s"', 'acf', 'stream' ),
+				array(
+					'title'        => $post->post_title,
+					'option_label' => $options[ $value ],
+					'option'       => $property,
+					'option_value' => $value,
+				),
+				$post_id,
+				'options',
+				'updated'
+			);
+		} elseif ( 'layout' === $property ) {
+			if ( 'deleted' === $action ) {
+				return;
+			}
+
+			$options = array(
+				'no_box'  => esc_html_x( 'Seamless (no metabox)', 'acf', 'stream' ),
+				'default' => esc_html_x( 'Standard (WP metabox)', 'acf', 'stream' ),
+			);
+
+			$this->log(
+				/* translators: %1$s: form title, %2$s a layout (e.g. "Contact", "Seamless") */
+				esc_html_x( 'Style of "%1$s" updated to "%2$s"', 'acf', 'stream' ),
+				array(
+					'title'        => $post->post_title,
+					'option_label' => $options[ $value ],
+					'option'       => $property,
+					'option_value' => $value,
+				),
+				$post_id,
+				'options',
+				'updated'
+			);
+		} elseif ( 'hide_on_screen' === $property ) {
+			if ( 'deleted' === $action ) {
+				return;
+			}
+
+			$options = array(
+				'permalink'       => esc_html_x( 'Permalink', 'acf', 'stream' ),
+				'the_content'     => esc_html_x( 'Content Editor', 'acf', 'stream' ),
+				'excerpt'         => esc_html_x( 'Excerpt', 'acf', 'stream' ),
+				'custom_fields'   => esc_html_x( 'Custom Fields', 'acf', 'stream' ),
+				'discussion'      => esc_html_x( 'Discussion', 'acf', 'stream' ),
+				'comments'        => esc_html_x( 'Comments', 'acf', 'stream' ),
+				'revisions'       => esc_html_x( 'Revisions', 'acf', 'stream' ),
+				'slug'            => esc_html_x( 'Slug', 'acf', 'stream' ),
+				'author'          => esc_html_x( 'Author', 'acf', 'stream' ),
+				'format'          => esc_html_x( 'Format', 'acf', 'stream' ),
+				'featured_image'  => esc_html_x( 'Featured Image', 'acf', 'stream' ),
+				'categories'      => esc_html_x( 'Categories', 'acf', 'stream' ),
+				'tags'            => esc_html_x( 'Tags', 'acf', 'stream' ),
+				'send-trackbacks' => esc_html_x( 'Send Trackbacks', 'acf', 'stream' ),
+			);
+
+			if ( is_array( $value ) && count( $options ) === count( $value ) ) {
+				$options_label = esc_html_x( 'All screens', 'acf', 'stream' );
+			} elseif ( empty( $value ) ) {
+				$options_label = esc_html_x( 'No screens', 'acf', 'stream' );
+			} else {
+				$options_label = implode( ', ', array_intersect_key( $options, array_flip( $value ) ) );
+			}
+
+			$this->log(
+				/* translators: %1$s: a form title, %2$s: a display option (e.g. "Contact", "All screens") */
+				esc_html_x( '"%1$s" set to display on "%2$s"', 'acf', 'stream' ),
+				array(
+					'title'        => $post->post_title,
+					'option_label' => $options_label,
+					'option'       => $property,
+					'option_value' => $value,
+				),
+				$post_id,
+				'options',
+				'updated'
+			);
+		}
+	}
+
+	/**
 	 * Track addition of post meta
 	 *
 	 * @action added_post_meta
 	 */
 	public function callback_added_post_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'post', 'added' ), func_get_args() ) );
+		$this->check_meta( 'post', 'added', ...func_get_args() );
 	}
 
 	/**
@@ -153,7 +361,7 @@ class Connector_ACF extends Connector {
 	 * @action updated_post_meta
 	 */
 	public function callback_updated_post_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'post', 'updated' ), func_get_args() ) );
+		$this->check_meta( 'post', 'updated', ...func_get_args() );
 	}
 
 	/**
@@ -165,7 +373,7 @@ class Connector_ACF extends Connector {
 	 * @action delete_post_meta
 	 */
 	public function callback_delete_post_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'post', 'deleted' ), func_get_args() ) );
+		$this->check_meta( 'post', 'deleted', ...func_get_args() );
 	}
 
 	/**
@@ -174,7 +382,7 @@ class Connector_ACF extends Connector {
 	 * @action added_user_meta
 	 */
 	public function callback_added_user_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'user', 'added' ), func_get_args() ) );
+		$this->check_meta( 'user', 'added', ...func_get_args() );
 	}
 
 	/**
@@ -183,7 +391,7 @@ class Connector_ACF extends Connector {
 	 * @action updated_user_meta
 	 */
 	public function callback_updated_user_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'user', 'updated' ), func_get_args() ) );
+		$this->check_meta( 'user', 'updated', ...func_get_args() );
 	}
 
 	/**
@@ -195,36 +403,36 @@ class Connector_ACF extends Connector {
 	 * @action delete_user_meta
 	 */
 	public function callback_delete_user_meta() {
-		call_user_func_array( array( $this, 'check_meta' ), array_merge( array( 'user', 'deleted' ), func_get_args() ) );
+		$this->check_meta( 'user', 'deleted', ...func_get_args() );
 	}
 
 	/**
 	 * Track addition of post/user meta
 	 *
-	 * @param string     $type       Type of object, post or user
-	 * @param string     $action     Added, updated, deleted
-	 * @param integer    $meta_id
-	 * @param integer    $object_id
-	 * @param string     $meta_key
-	 * @param mixed|null $meta_value
+	 * @param string     $type       Type of object, post or user.
+	 * @param string     $action     Added, updated, deleted.
+	 * @param integer    $meta_id    Meta ID.
+	 * @param integer    $object_id  Object ID.
+	 * @param string     $meta_key   Meta Key.
+	 * @param mixed|null $meta_value Value being stored in meta.
 	 */
 	public function check_meta( $type, $action, $meta_id, $object_id, $meta_key, $meta_value = null ) {
 		$post = get_post( $object_id );
-		if ( 'post' !== $type || ! $post || 'acf' !== $post->post_type ) {
+		if ( 'post' !== $type || ! $post || ! in_array( $post->post_type, array( 'acf', 'acf-field-group' ), true ) ) {
 			$this->check_meta_values( $type, $action, $meta_id, $object_id, $meta_key, $meta_value );
 			return;
 		}
 
 		$action_labels = $this->get_action_labels();
 
-		// Fields
+		// Fields.
 		if ( 0 === strpos( $meta_key, 'field_' ) ) {
 			if ( 'deleted' === $action ) {
 				$meta_value = get_post_meta( $object_id, $meta_key, true );
 			}
 
 			$this->log(
-				// translators: Placeholders refer to a field label, a form title, and an action (e.g. "Message", "Contact", "Created")
+				/* translators: %1$s: field label, %2$s: form title, %3$s: action (e.g. "Message", "Contact", "Created") */
 				esc_html_x( '"%1$s" field in "%2$s" %3$s', 'acf', 'stream' ),
 				array(
 					'label'  => $meta_value['label'],
@@ -255,7 +463,7 @@ class Connector_ACF extends Connector {
 			);
 
 			$this->log(
-				// translators: Placeholders refer to a form title, and a position (e.g. "Contact", "Side")
+				/* translators: %1$s: form title, %2$s a position (e.g. "Contact", "Side") */
 				esc_html_x( 'Position of "%1$s" updated to "%2$s"', 'acf', 'stream' ),
 				array(
 					'title'        => $post->post_title,
@@ -265,7 +473,7 @@ class Connector_ACF extends Connector {
 				),
 				$object_id,
 				'options',
-				'updated'
+				$action
 			);
 		} elseif ( 'layout' === $meta_key ) {
 			if ( 'deleted' === $action ) {
@@ -278,7 +486,7 @@ class Connector_ACF extends Connector {
 			);
 
 			$this->log(
-				// translators: Placeholders refer to a form title, and a layout (e.g. "Contact", "Seamless")
+				/* translators: %1$s: form title, %2$s a layout (e.g. "Contact", "Seamless") */
 				esc_html_x( 'Style of "%1$s" updated to "%2$s"', 'acf', 'stream' ),
 				array(
 					'title'        => $post->post_title,
@@ -321,7 +529,7 @@ class Connector_ACF extends Connector {
 			}
 
 			$this->log(
-				// translators: Placeholders refer to a form title, and a display option (e.g. "Contact", "All screens")
+				/* translators: %1$s: a form title, %2$s: a display option (e.g. "Contact", "All screens") */
 				esc_html_x( '"%1$s" set to display on "%2$s"', 'acf', 'stream' ),
 				array(
 					'title'        => $post->post_title,
@@ -339,12 +547,12 @@ class Connector_ACF extends Connector {
 	/**
 	 * Track changes to ACF values within rendered post meta forms
 	 *
-	 * @param string     $type       Type of object, post or user
-	 * @param string     $action     Added, updated, deleted
-	 * @param integer    $meta_id
-	 * @param integer    $object_id
-	 * @param string     $key
-	 * @param mixed|null $value
+	 * @param string     $type       Type of object, post or user.
+	 * @param string     $action     Added, updated, deleted.
+	 * @param integer    $meta_id    Meta ID.
+	 * @param integer    $object_id  Object ID.
+	 * @param string     $key        Meta Key.
+	 * @param mixed|null $value      Value being stored in meta.
 	 *
 	 * @return bool
 	 */
@@ -361,7 +569,7 @@ class Connector_ACF extends Connector {
 		if ( 'user' === $type ) {
 			$object_key = 'user_' . $object_id;
 		} elseif ( 'taxonomy' === $type ) {
-			if ( 0 === strpos( $key, '_' ) ) { // Ignore the 'revision' stuff!
+			if ( 0 === strpos( $key, '_' ) ) { // Ignore the 'revision' stuff!.
 				return false;
 			}
 
@@ -369,7 +577,7 @@ class Connector_ACF extends Connector {
 				return false;
 			}
 
-			list( , $taxonomy, $term_id, $key ) = $matches; // Skips 0 index
+			list( , $taxonomy, $term_id, $key ) = $matches; // Skips 0 index.
 
 			$object_key = $taxonomy . '_' . $term_id;
 		} elseif ( 'option' === $type ) {
@@ -403,7 +611,7 @@ class Connector_ACF extends Connector {
 			$cache = $this->cached_field_values_updates[ $object_key ][ $key ];
 
 			$this->log(
-				// translators: Placeholders refer to a field label, an object title, and an object type (e.g. "Message", "Hello World", "post")
+				/* translators: %1$s: a field label, %2$s: an object title, %3$s: an object type (e.g. "Message", "Hello World", "post") */
 				esc_html_x( '"%1$s" of "%2$s" %3$s updated', 'acf', 'stream' ),
 				array(
 					'field_label'   => $cache['field']['label'],
@@ -442,7 +650,7 @@ class Connector_ACF extends Connector {
 			$deleted = array_diff( $old, $new );
 
 			$this->log(
-				// translators: Placeholders refer to a form title, the number of rules added, and the number of rules deleted (e.g. "Contact", "42", "7")
+				/* translators: %1$s: a form title, %2$d: the number of rules added, %3$d: the number of rules deleted (e.g. "Contact", "42", "7") */
 				esc_html_x( 'Updated rules of "%1$s" (%2$d added, %3$d deleted)', 'acf', 'stream' ),
 				array(
 					'title'      => $post->post_title,
@@ -461,7 +669,7 @@ class Connector_ACF extends Connector {
 	/**
 	 * Override connector log for our own Settings / Actions
 	 *
-	 * @param array $data
+	 * @param array $data  Record data.
 	 *
 	 * @return array|bool
 	 */
@@ -470,10 +678,29 @@ class Connector_ACF extends Connector {
 			return $data;
 		}
 
-		if ( 'posts' === $data['connector'] && 'acf' === $data['context'] ) {
-			$data['context']               = 'field_groups';
-			$data['connector']             = $this->name;
-			$data['args']['singular_name'] = esc_html__( 'field group', 'stream' );
+		$is_acf_context = in_array( $data['context'], array( 'acf', 'acf-field-group', 'acf-field' ), true );
+
+		if ( 'posts' === $data['connector'] && $is_acf_context ) {
+			// If ACF field group CPT being logged.
+			if ( 'acf' === $data['context'] || 'acf-field-group' === $data['context'] ) {
+				$data['context']               = 'field_groups';
+				$data['connector']             = $this->name;
+				$data['args']['singular_name'] = esc_html__( 'field group', 'stream' );
+
+				// elseif ACF field CPT being logged (ACF v5+ only).
+			} elseif ( 'acf-field' === $data['context'] ) {
+				$field_group = get_post( wp_get_post_parent_id( $data['object_id'] ) );
+
+				$data['context']               = 'fields';
+				$data['connector']             = $this->name;
+				$data['args']['singular_name'] = ! empty( $field_group )
+					? sprintf(
+						/* translators: %s: field group name */
+						esc_html__( 'field in the "%s" field group', 'stream' ),
+						$field_group->post_title
+					)
+					: esc_html__( 'field', 'stream' );
+			}
 		}
 
 		return $data;
@@ -483,9 +710,9 @@ class Connector_ACF extends Connector {
 	 * Track changes to custom field values updates, saves filtered values to be
 	 * processed by callback_updated_post_meta
 	 *
-	 * @param string $value
-	 * @param int    $post_id
-	 * @param string $field
+	 * @param string $value    Field value.
+	 * @param int    $post_id  Field post ID.
+	 * @param string $field    Field name.
 	 *
 	 * @return string
 	 */
@@ -497,8 +724,8 @@ class Connector_ACF extends Connector {
 	/**
 	 * Track changes to post main attributes, ie: Order No.
 	 *
-	 * @param int   $post_id
-	 * @param array $data  Array with the updated post data
+	 * @param int   $post_id Field post ID.
+	 * @param array $data    Array with the updated post data.
 	 */
 	public function callback_pre_post_update( $post_id, $data ) {
 		$post = get_post( $post_id );
@@ -510,7 +737,7 @@ class Connector_ACF extends Connector {
 		// menu_order, aka Order No.
 		if ( $data['menu_order'] !== $post->menu_order ) {
 			$this->log(
-				// translators: Placeholders refer to a form title, a numeric position, and another numeric position (e.g. "Contact", "42", "7")
+				/* translators: %1$s: a form title, %2$d: a numeric position, %3$d: numeric position (e.g. "Contact", "42", "7") */
 				esc_html_x( '"%1$s" reordered from %2$d to %3$d', 'acf', 'stream' ),
 				array(
 					'title'          => $post->post_title,
@@ -527,8 +754,8 @@ class Connector_ACF extends Connector {
 	/**
 	 * Track addition of new options
 	 *
-	 * @param string $key   Option name
-	 * @param string $value Option value
+	 * @param string $key   Option name.
+	 * @param string $value Option value.
 	 */
 	public function callback_added_option( $key, $value ) {
 		$this->check_meta_values( self::get_saved_option_type( $key ), 'added', null, null, $key, $value );
@@ -537,9 +764,9 @@ class Connector_ACF extends Connector {
 	/**
 	 * Track addition of new options
 	 *
-	 * @param $key
-	 * @param $old
-	 * @param $value
+	 * @param string $key   Option key.
+	 * @param string $old   Old value.
+	 * @param string $value New value.
 	 */
 	public function callback_updated_option( $key, $old, $value ) {
 		unset( $old );
@@ -549,7 +776,7 @@ class Connector_ACF extends Connector {
 	/**
 	 * Track addition of new options
 	 *
-	 * @param $key
+	 * @param string $key Option key.
 	 */
 	public function callback_deleted_option( $key ) {
 		$this->check_meta_values( self::get_saved_option_type( $key ), 'deleted', null, null, $key, null );
@@ -558,7 +785,7 @@ class Connector_ACF extends Connector {
 	/**
 	 * Determines the type of option that is saved
 	 *
-	 * @param $key
+	 * @param string $key Option key.
 	 * @return string
 	 */
 	private function get_saved_option_type( $key ) {

@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_Gynecologic') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'Gynecologic';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'MedicalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Gynecologic') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Gynecologic';
+		}
+
 		/**
 		* Get schema type label
 		*

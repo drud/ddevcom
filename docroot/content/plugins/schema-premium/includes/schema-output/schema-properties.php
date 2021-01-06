@@ -30,6 +30,8 @@ function schema_wp_get_properties_markup_output( $post_id, $properties, $schema_
     $is_enabled = schema_wp_get_enabled_location_targets( $post->ID );
     
     if ( empty($is_enabled) ) return;
+    // @since 1.2
+    if ( ! isset($schema_type_now) ) return;
     
     //echo '<pre>'; print_r($is_enabled); echo '</pre>';
     
@@ -39,15 +41,29 @@ function schema_wp_get_properties_markup_output( $post_id, $properties, $schema_
         
         //
         // @since 1.1.2
+        // Modified @since 1.2
+        // TODO look at removing this check, or maybe keep it after adding itemReviewed
         //
-        if ( isset($schema_type_now) && $schema_type_now == $enabled['schema_type'] || $schema_type_now == $enabled['schema_subtype'] ) {
+        if ( $schema_type_now == $enabled['schema_type'] 
+            || $schema_type_now == $enabled['schema_subtype'] 
+            || isset($enabled['itemReviewed']) 
+        ) {
             
             // Get final schema type
-            $schema_type            = $enabled['schema_type'];
-            $schema_default         = schema_wp_get_default_schemas( $schema_type );
-            $schema_type_properties = $properties;
-            $enabled_on             = $enabled['enabled_on'];
+            $schema_type = $enabled['schema_type'];
             
+            // Check if type is Review, set type to itemReviewed
+            // @since 1.2
+            //
+            /*
+            if ( $schema_type_now == 'Review' ) {
+                $schema_type = $enabled['itemReviewed'];
+                echo "<pre>";print_r($schema_ID);echo "</pre>";
+            }
+            */ 
+        
+            $enabled_on = $enabled['enabled_on'];
+
             foreach ( $properties as $properity => $details ) :
             
                 if ( isset($details['sub_fields']) && ! empty($details['sub_fields']) ) {
@@ -62,23 +78,65 @@ function schema_wp_get_properties_markup_output( $post_id, $properties, $schema_
                     endforeach;
                     
                 } else {
+                    //
                     // Main field
+                    //
                     $property_field = get_post_meta( $schema_ID, '_properties_' . $properity, true );
-                    $output = schema_wp_check_property_field( $post, $schema_ID, $schema_type, $property_field, $properity, $enabled_on, false );
+                    $output         = schema_wp_check_property_field( $post, $schema_ID, $schema_type, $property_field, $properity, $enabled_on, false );
+                    
                     if ( isset($output) && $output != '' ) {
-                        // Check if image is set to new custom field
-                        // @since 1.0.1
-                        if ( $properity == 'image' && $property_field == 'new_custom_field' ) {
-                            $schema[$properity] = schema_premium_get_property_image_new_custom_field( $output ); 
+                       
+                        // Check if property value is set to new custom field
+                        // @since 1.2   
+                        //
+                        if ( $property_field == 'new_custom_field' ) {
+                           
+                            // Swtich between image types 
+                            // to get the correct output
+                            //
+                            switch ( $properity ) {
+                                
+                                case 'image':
+                                
+                                    // Check if image is set to new custom field
+                                    // @since 1.0.1
+                                    //
+                                    if ( $property_field == 'new_custom_field' )
+                                        $schema[$properity] = schema_premium_get_property_image_new_custom_field( $output ); 
+                                    break;
+    
+                                case 'logo':
+                                    
+                                    // Check if image is set to new custom field
+                                    //
+                                    if ( $property_field == 'new_custom_field' ) 
+                                        $schema[$properity] = schema_wp_get_image_url_by_attachment_id( $output ); 
+                                    break; 
+                                
+                                default:
+                                    $schema[$properity] = $output;
+                                    break;
+
+                            } // end of switch
+
                         } else {
-                            $schema[$properity] = $output;
+
+                            // get output value
+                            //
+                            if ( ! isset($schema[$properity])) {
+                                $schema[$properity] = $output;
+                            }
+                                
                         }
+                        
+                        
                     }
+                    
                 }
                 
             endforeach;
 
-        } // end of check $post_type_now
+       } // end of check $post_type_now
         
         //return $schema;
         //echo $schema_ID .'<br>';
@@ -88,7 +146,7 @@ function schema_wp_get_properties_markup_output( $post_id, $properties, $schema_
     endforeach;
     
     // Debug
-    //echo "<pre>";print_r($schema_x);echo "</pre>";
+    //echo "<pre>";print_r($schema);echo "</pre>";
     //exit;
 
     return $schema;
@@ -133,8 +191,13 @@ function schema_wp_check_property_field ( $post, $schema_ID, $schema_type, $prop
             $output = schema_wp_get_the_title( $post->ID );
             break;
         
+        case 'full_content':
+            // Full post content + HTML tags
+            $output = schema_wp_get_description( $post->ID, 'full', false );
+            break;
+
         case 'post_content':
-            $output = schema_wp_get_description( $post->ID );
+            $output = schema_wp_get_description( $post->ID, 'full', true );
             break;
         
         case 'post_excerpt':
@@ -165,16 +228,7 @@ function schema_wp_check_property_field ( $post, $schema_ID, $schema_type, $prop
             break;
         
         case 'fixed_text_field':
-            // @since 1.1.2.4
-            /*
-            if (    isset($enabled_on['post_id'])   && is_array($enabled_on['post_id']) && !empty($enabled_on['post_id']) && in_array( $post->ID, $enabled_on['post_id']) 
-                ||  isset($enabled_on['post'])      && is_array($enabled_on['post'])    && !empty($enabled_on['post']) && in_array( $post->ID, $enabled_on['post'])
-                ||  isset($enabled_on['page'])      && is_array($enabled_on['page'])    && !empty($enabled_on['page']) && in_array( $post->ID, $enabled_on['page'])     
-                ) {
-                $output = get_post_meta( $schema_ID, $sub . '_fixed_text_field_' . $properity, true );
-            }*/
             $output = get_post_meta( $schema_ID, $sub . '_fixed_text_field_' . $properity, true );
-            //$output = $sub.'xxxxx';
             break;
         
         case 'featured_image':
@@ -183,16 +237,26 @@ function schema_wp_check_property_field ( $post, $schema_ID, $schema_type, $prop
 
         case 'fixed_image_field':
             $fixed_image_id = get_post_meta( $schema_ID, $sub . '_fixed_image_field_' . $properity, true );
-            $output = schema_premium_get_property_image_new_custom_field( $fixed_image_id );
+            if ( $properity == 'logo') {
+                $output = schema_wp_get_image_url_by_attachment_id( $fixed_image_id );
+            } else {
+                // Get image object
+                $output = schema_premium_get_property_image_new_custom_field( $fixed_image_id );
+            }
             break;
             
         case 'existing_custom_field':
             $existing_custom_field_key  = get_post_meta( $schema_ID, $sub . '_existing_custom_field_' . $properity, true );
-            $output                     = get_post_meta( $post->ID, $existing_custom_field_key, true );
+            if ( isset($existing_custom_field_key) &&  $existing_custom_field_key != '' ) {
+                $output  = get_post_meta( $post->ID, $existing_custom_field_key, true );
+            } else {
+                $output = '';
+            }
+            
             break;
         
         case 'fixed_review_field':
-            $output = get_post_meta( $schema_ID, $sub . '_fixed_review_field_' . $properity, true );
+            $output = get_post_meta( $schema_ID, $sub . '_fixed_review_field_' . $properity, true );  
             break;
         
         case 'fixed_ratingValue_field':

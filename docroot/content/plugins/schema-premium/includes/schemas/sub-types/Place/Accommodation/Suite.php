@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Suite') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Suite';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Accommodation';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Suite') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Suite';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -60,13 +74,8 @@ if ( ! class_exists('Schema_WP_Suite') ) :
 		*/
 		public function properties() {
 			
-			// Get properties from parent class
-			//
-			$properties = parent::properties();
-			
 			// Add specific properties 
 			//
-		
 			$properties['bed'] =  array(
 				'label' 		=> __('Bed', 'schema-premium'),
 				'rangeIncludes' => array('Text'),
@@ -74,6 +83,15 @@ if ( ! class_exists('Schema_WP_Suite') ) :
 				'markup_value' 	=> 'new_custom_field',
 				'instructions' 	=> __('The type of bed or beds included in the accommodation. For the single case of just one bed of a certain type, you use bed directly with a text.', 'schema-premium'),
 			);
+
+
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 40 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_Suite', $properties );	
 		}

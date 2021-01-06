@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_BikeStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'BikeStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_BikeStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'BikeStore';
+		}
+
 		/**
 		* Get schema type label
 		*

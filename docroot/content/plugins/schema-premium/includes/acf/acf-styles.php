@@ -82,7 +82,7 @@ function schema_wp_custom_acf_repeater_ovderride() {
 }
 
 
-add_action( 'acf/input/admin_footer', 'schema_wp_disable_drag_drop_repeater' );
+add_action( 'acf/input/admin_footer', 'schema_wp_disable_acf_repeater_add_row' );
 /**
  * Disable drag & drop repeater feature if current screen is Schema post type
  *
@@ -90,7 +90,7 @@ add_action( 'acf/input/admin_footer', 'schema_wp_disable_drag_drop_repeater' );
  *
  * @return void
  */
-function schema_wp_disable_drag_drop_repeater() {
+function schema_wp_disable_acf_repeater_add_row() {
     
     if ( ! function_exists('get_current_screen') )
         return;

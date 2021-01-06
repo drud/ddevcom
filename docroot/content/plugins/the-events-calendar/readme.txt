@@ -4,13 +4,14 @@ Contributors: ModernTribe, borkweb, barry.hughes, bordoni, brianjessee, aguseo, 
 Tags: events, calendar, event, venue, organizer, dates, date, google maps, conference, workshop, concert, meeting, seminar, summit, class, modern tribe, tribe, widget
 Donate link: http://m.tri.be/29
 Requires at least: 4.7
-Stable tag: 4.9.14
+Stable tag: 4.9.14.1
 Tested up to: 5.3
 Requires PHP: 5.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 The Events Calendar is a carefully crafted, extensible plugin that lets you easily manage and share events. Beautiful. Solid. Awesome.
+
 
 == Description ==
 
@@ -214,6 +215,10 @@ Some things to consider before posting on the forum:
 Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to [@TheEventsCal](https://twitter.com/TheEventsCal) and tell us why. We'll do what we can to make it right.
 
 == Changelog ==
+
+= [4.9.14.1] 2020-06-09 =
+
+* Security - Remove deprecated usage of escapeMarkup in Select2 (props to miha.jirov for reporting this).
 
 = [4.9.14] 2020-01-15 =
 
@@ -1692,3 +1697,4 @@ Still not happy? Shoot us an email to support@theeventscalendar.com or tweet to 
 = 3.x and previous =
 
 For release notes from the 3.x and older lifecycles, see our [full historical release notes](https://theeventscalendar.com/category/products/release-notes/).
+

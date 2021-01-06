@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Accommodation') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Accommodation';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Place';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Accommodation') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Accommodation';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -60,13 +74,8 @@ if ( ! class_exists('Schema_WP_Accommodation') ) :
 		*/
 		public function properties() {
 			
-			// Get properties from parent class
-			//
-			$properties = parent::properties();
-			
 			// Add specific properties 
 			//
-			
 			$properties['floorLevel'] =  array(
 				'label' 		=> __('Floor Level', 'schema-premium'),
 				'rangeIncludes' => array('Text'),
@@ -118,6 +127,14 @@ if ( ! class_exists('Schema_WP_Accommodation') ) :
 				'ui_off_text' => __('No', 'schema-premium'),
 			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_Accommodation', $properties );	
 		}
 

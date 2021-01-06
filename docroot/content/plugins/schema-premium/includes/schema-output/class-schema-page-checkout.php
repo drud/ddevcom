@@ -138,7 +138,7 @@ if ( ! class_exists('Schema_WP_SpecialPage_CheckoutPage') ) :
 			
 			// Putting all together
 			//
-			$schema['@context'] 			=  'http://schema.org';
+			$schema['@context'] 			=  'https://schema.org';
 			$schema['@type'] 				=  $this->type;
 		
 			$schema['mainEntityOfPage'] 	= array

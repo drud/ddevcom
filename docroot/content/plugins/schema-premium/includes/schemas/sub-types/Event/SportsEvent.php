@@ -18,7 +18,10 @@ if ( ! class_exists('Schema_WP_SportsEvent') ) :
 	class Schema_WP_SportsEvent extends Schema_WP_Event {
 		
 		/** @var string Currenct Type */
-    	protected $type = 'SportsEvent';
+		protected $type = 'SportsEvent';
+		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Event';
 		
 		/**
 	 	* Constructor
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_SportsEvent') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SportsEvent';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_SportsEvent') ) :
 		public function comment() {
 			
 			return __('Sports event.', 'schema-premium');
+		}
+
+		/**
+		* Get properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 40 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_SportsEvent', $properties );	
 		}
 	}
 	

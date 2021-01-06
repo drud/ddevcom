@@ -34,6 +34,17 @@ if ( ! class_exists('Schema_WP_TechArticle') ) :
 		}
 		
 		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'TechArticle';
+		}
+
+		/**
 		* Get schema type label
 		*
 		* @since 1.0.0
@@ -64,21 +75,7 @@ if ( ! class_exists('Schema_WP_TechArticle') ) :
 		public function properties() {
 
 			$properties = array(
-				'TechArticle_properties_tab' => array(
-					'label' 		=> '<span style="color:#c90000;">' . $this->type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 30,
-					'markup_value' 	=> 'none'
-				),
-				'TechArticle_properties_info' => array(
-					'label' => $this->type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $this->type,
-					'message'		=> $this->comment(),
-				),
+				
 				'dependencies' => array(
 					'label' 		=> __('Dependencies', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
@@ -92,26 +89,16 @@ if ( ! class_exists('Schema_WP_TechArticle') ) :
 					'field_type' 	=> 'text',
 					'markup_value' => 'disabled',
 					'instructions' 	=> __('Proficiency needed for this content; expected values: (Beginner, Expert)', 'schema-premium'),
-				),
-				'TechArticle_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
+				)
 			);
 			
-			// Get parent properties 
+			// Wrap properties in tabs 
 			//
-			$Article_properties = parent::properties();
-			// 
-			// Fix tabs
-			//
-			$Article_properties['Article_properties_tab']['label'] 			= '<span style="color:#c90000;">' . $this->parent_type . '</span>';
-			$Article_properties['Article_properties_info']['label'] 		= $this->parent_type;
-			$Article_properties['Article_properties_info']['instructions'] 	= __('Properties of' , 'schema-premium') . ' ' . $this->parent_type;
-			$Article_properties['Article_properties_info']['message']  		= parent::comment();
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 40 );
 			
-			$properties = array_merge( $Article_properties, $properties );
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_TechArticle', $properties );	
 		}

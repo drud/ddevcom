@@ -5,7 +5,7 @@
  * Description: The next generation of Structured Data.
  * Author: Hesham
  * Author URI: http://zebida.com
- * Version: 1.1.4.4
+ * Version: 1.2.2
  * Text Domain: schema-premium
  * Domain Path: languages
  *
@@ -64,7 +64,7 @@ final class Schema_Premium {
 	 *
 	 * @since 1.0.0
 	 */
-	private $version = '1.1.4.4';
+	private $version = '1.2.2';
 
 	/**
 	 * The settings instance variable
@@ -126,7 +126,7 @@ final class Schema_Premium {
         	add_action( 'plugins_loaded', array( self::$instance, 'init_classes' ), 5 );
 			
 			// Make sure plugin loads first
-			add_action( 'activated_plugin',  array( self::$instance, 'schema_premium_plugin_load_first' ) );
+			add_action( 'activated_plugin',  array( self::$instance, 'schema_premium_plugin_load_first' ), 10, 2 );
 
 			// Init action.
 			do_action( 'schema_premium_init' );
@@ -184,7 +184,7 @@ final class Schema_Premium {
 		}
 
 		// debug
-		//echo '<pre>'; print_r($plugins); echo '</pre>';
+		//echo '<pre>'; print_r($plugins); echo '</pre>';exit;
 	}
 	
 	/**
@@ -195,7 +195,7 @@ final class Schema_Premium {
 	 * @return void
 	 */
 	public function below_php_version_notice() {
-		echo '<div class="error"><p>' . __( 'Your version of PHP is below the minimum version of PHP required by Schema Premium plugin. Please contact your host and request that your version be upgraded to 5.6.20 or later.', 'schema-premium' ) . '</p></div>';
+		echo '<div class="notice notice-error"><p>' . __( 'Your version of PHP is below the minimum version of PHP required by Schema Premium plugin. Please contact your host and request that your version be upgraded to 5.6.20 or later.', 'schema-premium' ) . '</p></div>';
 	}
 	
 	/**
@@ -281,16 +281,15 @@ final class Schema_Premium {
 		}
 
 		// ACF Fields
-		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-fields-loader.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-custom-location-rules.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-styles.php';
+		
+		// ACF Extensions
+		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions-loader.php';
 		
 		// ACF Blocks
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-blocks/acf-blocks-categories.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-blocks/class-acf-block-helper.php';
-		
-		// ACF Extensions
-		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions-loader.php';
 		
 		// Schema post type
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/post-type/schema-post-type.php';
@@ -301,13 +300,13 @@ final class Schema_Premium {
 		
 		// Schema types classes loader
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/schemas/loader.php';
-		
+		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta-types-properties.php';
+
 		if( is_admin() ) {
 			
 			// Metas
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta/class-meta.php';
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta-types-locations.php';
-			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta-types-properties.php';
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta-properties.php';			
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/meta-tax.php';
 			
@@ -321,10 +320,13 @@ final class Schema_Premium {
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/class-notices.php';
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/class-xml-parser.php';
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/class-setup-wizard.php';
-			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/class-schema-wizard.php';
 			
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/post-type/class-columns.php';
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/post-type/schema-columns.php';
+			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/post-type/schema-all-button.php';
+			
+			// ACF Options
+			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/post-type/schema-create-new.php';
 			
 			// ACF PRO admin
 			require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-admin-settings.php';
@@ -336,7 +338,7 @@ final class Schema_Premium {
 		
 		// Functions
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/functions.php';
-		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/functions-deprecated.php';
+		//require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/functions-deprecated.php';
 		
 		// Filters
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/filters.php';
@@ -376,7 +378,8 @@ final class Schema_Premium {
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/edd.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/dw-question-answer.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/co-authors-plus.php';
-		
+		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/wp-job-manager.php';
+
 		// Theme Integrations
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/genesis.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/integrations/thesis.php';
@@ -392,6 +395,11 @@ final class Schema_Premium {
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/OpeningHoursSpecification.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/default-image.php';
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/custom-markup.php';
+		//require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/defragment.php';
+		//require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/defragment-graph.php';
+		//require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/extensions/defragment-breadcrumbs.php';
+
+		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/admin/developer/test-on-local-server.php';
 
 		// Install
 		require_once SCHEMAPREMIUM_PLUGIN_DIR . 'includes/install.php';
@@ -407,10 +415,6 @@ final class Schema_Premium {
 			if ( class_exists('Schema_WP_Setup_Wizard') ) {
 				// Configuration Wizard
 				new Schema_WP_Setup_Wizard();
-			}
-			if ( class_exists('Schema_WP_Setup_Schema_Wizard') ) {
-				// Schema Configuration Wizard
-				new Schema_WP_Setup_Schema_Wizard();
 			}
         }
     }

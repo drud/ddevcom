@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_RoofingContractor') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'RoofingContractor';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HomeAndConstructionBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,18 @@ if ( ! class_exists('Schema_WP_RoofingContractor') ) :
 			// emty __construct
 		}
 		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'RoofingContractor';
+		}
+
 		/**
 		* Get schema type label
 		*

@@ -20,7 +20,10 @@ if ( ! class_exists('Schema_WP_SkiResort') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'SkiResort';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'SportsActivityLocation';
+
 		/**
 	 	* Constructor
 	 	*
@@ -31,6 +34,17 @@ if ( ! class_exists('Schema_WP_SkiResort') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SkiResort';
+		}
+
 		/**
 		* Get schema type label
 		*

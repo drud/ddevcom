@@ -46,7 +46,7 @@ function schema_premium_rank_math_register_settings() {
 *
 * @since 1.6.4
 */
-function schema_premium_rank_math_settings( $settings_advanced ) {
+function schema_premium_rank_math_settings( $settings ) {
 
 	$info = ' <span style="color:#8a8a8a;margin-top:3px;" class="dashicons dashicons-admin-plugins"></span>';
 
@@ -54,7 +54,7 @@ function schema_premium_rank_math_settings( $settings_advanced ) {
 		$info = ' <span style="color:#48b142;margin-top:3px;" class="dashicons dashicons-admin-plugins"></span>';
 	}
 	
-	$settings_advanced['main']['rank_math_enabled'] = array(
+	$settings['main']['rank_math_enabled'] = array(
 		'id' => 'rank_math_enabled',
 		'name' => __( 'Rank Math', 'schema-premium' ),
 		'desc' => $info,
@@ -65,8 +65,8 @@ function schema_premium_rank_math_settings( $settings_advanced ) {
 		),
 		'std' => 'enabld',
 		'tooltip_title' => __('When enabled', 'schema-premium'),
-		'tooltip_desc' => __('Rank Math schema.org markup output will be removed.', 'schema-premium'),
+		'tooltip_desc' => __('Rank Math schema.org markup output will be disabled.', 'schema-premium'),
 	);
 	
-	return $settings_advanced;
+	return $settings;
 }

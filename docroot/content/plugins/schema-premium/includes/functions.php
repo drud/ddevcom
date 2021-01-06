@@ -95,6 +95,65 @@ function schema_premium_get_post_ID() {
 }
 
 /**
+ * Get an array of enabled post types
+ * 
+ * Used by WPHeader and WPFooter
+ *
+ * @since 1.5.9.6
+ * @return array of enabled post types, schema type
+ */
+function schema_wp_cpt_get_enabled_post_types() {
+	
+	$cpt_enabled = array();
+	
+	$args = array(
+					'post_type'			=> 'schema',
+					'post_status'		=> 'publish',
+					'posts_per_page'	=> -1
+				);
+				
+	$schemas_query = new WP_Query( $args );
+	
+	$schemas = $schemas_query->get_posts();
+	
+	// If there is no schema types set, return and empty array
+	if ( empty($schemas) ) return array();
+	
+	foreach( $schemas as $schema ) : 
+		
+		$schema_post_types = get_post_meta( $schema->ID, '_schema_post_types'	, true );
+		
+		// Build our array
+		$cpt_enabled[] = (is_array($schema_post_types)) ? reset($schema_post_types) : array();
+		
+	endforeach;
+	
+	wp_reset_postdata();
+	
+	// debug
+	//echo '<pre>'; print_r($cpt_enabled); echo '</pre>'; exit;
+	//echo reset($cpt_enabled[0]);
+	return apply_filters('schema_wp_cpt_enabled_post_types', $cpt_enabled);
+}
+
+/**
+ * Get supported schema.org types
+ *
+ * @since 1.2
+ * @return array
+ */
+function schema_premium_get_supported_schemas() {
+
+	$supported_schemas = apply_filters( 'schema_wp_types', array() ); 
+
+	foreach ( $supported_schemas as $schema => $details ) {
+		$schemas[$details['value']] = $details['label'];
+	}
+
+	return $schemas;
+}
+
+/**
  * Add Types to Schema types options array
  *
  * @since 1.0.0
@@ -122,33 +181,65 @@ function schema_wp_get_default_schemas( $schema_type = 'Article' ) {
 function schema_wp_get_publisher_array() {
 	
 	$publisher = array();
-	
+
+	// Get site name
+	//
 	$name = schema_wp_get_option( 'name' );
 	
 	// Use site name as organization name for publisher if not presented in plugin settings
-	if ( empty($name) ) $name = get_bloginfo( 'name' );
+	//
+	if ( empty($name) ) {
+		$name = get_bloginfo( 'name' );
+	}
 	
+	// Get site url
+	//
+	$url = schema_wp_get_option( 'url' );
+
+	if ( empty($url) ) {
+		$url = site_url();
+	}
+
+	$url = esc_attr( stripslashes( $url ) );
+
+	// Get site tagline
+	//
+	$site_description = get_bloginfo( 'description' );
+
 	$logo = esc_attr( stripslashes( schema_wp_get_option( 'publisher_logo'  ) ) );
 	
 	$publisher = array(
 		'@type'	=> "Organization",	// default required value
-		'@id' => schema_wp_get_home_url() . '#organization', // this cause an error in markup when there is more than one instanse of markup
+		'@id' => $url . '#organization', // this cause an error in markup when there is more than one instanse of markup
+		'url' => $url, // @since 1.2.1
 		'name'	=> wp_filter_nohtml_kses($name),
+		'description' => $site_description,
 		'logo'	=> array(
     		'@type' => 'ImageObject',
-			'@id' => schema_wp_get_home_url() . '#logo', 
+			'@id' => $url . '#logo', 
     		'url' => $logo,
     		'width' => 600,
 			'height' => 60
 		),
 		'image'	=> array(
     		'@type' => 'ImageObject',
-			'@id' => schema_wp_get_home_url() . '#logo', 
+			'@id' => $url . '#logo', 
     		'url' => $logo,
     		'width' => 600,
 			'height' => 60
 		)
 	);
+
+	// Get social links array
+	// @since 1.2
+	//
+	$social = schema_wp_get_social_array();
+	
+	// Add sameAs
+	//
+	if ( ! empty($social) ) {
+		$publisher["sameAs"] = $social;
+	}
 	
 	// debug
 	//echo'<pre>';print_r($publisher);echo'</pre>';
@@ -181,31 +272,85 @@ function schema_wp_get_the_title( $post_id = null ) {
  * @since 1.0.0
  * return string
  */
-function schema_wp_get_description( $post_id = null ) {
+function schema_wp_get_description( $post_id = null, $content_length = 'short', $strip_all_tags = true ) {
 	
 	global $post;
 	
 	if ( ! isset($post_id) ) $post_id = $post->ID;
 	
 	// Get post content
-	$content_post		= get_post($post_id);
+	//
+	$content_post	= get_post($post_id);
 	
 	// Get description
-	$full_content		= $content_post->post_content;
-	$excerpt			= $content_post->post_excerpt;
+	//
+	$full_content	= apply_filters('the_content', $content_post->post_content);
+	$excerpt		= $content_post->post_excerpt;
 	
-	// Strip shortcodes and tags
-	$full_content 		= preg_replace('#\[[^\]]+\]#', '', $full_content);
-	$full_content 		= wp_strip_all_tags( $full_content );
+	// Strip shortcodes 
+	//
+	$full_content	= preg_replace('#\[[^\]]+\]#', '', $full_content);
+ 
+	if ( $strip_all_tags ) {
+		// Strip tags
+		//
+		$full_content = wp_strip_all_tags( $full_content );
+	}
 	
 	// Filter content before it gets shorter ;)
-	$full_content 		= apply_filters( 'schema_wp_filter_content', $full_content );
+	//
+	$full_content = apply_filters( 'schema_wp_filter_content', $full_content );
 	
-	$desc_word_count	= apply_filters( 'schema_wp_filter_description_word_count', 49 );
-	$short_content		= wp_trim_words( $full_content, $desc_word_count, '' ); 
-	$description		= apply_filters( 'schema_wp_filter_description', ( $excerpt != '' ) ? $excerpt : $short_content ); 
+	switch( $content_length ) {
+		
+		case 'short':
+
+			$desc_word_count	= apply_filters( 'schema_wp_filter_description_word_count', 49 );
+			$short_content		= wp_trim_words( $full_content, $desc_word_count, '' ); 
+			$description		= ( $excerpt != '' ) ? $excerpt : $short_content; 
+			break;
+
+		case 'full':
+
+			$description = $full_content;
+			break;
+	}
+	
+	$description = apply_filters( 'schema_wp_filter_description', $description ); 
 	
 	return $description;
+}
+
+/**
+ * Subtract string words by character number
+ *
+ * @since 1.2
+ * return string
+ */
+function schema_wp_get_substrwords( $text, $maxchar, $end = '...' ) {
+	
+	if (strlen($text) > $maxchar || $text == '') {
+        $words = preg_split('/\s/', $text);      
+        $output = '';
+        $i      = 0;
+		
+		while (1) {
+            $length = strlen($output)+strlen($words[$i]);
+            if ($length > $maxchar) {
+                break;
+            } 
+            else {
+                $output .= " " . $words[$i];
+                ++$i;
+            }
+        }
+        $output .= $end;
+    } 
+    else {
+        $output = $text;
+	}
+	
+    return $output;
 }
 
 /**
@@ -249,7 +394,7 @@ function schema_wp_get_media( $post_id = null ) {
 		// Make sure that PHP-XML extension is installed before parsing page HTML
 		if ( extension_loaded('xml') || extension_loaded('SimpleXML')) {
 			
-			if ( $post->post_content ) {
+			if ( isset($post->post_content) ) {
 				$Document = new DOMDocument();
 				// This triggers a warning, so we will disable error reporting
 				libxml_use_internal_errors(true);
@@ -284,6 +429,32 @@ function schema_wp_get_media( $post_id = null ) {
 	//echo '<pre>'; print_r($media); echo '</pre>';
 	
 	return apply_filters( 'schema_wp_filter_media', $media );
+}
+
+/**
+ *  Get image url by attachment ID 
+ *
+ * @param string $attachment_id The attachment id
+ * @return string 
+ * @since 1.2
+ */
+function schema_wp_get_image_url_by_attachment_id( $attachment_id ) {
+	
+	if ( ! isset($attachment_id) ) 
+		return;
+	
+	$image_attributes = wp_get_attachment_image_src( $attachment_id, 'full' );
+	
+	$url = '';
+
+	if ( isset($image_attributes[0]) ) {
+		$url = $image_attributes[0];
+	}
+	
+	// debug
+	//echo'<pre>';print_r($image_attributes);echo'</pre>';exit;
+	
+	return $url;
 }
 
 /**
@@ -342,6 +513,118 @@ function schema_wp_get_image_object_by_attachment_id( $attachment_id ) {
 	//echo'<pre>';print_r($image_attributes);echo'</pre>';exit;
 	
 	return $ImageObject;
+}
+
+/**
+ * Get property image when set to new custm field
+ *
+ * @since 1.0.1
+ * @return array 
+ */
+function schema_premium_get_property_image_new_custom_field( $attachment_id = null ) {
+	
+	global $post;
+
+	if ( ! isset( $post_id ) ) $post_id = $post->ID;
+	
+	$media = array();
+	
+	// Get image details
+	$image_attributes	= wp_get_attachment_image_src( $attachment_id, 'full' );
+	$image_url			= $image_attributes[0];
+	$image_width		= ( $image_attributes[1] > 696 ) ? $image_attributes[1] : 696; // Images should be at least 696 pixels wide
+	$image_height		= $image_attributes[2];
+	
+	// Check if there is no image url, width, or height, then return an empy array
+	if ( ! isset($image_url) || $image_url == '' ) return $media;
+
+	if ( ! isset($image_width) || $image_width == '' ) return $media;
+	if ( ! isset($image_height) || $image_height == '' ) return $media;
+	
+	$media = array (
+		'@type' 	=> 'ImageObject',
+		'url' 		=> $image_url,
+		'width' 	=> $image_width,
+		'height' 	=> $image_height,
+	);
+	
+	// debug
+	//echo '<pre>'; print_r($media); echo '</pre>';
+	
+	return apply_filters( 'schema_premium_filter_property_image', $media );
+}
+
+/**
+ * Get property images when set to new custm field
+ * 
+ * Used for schema.org types with multible images
+ *
+ * @since 1.1.3
+ * @return array 
+ */
+function schema_premium_get_property_images_new_custom_field( $post_id = null, $schema_type  = null) {
+	
+	global $post;
+	
+	if ( ! isset($schema_type) )
+		return;
+
+	if ( ! isset( $post_id ) ) $post_id = $post->ID;
+	
+	$media = array();
+	
+	$count = get_post_meta( get_the_ID(), 'schema_properties_' . $schema_type . '_images', true );
+	
+	if ( isset( $count ) && $count >= 0 ) {
+	
+		for( $i=0; $i < $count; $i++ ) {
+			
+			$step_no = $i + 1;
+			
+			$attachment_id = get_post_meta( get_the_ID(), 'schema_properties_' . $schema_type . '_images_' . $i . '_image_id', true );
+
+			// Get image details
+			$image_attributes	= wp_get_attachment_image_src( $attachment_id, 'full' );
+			$media[] 			= $image_attributes[0];
+		}
+	}
+
+	return apply_filters( 'schema_premium_filter_property_images', $media );
+}
+
+/**
+ * Validate gravatar by email or id
+ *
+ * Utility function to check if a gravatar exists for a given email or id
+ *
+ * @link https://gist.github.com/justinph/5197810
+ *
+ * @since 1.0.0
+ * @param int|string|object $id_or_email A user ID,  email address, or comment object
+ * @return bool if the gravatar exists or not
+ */
+function schema_wp_validate_gravatar( $email ) {
+
+	$hashkey	= md5(strtolower(trim($email)));
+	
+	$uri 		= 'https://www.gravatar.com/avatar/' . $hashkey;
+	$data 		= get_transient($hashkey);
+	
+	if (false === $data) {
+		$response = wp_remote_head($uri);
+		if( is_wp_error($response) ) {
+			$data = 'not200';
+		} else {
+			$data = $response['response']['code'];
+		}
+	    set_transient( $hashkey, $data, $expiration = 60*5);
+	}		
+	
+	if ($data == '200'){
+		return true;
+	} else {
+		return false;
+	}
 }
 
 /**
@@ -423,6 +706,48 @@ function schema_premium_get_types_supports_author() {
 }
 
 /**
+ * Get address markup 
+ *
+ * @since 1.2
+ * @return array 
+ */
+function schema_premium_get_address( $properties = array() ) {
+
+	if ( empty($properties) )
+		return;
+
+	$address = array();
+	
+	// Address
+	//
+	$streetAddress		= isset($properties['streetAddress']) ? $properties['streetAddress'] : '';
+	$streetAddress_2 	= isset($properties['streetAddress_2']) ? $properties['streetAddress_2'] : '';
+	$streetAddress_3 	= isset($properties['streetAddress_3']) ? $properties['streetAddress_3'] : '';
+	$addressLocality	= isset($properties['addressLocality']) ? $properties['addressLocality'] : '';
+	$addressRegion 		= isset($properties['addressRegion']) ? $properties['addressRegion'] : '';
+	$postalCode 		= isset($properties['postalCode']) ? $properties['postalCode'] : '';
+	$addressCountry 	= isset($properties['addressCountry']) ? $properties['addressCountry'] : '';
+	
+	if ( isset($streetAddress) && $streetAddress != '' 
+		|| isset($streetAddress_2) && $streetAddress_2 != '' 
+		|| isset($streetAddress_3) && $streetAddress_3 != '' 
+		|| isset($postalCode) && $postalCode != '' ) {
+		
+		$address = array
+		(
+			'@type' => 'PostalAddress',
+			'streetAddress' 	=> $streetAddress . ' ' . $streetAddress_2 . ' ' . $streetAddress_3, // join the 3 address lines
+			'addressLocality' 	=> $addressLocality,
+			'addressRegion' 	=> $addressRegion,
+			'postalCode' 		=> $postalCode,
+			'addressCountry' 	=> $addressCountry,		
+		);
+	}
+	
+	return apply_filters( 'schema_premium_get_address', $address );
+}
+
+/**
  * Get formated time duration coded as PT1H25M
  *
  * @since 1.0.1
@@ -437,6 +762,36 @@ function schema_premium_format_time_to_PT( $time ) {
 	$sec 	= isset($timearr[2]) ? $timearr[2] . 'S' : '';
 	
 	$coded_time = 'PT' . $hour . $min . $sec;
+	
+	return $coded_time;
+}
+
+/**
+ * Get formated date time duration coded as P1Y6MT10H15M50S (P0003-06-4T1H25M)
+ *
+ * @since 1.2
+ * @return array 
+ */
+function schema_premium_format_date_time_to_PT( $duration ) {
+	
+	if ( ! array($duration) )
+		return false;
+
+	$year 	= isset($duration['year']) && $duration['year'] != '' ? $duration['year'] . 'Y' : '';
+	$month 	= isset($duration['month']) && $duration['month'] != '' ? $duration['month'] . 'M' : '';
+	$day 	= isset($duration['day']) && $duration['day'] != '' ? $duration['day'] . 'D' : '';
+	$time 	= isset($duration['time']) ? $duration['time'] : '';
+
+	// Deal with time
+	//
+	$timearr = explode( ':', $time );
+	$hour 	= isset($timearr[0]) ? $timearr[0] . 'H' : '';
+	$min 	= isset($timearr[1]) ? $timearr[1] . 'M' : '';
+	$sec 	= isset($timearr[2]) ? $timearr[2] . 'S' : '';
+	
+	// Put duration all together
+	//
+	$coded_time = 'P'. $year . $month . $day . 'T' . $hour . $min . $sec;
 	
 	return $coded_time;
 }
@@ -493,6 +848,285 @@ function schema_wp_get_time_second_to_iso8601_duration( $time ) {
     }
 
     return $str;
+}
+
+/**
+ * Retrieves all the available currencies.
+ *
+ * @since   1.2
+ * @return  array
+ */
+function schema_wp_get_countries() {
+		
+	$countries = array
+	(
+	  "AF" => "Afghanistan",
+	  "AL" => "Albania",
+	  "DZ" => "Algeria",
+	  "AS" => "American Samoa",
+	  "AD" => "Andorra",
+	  "AO" => "Angola",
+	  "AI" => "Anguilla",
+	  "AQ" => "Antarctica",
+	  "AG" => "Antigua and Barbuda",
+	  "AR" => "Argentina",
+	  "AM" => "Armenia",
+	  "AW" => "Aruba",
+	  "AU" => "Australia",
+	  "AT" => "Austria",
+	  "AZ" => "Azerbaijan",
+	  "BS" => "Bahamas",
+	  "BH" => "Bahrain",
+	  "BD" => "Bangladesh",
+	  "BB" => "Barbados",
+	  "BY" => "Belarus",
+	  "BE" => "Belgium",
+	  "BZ" => "Belize",
+	  "BJ" => "Benin",
+	  "BM" => "Bermuda",
+	  "BT" => "Bhutan",
+	  "BO" => "Bolivia",
+	  "BA" => "Bosnia and Herzegovina",
+	  "BW" => "Botswana",
+	  "BV" => "Bouvet Island",
+	  "BR" => "Brazil",
+	  "BQ" => "British Antarctic Territory",
+	  "IO" => "British Indian Ocean Territory",
+	  "VG" => "British Virgin Islands",
+	  "BN" => "Brunei",
+	  "BG" => "Bulgaria",
+	  "BF" => "Burkina Faso",
+	  "BI" => "Burundi",
+	  "KH" => "Cambodia",
+	  "CM" => "Cameroon",
+	  "CA" => "Canada",
+	  "CT" => "Canton and Enderbury Islands",
+	  "CV" => "Cape Verde",
+	  "KY" => "Cayman Islands",
+	  "CF" => "Central African Republic",
+	  "TD" => "Chad",
+	  "CL" => "Chile",
+	  "CN" => "China",
+	  "CX" => "Christmas Island",
+	  "CC" => "Cocos [Keeling] Islands",
+	  "CO" => "Colombia",
+	  "KM" => "Comoros",
+	  "CG" => "Congo - Brazzaville",
+	  "CD" => "Congo - Kinshasa",
+	  "CK" => "Cook Islands",
+	  "CR" => "Costa Rica",
+	  "HR" => "Croatia",
+	  "CU" => "Cuba",
+	  "CY" => "Cyprus",
+	  "CZ" => "Czech Republic",
+	  "CI" => "Côte d’Ivoire",
+	  "DK" => "Denmark",
+	  "DJ" => "Djibouti",
+	  "DM" => "Dominica",
+	  "DO" => "Dominican Republic",
+	  "NQ" => "Dronning Maud Land",
+	  "DD" => "East Germany",
+	  "EC" => "Ecuador",
+	  "EG" => "Egypt",
+	  "SV" => "El Salvador",
+	  "GQ" => "Equatorial Guinea",
+	  "ER" => "Eritrea",
+	  "EE" => "Estonia",
+	  "ET" => "Ethiopia",
+	  "FK" => "Falkland Islands",
+	  "FO" => "Faroe Islands",
+	  "FJ" => "Fiji",
+	  "FI" => "Finland",
+	  "FR" => "France",
+	  "GF" => "French Guiana",
+	  "PF" => "French Polynesia",
+	  "TF" => "French Southern Territories",
+	  "FQ" => "French Southern and Antarctic Territories",
+	  "GA" => "Gabon",
+	  "GM" => "Gambia",
+	  "GE" => "Georgia",
+	  "DE" => "Germany",
+	  "GH" => "Ghana",
+	  "GI" => "Gibraltar",
+	  "GR" => "Greece",
+	  "GL" => "Greenland",
+	  "GD" => "Grenada",
+	  "GP" => "Guadeloupe",
+	  "GU" => "Guam",
+	  "GT" => "Guatemala",
+	  "GG" => "Guernsey",
+	  "GN" => "Guinea",
+	  "GW" => "Guinea-Bissau",
+	  "GY" => "Guyana",
+	  "HT" => "Haiti",
+	  "HM" => "Heard Island and McDonald Islands",
+	  "HN" => "Honduras",
+	  "HK" => "Hong Kong SAR China",
+	  "HU" => "Hungary",
+	  "IS" => "Iceland",
+	  "IN" => "India",
+	  "ID" => "Indonesia",
+	  "IR" => "Iran",
+	  "IQ" => "Iraq",
+	  "IE" => "Ireland",
+	  "IM" => "Isle of Man",
+	  "IL" => "Israel",
+	  "IT" => "Italy",
+	  "JM" => "Jamaica",
+	  "JP" => "Japan",
+	  "JE" => "Jersey",
+	  "JT" => "Johnston Island",
+	  "JO" => "Jordan",
+	  "KZ" => "Kazakhstan",
+	  "KE" => "Kenya",
+	  "KI" => "Kiribati",
+	  "KW" => "Kuwait",
+	  "KG" => "Kyrgyzstan",
+	  "LA" => "Laos",
+	  "LV" => "Latvia",
+	  "LB" => "Lebanon",
+	  "LS" => "Lesotho",
+	  "LR" => "Liberia",
+	  "LY" => "Libya",
+	  "LI" => "Liechtenstein",
+	  "LT" => "Lithuania",
+	  "LU" => "Luxembourg",
+	  "MO" => "Macau SAR China",
+	  "MK" => "Macedonia",
+	  "MG" => "Madagascar",
+	  "MW" => "Malawi",
+	  "MY" => "Malaysia",
+	  "MV" => "Maldives",
+	  "ML" => "Mali",
+	  "MT" => "Malta",
+	  "MH" => "Marshall Islands",
+	  "MQ" => "Martinique",
+	  "MR" => "Mauritania",
+	  "MU" => "Mauritius",
+	  "YT" => "Mayotte",
+	  "FX" => "Metropolitan France",
+	  "MX" => "Mexico",
+	  "FM" => "Micronesia",
+	  "MI" => "Midway Islands",
+	  "MD" => "Moldova",
+	  "MC" => "Monaco",
+	  "MN" => "Mongolia",
+	  "ME" => "Montenegro",
+	  "MS" => "Montserrat",
+	  "MA" => "Morocco",
+	  "MZ" => "Mozambique",
+	  "MM" => "Myanmar [Burma]",
+	  "NA" => "Namibia",
+	  "NR" => "Nauru",
+	  "NP" => "Nepal",
+	  "NL" => "Netherlands",
+	  "AN" => "Netherlands Antilles",
+	  "NT" => "Neutral Zone",
+	  "NC" => "New Caledonia",
+	  "NZ" => "New Zealand",
+	  "NI" => "Nicaragua",
+	  "NE" => "Niger",
+	  "NG" => "Nigeria",
+	  "NU" => "Niue",
+	  "NF" => "Norfolk Island",
+	  "KP" => "North Korea",
+	  "VD" => "North Vietnam",
+	  "MP" => "Northern Mariana Islands",
+	  "NO" => "Norway",
+	  "OM" => "Oman",
+	  "PC" => "Pacific Islands Trust Territory",
+	  "PK" => "Pakistan",
+	  "PW" => "Palau",
+	  "PS" => "Palestinian Territories",
+	  "PA" => "Panama",
+	  "PZ" => "Panama Canal Zone",
+	  "PG" => "Papua New Guinea",
+	  "PY" => "Paraguay",
+	  "YD" => "People's Democratic Republic of Yemen",
+	  "PE" => "Peru",
+	  "PH" => "Philippines",
+	  "PN" => "Pitcairn Islands",
+	  "PL" => "Poland",
+	  "PT" => "Portugal",
+	  "PR" => "Puerto Rico",
+	  "QA" => "Qatar",
+	  "RO" => "Romania",
+	  "RU" => "Russia",
+	  "RW" => "Rwanda",
+	  "RE" => "Réunion",
+	  "BL" => "Saint Barthélemy",
+	  "SH" => "Saint Helena",
+	  "KN" => "Saint Kitts and Nevis",
+	  "LC" => "Saint Lucia",
+	  "MF" => "Saint Martin",
+	  "PM" => "Saint Pierre and Miquelon",
+	  "VC" => "Saint Vincent and the Grenadines",
+	  "WS" => "Samoa",
+	  "SM" => "San Marino",
+	  "SA" => "Saudi Arabia",
+	  "SN" => "Senegal",
+	  "RS" => "Serbia",
+	  "CS" => "Serbia and Montenegro",
+	  "SC" => "Seychelles",
+	  "SL" => "Sierra Leone",
+	  "SG" => "Singapore",
+	  "SK" => "Slovakia",
+	  "SI" => "Slovenia",
+	  "SB" => "Solomon Islands",
+	  "SO" => "Somalia",
+	  "ZA" => "South Africa",
+	  "GS" => "South Georgia and the South Sandwich Islands",
+	  "KR" => "South Korea",
+	  "ES" => "Spain",
+	  "LK" => "Sri Lanka",
+	  "SD" => "Sudan",
+	  "SR" => "Suriname",
+	  "SJ" => "Svalbard and Jan Mayen",
+	  "SZ" => "Swaziland",
+	  "SE" => "Sweden",
+	  "CH" => "Switzerland",
+	  "SY" => "Syria",
+	  "ST" => "São Tomé and Príncipe",
+	  "TW" => "Taiwan",
+	  "TJ" => "Tajikistan",
+	  "TZ" => "Tanzania",
+	  "TH" => "Thailand",
+	  "TL" => "Timor-Leste",
+	  "TG" => "Togo",
+	  "TK" => "Tokelau",
+	  "TO" => "Tonga",
+	  "TT" => "Trinidad and Tobago",
+	  "TN" => "Tunisia",
+	  "TR" => "Turkey",
+	  "TM" => "Turkmenistan",
+	  "TC" => "Turks and Caicos Islands",
+	  "TV" => "Tuvalu",
+	  "UM" => "U.S. Minor Outlying Islands",
+	  "PU" => "U.S. Miscellaneous Pacific Islands",
+	  "VI" => "U.S. Virgin Islands",
+	  "UG" => "Uganda",
+	  "UA" => "Ukraine",
+	  "SU" => "Union of Soviet Socialist Republics",
+	  "AE" => "United Arab Emirates",
+	  "GB" => "United Kingdom",
+	  "US" => "United States",
+	  "ZZ" => "Unknown or Invalid Region",
+	  "UY" => "Uruguay",
+	  "UZ" => "Uzbekistan",
+	  "VU" => "Vanuatu",
+	  "VA" => "Vatican City",
+	  "VE" => "Venezuela",
+	  "VN" => "Vietnam",
+	  "WK" => "Wake Island",
+	  "WF" => "Wallis and Futuna",
+	  "EH" => "Western Sahara",
+	  "YE" => "Yemen",
+	  "ZM" => "Zambia",
+	  "ZW" => "Zimbabwe",
+	  "AX" => "Åland Islands"
+	);				
+				
+	return $countries;
 }
 
 /**
@@ -695,13 +1329,24 @@ function schema_wp_get_currency_symbol( $currency ) {
  * @return string
  */
 function schema_premium_get_archive_link( $post_type ) {
+	
 	global $wp_post_types;
-	$archive_link = false;
-	$slug = '';
-	if (isset($wp_post_types[$post_type])) {
+	
+	$archive_link 	= false;
+	$slug 			= '';
+	
+	if ( ! isset($post_type) || ! isset($wp_post_types) || empty($wp_post_types) )
+		return false;
+
+	// debug
+	//echo'<pre>';print_r($wp_post_types);echo'</pre>';exit;
+
+	if ( isset($wp_post_types[$post_type]) ) {
+		
 		$wp_post_type = $wp_post_types[$post_type];
+		
 		if ($wp_post_type->publicly_queryable)
-			if ($wp_post_type->has_archive && $wp_post_type->has_archive!==true)
+			if ( $wp_post_type->has_archive && $wp_post_type->has_archive !== true )
 				$slug = $wp_post_type->has_archive;
 			else if (isset($wp_post_type->rewrite['slug']))
 				$slug = $wp_post_type->rewrite['slug'];
@@ -709,6 +1354,7 @@ function schema_premium_get_archive_link( $post_type ) {
 				$slug = $post_type;
 			$archive_link = get_option( 'siteurl' ) . "/{$slug}/";
 	}
+
 	return apply_filters( 'schema_wp_archive_link', $archive_link, $post_type );
 }
 
@@ -726,41 +1372,6 @@ function schema_wp_get_blog_posts_page_url() {
 	}
 	// The front page IS the posts page. Get its URL.
 	return get_home_url();
-}
-
-/**
- * Retrieves the home URL
- *
- * @since 1.0.0
- * @return string
- */
-function schema_wp_get_home_url( $path = '', $scheme = null ) {
-
-	$home_url = home_url( $path, $scheme );
-
-	if ( ! empty( $path ) ) {
-		return $home_url;
-	}
-
-	if ( ! function_exists('wp_parse_url') ) {
-		return $home_url;
-	} 
-
-	$home_path = wp_parse_url( $home_url, PHP_URL_PATH );
-
-	if ( '/' === $home_path ) { // Home at site root, already slashed.
-		return $home_url;
-	}
-
-	if ( is_null( $home_path ) ) { // Home at site root, always slash.
-		return trailingslashit( $home_url );
-	}
-
-	if ( is_string( $home_path ) ) { // Home in subdirectory, slash if permalink structure has slash.
-		return user_trailingslashit( $home_url );
-	}
-
-	return apply_filters( 'schema_wp_home_url', $home_url );
 }
 
 /**
@@ -799,113 +1410,6 @@ function schema_premium_get_truncate_to_word( $string, $limit = 110, $end = ' ..
 }
 
 /**
- * Validate gravatar by email or id
- *
- * Utility function to check if a gravatar exists for a given email or id
- *
- * @link https://gist.github.com/justinph/5197810
- *
- * @since 1.0.0
- * @param int|string|object $id_or_email A user ID,  email address, or comment object
- * @return bool if the gravatar exists or not
- */
-function schema_wp_validate_gravatar( $email ) {
-
-	$hashkey 	= md5(strtolower(trim($email)));
-	
-	$uri 		= 'http://www.gravatar.com/avatar/' . $hashkey;
-	$data 		= get_transient($hashkey);
-	
-	if (false === $data) {
-		$response = wp_remote_head($uri);
-		if( is_wp_error($response) ) {
-			$data = 'not200';
-		} else {
-			$data = $response['response']['code'];
-		}
-	    set_transient( $hashkey, $data, $expiration = 60*5);
-	}		
-	
-	if ($data == '200'){
-		return true;
-	} else {
-		return false;
-	}
-}
-
-/**
- * Get property image when set to new custm field
- *
- * @since 1.0.1
- * @return array 
- */
-function schema_premium_get_property_image_new_custom_field( $attachment_id = null ) {
-	
-	global $post;
-	
-	if ( ! isset( $post_id ) ) $post_id = $post->ID;
-	
-	$media = array();
-	
-	// Get image details
-	$image_attributes	= wp_get_attachment_image_src( $attachment_id, 'full' );
-	$image_url			= $image_attributes[0];
-	$image_width		= ( $image_attributes[1] > 696 ) ? $image_attributes[1] : 696; // Images should be at least 696 pixels wide
-	$image_height		= $image_attributes[2];
-	
-	// Check if there is no image url, width, or height, then return an empy array
-	if ( ! isset($image_url) || $image_url == '' ) return $media;
-
-	if ( ! isset($image_width) || $image_width == '' ) return $media;
-	if ( ! isset($image_height) || $image_height == '' ) return $media;
-	
-	$media = array (
-		'@type' 	=> 'ImageObject',
-		'url' 		=> $image_url,
-		'width' 	=> $image_width,
-		'height' 	=> $image_height,
-		);
-	
-	// debug
-	//echo '<pre>'; print_r($media); echo '</pre>';
-	
-	return apply_filters( 'schema_premium_filter_property_image', $media );
-}
-
-/**
- * Get property images when set to new custm field
- *
- * @since 1.1.3
- * @return array 
- */
-function schema_premium_get_property_images_new_custom_field( $post_id ) {
-	
-	global $post;
-	
-	if ( ! isset( $post_id ) ) $post_id = $post->ID;
-	
-	$media = array();
-	
-	$count = get_post_meta( get_the_ID(), 'schema_properties_Recipe_images', true );
-	
-	if ( isset( $count ) && $count >= 0 ) {
-	
-		for( $i=0; $i < $count; $i++ ) {
-			
-			$step_no = $i + 1;
-			
-			$attachment_id = get_post_meta( get_the_ID(), 'schema_properties_Recipe_images_' . $i . '_image_id', true );
-
-			// Get image details
-			$image_attributes	= wp_get_attachment_image_src( $attachment_id, 'full' );
-			$media[] 			= $image_attributes[0];
-		}
-	}
-
-	return apply_filters( 'schema_premium_filter_property_images', $media );
-}
-
-/**
  * Get category slug by category id
  *
  * @since 1.0.3
@@ -935,7 +1439,6 @@ function schema_premium_get_cat_slug_by_id( $cat_id ) {
 function schema_premium_post_type_has_archive( $post_type ) {
 	return ( ! empty( $post_type->has_archive ) );
 }
-
 
 /**
  * Get class selectors for the cssSelector property
@@ -1201,280 +1704,4 @@ function schema_premium_get_shortcodes( &$output, $text, $child = false ) {
         }
     }
     return array_values( $output );
-}
-
-/**
- * Retrive properties for main types, such as Thing or CreativeWork
- * to be used in creating post meta fields
- *
- * @since 1.1.2.6
- * @param string, the schema.org type, default is Thing
- * @return array
- */
-function schema_premium_get_schema_properties( $type = 'Thing' ) {
-
-	switch ($type) {
-		
-		case 'CreativeWork':
-			
-			$properties = array(
-				'CreativeWork_properties_tab' => array(
-					'label' => '<span style="color:#c90000;">' . $type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 20,
-					'markup_value' 	=> 'none'
-				),
-				'CreativeWork_properties_info' => array(
-					'label' => $type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $type,
-					'message'		=> __('The most generic kind of creative work, including books, movies, photographs, software programs, etc.', 'schema-premium'),
-				),
-				'headline' => array(
-					'label' 		=> __('Headline', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'post_title',
-					'instructions' 	=> __('Headline of the article', 'schema-premium'),
-					'required' 		=> true
-				),
-				'alternativeHeadline' => array(
-					'label' 		=> __('Alternative Headline', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('Secondary title for this article.', 'schema-premium')
-				),
-				'datePublished' => array(
-					'label'			=> __('Published Date', 'schema-premium'),
-					'rangeIncludes' => array('Date', 'DateTime'),
-					'field_type' 	=> 'date_time_picker',
-					'markup_value' => 'post_date',
-					'instructions' 	=> __('Date of first publication of the article.', 'schema-premium'),
-					'display_format' => get_option( 'date_format' ), // WP
-					'return_format' => 'Y-m-d',
-					'required' 		=> true
-				),
-				'dateModified' => array(
-					'label' 		=> __('Modified Date', 'schema-premium'),
-					'rangeIncludes' => array('Date', 'DateTime'),
-					'field_type' 	=> 'date_time_picker',
-					'markup_value' => 'post_modified',
-					'instructions' 	=> __('The date on which the article was most recently modified', 'schema-premium'),
-					'display_format' => get_option( 'date_format' ), // WP
-					'return_format' => 'Y-m-d',
-				),
-				'author' => array(
-					'label' 		=> __('Author Name', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'author_name',
-					'instructions' 	=> __('The author name of this article.', 'schema-premium'),
-					'required' 		=> true
-				),
-				'abstract' => array(
-					'label' 		=> __('Abstract', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'disabled',  //post_excerpt
-					'instructions' 	=> __('An abstract is a short description that summarizes a CreativeWork.', 'schema-premium')
-				),
-				/*'accessMode' => array(
-					'label' 		=> __('Access Mode', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text', // @todo make a select box
-					'markup_value' => 'disabled', 
-					'instructions' 	=> __('The human sensory perceptual system or cognitive faculty through which a person may process or perceive information. Expected values include: auditory, tactile, textual, visual, colorDependent, chartOnVisual, chemOnVisual, diagramOnVisual, mathOnVisual, musicOnVisual, textOnVisual.', 'schema-premium')
-				),*/
-				'isAccessibleForFree' => array(
-					'label' 		=> __('Is Accessible For Free', 'schema-premium'),
-					'rangeIncludes' => array('Boolean'),
-					'field_type' 	=> 'true_false',
-					'default_value' => 0,
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('A flag to signal that the item, event, or place is accessible for free.', 'schema-premium'),
-					'ui' => 1,
-					'ui_on_text' => __('Yes', 'schema-premium'),
-					'ui_off_text' => __('No', 'schema-premium'),
-				),
-				'cssSelector' => array(
-					'label' 		=> __('CSS Selector', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'repeater',
-					'layout'		=> 'block',
-					'markup_value' => 'disabled',
-					'button_label' 	=> __('Add css Selector', 'schema-premium'),
-					'instructions' 	=> __('The cssSelector references the class name. (Add a class name around each paywalled section of your page)', 'schema-premium'),
-					'sub_fields' 	=>  array(
-						'cssSelector_name' => array(
-							'label' 		=> '',
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'disabled',
-							'instructions' 	=> '',
-							'placeholder' => __('.class selector for the cssSelector property', 'schema-premium'),
-						),
-					), // end sub fields
-					'conditional_logic' => array(
-						array(
-							array(
-								'field' => 'properties_isAccessibleForFree',
-								'operator' => '==',
-								'value' => 'fixed_text_field',
-							),
-						),
-						array(
-							array(
-								'field' => 'properties_isAccessibleForFree',
-								'operator' => '==',
-								'value' => 'new_custom_field',
-							),
-						),
-						array(
-							array(
-								'field' => 'properties_isAccessibleForFree',
-								'operator' => '==',
-								'value' => 'existing_custom_field',
-							),
-						),
-					),
-				),
-				'CreativeWork_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
-			);
-			break;
-		
-		case 'Thing':
-		default:
-		
-			// Thing
-			$properties = array(
-				'Thing_properties_tab' => array(
-					'label' => '<span style="color:#c90000;">' . $type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 10,
-					'markup_value' => 'none'
-				),
-				'Thing_properties_info' => array(
-					'label' => $type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $type,
-					'message'		=> __('The most generic type of item.', 'schema-premium'),
-				),
-				'additionalType' => array(
-					'label' 		=> __('Additional Type', 'schema-premium'),
-					'rangeIncludes' => array('URL'),
-					'field_type' 	=> 'url',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('An additional type for the item, typically used for adding more specific types from external vocabularies in microdata syntax.', 'schema-premium'),
-					'placeholder' 	=> 'https://'
-				),
-				'url' => array(
-					'label' 		=> __('URL', 'schema-premium'),
-					'rangeIncludes' => array('URL'),
-					'field_type' 	=> 'url',
-					'markup_value' => 'post_permalink',
-					'instructions' 	=> __('URL of the article.', 'schema-premium'),
-					'placeholder' 	=> 'https://'
-				),
-				'name' => array(
-					'label' 		=> __('Alternative Headline', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'post_title',
-					'instructions' 	=> __('The name of the item.', 'schema-premium')
-				),
-				'alternateName' => array(
-					'label' 		=> __('Alternative Headline', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('An alias for the item.', 'schema-premium')
-				),
-				'description' => array(
-					'label' 		=> __('Description', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'textarea',
-					'markup_value' => 'post_excerpt',
-					'instructions' 	=> __('A description of the item.', 'schema-premium'),
-				),
-				/*
-				'disambiguatingDescription' => array(
-					'label' 		=> __('Disambiguating Description', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('A sub property of description. A short description of the item used to disambiguate from other, similar items.', 'schema-premium')
-				),
-				*/
-				/*
-				'identifier' => array(
-					'label' 		=> __('Identifier', 'schema-premium'),
-					'rangeIncludes' => array('PropertyValue', 'Text', 'URL'),
-					'field_type' 	=> 'textarea',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('The identifier property represents any kind of identifier for any kind of Thing, such as ISBNs, GTIN codes, UUIDs etc.', 'schema-premium'),
-				),
-				*/
-				'image' => array(
-					'label' 		=> __('Image', 'schema-premium'),
-					'rangeIncludes' => array('ImageObject', 'URL'),
-					'field_type' 	=> 'image',
-					'markup_value' => 'featured_image',
-					'instructions' 	=> __('An image of the article.', 'schema-premium'),
-					'required' 		=> true
-				),
-				/*
-				'images' => array(
-					'label' 		=> __('Question & Answer', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'repeater',
-					'layout'		=> 'block',
-					'markup_value' => 'new_custom_field',
-					//'required' 		=> true,
-					'button_label' 	=> __('Add Image', 'schema-premium'),
-					'instructions' 	=> __('Images of the item.', 'schema-premium'),
-					'sub_fields' 	=>  array(
-						'image_id' => array(
-							'label' 		=> __('Image', 'schema-premium'),
-							'rangeIncludes' => array('ImageObject', 'URL'),
-							'field_type' 	=> 'image',
-							'markup_value' => 'featured_image',
-							'instructions' 	=> '',
-							'required' 		=> true
-						)
-					), // end sub fields
-				),
-				*/
-				/*
-				'mainEntityOfPage' => array(
-					'label' 		=> __('Main Entity of Page', 'schema-premium'),
-					'rangeIncludes' => array('CreativeWork', 'URL'),
-					'field_type' 	=> 'url',
-					'markup_value' => 'disabled',
-					'instructions' 	=> __('Indicates a page (or other CreativeWork) for which this thing is the main entity being described.', 'schema-premium'),
-					'placeholder' 	=> 'https://'
-				),*/
-				//'potentialAction' => '',
-				//'sameAs' => '',
-				//'subjectOf' => '',
-				'Thing_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
-			);
-			break;
-	}
-
-	return $properties;
 }

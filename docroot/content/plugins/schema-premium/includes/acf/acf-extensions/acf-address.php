@@ -222,7 +222,7 @@ class schema_acf_field_address extends acf_field
 }
 
 // create field
-new schema_acf_field_address( $this->settings );
+//new schema_acf_field_address( $this->settings );
 
 // class_exists check
 endif;

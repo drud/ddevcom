@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_MobileApplication') ) :
 		/** @var string Currenct Type */
     	protected $type = 'MobileApplication';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'SoftwareApplication';
+
 		/**
 	 	* Constructor
 	 	*
@@ -28,6 +31,17 @@ if ( ! class_exists('Schema_WP_MobileApplication') ) :
 		 public function __construct () {
 			
 			// empty construct
+		}
+
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MobileApplication';
 		}
 
 		/**
@@ -60,10 +74,8 @@ if ( ! class_exists('Schema_WP_MobileApplication') ) :
 		*/
 		public function properties() {
 			
-			// Get properties from parent class
-			$properties = parent::properties();
-			
 			// Add specific properties 
+			//
 			$properties['carrierRequirements'] =  array(
 				'label' 		=> __('Carrier Requirements', 'schema-premium'),
 				'rangeIncludes' => array('Text'),
@@ -72,7 +84,15 @@ if ( ! class_exists('Schema_WP_MobileApplication') ) :
 				'instructions' 	=> __('Specifies specific carrier(s) requirements for the application (e.g. an application may only work on a specific carrier network).', 'schema-premium'),
 			);
 			
-			return apply_filters( 'schema_properties_MobileApplication', $properties );	
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_MobileApplication', $properties );
 		}
 	
 	}

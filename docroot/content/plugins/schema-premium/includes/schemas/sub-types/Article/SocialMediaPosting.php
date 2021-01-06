@@ -34,6 +34,17 @@ if ( ! class_exists('Schema_WP_SocialMediaPosting') ) :
 		}
 		
 		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SocialMediaPosting';
+		}
+
+		/**
 		* Get schema type label
 		*
 		* @since 1.0.0
@@ -56,6 +67,23 @@ if ( ! class_exists('Schema_WP_SocialMediaPosting') ) :
 		}
 
 		/**
+		* Get sub types
+		*
+		* @since 1.2
+		* @return array
+		*/
+		public function subtypes() {
+			
+			$subtypes = array
+			(
+				'BlogPosting' 				=> __('Blog Posting', 'schema-premium'),
+				'DiscussionForumPosting' 	=> __('Discussion Forum Posting', 'schema-premium')
+        	);
+				
+			return apply_filters( 'schema_wp_subtypes_SocialMediaPosting', $subtypes );
+		}
+
+		/**
 		* Get properties
 		*
 		* @since 1.0.0
@@ -63,20 +91,15 @@ if ( ! class_exists('Schema_WP_SocialMediaPosting') ) :
 		*/
 		public function properties() {
 
-			// Get parent properties 
+			// Wrap properties in tabs 
 			//
-			$Article_properties = parent::properties();
-			// 
-			// Fix tabs
-			//
-			$Article_properties['Article_properties_tab']['label'] 			= '<span style="color:#c90000;">' . $this->parent_type . '</span>';
-			$Article_properties['Article_properties_info']['label'] 		= $this->parent_type;
-			$Article_properties['Article_properties_info']['instructions'] 	= __('Properties of' , 'schema-premium') . ' ' . $this->parent_type;
-			$Article_properties['Article_properties_info']['message']  		= parent::comment();
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 40 );
 			
-			$properties = $Article_properties;
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
-			return apply_filters( 'schema_properties_AdvertiserContentArticle', $properties );	
+			return apply_filters( 'schema_properties_SocialMediaPosting', $properties );	
 		}
 	}
 	

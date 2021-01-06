@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_MovieTheater') ) :
 		/** @var string Currenct Type */
     	protected $type = 'MovieTheater';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'EntertainmentBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MovieTheater') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MovieTheater';
+		}
+
 		/**
 		* Get schema type label
 		*

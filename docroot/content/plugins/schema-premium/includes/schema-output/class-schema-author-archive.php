@@ -90,7 +90,7 @@ if ( ! class_exists('Schema_WP_Author_Archive') ) :
 				// put all together
 				$schema = array
 				(
-					'@context' 			=> 'http://schema.org/',
+					'@context' 			=> 'https://schema.org/',
 					'@type' 			=> array('Person', 'ProfilePage'),
 					'name' 				=> $curauth->display_name,
 					'description' 		=> $curauth->description,

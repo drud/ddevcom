@@ -187,7 +187,7 @@ class Schema_WP_Setup_Wizard {
 			<?php wp_print_scripts( 'wc-setup' ); ?>
             <?php wp_print_scripts( 'schema-wp-setup' ); ?>
             <?php do_action( 'admin_print_styles' ); ?>
-            <?php do_action( 'admin_head' ); ?>
+            <?php //do_action( 'admin_head' ); ?>
 			<style type="text/css">
                 .wc-setup-steps {
                     justify-content: center;

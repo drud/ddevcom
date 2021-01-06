@@ -177,6 +177,11 @@ class schema_acf_field_currency_select extends acf_field
             $field['placeholder'] = __("Select",'acf');
         }
 
+        // multiple
+        if (empty($field['multiple'])) {
+            $field['multiple'] = 0;
+        }
+
         // vars
         $atts = array(
             'id'                => $field['id'],

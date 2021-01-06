@@ -21,7 +21,7 @@ class WP {
     public function addField($submitField = '') {
         $field = apply_filters(
             'wpgdprc_wordpress_field',
-            '<p class="wpgdprc-checkbox"><label><input type="checkbox" name="wpgdprc" id="wpgdprc" value="1" /> ' . Integration::getCheckboxText(self::ID) . ' <abbr class="wpgdprc-required" title="' . Integration::getRequiredMessage(self::ID) . '">*</abbr></label></p>',
+            '<p class="wpgdprc-checkbox"><input type="checkbox" name="wpgdprc" id="wpgdprc" value="1" /><label for="wpgdprc">' . Integration::getCheckboxText(self::ID) . ' <abbr class="wpgdprc-required" title="' . Integration::getRequiredMessage(self::ID) . '">*</abbr></label></p>',
             $submitField
         );
         return $field . $submitField;
@@ -31,7 +31,7 @@ class WP {
         $field = apply_filters(
             'wpgdprc_wordpress_field',
             '<label style="font-size: 14px;"><i>' . __('This checkbox is checked because you are an admin', WP_GDPR_C_SLUG) . '</i></label>' .
-            '<p class="wpgdprc-checkbox"><label><input type="checkbox" name="wpgdprc" id="wpgdprc" value="1" checked="checked" /> ' . Integration::getCheckboxText(self::ID) . ' <abbr class="required" title="' . esc_attr__('required', WP_GDPR_C_SLUG) . '">*</abbr></label></p>',
+            '<p class="wpgdprc-checkbox"><input type="checkbox" name="wpgdprc" id="wpgdprc" value="1" checked="checked" /><label for="wpgdprc">' . Integration::getCheckboxText(self::ID) . ' <abbr class="required" title="' . esc_attr__('required', WP_GDPR_C_SLUG) . '">*</abbr></label></p>',
             $submitField
         );
         return $field . $submitField;

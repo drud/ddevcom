@@ -59,6 +59,9 @@ function schema_wp_types_acf_location_rules_match_is_schema( $match, $rule, $opt
 	
 	global $post, $pagenow;
 	
+	if ( ! isset($post->ID) )
+		return $match;
+
 	if ($rule['param'] != 'is_schema') {
 		return $match;
 	}
@@ -75,9 +78,10 @@ function schema_wp_types_acf_location_rules_match_is_schema( $match, $rule, $opt
 		   
 		   if ($rule['operator'] == '==') {
 				// Get match of location target
+				//
 				$schema_location_target = schema_premium_get_location_target_match($post->ID);
 				
-				if ( !empty($schema_location_target) ) :
+				if ( ! empty($schema_location_target) ) :
 					foreach ( $schema_location_target as $locations => $location ) :
 						if ($location['match']) {
 							$match = true;
@@ -86,10 +90,10 @@ function schema_wp_types_acf_location_rules_match_is_schema( $match, $rule, $opt
 					endforeach;
 				endif;
 				
-			} elseif ($rule['operator'] == '!=') {
+			} elseif ( $rule['operator'] == '!=' ) {
 				$match = false;
 			}
-			if ($rule['value'] != 'true') {
+			if ( $rule['value'] != 'true' ) {
 				$match = !$match;
 			} 
 			
@@ -126,6 +130,9 @@ function schema_wp_types_acf_location_rules_match_is_opennings( $match, $rule, $
 	
 	global $post, $pagenow;
 	
+	if ( ! isset($post->ID) )
+		return $match;
+		
 	if ($rule['param'] != 'is_opennings') {
 		return $match;
 	}
@@ -140,7 +147,7 @@ function schema_wp_types_acf_location_rules_match_is_opennings( $match, $rule, $
 			
 	if ( $pagenow == 'post-new.php' || $pagenow == 'post.php' ) {
         
-		if ( !empty($schema_enabled) ) {     
+		if ( ! empty($schema_enabled) ) {     
            
 		   // Get array value with unknown key name, which is schema post ID
 		   $schema_enabled = reset($schema_enabled);
@@ -149,7 +156,7 @@ function schema_wp_types_acf_location_rules_match_is_opennings( $match, $rule, $
 				// Get match of location target
 				$schema_location_target = schema_premium_get_location_target_match( $post->ID );
 				
-				if ( !empty($schema_location_target) ) :
+				if ( ! empty($schema_location_target) ) :
 					foreach ( $schema_location_target as $locations => $location ) :
 						if ($location['match'] && in_array( $location['schema_type'], $is_opennings_enable ) ) {
 							$match = true;
@@ -185,27 +192,6 @@ function schema_premium_get_location_target_match( $post_id = null ) {
 	} else {
 		global $post;
 	}
-	/*
-	if ( !isset($post->ID) && !isset( $post_id ) && !is_edit_page('new') ) {
-		return false;
-	}
-	*/
-	
-	//if( !is_object($post) ) 
-	//	return false;
-	
-	/*	
-	if ( is_edit_page('new') && !is_object($post) ) { 
-		$post = (object) array('ID' => 0, 'post_type' => schema_wp_get_current_post_type(), 'post_format' => '', 'post_status' => '');
-		$post_id = 0;
-		$post = get_post($post_id);
-	}
-	*/
-	
-	//if (empty($post)) return false;
-	
-	//if ( ! is_array($post) && empty($post)) return false;
-	
 	
 	$match 				= false;
 	$schema_location 	= array();
@@ -215,65 +201,84 @@ function schema_premium_get_location_target_match( $post_id = null ) {
 	// Debug
 	//echo '<pre>'; print_r($location_targets); echo '</pre>'; 
 	
-	if ( ! is_array($location_targets) || empty($location_targets) ) return false;
+	if ( ! is_array($location_targets) || empty($location_targets) ) 
+		return false;
 	
-	// Get an array of category slugs
-	// @since 1.0.3
-	$categories = array();
-	if ( !empty($post->post_category) ) {
-		foreach ( $post->post_category as $key => $cat_id ) {
-			$categories[] = schema_premium_get_cat_slug_by_id( $cat_id );
-		}
-	}
-				
-				
 	foreach( $location_targets as $locations => $location ) : 
-	
+		
+		// Get an array of category slugs
+		// @since 1.0.3
+		//
+		$categories = array();
+		//
+		// Check if post_category is selected for both enabled and excluded entries
+		// @since 1.2
+		//
+		if ( isset($location['enabled_on']['post_category']) || isset($location['excluded_on']['post_category']) ) {
+			if ( ! empty($post->post_category) ) {
+				foreach ( $post->post_category as $key => $cat_id ) {
+					$categories[] = schema_premium_get_cat_slug_by_id( $cat_id );
+				}
+				//echo '<pre>'; print_r($categories); echo '</pre>';
+			}
+		}
+
 		if ( isset($location['enabled_on']['all_singulars']) && $location['enabled_on']['all_singulars'] === true ) {
 				$match = true;
 		} else {
-			foreach (	$location['enabled_on'] as $enabled ) :
-				if ( 	is_object($post) && in_array( $post->post_type, $enabled) 	||
-						is_object($post) && in_array( $post->post_format, $enabled) ||
-						is_object($post) && in_array( $post->post_status, $enabled) ||
-						! empty(array_intersect($categories, $enabled)) ||
-						is_object($post) && in_array( $post->ID, $enabled) )
-						{
-							$match = true;
-				}
-			endforeach;
+			if ( isset($location['enabled_on']) && is_array($location['enabled_on']) ) {
+				foreach ( $location['enabled_on'] as $enabled ) :
+					if ( 	is_object($post) && in_array( $post->post_type, $enabled) 	||
+							is_object($post) && in_array( $post->post_format, $enabled) ||
+							is_object($post) && in_array( $post->post_status, $enabled) ||
+							! empty(array_intersect($categories, $enabled)) ||
+							is_object($post) && in_array( $post->ID, $enabled) )
+							{
+								$match = true;
+					}
+				endforeach;
+			}
 		}
 	
 		if ( isset($location['excluded_on']['all_singulars']) && $location['excluded_on']['all_singulars'] === true ) {
 				$match = false;
 		} else {
-			foreach (	$location['excluded_on'] as $excluded ) :
-				if ( 	is_object($post) && in_array( $post->post_type, $excluded)	 ||
-						is_object($post) && in_array( $post->post_format, $excluded) ||
-						is_object($post) && in_array( $post->post_status, $excluded) ||
-						! empty(array_intersect($categories, $excluded)) ||
-						is_object($post) && in_array( $post->ID, $excluded) )
-						{
-							$match = false;
-				}
-			endforeach;
+			
+			if ( isset($location['excluded_on']) && is_array($location['excluded_on']) ) {
+				foreach ( $location['excluded_on'] as $excluded ) :
+					if ( 	is_object($post) && in_array( $post->post_type, $excluded)	 ||
+							is_object($post) && in_array( $post->post_format, $excluded) ||
+							is_object($post) && in_array( $post->post_status, $excluded) ||
+							! empty(array_intersect($categories, $excluded)) ||
+							is_object($post) && in_array( $post->ID, $excluded) )
+							{
+								$match = false;
+					}
+				endforeach;
+			}
 		}
 		
-		$schema_location[$locations] = array
+		if ( isset($location['schema_type']) ) {
+			
+			$schema_location[$locations] = array
 			(
 				'schema_type' 		=> $location['schema_type'],
-				'schema_subtype'	=> $location['schema_subtype'],
+				'schema_subtype'	=> isset($location['schema_subtype']) ? $location['schema_subtype'] : '',
 				'match'				=> $match,
 			);
+		}
 		
 		// Reset match
+		//
 		$match = false;
 	
 	endforeach;
 	
+	// Debug
+	//
 	//if ( ! is_admin() ) {  echo '<pre>'; print_r($schema_location); echo '</pre>';  }
-						
-	return $schema_location;
+	
+	return apply_filters( 'schema_location_rules', $schema_location );					
 }
 
 /**
@@ -321,7 +326,7 @@ function schema_premium_check_location_target_match( $post_id = null, $property 
 function schema_wp_get_enabled_location_targets() {
 	
 	$cache_key = 'schema_location_targets_query';
-	
+
 	if ( ! $location_targets = get_transient( $cache_key ) ) {
 		// It wasn't there, so regenerate the data and save the transient
 		
@@ -356,14 +361,14 @@ function schema_wp_get_enabled_location_targets() {
 			// 
 			// Schema Locations
 			//
-			if ( !empty($field_locations) ) {
+			if ( ! empty($field_locations) && is_array($field_locations) ) {
 			
 				foreach ($field_locations as $locations => $location) :
 			
 					$this_location = $location['locations_group_sub'];
 				
 					//if ( ! is_admin() ) {	
-					//	echo '<pre>'; print_r($this_location); echo '</pre>'; 
+						//echo '<pre>'; print_r($this_location); echo '</pre>'; 
 					//}
 				
 					switch( $this_location['schema_locations_select'] ) {
@@ -420,6 +425,7 @@ function schema_wp_get_enabled_location_targets() {
 							// @since 1.1.2.4
 							//
 							$post_ids = isset($this_location['schema_post_id_location']) ? explode( ',', $this_location['schema_post_id_location']) : array();
+							
 							if ( !empty($post_ids) ) {
 								foreach ( $post_ids as $the_enabled_post_id ) {
 									$enabled_on_array['post_id'][] = $the_enabled_post_id;
@@ -430,18 +436,21 @@ function schema_wp_get_enabled_location_targets() {
 			
 				endforeach;
 			}
-		
+			
 			// 
 			// Schema Exclution
 			//
-			if ( !empty($field_exclution) ) {
+
+			//echo'<pre>';print_r( $field_exclution ); echo'</pre>';
+
+			if ( ! empty($field_exclution) ) {
 				
 				foreach ($field_exclution as $exclutions => $exclution) :
 				
 					$this_exclution = $exclution['exclusion_group_sub'];
 					
 					//if ( ! is_admin() ) {	
-					//	echo '<pre>'; print_r($this_exclution); echo '</pre>'; 
+					//echo '<pre>'; print_r($this_exclution); echo '</pre>'; 
 					//}
 					
 					switch( $this_exclution['schema_exclution_select'] ) {
@@ -491,7 +500,8 @@ function schema_wp_get_enabled_location_targets() {
 							// in case more than one post id is defined
 							// @since 1.1.2.4
 							//
-							$post_ids = isset($this_location['schema_post_id_exclution']) ? explode( ',', $this_location['schema_post_id_exclution']) : array();
+							$post_ids = isset($this_exclution['schema_post_id_exclution']) ? explode( ',', $this_exclution['schema_post_id_exclution']) : array();
+							//echo '<pre>'; print_r($post_ids); echo '</pre>';
 							if ( !empty($post_ids) ) {
 								foreach ( $post_ids as $the_excluded_post_id ) {
 									$excluded_on_array['post_id'][] = $the_excluded_post_id;
@@ -504,9 +514,11 @@ function schema_wp_get_enabled_location_targets() {
 			}
 			
 			// Check if -at least- there is one enabled type in our array, is not empty
-			if ( !empty($enabled_on_array) ) {
+			//
+			if ( ! empty($enabled_on_array) ) {
 				
 				// Get data about this Type
+				//
 				$location_targets[$schema->ID] = array
 				(
 					'schema_type' 		=> $schema_type,
@@ -514,8 +526,16 @@ function schema_wp_get_enabled_location_targets() {
 					'enabled_on' 		=> $enabled_on_array,
 					'excluded_on' 		=> $excluded_on_array
 				);
+
+				// Check if type is Review, add itemReviewed
+				// @since 1.2
+				//
+				if ( $schema_type == 'Review') {
+					$itemReviewed = get_post_meta( $schema->ID, '_properties_itemReviewed', true );
+					$location_targets[$schema->ID]['itemReviewed'] = $itemReviewed;
+				}
 			}
-		
+			
 		endforeach;
 		
 		wp_reset_postdata();
@@ -525,6 +545,7 @@ function schema_wp_get_enabled_location_targets() {
 	}
 	
 	// Debug
+	//
 	//if ( ! is_admin() ) { echo '<pre>'; print_r($location_targets); echo '</pre>'; }
 	
 	return $location_targets;

@@ -52,13 +52,16 @@ if ( ! class_exists('Schema_WP_Singular') ) :
 				return;
 
 			// Filter this and return false to disable the function
+			//
 			$enabled = apply_filters( 'schema_wp_output_singular_enabled', true );
-				if ( ! $enabled )
-					return;
+			
+			if ( ! $enabled )
+				return;
 				
 			if ( is_singular() ) {
 				
 				// Add action to hook to this function
+				//
 				do_action( 'schema_wp_action_singular' );
 				
 				$markup = new Schema_WP_Output();
@@ -77,29 +80,39 @@ if ( ! class_exists('Schema_WP_Singular') ) :
 			global $post, $schema_markup_singular;
 			
 			// var
-			$blogPost = array();
+			//
+			$entity = array();
 			
 			// Get match of location target
+			//
 			$schema_location_target = schema_premium_get_location_target_match( $post->ID );
 			
-			if ( !empty($schema_location_target) ) :
+			// Debug
+			//echo'<pre>';print_r( $schema_location_target ); echo'</pre>';exit;
+			
+			if ( ! empty($schema_location_target) ) :
 				
 				foreach ( $schema_location_target as $locations => $location ) :
+					
 					// Run only on enabled location targets
+					//
 					if ( $location['match'] ) {
 
 						// Get final schema type
+						//
 						$schema_type = ( isset($location['schema_subtype']) 
 									&& $location['schema_subtype'] != ''
 									&& $location['schema_subtype'] != 'General' ) ? $location['schema_subtype'] : $location['schema_type'];
 			
 						if ( isset($schema_type) && '' != $schema_type ) {
 							// Get schema markup
+							//
 							$schema_markup 	= new Schema_WP_Output();
 							$item 			= $schema_markup->get_schema( $post->ID, $schema_type );
 							// Make $item filterable 
+							//
 							$item 			= apply_filters( 'schema_single_item_output', $item );
-							$blogPost[]		= $item; // add/join markups if there is more than one schema.org type enabled on a single entry
+							$entity[]		= $item; // add/join markups if there is more than one schema.org type enabled on a single entry
 						} // end if
 					
 					} // end if enabled location targets
@@ -107,7 +120,7 @@ if ( ! class_exists('Schema_WP_Singular') ) :
 			
 			endif;
 			
-			$schema_markup_singular = apply_filters( 'schema_singular_output', $blogPost );
+			$schema_markup_singular = apply_filters( 'schema_singular_output', $entity );
 			
 			return $schema_markup_singular;
 		}

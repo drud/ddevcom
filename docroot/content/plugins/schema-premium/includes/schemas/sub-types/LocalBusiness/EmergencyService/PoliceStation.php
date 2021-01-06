@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_PoliceStation') ) :
 		/** @var string Currenct Type */
     	protected $type = 'PoliceStation';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'EmergencyService';
+		
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_PoliceStation') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'PoliceStation';
+		}
+
 		/**
 		* Get schema type label
 		*

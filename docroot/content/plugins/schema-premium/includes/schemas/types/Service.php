@@ -15,11 +15,14 @@ if ( ! class_exists('Schema_WP_Service') ) :
 	 *
 	 * @since 1.0.1
 	 */
-	class Schema_WP_Service {
+	class Schema_WP_Service extends Schema_WP_Thing {
 		
 		/** @var string Currenct Type */
     	protected $type = 'Service';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Thing';
+
 		/**
 	 	* Constructor
 	 	*
@@ -41,6 +44,17 @@ if ( ! class_exists('Schema_WP_Service') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Service';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -107,7 +121,21 @@ if ( ! class_exists('Schema_WP_Service') ) :
 		*/
 		public function subtypes() {
 			
-			$subtypes = array();
+			// This is not used yet!
+			// @TODO release these when types are completed, also complete the list of subtypes
+			//
+			$subtypes = array
+			(	
+				/*
+				'BroadcastService' 			=> __('Broadcast Service', 'schema-premium'),
+				'CableOrSatelliteService' 	=> __('Cable Or Satellite Service', 'schema-premium'),
+				'FinancialProduct'			=> __('Financial Product', 'schema-premium'),
+				'FoodService' 				=> __('Food Service', 'schema-premium'),
+				'GovernmentService' 		=> __('Government Service', 'schema-premium'),
+				'TaxiService' 				=> __('Taxi Service', 'schema-premium'),
+				'WebAPI' 					=> __('Web API', 'schema-premium')
+				*/
+			);
 				
 			return apply_filters( 'schema_wp_subtypes_Service', $subtypes );
 		}
@@ -121,14 +149,20 @@ if ( ! class_exists('Schema_WP_Service') ) :
 		public function properties() {
 			
 			$properties = array (
-					
-				'name' => array(
-					'label' 		=> __('Name', 'schema-premium'),
+				
+				'provider' => array(
+					'label' 		=> __('Provider Name', 'schema-premium'),
+					'rangeIncludes' => array('Organization', 'Person'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('The service provider, service operator, or service performer; the goods producer.', 'schema-premium')
+				),
+				'providerMobility' => array(
+					'label' 		=> __('Provider Mobility', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
 					'field_type' 	=> 'text',
-					'markup_value'  => 'post_title',
-					'instructions' 	=> __('The name of the service.', 'schema-premium'),
-					'required' 		=> true
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Indicates the mobility of a provided service (e.g. static, dynamic)', 'schema-premium'),
 				),
 				'serviceType' => array(
 					'label' 		=> __('Service Type', 'schema-premium'),
@@ -138,21 +172,26 @@ if ( ! class_exists('Schema_WP_Service') ) :
 					'instructions' 	=> __('The type of service being offered, e.g. veterans\' benefits, emergency relief, etc.', 'schema-premium'),
 					//'required' 		=> true
 				),
-				'url' => array(
-					'label' 		=> __('URL', 'schema-premium'),
-					'rangeIncludes' => array('URL'),
-					'field_type' 	=> 'url',
-					'markup_value'  => 'site_url',
-					'instructions' 	=> __('The fully-qualified URL of the specific service location.', 'schema-premium'),
-					'placeholder'	=> 'https://'
+				'areaServed' => array(
+					'label' 		=> __('Area Served', 'schema-premium'),
+					'rangeIncludes' => array('AdministrativeArea', 'GeoShape', 'Place', 'Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('The geographic area where a service or offered item is provided.', 'schema-premium'),
 				),
-				'image' => array(
-					'label' 		=> __('Image', 'schema-premium'),
-					'rangeIncludes' => array('ImageObject', 'URL'),
-					'field_type' 	=> 'image',
-					'markup_value'  => 'featured_image',
-					'instructions' 	=> __('An image of the service.', 'schema-premium'),
-					'required' 		=> true
+				'award' => array(
+					'label' 		=> __('Award', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('An award won by or for this item.', 'schema-premium')
+				),
+				'slogan' => array(
+					'label' 		=> __('Slogan', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('A slogan or motto associated with the item.', 'schema-premium')
 				),
 				'telephone' => array(
 					'label' 		=> __('Telephone', 'schema-premium'),
@@ -249,9 +288,86 @@ if ( ! class_exists('Schema_WP_Service') ) :
 					 'markup_value' => 'new_custom_field',
 					 'instructions' 	=> __('The longitude of the serviice location. The precision should be at least 5 decimal places.', 'schema-premium'),
 					 'width' => '50'
-				 )
+				 ),
+				 'review' => array(
+					'label' 		=> __('Review', 'schema-premium'),
+					'rangeIncludes' => array('Number'),
+					'field_type' 	=> 'star_rating',
+					'markup_value' 	=> 'new_custom_field',
+					'instructions' 	=> __('The rating given for this product.', 'schema-premium'),
+					'max_stars' => 5,
+					'return_type' => 0,
+					'choices' => array(
+						5 => '5',
+						'4.5' => '4.5',
+						4 => '4',
+						'3.5' => '3.5',
+						3 => '3',
+						'2.5' => '2.5',
+						2 => '2',
+						'1.5' => '1.5',
+						1 => '1',
+						'0.5' => '0.5'
+					),
+					'other_choice' => 0,
+					'save_other_choice' => 0,
+					'default_value' => '',
+					'layout' => 'horizontal'
+				),
+				'review_author' => array(
+					'label' 		=> __('Review Author', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value' => 'author_name',
+					'instructions' 	=> __('The author name of this product review.', 'schema-premium'),
+				),
+				'ratingValue' => array(
+					'label' 		=> __('Rating Value', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value' => 'new_custom_field',
+					'instructions' 	=> __('The aggregate rating for the product.', 'schema-premium'),
+				),
+				'reviewCount' => array(
+					'label' 		=> __('Review Count', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value' => 'new_custom_field',
+					'conditional_logic' => array(
+						array(
+							array(
+								'field' => 'properties_ratingValue',
+								'operator' => '==',
+								'value' => 'fixed_rating_field',
+							),
+						),
+						array(
+							array(
+								'field' => 'properties_ratingValue',
+								'operator' => '==',
+								'value' => 'new_custom_field',
+							),
+						),
+						array(
+							array(
+								'field' => 'properties_ratingValue',
+								'operator' => '==',
+								'value' => 'existing_custom_field',
+							),
+						),
+					),
+					'instructions' 	=> __('The count of total number of reviews.', 'schema-premium'),
+				)
 			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 20 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_Service', $properties );	
 		}
 		
@@ -269,24 +385,16 @@ if ( ! class_exists('Schema_WP_Service') ) :
 				global $post;
 			}
 			
-			$schema			= array();
+			$schema = array();
 			
 			// Putting all together
 			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
+			$schema['@context'] =  'https://schema.org';
+			$schema['@type']	=  $this->type;
 			
 			// Get properties
 			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
-			
-			// Debug
-			//echo'<pre>';print_r($schema);echo'</pre>';
-			//echo'<pre>';print_r($properties);echo'</pre>';
-			
-			$schema['name']			= isset($properties['name']) ? $properties['name'] : '';
-			$schema['description']	= isset($properties['description']) ? $properties['description'] : schema_wp_get_description( $post->ID );
-			$schema['image'] 		= schema_wp_get_media( $post->ID );
 			
 			// Provider
 			//
@@ -328,6 +436,14 @@ if ( ! class_exists('Schema_WP_Service') ) :
 			$latitude 	= isset($properties['latitude']) ? $properties['latitude'] : '';
 			$longitude 	= isset($properties['longitude']) ? $properties['longitude'] : '';
 			
+			if ( isset($properties['areaServed']) && $properties['areaServed'] != '' ) {
+				$schema['areaServed'] = array
+				(
+					'@type' => 'State',
+					'name' 	=> $properties['areaServed']
+				);
+			}
+			
 			if ( isset($latitude) && $latitude != '' || isset($longitude) && $longitude != '' ) {
 				$schema['provider']['geo'] = array
 				(
@@ -336,31 +452,21 @@ if ( ! class_exists('Schema_WP_Service') ) :
 					'longitude'	=> $longitude	
 				);
 			}
-			
-			// Unset auto generated properties
-			unset($properties['review_author']);
-			
-			unset($properties['telephone']);
-			unset($properties['priceRange']);
-			
-			unset($properties['streetAddress']);
-			unset($properties['streetAddress_2']);
-			unset($properties['streetAddress_3']);
-			unset($properties['addressLocality']);
-			unset($properties['addressRegion']);
-			unset($properties['postalCode']);
-			unset($properties['addressCountry']);
-			
-			unset($properties['latitude']);
-			unset($properties['longitude']);
-			
+
 			// Merge schema and properties arrays
 			// Make sure $properties is an array before merging
 			// 
 			if ( is_array($properties) ) {
+			
+				// Merge schema and properties arrays
+				// 
 				$schema = array_merge($schema, $properties);
 			}
 			
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+
 			// Debug
 			//echo'<pre>';print_r($schema);echo'</pre>';
 
@@ -374,6 +480,26 @@ if ( ! class_exists('Schema_WP_Service') ) :
 		* @return array
 		*/
 		public function schema_output_filter( $schema ) {
+			
+			// Unset auto generated properties
+			//
+			unset($schema['review_author']);
+			
+			unset($schema['telephone']);
+			unset($schema['priceRange']);
+			
+			unset($schema['streetAddress']);
+			unset($schema['streetAddress_2']);
+			unset($schema['streetAddress_3']);
+			unset($schema['addressLocality']);
+			unset($schema['addressRegion']);
+			unset($schema['postalCode']);
+			unset($schema['addressCountry']);
+			
+			unset($schema['latitude']);
+			unset($schema['longitude']);
+
+			unset($schema['areaServed']);
 			
 			return apply_filters( 'schema_output_Service', $schema );
 		}

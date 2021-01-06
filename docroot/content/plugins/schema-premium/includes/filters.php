@@ -12,14 +12,30 @@
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
 
+add_filter( 'schema_single_item_output', 'schema_premium_remove_shortcodes_from_description' );
+/**
+ * Remove shortcodes from description.
+ *
+ * @since 1.2
+ * @return array 
+ */
+function schema_premium_remove_shortcodes_from_description( $schema ) {
+	
+	if ( isset($schema['description']) ) {
+		$schema['description'] = preg_replace('#\[[^\]]+\]#', '', $schema['description']);
+	}
+	
+	return $schema;
+}
 
-add_filter( 'schema_output_Product', 'schema_premium_append_cpt_slug_to_permalink' );
+//add_filter( 'schema_output_Product', 'schema_premium_append_cpt_slug_to_permalink' );
 /**
  * Append '#product' to differentiate between this @id and the @id generated for the Breadcrumblist.
  *
  * @since 1.0.3
  * @return array 
  */
+/*
 function schema_premium_append_cpt_slug_to_permalink( $schema ) {
 	
 	global $post;
@@ -30,12 +46,12 @@ function schema_premium_append_cpt_slug_to_permalink( $schema ) {
 		
 		$schema['@id'] = get_permalink( $post->ID ) . '#product';
 		
-		unset($schema['url']);
+		//unset($schema['url']);
 	}
 	
 	return $schema;
 }
-
+*/
 
 add_filter( 'schema_premium_admin_post_types_extras', 'schema_premium_exclude_post_types_extras' );
 /*

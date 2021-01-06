@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_MobilePhoneStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'MobilePhoneStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MobilePhoneStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MobilePhoneStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_MobilePhoneStore') ) :
 			return __('A store that sells mobile phones and related accessories.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_MobilePhoneStore();
 	
 endif;

@@ -15,14 +15,14 @@ if ( ! class_exists('Schema_WP_Article') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_Article {
+	class Schema_WP_Article extends Schema_WP_CreativeWork {
 		
 		/** @var string Current Type */
     	protected $type = 'Article';
 		
 		/** @var string Current Parent Type */
-    	protected $parent_type = 'Article';
-		
+    	protected $parent_type = 'CreativeWork';
+	
 		/**
 	 	* Constructor
 	 	*
@@ -44,6 +44,17 @@ if ( ! class_exists('Schema_WP_Article') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Article';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -133,57 +144,42 @@ if ( ! class_exists('Schema_WP_Article') ) :
 		}
 		
 		/**
-		* Get properties
+		* Properties
 		*
 		* @since 1.0.0
 		* @return array
 		*/
 		public function properties() {
-			
-			$Thing_properties 			= schema_premium_get_schema_properties('Thing');
-			$CreativeWork_properties 	= schema_premium_get_schema_properties('CreativeWork');
-			$Article_properties 		= array(
-				'Article_properties_tab' => array(
-					'label' 		=> '<span style="color:#c90000;">' . $this->type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 30,
-					'markup_value' 	=> 'none'
-				),
-				'Article_properties_info' => array(
-					'label' => $this->type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $this->type,
-					'message'		=> $this->comment(),
-				),
+
+			$properties = array(
+
 				'articleBody' => array(
 					'label' 		=> __('Article Body', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
 					'field_type' 	=> 'textarea',
-					'markup_value' => 'post_content',
+					'markup_value' 	=> 'post_content',
 					'instructions' 	=> __('A description of the article.', 'schema-premium'),
 				),
 				'backstory' => array(
 					'label' 		=> __('Backstory', 'schema-premium'),
 					'rangeIncludes' => array('CreativeWork', 'Text'),
 					'field_type' 	=> 'textarea',
-					'markup_value' => 'disabled',
+					'markup_value' 	=> 'disabled',
 					'instructions' 	=> __('For an Article, typically a NewsArticle, the backstory property provides a textual summary giving a brief explanation of why and how an article was created.', 'schema-premium'),
-				),
-				'Article_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
+				)
 			);
 
-			$properties = array_merge( $Thing_properties, $CreativeWork_properties, $Article_properties );
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_Article', $properties );	
 		}
-		
+
 		/**
 		* Schema output
 		*
@@ -200,81 +196,25 @@ if ( ! class_exists('Schema_WP_Article') ) :
 			
 			$schema = array();
 			
-			// Putting all together
+			// Get main entity of page
 			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
-		
 			$schema['mainEntityOfPage'] = array
 			(
 				'@type' => 'WebPage',
-				'@id' => get_permalink( $post->ID )
+				'@id' => get_permalink( $post->ID ) . '#webpage'
 			);
 			
 			// Get properties
 			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
 			
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+
 			// debug
-			//echo '<pre>'; print_r($properties); echo '</pre>';
-	
-			$schema['url'] 				= isset($properties['url'] ) ? $properties['url'] : get_permalink( $post->ID );
-			$schema['headline'] 		= isset($properties['headline'] ) ? $properties['headline'] : '';
-			$schema['description'] 		= isset($properties['description'] ) ? $properties['description'] : schema_wp_get_description( $post->ID );
-			$schema['image'] 			= isset($properties['image']) ? $properties['image'] : schema_wp_get_media( $post->ID );
-			
-			$schema['datePublished']	= isset($properties['datePublished'] ) ? $properties['datePublished'] : get_the_date( 'c', $post->ID );
-			$schema['dateModified']		= isset($properties['dateModified'] ) ? $properties['dateModified'] : get_post_modified_time( 'c', false, $post->ID, false );
-			
-			// Author
-			//
-			if( isset($properties['author'] ) ) { 
-				$schema['author'] = array (
-					'@type'	=> 'Person',
-					'name'	=> $properties['author']
-				);
-			} else {
-				$schema['author'] = schema_wp_get_author_array( $post->ID );
-			}
-			
-			$schema['publisher']		= schema_wp_get_publisher_array();
-			
-			$schema['articleSection']	= schema_wp_get_post_category( $post->ID );
-			$schema['keywords']			= schema_wp_get_post_tags( $post->ID );
-			
-			$schema['wordCount'] 		= str_word_count( strip_tags( $post->post_content ) );
-			
-			// Subscription and paywalled content
-			//
-			if ( isset($properties['isAccessibleForFree']) ) {
-				
-				if ( $properties['isAccessibleForFree'] == 1 ) {
-					// True
-					$schema['isAccessibleForFree'] = 'True';
-						
-				} elseif ( $properties['isAccessibleForFree'] == 0 ) {
-					// False
-					$schema['isAccessibleForFree'] = 'False';
-					if( !isset($properties['cssSelector']) ) {
-						$schema['hasPart'] = schema_premium_get_property_cssSelector( $this->parent_type );
-					} else {
-						$schema['hasPart'] = schema_premium_get_property_cssSelector_fixed( $properties['cssSelector'] );
-					}
-				}
-			}
-			
-			// Unset auto generated properties
-			unset($properties['author']);
-			unset($properties['isAccessibleForFree']);
-			unset($properties['cssSelector']);
-			
-			// Merge schema and properties arrays
-			// Make sure $properties is an array before merging
-			// 
-			if ( is_array($properties) ) {
-				$schema = array_merge($schema, $properties);
-			}
-			
+			//echo '<pre>'; print_r($schema); echo '</pre>';
+
 			return $this->schema_output_filter($schema);
 		}
 		

@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AutoDealer') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AutoDealer';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_AutoDealer') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AutoDealer';
+		}
+
 		/**
 		* Get schema type label
 		*

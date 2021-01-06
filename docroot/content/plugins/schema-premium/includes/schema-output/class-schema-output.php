@@ -41,6 +41,7 @@ class Schema_WP_Output {
 		}
 				
 		// Switch between schema markup output locations
+		//
 		switch ( $schema_output_location ) {
 			case 'head' :
 				add_action('wp_head', array( $this, 'do_schema' ), 2 );
@@ -70,13 +71,19 @@ class Schema_WP_Output {
 
 		$schema = array();
 		
-		if ( ! isset( $schema_type) || $schema_type != '') {
+		if ( ! isset($schema_type) || $schema_type != '' ) {
+			
 			// Save class name in a variable
-			$ClassName 		= 'Schema_WP_' . $schema_type;
+			//
+			$ClassName = 'Schema_WP_' . $schema_type;
+			
 			// Init
+			//
 			if ( class_exists( $ClassName ) ) {
    				$Schema_Class 	= new $ClassName;
 				$schema 		= $Schema_Class->schema_output( $post_id );
+				// @since 1.2.1
+				$schema['@id']  =  get_permalink( $post->ID ) . '#' . strtolower($schema_type);
 			}
 		}
 		
@@ -121,7 +128,7 @@ class Schema_WP_Output {
 	 * @since 1.0.0
 	 */
 	public function schema_after() {
-		echo PHP_EOL.'<!-- Schema Premium Plugin -->' . PHP_EOL .  PHP_EOL;
+		echo '<!-- Schema Premium Plugin -->' . PHP_EOL .  PHP_EOL;
 	}
 	
 	/**
@@ -139,13 +146,16 @@ class Schema_WP_Output {
 				}
 			}
 		} else {
-			if ( is_array( $schema ) && ! empty($schema) ) {
+			if ( is_array($schema) && ! empty($schema) ) {
 				
 				// Get setting for display instructions
+				//
 				$json_ld_output_format = schema_wp_get_option( 'json_ld_output_format' );
 	
 				if ( $json_ld_output_format == 'pretty_print' ) {
 					
+					// Pretty Print
+					//
 					echo '<script type="application/ld+json" class="schema-premium">', PHP_EOL;
 					echo json_encode( $schema, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT ), PHP_EOL;
 					echo '</script>', PHP_EOL;
@@ -153,6 +163,7 @@ class Schema_WP_Output {
 				} else {
 					
 					// Minified
+					//
 					echo '<script type="application/ld+json" class="schema-premium">';
 					echo json_encode( $schema, JSON_UNESCAPED_UNICODE );
 					echo '</script>';	

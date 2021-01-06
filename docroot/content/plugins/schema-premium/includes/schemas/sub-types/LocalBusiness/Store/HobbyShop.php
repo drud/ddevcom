@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_HobbyShop') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'HobbyShop';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_HobbyShop') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'HobbyShop';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_HobbyShop') ) :
 			return __('A store that sells materials useful or necessary for various hobbies.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_HobbyShop();
 	
 endif;

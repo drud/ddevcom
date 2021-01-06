@@ -15,11 +15,14 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_LocalBusiness {
+	class Schema_WP_LocalBusiness extends Schema_WP_Organization {
 		
 		/** @var string Currenct Type */
     	protected $type = 'LocalBusiness';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Organization';
+
 		/**
 	 	* Constructor
 	 	*
@@ -42,6 +45,17 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 			add_filter( 'schema_premium_meta_is_opennings', array( $this, 'support_opennings' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'LocalBusiness';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -340,236 +354,42 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 		public function properties() {
 			
 			$properties = array (
-					
-				'name' => array(
-					'label' 		=> __('Name', 'schema-premium'),
+				
+				'currenciesAccepted' => array(
+					'label' 		=> __('Currencies Accepted', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'select',
+					'markup_value' => 'disabled',
+					'choices' 		=> schema_wp_get_currencies(),
+					'instructions' 	=> __('The currency accepted.', 'schema-premium'),
+					'allow_null'	=> true,
+					'multiple' 		=> 1,
+					'ui' 			=> 1,
+				),
+				'paymentAccepted' => array(
+					'label' 		=> __('Payment Accepted', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
 					'field_type' 	=> 'text',
-					'markup_value' => 'post_title',
-					'instructions' 	=> __('The name of the business.', 'schema-premium'),
-					'required' 		=> true
-				),
-				'url' => array(
-					'label' 		=> __('URL', 'schema-premium'),
-					'rangeIncludes' => array('URL'),
-					'field_type' 	=> 'url',
-					'markup_value' => 'site_url',
-					'instructions' 	=> __('The fully-qualified URL of the specific business location.', 'schema-premium'),
-					'placeholder'	=> 'https://'
-				),
-				'image' => array(
-					'label' 		=> __('Image', 'schema-premium'),
-					'rangeIncludes' => array('ImageObject', 'URL'),
-					'field_type' 	=> 'image',
-					'markup_value' => 'featured_image',
-					'instructions' 	=> __('An image of the business.', 'schema-premium'),
-					'required' 		=> true
-				),
-				'telephone' => array(
-					'label' 		=> __('Telephone', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'new_custom_field',
-					'instructions' 	=> __('A business phone number meant to be the primary contact method for customers. Be sure to include the country code and area code in the phone number.', 'schema-premium'),
-					'placeholder'	=> '+1-123-456-7890'
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Cash, Credit Card, Cryptocurrency, Local Exchange Tradings System, etc.', 'schema-premium'),
 				),
 				'priceRange' => array(
 					'label' 		=> __('Price Range', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'select',
-					'markup_value' => 'new_custom_field',
-					'choices' 		=> array
-					(
-						'$' => '$',
-						'$$' => '$$',
-						'$$$' => '$$$',
-						'$$$$' => '$$$$',
-						'$$$$$' => '$$$$$' 
-					),
-					'instructions' 	=> __('The price range of the business, for example: $$$.', 'schema-premium'),
-					'allow_null'	=> true
-				),
-				'description' => array(
-					'label' 		=> __('Description', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'textarea',
-					'markup_value' => 'post_excerpt',
-					'instructions' 	=> __('A description of the business.', 'schema-premium'),
-				),
-				'review' => array(
-					'label' 		=> __('Review', 'schema-premium'),
-					'rangeIncludes' => array('Number'),
-					'field_type' 	=> 'star_rating',
-					'markup_value' 	=> 'new_custom_field',
-					'instructions' 	=> __('The rating given for this business.', 'schema-premium'),
-					'max_stars' => 5,
-					'return_type' => 0,
-					'choices' => array(
-						5 => '5',
-						'4.5' => '4.5',
-						4 => '4',
-						'3.5' => '3.5',
-						3 => '3',
-						'2.5' => '2.5',
-						2 => '2',
-						'1.5' => '1.5',
-						1 => '1',
-						'0.5' => '0.5'
-					),
-					'other_choice' => 0,
-					'save_other_choice' => 0,
-					'default_value' => '',
-					'layout' => 'horizontal'
-				),
-				'review_author' => array(
-					'label' 		=> __('Review Author', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
 					'field_type' 	=> 'text',
-					'markup_value' => 'author_name',
-					'instructions' 	=> __('The author name of this review.', 'schema-premium'),
-				),
-				'ratingValue' => array(
-					'label' 		=> __('Rating Value', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'new_custom_field',
-					'instructions' 	=> __('The aggregate rating for the business.', 'schema-premium'),
-				),
-				'reviewCount' => array(
-					'label' 		=> __('Review Count', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'new_custom_field',
-					'conditional_logic' => array(
-						array(
-							array(
-								'field' => 'properties_ratingValue',
-								'operator' => '==',
-								'value' => 'fixed_rating_field',
-							),
-						),
-						array(
-							array(
-								'field' => 'properties_ratingValue',
-								'operator' => '==',
-								'value' => 'new_custom_field',
-							),
-						),
-						array(
-							array(
-								'field' => 'properties_ratingValue',
-								'operator' => '==',
-								'value' => 'existing_custom_field',
-							),
-						),
-					),
-					'instructions' 	=> __('The count of total number of reviews.', 'schema-premium'),
-				),
-				// Address
-				'address' => array(
-					'label' 		=> __('Adress', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'group',
-					'layout'		=> 'block',
-					'markup_value' => 'new_custom_field',
-					'instructions' 	=> __('Address of the specific business location.', 'schema-premium'),
-					'sub_fields' 	=>  array(
-						'streetAddress' => array(
-							'label' 		=> __('Street Address', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'new_custom_field',
-							'instructions' 	=> '',
-							'required' 		=> true,
-							'width' => '50'
-						),
-						'streetAddress_2' => array(
-							'label' 		=> __('Street Address 2', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' 	=> 'disabled',
-							'instructions' 	=> '',
-							'parent' 		=> 'address',
-							'width' => '50'
-						),
-						'streetAddress_3' => array(
-							'label' 		=> __('Street Address 3', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'disabled',
-							'instructions' 	=> '',
-							'width' => '50'
-						),
-						'addressLocality' => array(
-							'label' 		=> __('Locality / City', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'new_custom_field',
-							'instructions' 	=> '',
-							'required' 		=> true,
-							'width' => '25'
-						),
-						'addressRegion' => array(
-							'label' 		=> __('State or Province', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'new_custom_field',
-							'instructions' 	=> '',
-							'required' 		=> true,
-							'width' => '25'
-						),
-						'postalCode' => array(
-							'label' 		=> __('Zip / Postal Code', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'text',
-							'markup_value' => 'new_custom_field',
-							'instructions' 	=> '',
-							'required' 		=> true,
-							'width' => '25'
-						),
-						'addressCountry' => array(
-							'label' 		=> __('Country', 'schema-premium'),
-							'rangeIncludes' => array('Country', 'Text'),
-							'field_type' 	=> 'countries_select',
-							'markup_value' => 'new_custom_field',
-							'instructions' 	=> '',
-							'required' 		=> true,
-							'allow_null' 	=> true,
-							'ui' 			=> true,
-							'width' => '25'
-						)
-					),
-				),
-				
-				// Geo Location
-				'geo' => array(
-					'label' 		=> __('Geo Location', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'group',
-					'layout'		=> 'block',
-					'markup_value' => 'new_custom_field',
-					'instructions' 	=> __('The Geo location of the business. The precision should be at least 5 decimal places.', 'schema-premium'),
-					'sub_fields' 	=>  array(
-						'latitude' => array(
-							'label' 		=> __('Latitude', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'number',
-							'markup_value' => 'new_custom_field',
-							//'instructions' 	=> __('The latitude of the business location. The precision should be at least 5 decimal places.', 'schema-premium'),
-							'width' => '50'
-						),
-						'longitude' => array(
-							'label' 		=> __('Longitude', 'schema-premium'),
-							'rangeIncludes' => array('Text'),
-							'field_type' 	=> 'number',
-							'markup_value' => 'new_custom_field',
-							//'instructions' 	=> __('The longitude of the business location. The precision should be at least 5 decimal places.', 'schema-premium'),
-							'width' => '50'
-						)
-					)
-				),
+					'markup_value' => 'disabled',
+					'instructions' 	=> __('The relative price range of a business, commonly specified by either a numerical range (for example, $10-15) or a normalized number of currency signs (for example, $$$).', 'schema-premium'),
+				)
 			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 20 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_LocalBusiness', $properties );	
 		}
 		
@@ -589,14 +409,10 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 			
 			$schema	= array();
 			
-			// Get properties
-			//
-			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
-			
 			// Putting all together
 			//
-			$schema['@context'] =  'http://schema.org';
-			$schema['@type'] 	=  $this->type;
+			//$schema['@context'] =  'https://schema.org';
+			//$schema['@type'] 	=  $this->type;
 			/*
 			$schema['mainEntityOfPage'] = array
 			(
@@ -604,118 +420,19 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 				'@id' => get_permalink( $post->ID )
 			);
 			*/
-			$name						= schema_wp_get_the_title( $post->ID );
-			$schema['name']				= apply_filters( 'schema_wp_filter_name', $name );
 			
-			$schema['description']		= schema_wp_get_description( $post->ID );
-    		$schema['image'] 			= schema_wp_get_media( $post->ID );
-			$schema['telephone'] 		= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_telephone', true);
-			$schema['priceRange'] 		= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_priceRange', true);
 			
-			// Address
-			$streetAddress		= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_streetAddress', true);
-			$streetAddress_2 	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_streetAddress_2', true);
-			$streetAddress_3 	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_streetAddress_3', true);
-			$addressLocality	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_addressLocality', true);
-			$addressRegion 		= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_addressRegion', true);
-			$postalCode 		= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_postalCode', true);
-			$addressCountry 	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_address_addressCountry', true);
-			
-			if ( isset($streetAddress) && $streetAddress != '' 
-				|| isset($streetAddress_2) && $streetAddress_2 != '' 
-				|| isset($streetAddress_3) && $streetAddress_3 != '' 
-				|| isset($postalCode) && $postalCode != '' ) {
-				
-				$schema['address'] = array
-				(
-					'@type' => 'PostalAddress',
-					'streetAddress' 	=> $streetAddress . ' ' . $streetAddress_2 . ' ' . $streetAddress_3, // join the 3 address lines
-					'addressLocality' 	=> $addressLocality,
-					'addressRegion' 	=> $addressRegion,
-					'postalCode' 		=> $postalCode,
-					'addressCountry' 	=> $addressCountry,		
-				);
-			}
-			
-			// Geo Location
-			$latitude 	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_geo_latitude', true);
-			$longitude 	= get_post_meta( $post->ID , 'schema_properties_LocalBusiness_geo_longitude', true);
-			
-			if ( isset($latitude) && $latitude != '' || isset($longitude) && $longitude != '' ) {
-				$schema['geo'] = array
-				(
-					'@type' => 'GeoCoordinates',
-					'latitude' 	=> $latitude, 
-					'longitude'	=> $longitude	
-				);
-			}
-			
-			// Review
-			if ( isset($properties['review']) && $properties['review'] != 0 && $properties['review'] != '' ) {
-				$schema['review'] 	= array
-				(
-					'@type' 		=> 'Review',
-					'reviewRating'	=> array (
-						'@type' 		=> 'Rating',
-						'ratingValue' 	=> isset($properties['review']) ? $properties['review'] : '',
-						'bestRating' 	=> 5
-					)
-				);		
-				// review author
-				if ( isset($properties['review_author']) ) {
-					$schema['review']['author'] = array(
-						'@type'	=> 'Person',
-						'name' => $properties['review_author']
-					);
-				} else {
-					$schema['review']['author'] = schema_wp_get_author_array();
-				}
-			}
-
-			// Aggregate rating
-			if ( isset($properties['reviewCount']) && $properties['reviewCount'] > 0 ) {
-				$schema['aggregateRating'] 	= array
-				(
-					'@type' 		=> 'AggregateRating',
-					'ratingValue' 	=> isset($properties['ratingValue']) ? $properties['ratingValue'] : '',
-					'reviewCount' 	=> isset($properties['reviewCount']) ? $properties['reviewCount'] : '',
-				);
-			}
-
-			// Address: merg two arrays
-			if ( !empty($schema['address']) && !empty($properties['address'])) {
-				$properties['address'] = array_replace_recursive( $schema['address'], $properties['address'] );
-			}
-			
-			// Geo: merg two arrays
-			if ( !empty($schema['geo']) && !empty($properties['geo'])) {
-				$properties['geo'] 	= array_replace_recursive( $schema['geo'], $properties['geo'] );
-				$schema['geo'] 		= $properties['geo'];
-				
-				// Make sure this is added!
-				$schema['geo']['@type'] = 'GeoCoordinates'; 
-			}
-			
-			// Unset unwanted values
+			// Get properties
 			//
-			unset($properties['review']);
-			unset($properties['review_author']);
-			unset($properties['ratingValue']);
-			unset($properties['reviewCount']);
+			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
+			
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
 
-			// Make sure $properties is an array 
-			// 
-			if ( is_array($properties) ) {
-				$schema = array_replace_recursive( $schema, $properties );
-			}
-			
-			// Unset unwanted values
-			unset($schema['address']['streetAddress_2']);
-			unset($schema['address']['streetAddress_3']);
-			
-			// Debug
-			//echo'<pre>';print_r($schema);echo'</pre>';
-			
+			// debug
+			//echo '<pre>'; print_r($schema); echo '</pre>';
+
 			return $this->schema_output_filter($schema);
 		}
 
@@ -726,6 +443,20 @@ if ( ! class_exists('Schema_WP_LocalBusiness') ) :
 		* @return array
 		*/
 		public function schema_output_filter( $schema ) {
+
+			// Unset auto generated properties
+			//
+
+			//unset($schema['review']);
+			//unset($schema['review_author']);
+
+			unset($schema['streetAddress']);
+			unset($schema['addressLocality']);
+			unset($schema['addressRegion']);
+			unset($schema['postalCode']);
+			unset($schema['addressCountry']);
+			unset($schema['geo_latitude']);
+			unset($schema['geo_longitude']);
 			
 			return apply_filters( 'schema_output_LocalBusiness', $schema );
 		}

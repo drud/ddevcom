@@ -18,7 +18,10 @@ if ( ! class_exists('Schema_WP_SocialEvent') ) :
 	class Schema_WP_SocialEvent extends Schema_WP_Event {
 		
 		/** @var string Currenct Type */
-    	protected $type = 'SocialEvent';
+		protected $type = 'SocialEvent';
+		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Event';
 		
 		/**
 	 	* Constructor
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_SocialEvent') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SocialEvent';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_SocialEvent') ) :
 		public function comment() {
 			
 			return __('Social event.', 'schema-premium');
+		}
+
+		/**
+		* Get properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 40 );
+			
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_SocialEvent', $properties );	
 		}
 	}
 	

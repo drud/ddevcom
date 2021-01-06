@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_PlasticSurgery') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'PlasticSurgery';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'MedicalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_PlasticSurgery') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'PlasticSurgery';
+		}
+
 		/**
 		* Get schema type label
 		*

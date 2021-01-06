@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AutoBodyShop') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AutoBodyShop';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -31,6 +34,17 @@ if ( ! class_exists('Schema_WP_AutoBodyShop') ) :
 		}
 		
 		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AutoBodyShop';
+		}
+
+		/**
 		* Get schema type label
 		*
 		* @since 1.0.0
@@ -40,7 +54,7 @@ if ( ! class_exists('Schema_WP_AutoBodyShop') ) :
 			
 			return __('Auto Body Shop', 'schema-premium');
 		}
-		
+
 		/**
 		* Get schema type comment
 		*

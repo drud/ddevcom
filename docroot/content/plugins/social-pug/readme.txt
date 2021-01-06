@@ -2,8 +2,8 @@
 Contributors: Mediavine, iova.mihai
 Tags: social share, social sharing, social sharing buttons, social share buttons, social, social media, social share icon, social share counts, social sharing icon
 Requires at least: 3.1
-Tested up to: 5.3.2
-Stable tag: 1.7.0
+Tested up to: 5.6.0
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -12,7 +12,7 @@ The best social sharing plugin for your WordPress website and the only social sh
 == Description ==
 **The Best Looking Social Sharing Buttons**
 
-Grow by Mediavine is one of the easies to use social sharing plugin available. It let's you add highly customizable social share buttons that will integrate beautifully with your website's design, leading to increased interactions and social media shares.
+Grow by Mediavine is one of the easiest to use social sharing plugins available. It lets you add highly customizable social share buttons that will integrate beautifully with your website's design, leading to increased interactions and social media shares.
 
 The free version of the plugin comes with five of the biggest social media platforms, mainly Facebook, Twitter, Google+, Pinterest and LinkedIn.
 
@@ -104,12 +104,48 @@ You can place both the inline social share buttons and the floating sidebar soci
 
 
 == Changelog ==
+[Looking for the changelog for Grow Social Pro? Click here to access it.](https://marketplace.mediavine.com/grow-social-pro/grow-social-pro-changelog/)
+
+= 1.18.2
+* FIX: Fixes issue where Pinterest shares were not being calculated
+* FIX: Grow Social now checks if Facebook access token is invalid when used and marks it as expired
+* FIX: Prevents PHP notices on unique server configurations
+* FIX: Remove unneeded settings meta blocks
+
+= 1.18.1
+* FIX: Issues were some tools would not be active after upgrading.
+* FIX: Prevent unnecessary calls to `wp_remote_get()` that were causing timeouts and high CPU spikes
+
+= 1.18.0 =
+* FEATURE: Recommended PHP and WordPress versions have been updated to PHP 7.4 and WordPress 5.2
+* FEATURE: Add button styles and custom colors to share buttons
+* FEATURE: Rewrite button markup to be more accessible
+* FEATURE: Stronger indication of visual focus on buttons
+* FEATURE: New lighter weight icon animation
+* FEATURE: Add ability to set minimum global and individual share counts
+* FEATURE: Switch to non-jQuery javascript to improve site performance
+* FEATURE: Use inline SVG for icons instead of icon font, will improve load times and page speed scores
+* FEATURE: Add integration with the Mediavine Trellis Theme framework
+* FEATURE: Switched the Facebook App transient to use an option instead for better compatibility with some hosts.
+* FEATURE: Add a body class to indicate to themes that the sidebar will show up on Mobile
+* FEATURE: Don't load styles if Grow elements don't exist on page
+* FIX: Better spacing for the inline links
+* FIX: Twitter character count should be correct and accommodate for url and username
+* FIX: Twitter links should open in new window
+* FIX: Added title attribute to share and follow links for accessibility 
+* FIX: Fixed an error in share count rounding that would cause too many numbers after the decimal point
+* FIX: Sanitize Open Graph and Twitter tags on titles and descriptions
+* FIX: Resolved an alignment issue with some themes when single column buttons are used
+* FIX: When labels are not shown, ensure that the icons with and without counts line up with each other on 1, 2, and 3 column layouts
+* FIX: Add async and noptimize to JavaScript assets to prevent compatibility issues with WP Rocket, Autopmize and other optimization plugins.
+* FIX: Ensure Yoast OG Tags get removed if Grow tags are being used
+* FIX: Ensure optimization plugins don't interfere with front end data
 
 = 1.7.0 =
-* ENHANCEMENT: Change name and branding to Grow by Mediavine
-* ENHANCEMENT: Ensure text remains visible during icon webfont load
-* ENHANCEMENT: Optimize Javascript
-* ENHANCEMENT: Better accessibility for share buttons
+* FEATURE: Change name and branding to Grow by Mediavine
+* FEATURE: Optimize Javascript
+* FEATURE: Better accessibility for share buttons
+* FIX: Ensure text remains visible during icon webfont load
 * FIX: Better spacing for the inline links
 * FIX: Total Shares won't wrap lines
 

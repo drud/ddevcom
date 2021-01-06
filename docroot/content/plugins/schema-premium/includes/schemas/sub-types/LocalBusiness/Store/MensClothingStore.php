@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_MensClothingStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'MensClothingStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MensClothingStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MensClothingStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_MensClothingStore') ) :
 			return __('A men\'s clothing store.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_MensClothingStore();
 	
 endif;

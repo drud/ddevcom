@@ -1,11 +1,19 @@
 <?php
+/**
+ * Handles top-level record keeping functionality.
+ *
+ * @package WP_Stream
+ */
 
 namespace WP_Stream;
 
+/**
+ * Class - Log
+ */
 class Log {
 
 	/**
-	 * Hold Plugin class
+	 * Holds Instance of plugin object
 	 *
 	 * @var Plugin
 	 */
@@ -29,7 +37,7 @@ class Log {
 	/**
 	 * Class constructor.
 	 *
-	 * @param Plugin $plugin The main Plugin class.
+	 * @param Plugin $plugin Instance of plugin object.
 	 */
 	public function __construct( $plugin ) {
 		$this->plugin = $plugin;
@@ -112,9 +120,6 @@ class Log {
 		// Add user meta to Stream meta.
 		$stream_meta['user_meta'] = $user_meta;
 
-		// Get the current time in milliseconds.
-		$iso_8601_extended_date = wp_stream_get_iso_8601_extended_date();
-
 		if ( ! empty( $user->roles ) ) {
 			$roles = array_values( $user->roles );
 			$role  = $roles[0];
@@ -130,7 +135,7 @@ class Log {
 			'blog_id'   => (int) apply_filters( 'wp_stream_blog_id_logged', get_current_blog_id() ),
 			'user_id'   => (int) $user_id,
 			'user_role' => (string) $role,
-			'created'   => (string) $iso_8601_extended_date,
+			'created'   => (string) current_time( 'mysql', true ),
 			'summary'   => (string) vsprintf( $message, $args ),
 			'connector' => (string) $connector,
 			'context'   => (string) $context,
@@ -146,7 +151,7 @@ class Log {
 		$result = $this->plugin->db->insert( $recordarr );
 
 		// This is helpful in development environments:
-		// error_log( $this->debug_backtrace( $recordarr ) );
+		// error_log( $this->debug_backtrace( $recordarr ) );.
 
 		return $result;
 	}

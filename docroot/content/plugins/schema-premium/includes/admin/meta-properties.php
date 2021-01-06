@@ -50,7 +50,7 @@ function schema_wp_premium_acf_field_properties() {
 		//
 		acf_add_local_field_group(array (
 			'key' => 'group_schema_properties',
-			'title' => __('Schema Properties', 'schema-premium'),
+			'title' => __('Schema Markup', 'schema-premium'),
 			'location' => array (
 				array (
 					array (	 // custom location
@@ -75,11 +75,11 @@ function schema_wp_premium_acf_field_properties() {
 			'description' => '',
 		));
 
-		// Add Geeral Tab
+		// Add General Tab
 		// @sice 1.1.2.8
 		acf_add_local_field( array(
-			'key' => 'field_schema_geeral_tab',
-			'name' => 'schema_geeral_tab',
+			'key' => 'field_schema_general_tab',
+			'name' => 'schema_general_tab',
 			'label' => __('General', 'schema-premium'),
 			'type' => 'tab',
 			'parent' => 'group_schema_properties',
@@ -90,9 +90,9 @@ function schema_wp_premium_acf_field_properties() {
 		// General Tab: Message
 		// @sice 1.1.2.8
 		acf_add_local_field(array(
-			'key' 		=> 'field_schema_geeral_message',
+			'key' 		=> 'field_schema_general_message',
 			'label' 	=> ' ', // empty space
-			'name' 		=> 'schema_geeral_message',
+			'name' 		=> 'schema_general_message',
 			'type' 		=> 'message',
 			'parent' 	=> 'group_schema_properties',
 			'message'	=> __('You can use these options to configure schema.org properties.', 'schema-premium')
@@ -120,9 +120,9 @@ function schema_wp_premium_acf_field_properties() {
 		// NOTE: This is used to scape an issue in tab display
 		// @sice 1.1.2.8
 		acf_add_local_field(array(
-			'key' 		=> 'field_schema_geeral_message_btm',
+			'key' 		=> 'field_schema_general_message_btm',
 			'label' 	=> ' ', // empty space
-			'name' 		=> 'schema_geeral_message_btm',
+			'name' 		=> 'schema_general_message_btm',
 			'type' 		=> 'message',
 			'parent' 	=> 'group_schema_properties',
 			'message'	=> '',
@@ -162,17 +162,48 @@ function schema_wp_premium_acf_field_properties() {
 						$schema_type_properties		= is_object($schema_class) ? $schema_class->properties() : $schema_type_properties;
 					}
 					
+					// Check if this is a Review type
+					// Get itemReviewed properties and merge them
+					// @since 1.2
+					//
+					if ( $schema_default['id'] == 'Review' ) {
+						
+						$itemReviewed_type	= get_post_meta( $schema_ID, '_properties_itemReviewed', true );
+						
+						if ( isset($itemReviewed_type) ) {
+							$itemReviewed_classname 	= 'Schema_WP_' . $itemReviewed_type;
+							if ( class_exists($itemReviewed_classname) ) {
+								$itemReviewed = new $itemReviewed_classname;
+								$itemReviewed_properties 	= $itemReviewed->properties();
+								$schema_type_properties 	= array_merge( $schema_type_properties, $itemReviewed_properties );	
+							} 
+						}
+						
+						// Debug
+						//echo '<pre>'; print_r($itemReviewed_properties); echo '</pre>'; exit;
+					}
+					
 					$new_custom_field_enabled = schema_wp_recursive_array_search('new_custom_field', $schema_type_properties);
 					$new_custom_field_enabled = ($new_custom_field_enabled == 'cssSelector') ? false : true;
-
-					if ( $match_count >= 1 || $new_custom_field_enabled == true ) { // Add tabs only if there is more than one schema type enabled
-					//if ( $match_count > 1 ) { // Add tabs only if there is more than one schema type enabled
+					
+					// Add tabs only if there is more than one schema type enabled
+					//
+					if ( $match_count >= 1 || $new_custom_field_enabled == true ) { 
 						
 						$type_label = isset($enabled['schema_subtype']) && '' != $enabled['schema_subtype'] ? $enabled['schema_subtype'] : $schema_default['lable'];
 						
+						// Append itemReviewed type to tab label
+						// @since 1.2
+						//
+						if ( $schema_default['id'] == 'Review' ) {
+							//$type_label = $type_label . ': ' . $itemReviewed_type;
+							$type_label = $type_label . ': ' . $itemReviewed_properties[$itemReviewed_type.'_properties_info']['label'];
+						}
+
 						// Sub field tab: Start
 						// 
 						// Tab field
+						//
 						acf_add_local_field(array(
 							'key' 		=> 'feild_schema_properties_tab_' . $schema_type,
 							'label' 	=> $type_label,
@@ -222,6 +253,7 @@ function schema_wp_premium_acf_field_properties() {
 								|| 'amenityFeature' 		== $properity
 								|| 'spatialCoverage' 		== $properity
 								|| 'images' 				== $properity
+								
 							) {
 								
 								if ( $properties_instructions_enable != 'yes' ) {
@@ -234,6 +266,7 @@ function schema_wp_premium_acf_field_properties() {
 								// or both fields are not set to a new custom field
 								//
 								// @since 1.0.2
+								//
 								if ( 'ratingValue' == $properity  || 'reviewCount' == $properity ) { 
 									$property_field_ratingValue = get_post_meta( $schema_ID, '_properties_ratingValue', true );
 									$property_field_reviewCount = get_post_meta( $schema_ID, '_properties_reviewCount', true );
@@ -248,7 +281,8 @@ function schema_wp_premium_acf_field_properties() {
 								// or both fields are not set to a new custom field
 								//
 								// @since 1.1.2
-								if ( 'ratingValue' == $properity  || 'reviewCount' == $properity ) { 
+								//
+								if ( 'ratingValue' == $properity || 'reviewCount' == $properity ) { 
 									$property_field_ratingValue = get_post_meta( $schema_ID, '_properties_ratingValue', true );
 									$property_field_reviewCount = get_post_meta( $schema_ID, '_properties_reviewCount', true );
 									if ( 'accept_user_reviews' == $property_field_ratingValue ) 
@@ -263,6 +297,7 @@ function schema_wp_premium_acf_field_properties() {
 								// also, check for isAccessibleForFree if is disabled
 								//
 								// @since 1.1.2.5
+								//
 								if ( 'cssSelector' == $properity ) { 
 									$cssSelector_name 	= get_post_meta( $schema_ID, '__properties_cssSelector_name', true );
 									$isAccessibleForFree = get_post_meta( $schema_ID, '_properties_isAccessibleForFree', true );
@@ -387,9 +422,9 @@ function schema_wp_premium_acf_field_properties() {
 
 				// Display message on new post creation, when post id is not available yet!
 				// @since 1.0.6
-				//if ( is_edit_page('new') && $post_id == 0 && !$enabled['match'] && $post_type === null 
+				//if ( sp_is_edit_page('new') && $post_id == 0 && !$enabled['match'] && $post_type === null 
 				// @since 1.0.7 (modified this line again
-				if ( is_edit_page('new') && $post_id == 0 && !$enabled['match']
+				if ( sp_is_edit_page('new') && $post_id == 0 && !$enabled['match']
 					&& !empty($location_targets[$schema_ID]['enabled_on']['post_type']) 
 					//&& $location_targets[$schema_ID]['enabled_on']['post_type'] == false 
 				) {

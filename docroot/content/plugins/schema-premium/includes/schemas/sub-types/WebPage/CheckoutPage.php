@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_CheckoutPage') ) :
 		/** @var string Currenct Type */
     	protected $type = 'CheckoutPage';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'WebPage';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_CheckoutPage') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'CheckoutPage';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_CheckoutPage') ) :
 		public function comment() {
 			
 			return __('Web page type: Checkout page.', 'schema-premium');
+		}
+
+		/**
+		* Properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_CheckoutPage', $properties );		
 		}
 	}
 	

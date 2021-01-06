@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_CivicStructure') ) :
 		/** @var string Currenct Type */
     	protected $type = 'CivicStructure';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Place';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_CivicStructure') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'CivicStructure';
+		}
+
 		/**
 		* Get schema type label
 		*

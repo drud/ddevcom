@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_TennisComplex') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'TennisComplex';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'SportsActivityLocation';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_TennisComplex') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'TennisComplex';
+		}
+
 		/**
 		* Get schema type label
 		*

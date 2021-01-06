@@ -15,10 +15,13 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 	 *
 	 * @since 1.0.2
 	 */
-	class Schema_WP_SoftwareApplication {
+	class Schema_WP_SoftwareApplication extends Schema_WP_CreativeWork {
 		
 		/** @var string Current Type */
     	protected $type = 'SoftwareApplication';
+		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'CreativeWork';
 		
 		/**
 	 	* Constructor
@@ -41,6 +44,17 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SoftwareApplication';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -111,9 +125,9 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 			(	
 				'Software Application' => array
 				(
-					'MobileApplication' 	=> __('Mobile Application', 'schema-premium'),
-					/*'VideoGame' 			=> __('Video Game', 'schema-premium'),*/
-					'WebApplication'		=> __('Web Application', 'schema-premium'),
+					'MobileApplication' => __('Mobile Application', 'schema-premium'),
+					'VideoGame' 		=> __('Video Game', 'schema-premium'),
+					'WebApplication'	=> __('Web Application', 'schema-premium'),
 				)			
         	);
 				
@@ -129,222 +143,239 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 		public function properties() {
 			
 			$properties = array (
-					
-					'url' => array(
-						'label' 		=> __('URL', 'schema-premium'),
-						'rangeIncludes' => array('URL'),
-						'field_type' 	=> 'url',
-						'markup_value' => 'post_permalink',
-						'instructions' 	=> __('A URL to the software web page (that includes the Offer).', 'schema-premium'),
-						'placeholder' 	=> 'https://'
-					),
-					'name' => array(
-						'label' 		=> __('Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'post_title',
-						'instructions' 	=> __('The name of the software.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'alternateName' => array(
-						'label' 		=> __('Alternate Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('An alias for the software.', 'schema-premium'),
-					),
-					'operatingSystem' => array(
-						'label' 		=> __('Operating System', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Operating systems supported (Windows 7, OSX 10.6, Android 1.6)', 'schema-premium'),
-					),
-					'applicationCategory' => array(
-						'label' 		=> __('Application Category', 'schema-premium'),
-						'rangeIncludes'	=> array('Text'),
-						'field_type' 	=> 'select',
-						'choices'		=> array
-							(
-								''		=> '- ' . __('Select', 'schema-premium') . ' -',
-								'GameApplication'				=> 'Game Application',
-								'SocialNetworkingApplication' 	=> 'Social Networking Application',
-								'TravelApplication' 			=> 'Travel Application',
-								'ShoppingApplication' 			=> 'Shopping Application',
-								'SportsApplication' 			=> 'Sports Application',
-								'LifestyleApplication' 			=> 'Lifestyle Application',
-								'BusinessApplication' 			=> 'Business Application',
-								'DesignApplication' 			=> 'Design Application',
-								'DeveloperApplication' 			=> 'Developer Application',
-								'DriverApplication' 			=> 'Driver Application',
-								'EducationalApplication' 		=> 'Educational Application',
-								'HealthApplication' 			=> 'Health Application',
-								'FinanceApplication' 			=> 'Finance Application',
-								'SecurityApplication' 			=> 'Security Application',
-								'BrowserApplication' 			=> 'Browser Application',
-								'CommunicationApplication' 		=> 'Communication Application',
-								'DesktopEnhancementApplication' => 'Desktop Enhancement Application',
-								'EntertainmentApplication' 		=> 'Entertainment Application',
-								'MultimediaApplication'			=> 'Multimedia Application',
-								'HomeApplication' 				=> 'HomeApplication',
-								'UtilitiesApplication' 			=> 'Utilities Application',
-								'ReferenceApplication' 			=> 'Reference Application',
-							),
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The type of software application.', 'schema-premium'),
-					),
-					'softwareVersion' => array(
-						'label' 		=> __('Software Version', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Version of the software instance', 'schema-premium'),
-					),
-					'image' => array(
-						'label' 		=> __('Image', 'schema-premium'),
-						'rangeIncludes' => array('ImageObject', 'URL'),
-						'field_type' 	=> 'image',
-						'markup_value' => 'featured_image',
-						'instructions' 	=> __('An image of the product.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'screenshot' => array(
-						'label' 		=> __('Screenshot', 'schema-premium'),
-						'rangeIncludes' => array('ImageObject', 'URL'),
-						'field_type' 	=> 'image',
-						'markup_value' => 'featured_image',
-						'instructions' 	=> __('A link to a screenshot image of the app.', 'schema-premium'),
-					),
-					'description' => array(
-						'label' 		=> __('Description', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'textarea',
-						'markup_value' => 'post_excerpt',
-						'instructions' 	=> __('Product description.', 'schema-premium'),
-					),
-					'releaseNotes' => array(
-						'label' 		=> __('Release Notes', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'textarea',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Description of what changed in this version.', 'schema-premium'),
-					),
-					'priceCurrency'		=> array(
-						'label' 		=> __('Currency', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'currency_select',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The currency of the price.', 'schema-premium'),
-						//'required' 		=> true
-					),
-					'price' => array(
-						'label' 		=> __('Price', 'schema-premium'),
-						'rangeIncludes' => array('Text', 'Number'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The offer price of a product.', 'schema-premium'),
-						//'required' 		=> true
-					),
-					'priceValidUntil' => array(
-						'label' 		=> __('Price Valid Until', 'schema-premium'),
-						'rangeIncludes' => array('Date'),
-						'field_type' 	=> 'date_picker',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The date after which the price will no longer be available.', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-						//'required' 		=> true
-					),
-					'availability' => array(
-						'label' 		=> __('Availability', 'schema-premium'),
-						'rangeIncludes'	=> array('Text'),
-						'field_type' 	=> 'select',
-						'choices'		=> array
-							(
-								''		=> '- ' . __('Select', 'schema-premium') . ' -',
-								'Discontinued'			=> 'Discontinued',
-								'InStock' 				=> 'In Stock',
-								'InStoreOnly' 			=> 'In Store Only',
-								'LimitedAvailability' 	=> 'Limited Availability',
-								'OnlineOnly' 			=> 'Online Only',
-								'OutOfStock' 			=> 'Out Of Stock',
-								'PreOrder' 				=> 'Pre-Order',
-								'PreSale' 				=> 'Pre-Sale',
-								'SoldOut' 				=> 'Sold Out',
-							),
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Product availability.', 'schema-premium'),
-					),
-					'itemCondition' => array(
-						'label' 		=> __('Condition', 'schema-premium'),
-						'rangeIncludes'	=> array('OfferItemCondition ', 'Text'),
-						'field_type' 	=> 'select',
-						'choices'		=> array
-							(
-								''		=> '- ' . __('Select', 'schema-premium') . ' -',
-								'DamagedCondition'		=> 'Damaged Condition',
-								'NewCondition' 			=> 'New Condition',
-								'RefurbishedCondition' 	=> 'Refurbished Condition',
-								'UsedCondition' 		=> 'Used Condition'
-							),
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('Product condition.', 'schema-premium'),
-					),
-					'seller' => array(
-						'label' 		=> __('Seller', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'site_title',
-						'instructions' 	=> __('The name of organization offering the product.', 'schema-premium'),
-					),
-					'review' => array(
-						'label' 		=> __('Review', 'schema-premium'),
-						'rangeIncludes' => array('Number'),
-						'field_type' 	=> 'star_rating',
-						'markup_value' 	=> 'new_custom_field',
-						'instructions' 	=> __('The rating given for this product.', 'schema-premium'),
-						'max_stars' => 5,
-						'return_type' => 0,
-						'choices' => array(
-							5 => '5',
-							'4.5' => '4.5',
-							4 => '4',
-							'3.5' => '3.5',
-							3 => '3',
-							'2.5' => '2.5',
-							2 => '2',
-							'1.5' => '1.5',
-							1 => '1',
-							'0.5' => '0.5'
+				
+				'applicationCategory' => array(
+					'label' 		=> __('Application Category', 'schema-premium'),
+					'rangeIncludes'	=> array('Text', 'URL'),
+					'field_type' 	=> 'select',
+					'choices'		=> array
+						(
+							'' 								=> '- ' . __('Select', 'schema-premium') . ' -',
+							'GameApplication'				=> __('Game Application', 'schema-premium'),
+							'SocialNetworkingApplication' 	=>  __('Social Networking Application', 'schema-premium'),
+							'TravelApplication' 			=>  __('Travel Application', 'schema-premium'),
+							'ShoppingApplication' 			=>  __('Shopping Application', 'schema-premium'),
+							'SportsApplication' 			=>  __('Sports Application', 'schema-premium'),
+							'LifestyleApplication' 			=>  __('Lifestyle Application', 'schema-premium'),
+							'BusinessApplication' 			=>  __('Business Application', 'schema-premium'),
+							'DesignApplication' 			=>  __('Design Application', 'schema-premium'),
+							'DeveloperApplication' 			=>  __('Developer Application', 'schema-premium'),
+							'DriverApplication' 			=>  __('Driver Application', 'schema-premium'),
+							'EducationalApplication' 		=>  __('Educational Application', 'schema-premium'),
+							'HealthApplication' 			=>  __('Health Application', 'schema-premium'),
+							'FinanceApplication' 			=>  __('Finance Application', 'schema-premium'),
+							'SecurityApplication' 			=>  __('Security Application', 'schema-premium'),
+							'BrowserApplication' 			=>  __('Browser Application', 'schema-premium'),
+							'CommunicationApplication' 		=>  __('Communication Application', 'schema-premium'),
+							'DesktopEnhancementApplication' =>  __('Desktop Enhancement Application', 'schema-premium'),
+							'EntertainmentApplication' 		=>  __('Entertainment Application', 'schema-premium'),
+							'MultimediaApplication'			=>  __('Multimedia Application', 'schema-premium'),
+							'HomeApplication' 				=>  __('HomeApplication', 'schema-premium'),
+							'UtilitiesApplication' 			=>  __('Utilities Application', 'schema-premium'),
+							'ReferenceApplication' 			=>  __('Reference Application', 'schema-premium'),
 						),
-						'other_choice' => 0,
-						'save_other_choice' => 0,
-						'default_value' => '',
-						'layout' => 'horizontal'
-					),
-					'review_author' => array(
-						'label' 		=> __('Review Author', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'author_name',
-						'instructions' 	=> __('The author name of this product review.', 'schema-premium'),
-					),
-					'ratingValue' => array(
-						'label' 		=> __('Rating Value', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The aggregate rating for the product.', 'schema-premium'),
-					),
-					'reviewCount' => array(
-						'label' 		=> __('Review Count', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('The count of total number of reviews.', 'schema-premium'),
-					),
-				);
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('The type of software application.', 'schema-premium'),
+				),
+				'applicationSubCategory' => array(
+					'label' 		=> __('Application Sub Category', 'schema-premium'),
+					'rangeIncludes' => array('Text', 'URL'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Subcategory of the application, e.g. Arcade Game.', 'schema-premium'),
+				),
+				'applicationSuite' => array(
+					'label' 		=> __('Application Suite', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('The name of the application suite to which the application belongs (e.g. Excel belongs to Office)', 'schema-premium'),
+				),
+				'availableOnDevice' => array(
+					'label' 		=> __('Available On Device', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Device required to run the application. Used in cases where a specific make/model is required to run the application.', 'schema-premium'),
+				),
+				// Countries
+				'countriesNotSupported' => array(
+					'label' 		=> __('Countries Not Supported', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'select',
+					'choices'		=> schema_wp_get_countries(),
+					'markup_value'  => 'disabled',
+					'multiple' 		=> 1,
+					'ui' 			=> 1,
+					'instructions' 	=> __('Countries for which the application is not supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.', 'schema-premium'),
+				),
+				'countriesSupported' => array(
+					'label' 		=> __('Countries Supported', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'select',
+					'choices'		=> schema_wp_get_countries(),
+					'markup_value'  => 'disabled',
+					'multiple' 		=> 1,
+					'ui' 			=> 1,
+					'instructions' 	=> __('Countries for which the application is supported. You can also provide the two-letter ISO 3166-1 alpha-2 country code.', 'schema-premium'),
+				),
+				// URL 
+				'downloadUrl' => array(
+					'label' 		=> __('Download Url', 'schema-premium'),
+					'rangeIncludes' => array('URL'),
+					'field_type' 	=> 'url',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('If the file can be downloaded, URL to download the binary.', 'schema-premium'),
+				),
+				'installUrl' => array(
+					'label' 		=> __('Install Url', 'schema-premium'),
+					'rangeIncludes' => array('URL'),
+					'field_type' 	=> 'url',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('URL at which the app may be installed, if different from the URL of the item.', 'schema-premium'),
+				),
+				'fileSize' => array(
+					'label' 		=> __('File Size', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Size of the application / package (e.g. 18MB). In the absence of a unit (MB, KB etc.), KB will be assumed.', 'schema-premium'),
+				),
+				'memoryRequirements' => array(
+					'label' 		=> __('Memory Requirements', 'schema-premium'),
+					'rangeIncludes' => array('Text', 'URL'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Minimum memory requirements.', 'schema-premium'),
+				),
+				'operatingSystem' => array(
+					'label' 		=> __('Operating System', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('Operating systems supported (Windows 7, OSX 10.6, Android 1.6).', 'schema-premium'),
+				),
+				'permissions' => array(
+					'label' 		=> __('Permissions', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Permission(s) required to run the app (for example, a mobile app may require full internet access or may run only on wifi).', 'schema-premium'),
+				),
+				'processorRequirements' => array(
+					'label' 		=> __('Processor Requirements', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Processor architecture required to run the application (e.g. IA64).', 'schema-premium'),
+				),
+				'releaseNotes' => array(
+					'label' 		=> __('Release Notes', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'textarea',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Description of what changed in this version.', 'schema-premium'),
+				),
+				'screenshot' => array(
+					'label' 		=> __('Screenshot', 'schema-premium'),
+					'rangeIncludes' => array('ImageObject', 'URL'),
+					'field_type' 	=> 'image',
+					'markup_value'  => 'featured_image',
+					'instructions' 	=> __('A link to a screenshot image of the app.', 'schema-premium'),
+				),
+				'softwareRequirements' => array(
+					'label' 		=> __('Software Requirements', 'schema-premium'),
+					'rangeIncludes' => array('Text', 'URL'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Component dependency requirements for application. This includes runtime environments and shared libraries that are not included in the application distribution package, but required to run the application (Examples: DirectX, Java or .NET runtime).', 'schema-premium'),
+				),
+				'softwareVersion' => array(
+					'label' 		=> __('Software Version', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Version of the software instance.', 'schema-premium'),
+				),
+				'storageRequirements' => array(
+					'label' 		=> __('Software Requirements', 'schema-premium'),
+					'rangeIncludes' => array('Text', 'URL'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'disabled',
+					'instructions' 	=> __('Storage requirements (free space required).', 'schema-premium'),
+				),
+				// offers
+				'priceCurrency'		=> array(
+					'label' 		=> __('Currency', 'schema-premium'),
+					'rangeIncludes' => array('Text'),
+					'field_type' 	=> 'currency_select',
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('The currency of the price.', 'schema-premium'),
+					//'required' 		=> true
+				),
+				'price' => array(
+					'label' 		=> __('Price', 'schema-premium'),
+					'rangeIncludes' => array('Text', 'Number'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('The offer price of a product.', 'schema-premium'),
+					//'required' 		=> true
+				),
+				'priceValidUntil' => array(
+					'label' 		 => __('Price Valid Until', 'schema-premium'),
+					'rangeIncludes'  => array('Date'),
+					'field_type' 	 => 'date_picker',
+					'markup_value'   => 'new_custom_field',
+					'instructions' 	 => __('The date after which the price will no longer be available.', 'schema-premium'),
+					'display_format' => get_option( 'date_format' ), // WP
+					'return_format'  => 'Y-m-d',
+					//'required' 		=> true
+				),
+				'availability' => array(
+					'label' 		=> __('Availability', 'schema-premium'),
+					'rangeIncludes'	=> array('Text'),
+					'field_type' 	=> 'select',
+					'choices'		=> array
+						(
+							''						=> '- ' . __('Select', 'schema-premium') . ' -',
+							'Discontinued'			=> __('Discontinued', 'schema-premium'),
+							'InStock' 				=> __('In Stock', 'schema-premium'),
+							'InStoreOnly' 			=> __('In Store Only', 'schema-premium'),
+							'LimitedAvailability' 	=> __('Limited Availability', 'schema-premium'),
+							'OnlineOnly' 			=> __('Online Only', 'schema-premium'),
+							'OutOfStock' 			=> __('Out Of Stock', 'schema-premium'),
+							'PreOrder' 				=> __('Pre-Order', 'schema-premium'),
+							'PreSale' 				=> __('Pre-Sale', 'schema-premium'),
+							'SoldOut' 				=> __('Sold Out', 'schema-premium'),
+						),
+					'markup_value' => 'new_custom_field',
+					'instructions' 	=> __('Product availability.', 'schema-premium'),
+				),
+				'itemCondition' => array(
+					'label' 		=> __('Condition', 'schema-premium'),
+					'rangeIncludes'	=> array('OfferItemCondition ', 'Text'),
+					'field_type' 	=> 'select',
+					'choices'		=> array
+						(
+							''						=> '- ' . __('Select', 'schema-premium') . ' -',
+							'DamagedCondition'		=> __('Damaged Condition', 'schema-premium'),
+							'NewCondition' 			=> __('New Condition', 'schema-premium'),
+							'RefurbishedCondition' 	=> __('Refurbished Condition', 'schema-premium'),
+							'UsedCondition' 		=> __('Used Condition', 'schema-premium')
+						),
+					'markup_value' => 'new_custom_field',
+					'instructions' 	=> __('Product condition.', 'schema-premium'),
+				), // end of offers
+			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_SoftwareApplication', $properties );	
 		}
 		
@@ -368,24 +399,19 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 			
 			// Putting all together
 			//
-			$schema['@context'] 			=  'http://schema.org';
-			$schema['@type'] 				=  $this->type;
+			$schema['@context'] =  'https://schema.org';
+			$schema['@type'] 	=  $this->type;
 		
-			$schema['mainEntityOfPage'] 	= array
+			// Get main entity of page
+			//
+			$schema['mainEntityOfPage'] = array
 			(
 				'@type' => 'WebPage',
-				'@id' => get_permalink( $post->ID )
+				'@id' => get_permalink( $post->ID ) . '#webpage'
 			);
 	
-			$schema['url'] 			= get_permalink( $post->ID );
-			
-			$schema['description']	= schema_wp_get_description( $post->ID );
-		
-			$schema['keywords']		= schema_wp_get_post_tags( $post->ID );
-	
-			$schema['image'] 		= schema_wp_get_media( $post->ID );
-	
 			// Get properties
+			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
 			
 			// Offers
@@ -398,55 +424,7 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 				'priceValidUntil' 	=> isset($properties['priceValidUntil']) ? $properties['priceValidUntil'] : '',
 				'availability' 		=> isset($properties['availability']) ? $properties['availability'] : '',
 				'itemCondition'		=> isset($properties['itemCondition']) ? $properties['itemCondition'] : '',
-				'seller'			=> array (
-					'@type' 			=> 'Organization',
-					'name'				=> isset($properties['seller']) ? $properties['seller'] : get_bloginfo( 'name' )
-				)
 			);
-			
-			// Review
-			if ( isset($properties['review']) && $properties['review'] != 0 && $properties['review'] != '' ) {
-				$schema['review'] 	= array
-				(
-					'@type' 		=> 'Review',
-					'reviewRating'	=> array (
-						'@type' 		=> 'Rating',
-						'ratingValue' 	=> isset($properties['review']) ? $properties['review'] : '',
-						'bestRating' 	=> 5
-					)
-				);		
-				// review author
-				if ( isset($properties['review_author']) ) {
-					$schema['review']['author'] = array(
-						'@type'	=> 'Person',
-						'name' => $properties['review_author']
-					);
-				} else {
-					$schema['review']['author'] = schema_wp_get_author_array();
-				}
-			}
-			
-			// Aggregate rating
-			if ( isset($properties['reviewCount']) && $properties['reviewCount'] > 0 ) {
-				$schema['aggregateRating'] 	= array
-				(
-					'@type' 		=> 'AggregateRating',
-					'ratingValue' 	=> isset($properties['ratingValue']) ? $properties['ratingValue'] : '',
-					'reviewCount' 	=> isset($properties['reviewCount']) ? $properties['reviewCount'] : '',
-				);
-			}
-			
-			// Unset auto generated properties
-			unset($properties['priceCurrency']);
-			unset($properties['price']);
-			unset($properties['priceValidUntil']);
-			unset($properties['availability']);
-			unset($properties['itemCondition']);
-			unset($properties['seller']);
-			unset($properties['review']);
-			unset($properties['review_author']);
-			unset($properties['ratingValue']);
-			unset($properties['reviewCount']);
 			
 			// Merge schema and properties arrays
 			// Make sure $properties is an array before merging
@@ -455,6 +433,10 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 				$schema = array_merge($schema, $properties);
 			}
 			
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+
 			return $this->schema_output_filter($schema);
 		}
 
@@ -466,6 +448,18 @@ if ( ! class_exists('Schema_WP_SoftwareApplication') ) :
 		*/
 		public function schema_output_filter( $schema ) {
 			
+			// Unset auto generated properties
+			//
+			unset($schema['priceCurrency']);
+			unset($schema['price']);
+			unset($schema['priceValidUntil']);
+			unset($schema['availability']);
+			unset($schema['itemCondition']);
+
+			unset($schema['review']);
+			unset($schema['ratingValue']);
+			unset($schema['reviewCount']);
+
 			return apply_filters( 'schema_output_SoftwareApplication', $schema );
 		}
 	}

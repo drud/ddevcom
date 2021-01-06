@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_PostOffice') ) :
 		/** @var string Currenct Type */
     	protected $type = 'PostOffice';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'GovernmentOffice';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_PostOffice') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'PostOffice';
+		}
+
 		/**
 		* Get schema type label
 		*
