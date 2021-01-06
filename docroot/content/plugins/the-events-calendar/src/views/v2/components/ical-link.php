@@ -7,9 +7,9 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.13
+ * @version 5.3.0
  *
  * @var object $ical Object containing iCal data
  */
@@ -19,11 +19,13 @@ if ( empty( $ical->display_link ) ) {
 }
 
 ?>
-<div class="tribe-events-c-ical tribe-common-b1">
+<div class="tribe-events-c-ical tribe-common-b2 tribe-common-b3--min-medium">
 	<a
-		class="tribe-events-c-ical__link tribe-common-anchor-alt"
+		class="tribe-events-c-ical__link"
 		title="<?php echo esc_attr( $ical->link->title ); ?>"
 		href="<?php echo esc_url( $ical->link->url ); ?>"
-	><?php echo esc_html( $ical->link->text ); ?></a>
+	>
+		<?php $this->template( 'components/icons/plus', [ 'classes' => [ 'tribe-events-c-ical__link-icon-svg' ] ] ); ?>
+		<?php echo esc_html( $ical->link->text ); ?>
+	</a>
 </div>
-

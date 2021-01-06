@@ -24,12 +24,12 @@ class InstalledVersions
 private static $installed = array (
   'root' => 
   array (
-    'pretty_version' => 'dev-master',
-    'version' => 'dev-master',
+    'pretty_version' => 'dev-main',
+    'version' => 'dev-main',
     'aliases' => 
     array (
     ),
-    'reference' => '292c33a55d8dbfd9ad8faecc5b72aec4d550dd54',
+    'reference' => '89205adcfd5ab93a15fe44282ab354c8907c8a5c',
     'name' => 'newmediadenver/wp',
   ),
   'versions' => 
@@ -115,12 +115,12 @@ private static $installed = array (
     ),
     'newmediadenver/wp' => 
     array (
-      'pretty_version' => 'dev-master',
-      'version' => 'dev-master',
+      'pretty_version' => 'dev-main',
+      'version' => 'dev-main',
       'aliases' => 
       array (
       ),
-      'reference' => '292c33a55d8dbfd9ad8faecc5b72aec4d550dd54',
+      'reference' => '89205adcfd5ab93a15fe44282ab354c8907c8a5c',
     ),
     'oscarotero/env' => 
     array (
@@ -307,12 +307,12 @@ private static $installed = array (
     ),
     'wpackagist-plugin/the-events-calendar' => 
     array (
-      'pretty_version' => '4.9.14.1',
-      'version' => '4.9.14.1',
+      'pretty_version' => '5.3.1.1',
+      'version' => '5.3.1.1',
       'aliases' => 
       array (
       ),
-      'reference' => 'tags/4.9.14.1',
+      'reference' => 'tags/5.3.1.1',
     ),
     'wpackagist-plugin/wordpress-importer' => 
     array (

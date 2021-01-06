@@ -235,7 +235,7 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 		 * @return string
 		 */
 		public function get_pue_update_url() {
-			$pue_update_url = 'https://pue.tri.be';
+			$pue_update_url = 'https://pue.theeventscalendar.com';
 
 			if ( defined( 'PUE_UPDATE_URL' ) ) {
 				$pue_update_url = PUE_UPDATE_URL;
@@ -841,7 +841,15 @@ if ( ! class_exists( 'Tribe__PUE__Checker' ) ) {
 				$class_name = $autoloader->get_prefix_by_slug( $this->get_slug() );
 
 				if ( $class_name ) {
-					$class_name .= 'PUE__Helper';
+					$is_namespaced = false !== strpos( $class_name, '\\' );
+
+					if ( $is_namespaced ) {
+						// Handle class prefixes like Tribe\Plugin\.
+						$class_name .= 'PUE\Helper';
+					} else {
+						// Handle class prefixes like Tribe__Plugin__.
+						$class_name .= 'PUE__Helper';
+					}
 
 					if ( constant( $class_name . '::DATA' ) ) {
 						$license_key = constant( $class_name . '::DATA' );

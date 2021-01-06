@@ -3,7 +3,7 @@
  * Create a easy way to hook to the Add-ons Tab Fields
  * @var array
  */
-$internal = array();
+$internal = [];
 
 $current_url = Tribe__Settings::instance()->get_url( [ 'tab' => 'addons' ] );
 
@@ -16,7 +16,7 @@ if ( get_option( 'pue_install_key_event_aggregator' ) ) {
 	?>
 
 	<fieldset id="tribe-field-meetup_token" class="tribe-field tribe-field-text tribe-size-medium">
-		<legend class="tribe-field-label"><?php esc_html_e( 'Meetup Token', 'the-events-calendar' ) ?></legend>
+		<legend class="tribe-field-label"><?php esc_html_e( 'Meetup Authentication', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_meetup_credentials ) {
@@ -69,7 +69,7 @@ if ( class_exists( 'Tribe__Events__Tickets__Eventbrite__Main' ) || get_option( '
 	?>
 
 	<fieldset id="tribe-field-eventbrite_token" class="tribe-field tribe-field-text tribe-size-medium">
-		<legend class="tribe-field-label"><?php esc_html_e( 'Eventbrite Token', 'the-events-calendar' ) ?></legend>
+		<legend class="tribe-field-label"><?php esc_html_e( 'Eventbrite Authentication', 'the-events-calendar' ) ?></legend>
 		<div class="tribe-field-wrap">
 			<?php
 			if ( $missing_eb_credentials ) {

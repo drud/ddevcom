@@ -7,14 +7,20 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.10
+ * @version 5.3.0
  *
  */
 ?>
 <li class="tribe-events-c-nav__list-item tribe-events-c-nav__list-item--prev">
-	<button class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium" disabled>
+	<button
+		class="tribe-events-c-nav__prev tribe-common-b2 tribe-common-b1--min-medium"
+		aria-label="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
+		title="<?php esc_attr_e( 'Previous Day', 'the-events-calendar' ); ?>"
+		disabled
+	>
+		<?php $this->template( 'components/icons/caret-left', [ 'classes' => [ 'tribe-events-c-nav__prev-icon-svg' ] ] ); ?>
 		<?php esc_html_e( 'Previous Day', 'the-events-calendar' ); ?>
 	</button>
 </li>

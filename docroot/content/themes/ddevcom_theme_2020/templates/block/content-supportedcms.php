@@ -25,16 +25,16 @@ $align_class = $block['align'] ? 'align' . $block['align'] : '';
   </div>
   <div class="row">
     <div class="col-lg-3 py-4 px-4 text-center">
-      <img src="/content/themes/ddevcom_theme/dist/images/drupal.svg" alt="Drupal" width="200" class="img-fluid mb-3 mb-lg-0">
+      <img src="/content/themes/ddevcom_theme_2020/dist/images/drupal.svg" alt="Drupal" width="200" class="img-fluid mb-3 mb-lg-0">
     </div>
     <div class="col-lg-3 text-center">
-      <img src="/content/themes/ddevcom_theme/dist/images/wordpress.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-5 mb-lg-0">
+      <img src="/content/themes/ddevcom_theme_2020/dist/images/wordpress.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-5 mb-lg-0">
     </div>
     <div class="col-lg-3 text-center">
-      <img src="/content/themes/ddevcom_theme/dist/images/typo3.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
+      <img src="/content/themes/ddevcom_theme_2020/dist/images/typo3.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
     </div>
     <div class="col-lg-3 text-center">
-      <img src="/content/themes/ddevcom_theme/dist/images/backdrop-cms-logo.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
+      <img src="/content/themes/ddevcom_theme_2020/dist/images/backdrop-cms-logo.svg" alt="Drupal" width="200" class="img-fluid mt-lg-4 mb-3 mb-lg-0">
     </div>
   </div>
 </div>

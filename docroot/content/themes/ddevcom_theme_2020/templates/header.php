@@ -3,7 +3,7 @@
   <div class="container d-flex">
     <nav class="main-navigation">
       <a class="main-navigation__logo" href="<?= home_url('/'); ?>">
-        <img src="/content/themes/ddevcom_theme/dist/images/ddev-logo.svg" width="200" alt="DDEV">
+        <img src="/content/themes/ddevcom_theme_2020/dist/images/ddev-logo.svg" width="200" alt="DDEV">
       </a>
       <div class="main-navigation__menu-wrapper">
 

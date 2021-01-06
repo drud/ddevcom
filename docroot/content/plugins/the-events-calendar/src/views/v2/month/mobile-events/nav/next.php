@@ -7,12 +7,12 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
  * @var string $link The URL to the next page, if any, or an empty string.
  * @var string $label The label for the next link.
  *
- * @version 4.9.10
+ * @version 5.3.0
  *
  */
 ?>
@@ -22,7 +22,10 @@
 		rel="next"
 		class="tribe-events-c-nav__next tribe-common-b2"
 		data-js="tribe-events-view-link"
+		aria-label="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
+		title="<?php echo esc_attr( sprintf( __( 'Next month, %1$s', 'the-events-calendar' ), $label ) ); ?>"
 	>
 		<?php echo esc_html( $label ); ?>
+		<?php $this->template( 'components/icons/caret-right', [ 'classes' => [ 'tribe-events-c-nav__next-icon-svg' ] ] ); ?>
 	</a>
 </li>

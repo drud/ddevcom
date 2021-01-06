@@ -59,10 +59,10 @@ class GF_REST_Authentication {
 	public function init() {
 
 		add_filter( 'determine_current_user', array( $this, 'authenticate' ), 15 );
-		add_filter( 'rest_authentication_errors', array( $this, 'authentication_fallback' ) );
-		add_filter( 'rest_authentication_errors', array( $this, 'check_authentication_error' ), 99 );
-		add_filter( 'rest_pre_dispatch', array( $this, 'check_user_permissions' ), 10, 3 );
+		add_filter( 'rest_authentication_errors', array( $this, 'check_authentication_error' ) );
 		add_filter( 'rest_post_dispatch', array( $this, 'send_unauthorized_headers' ), 50 );
+		add_filter( 'rest_pre_dispatch', array( $this, 'check_user_permissions' ), 10, 3 );
+		add_filter( 'rest_authentication_errors', array( $this, 'override_rest_authentication_errors' ), 15 );
 
 	}
 
@@ -72,14 +72,11 @@ class GF_REST_Authentication {
 	 *
 	 * @since 2.4-beta-1
 	 *
-	 * @deprecated 2.4.22
-	 *
 	 * @param $errors
 	 *
 	 * @return null
 	 */
 	public function override_rest_authentication_errors( $errors ) {
-		_deprecated_function( __METHOD__, '2.4.22', 'GF_REST_Authentication::check_authentication_error' );
 
 		if ( $this->is_request_to_rest_api() && ! $this->get_error() ) {
 			return null;
@@ -97,7 +94,7 @@ class GF_REST_Authentication {
 	 * @return bool Returns true if this is a request to the Gravity Forms REST API. False otherwise
 	 */
 	protected function is_request_to_rest_api() {
-		if ( empty( $_SERVER['REQUEST_URI'] ) || ! ( defined( 'REST_REQUEST' ) && REST_REQUEST ) ) {
+		if ( empty( $_SERVER['REQUEST_URI'] ) ) {
 			return false;
 		}
 
@@ -130,26 +127,20 @@ class GF_REST_Authentication {
 	 * @return int|false Returns the User ID of the authenticated user.
 	 */
 	public function authenticate( $user_id ) {
-		if ( ! $this->is_request_to_rest_api() ) {
-			return $user_id;
-		}
-
-		if ( ! empty( $user_id ) ) {
-			$this->log_debug( __METHOD__ . sprintf( '(): User #%d already authenticated.', $user_id ) );
-
-			return $user_id;
-		}
 
 		$this->clear_errors();
+
+		// Do not authenticate twice and check if is a request to our endpoint in the WP REST API.
+		if ( ! empty( $user_id ) || ! $this->is_request_to_rest_api() ) {
+			return $user_id;
+		}
+
 		$this->log_debug( __METHOD__ . '(): Running.' );
 
 		if ( is_ssl() ) {
 			$user_id = $this->perform_basic_authentication();
-			if ( $user_id ) {
-				return $user_id;
-			}
 
-			$user_id = $this->perform_application_password_authentication();
+			// If basic authentication fails, allow oauth to be performed.
 			if ( $user_id ) {
 				return $user_id;
 			}
@@ -159,57 +150,20 @@ class GF_REST_Authentication {
 	}
 
 	/**
-	 * Authenticate the user if authentication wasn't performed during the determine_current_user action.
-	 *
-	 * Necessary in cases where wp_get_current_user() is called before Gravity Forms is loaded.
-	 *
-	 * @since 2.4.22
-	 *
-	 * @param WP_Error|null|bool $error Error data.
-	 *
-	 * @return WP_Error|null|bool
-	 */
-	public function authentication_fallback( $error ) {
-		if ( ! empty( $error ) ) {
-			// Another plugin has already declared a failure.
-			return $error;
-		}
-
-		if ( empty( $this->error ) && empty( $this->auth_method ) && empty( $this->user ) && 0 === get_current_user_id() ) {
-			// Authentication hasn't occurred during `determine_current_user`, so check auth.
-			$user_id = $this->authenticate( false );
-			if ( $user_id ) {
-				wp_set_current_user( $user_id );
-
-				return true;
-			}
-		}
-
-		return $error;
-	}
-
-	/**
 	 * Check for authentication error.
 	 *
 	 * @since 2.4-beta-1
 	 *
 	 * @param WP_Error|null|bool $error Error data.
-	 *
 	 * @return WP_Error|null|bool
 	 */
 	public function check_authentication_error( $error ) {
-		if ( ! $this->is_request_to_rest_api() ) {
-			// Pass through other errors.
+		// Pass through other errors.
+		if ( ! empty( $error ) ) {
 			return $error;
 		}
 
-		$error = $this->get_error();
-		if ( empty( $error ) ) {
-			// Indicate auth succeeded.
-			return true;
-		}
-
-		return $error;
+		return $this->get_error();
 	}
 
 	/**
@@ -225,7 +179,7 @@ class GF_REST_Authentication {
 
 		$this->error = $error;
 
-		$this->log_error( __METHOD__ . '(): ' . json_encode( $error ) );
+		$this->log_error( __METHOD__ . '(): ' . print_r( $error, true ) );
 	}
 
 	/***
@@ -250,54 +204,6 @@ class GF_REST_Authentication {
 	 */
 	protected function get_error() {
 		return $this->error;
-	}
-
-	/**
-	 * Sets the user property for the authenticated user and clears the error property.
-	 *
-	 * @since 2.4.22
-	 *
-	 * @param object $user An object containing the user id and some other optional properties.
-	 *
-	 * @return int The ID of the authenticated user.
-	 */
-	protected function set_user( $user ) {
-		$this->user  = $user;
-		$this->error = null;
-
-		return $this->user->user_id;
-	}
-
-	/**
-	 * Attempts to authenticate the request using the application password feature introduced in WordPress 5.6.
-	 *
-	 * @since 2.4.22
-	 *
-	 * @return false|int False or the ID of the authenticated user.
-	 */
-	private function perform_application_password_authentication() {
-		if ( ! function_exists( 'wp_validate_application_password' ) ) {
-			return false;
-		}
-
-		$this->log_debug( __METHOD__ . '(): Running.' );
-		$this->auth_method = 'application_password';
-		$user_id           = wp_validate_application_password( false );
-
-		if ( empty( $user_id ) ) {
-			global $wp_rest_application_password_status;
-			if ( is_wp_error( $wp_rest_application_password_status ) ) {
-				$this->set_error( new WP_Error( 'gform_rest_authentication_error', $wp_rest_application_password_status->get_error_message(), array( 'status' => 401 ) ) );
-			}
-
-			$this->log_error( __METHOD__ . '(): Aborting; user not found.' );
-
-			return false;
-		}
-
-		$this->log_debug( __METHOD__ . '(): Valid.' );
-
-		return $this->set_user( (object) array( 'user_id' => $user_id ) );
 	}
 
 	/**
@@ -339,15 +245,15 @@ class GF_REST_Authentication {
 		}
 
 		// Get user data.
-		$user = $this->get_user_data_by_consumer_key( $consumer_key );
-		if ( empty( $user ) ) {
+		$this->user = $this->get_user_data_by_consumer_key( $consumer_key );
+		if ( empty( $this->user ) ) {
 			$this->log_error( __METHOD__ . '(): Aborting; user not found.' );
 
 			return false;
 		}
 
 		// Validate user secret.
-		if ( ! hash_equals( $user->consumer_secret, $consumer_secret ) ) {
+		if ( ! hash_equals( $this->user->consumer_secret, $consumer_secret ) ) {
 			$this->set_error( new WP_Error( 'gform_rest_authentication_error', __( 'Consumer secret is invalid.', 'gravityforms' ), array( 'status' => 401 ) ) );
 
 			return false;
@@ -355,7 +261,7 @@ class GF_REST_Authentication {
 
 		$this->log_debug( __METHOD__ . '(): Valid.' );
 
-		return $this->set_user( $user );
+		return $this->user->user_id;
 	}
 
 	/**
@@ -511,22 +417,22 @@ class GF_REST_Authentication {
 		}
 
 		// Fetch WP user by consumer key.
-		$user = $this->get_user_data_by_consumer_key( $params['oauth_consumer_key'] );
+		$this->user = $this->get_user_data_by_consumer_key( $params['oauth_consumer_key'] );
 
-		if ( empty( $user ) ) {
+		if ( empty( $this->user ) ) {
 			$this->set_error( new WP_Error( 'gform_rest_authentication_error', __( 'Consumer key is invalid.', 'gravityforms' ), array( 'status' => 401 ) ) );
 
 			return false;
 		}
 
 		// Perform OAuth validation.
-		$signature = $this->check_oauth_signature( $user, $params );
+		$signature = $this->check_oauth_signature( $this->user, $params );
 		if ( is_wp_error( $signature ) ) {
 			$this->set_error( $signature );
 			return false;
 		}
 
-		$timestamp_and_nonce = $this->check_oauth_timestamp_and_nonce( $user, $params['oauth_timestamp'], $params['oauth_nonce'] );
+		$timestamp_and_nonce = $this->check_oauth_timestamp_and_nonce( $this->user, $params['oauth_timestamp'], $params['oauth_nonce'] );
 		if ( is_wp_error( $timestamp_and_nonce ) ) {
 			$this->set_error( $timestamp_and_nonce );
 			return false;
@@ -534,7 +440,7 @@ class GF_REST_Authentication {
 
 		$this->log_debug( __METHOD__ . '(): Valid.' );
 
-		return $this->set_user( $user );
+		return $this->user->user_id;
 	}
 
 	/**
@@ -733,10 +639,6 @@ class GF_REST_Authentication {
 	 * @return bool|WP_Error
 	 */
 	private function check_permissions( $method ) {
-		if ( ! $this->is_gf_auth_method() ) {
-			return true;
-		}
-
 		$permissions = $this->user->permissions;
 
 		switch ( $method ) {
@@ -771,10 +673,6 @@ class GF_REST_Authentication {
 	 *
 	 */
 	private function update_last_access() {
-		if ( ! $this->is_gf_auth_method() ) {
-			return;
-		}
-
 		global $wpdb;
 
 		$wpdb->update(
@@ -872,17 +770,6 @@ class GF_REST_Authentication {
 	 */
 	public function log_debug( $message ) {
 		GFAPI::log_debug( $message );
-	}
-
-	/**
-	 * Determines if the request is authenticated using credentials generated by Gravity Forms.
-	 *
-	 * @since 2.4.22
-	 *
-	 * @return bool
-	 */
-	private function is_gf_auth_method() {
-		return in_array( $this->auth_method, array( 'basic_auth', 'oauth1' ) );
 	}
 
 }

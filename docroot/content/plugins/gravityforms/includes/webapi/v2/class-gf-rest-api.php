@@ -62,7 +62,6 @@ class GF_REST_API {
 			'GF_REST_Forms_Controller',
 			'GF_REST_Feeds_Controller',
 			'GF_REST_Form_Feeds_Controller',
-			'GF_REST_Form_Field_Filters_Controller',
 		);
 
 		foreach ( $controllers as $controller ) {

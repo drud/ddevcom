@@ -5768,21 +5768,15 @@ class GFFormsModel {
 		}
 
 		if ( rgar( $search_criteria, 'start_date' ) ) {
-			if ( ! is_numeric( $search_criteria['start_date'] ) || (int) $search_criteria['start_date'] != $search_criteria['start_date'] ) {
-				$search_criteria['start_date'] = strtotime( $search_criteria['start_date'] );
-			}
-			$valid_timestamp = gmdate( 'Y-m-d H:i:s', $search_criteria['start_date'] );
-			$where[]         = $wpdb->prepare( 'timestampdiff(SECOND, %s, date_created) >= 0', $valid_timestamp );
+			$valid_timestamp =  gmdate( 'Y-m-d H:i:s', strtotime( $search_criteria['start_date'] ) );
+			$where[] = $wpdb->prepare( 'timestampdiff(SECOND, %s, date_created) >= 0', $valid_timestamp );
 		}
 
 		if ( rgar( $search_criteria, 'end_date' ) ) {
-			if ( ! is_numeric( $search_criteria['end_date'] ) || (int) $search_criteria['end_date'] != $search_criteria['end_date'] ) {
-				$search_criteria['end_date'] = strtotime( $search_criteria['end_date'] );
-			}
-			$valid_timestamp = gmdate( 'Y-m-d H:i:s', $search_criteria['end_date'] );
+			$valid_timestamp = gmdate( 'Y-m-d H:i:s', strtotime( $search_criteria['end_date'] ) );
 			// The user didn't specify and end time, so search until the end of the day.
 			if ( '00:00:00' == substr( $valid_timestamp, -8 ) ) {
-				$valid_timestamp = gmdate( 'Y-m-d', $search_criteria['end_date'] ) . ' 23:59:59';
+				$valid_timestamp = gmdate( 'Y-m-d', strtotime( $search_criteria['end_date'] ) ) . ' 23:59:59';
 			}
 			$where[] = $wpdb->prepare( 'timestampdiff(SECOND, %s, date_created) <= 0', $valid_timestamp );
 		}
@@ -7536,22 +7530,6 @@ class GFFormsModel {
 
 		$match_count = 0;
 		foreach ( $logic['rules'] as $rule ) {
-			try {
-				/**
-				 * Filter the conditional logic rule before it is evaluated.
-				 *
-				 * @param array $rule         The conditional logic rule about to be evaluated.
-				 * @param array $form         The current form meta.
-				 * @param array $logic        All details required to evaluate an objects conditional logic.
-				 * @param array $field_values The default field values for this form.
-				 * @param array $entry        The current entry object (if available).
-				 *
-				 * @since 2.4.22
-				 */
-				$rule = apply_filters( 'gform_rule_pre_evaluation', $rule, $form, $logic, $field_values, $entry );
-			} catch ( Error $e ) {
-				GFCommon::log_error( __METHOD__ . '(): Error from function hooked to gform_rule_pre_evaluation. ' . $e->getMessage() );
-			}
 			$source_field   = RGFormsModel::get_field( $form, $rule['fieldId'] );
 			$field_value    = empty( $entry ) ? self::get_field_value( $source_field, $field_values ) : self::get_lead_field_value( $entry, $source_field );
 			$is_value_match = self::is_value_match( $field_value, $rule['value'], $rule['operator'], $source_field, $rule, $form );

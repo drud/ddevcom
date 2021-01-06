@@ -7,15 +7,15 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.10
+ * @version 5.0.1
  *
  */
 ?>
 <div class="tribe-events-c-top-bar tribe-events-header__top-bar">
 
-	<?php $this->template( 'components/top-bar/nav' ); ?>
+	<?php $this->template( 'month/top-bar/nav' ); ?>
 
 	<?php $this->template( 'components/top-bar/today' ); ?>
 

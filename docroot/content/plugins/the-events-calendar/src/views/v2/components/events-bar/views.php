@@ -7,21 +7,15 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.11
+ * @version 5.3.0
  *
- * @var bool $disable_event_search Boolean on whether to disable the event search.
+ * @var string $view_slug            Slug of the current view.
+ * @var string $view_label           Label of the current view.
+ * @var array  $public_views         Array of data of the public views, with the slug as the key.
+ * @var bool   $disable_event_search Boolean on whether to disable the event search.
  */
-
-/**
- * @todo: @bordoni can we move this to context?
- */
-use Tribe\Events\Views\V2\Manager;
-
-$public_views = tribe( Manager::class )->get_publicly_visible_views();
-$view_slug = $this->get( 'view' )->get_slug();
-$view_label = $this->get( 'view' )->get_label();
 
 $is_tabs_style         = empty( $disable_event_search ) && 3 >= count( $public_views );
 $view_selector_classes = [
@@ -39,11 +33,14 @@ $view_selector_classes = [
 			class="tribe-events-c-view-selector__button"
 			data-js="tribe-events-view-selector-button"
 		>
-			<span class="tribe-events-c-view-selector__button-icon tribe-common-svgicon <?php echo sanitize_html_class( "tribe-common-svgicon--{$view_slug}" ); ?>"></span>
+			<span class="tribe-events-c-view-selector__button-icon">
+				<?php $this->template( 'components/icons/' . esc_attr( $view_slug ), [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-svg' ] ] ); ?>
+			</span>
 			<span class="tribe-events-c-view-selector__button-text tribe-common-a11y-visual-hide">
 				<?php echo esc_html( $view_label ); ?>
 			</span>
+			<?php $this->template( 'components/icons/caret-down', [ 'classes' => [ 'tribe-events-c-view-selector__button-icon-caret-svg' ] ] ); ?>
 		</button>
-		<?php $this->template( 'components/events-bar/views/list', [ 'views' => $public_views ] ); ?>
+		<?php $this->template( 'components/events-bar/views/list' ); ?>
 	</div>
 </div>

@@ -2458,10 +2458,9 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 						'tooltip' => '<h6>' . esc_html__( 'Recurring Times', 'gravityforms' ) . '</h6>' . esc_html__( 'Select how many times the recurring payment should be made.  The default is to bill the customer until the subscription is canceled.', 'gravityforms' )
 					),
 					array(
-						'name'   => 'setupFee',
-						'label'  => esc_html__( 'Setup Fee', 'gravityforms' ),
-						'type'   => 'setup_fee',
-						'hidden' => $this->get_setting( 'trial_enabled' ),
+						'name'  => 'setupFee',
+						'label' => esc_html__( 'Setup Fee', 'gravityforms' ),
+						'type'  => 'setup_fee',
 					),
 					array(
 						'name'    => 'trial',
@@ -2590,7 +2589,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 					'label'    => esc_html__( 'Enabled', 'gravityforms' ),
 					'name'     => $field['name'] . '_enabled',
 					'value'    => '1',
-					'onchange' => "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').show(); jQuery('#gaddon-setting-row-trial').hide();} else {jQuery('#{$field['name']}_product').hide(); jQuery('#gaddon-setting-row-trial').show();}",
+					'onchange' => "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').show('slow'); jQuery('#gaddon-setting-row-trial').hide('slow');} else {jQuery('#{$field['name']}_product').hide('slow'); jQuery('#gaddon-setting-row-trial').show('slow');}",
 				),
 			)
 		);
@@ -2619,7 +2618,7 @@ abstract class GFPaymentAddOn extends GFFeedAddOn {
 
 	public function set_trial_onchange( $field ) {
 
-		return "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').show();if (jQuery('#{$field['name']}_product').val() == 'enter_amount'){jQuery('#{$field['name']}_amount').show();}} else {jQuery('#{$field['name']}_product').hide();jQuery('#{$field['name']}_amount').hide();}";
+		return "if(jQuery(this).prop('checked')){jQuery('#{$field['name']}_product').show('slow');if (jQuery('#{$field['name']}_product').val() == 'enter_amount'){jQuery('#{$field['name']}_amount').show();}} else {jQuery('#{$field['name']}_product').hide('slow');jQuery('#{$field['name']}_amount').hide();}";
 
 	}
 

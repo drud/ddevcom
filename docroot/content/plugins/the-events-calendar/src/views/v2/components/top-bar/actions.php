@@ -7,12 +7,12 @@
  *
  * See more documentation about our views templating system.
  *
- * @link {INSERT_ARTCILE_LINK_HERE}
+ * @link http://m.tri.be/1aiy
  *
- * @version 4.9.10
+ * @version 5.0.0
  *
  */
 ?>
-<div class="tribe-events-c-top-bar__actions">
+<div class="tribe-events-c-top-bar__actions tribe-common-a11y-hidden">
 	<?php $this->template( 'components/top-bar/actions/content' ); ?>
 </div>

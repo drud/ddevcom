@@ -4,7 +4,7 @@
       <div class="modal-body py-lg-5">
         <div class="row">
           <div class="col-lg-6 mx-auto">
-            <img src="/content/themes/ddevcom_theme/dist/images/modal-close.svg" alt="" class="close" data-dismiss="modal" width="20">
+            <img src="/content/themes/ddevcom_theme_2020/dist/images/modal-close.svg" alt="" class="close" data-dismiss="modal" width="20">
             <div class="align-middle">
               <p class="h3 mt-lg-5">
                 <?php the_field('newsletter_form_header', 'option'); ?>
