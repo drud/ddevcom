@@ -266,6 +266,7 @@ table.wpgdprc-table tr.wpgdprc-table__row--expired {
 }
 
 .wpgdprc-sidebar-block {
+    position: relative;
     margin-bottom: 20px;
     padding: 20px;
     background: #F3F3F3;
@@ -282,6 +283,22 @@ table.wpgdprc-table tr.wpgdprc-table__row--expired {
     padding: 0;
     background: none;
     border: 0;
+}
+
+.wpgdprc-sidebar-block-ribbon {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 40px;
+    height: 40px;
+    line-height: 40px;
+    font-size: 10px;
+    border-radius: 50%;
+    background-color: #4AA94F;
+    color: #fff;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
 }
 
 .wpgdprc-sidebar-donate {

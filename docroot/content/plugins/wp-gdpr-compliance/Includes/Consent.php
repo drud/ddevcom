@@ -85,6 +85,29 @@ class Consent {
     }
 
     /**
+     * @return string
+     */
+    public static function getBarMoreInformationText() {
+        $consentRequiredStatus = Action::checkAllConsentsRequired();
+        $output = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_more_information_text');
+        if (empty($output)) {
+            $output = ($consentRequiredStatus) ? esc_attr__('More information', WP_GDPR_C_SLUG) : esc_attr__('My settings', WP_GDPR_C_SLUG);
+        }
+        return apply_filters('wpgdprc_consents_bar_more_information_text', wp_kses($output, Helper::getAllowedHTMLTags()));
+    }
+
+    /**
+     * @return string
+     */
+    public static function getBarButtonText() {
+        $output = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_text');
+        if (empty($output)) {
+            $output = __('Accept', WP_GDPR_C_SLUG);
+        }
+        return apply_filters('wpgdprc_consents_bar_more_information_text', wp_kses($output, Helper::getAllowedHTMLTags()));
+    }
+
+    /**
      * @return array
      */
     public function getListByPlacements() {

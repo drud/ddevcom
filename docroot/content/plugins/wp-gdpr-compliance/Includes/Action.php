@@ -138,7 +138,7 @@ class Action {
     }
 
     public function addConsentBar() {
-    	$consentRequiredStatus = $this->checkAllConsentsRequired();
+    	$consentRequiredStatus = Action::checkAllConsentsRequired();
 	    $consentBarColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_color');
     	$consentBarTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_text_color');
     	$consentBarButtonColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary');
@@ -154,7 +154,6 @@ class Action {
     		$consentBarTextStyling[] = 'color: ' . $consentBarTextColor . ';';
 	    }
 
-	    $text = ($consentRequiredStatus) ? esc_attr__('More information', WP_GDPR_C_SLUG) : esc_attr__('My settings', WP_GDPR_C_SLUG);
 	    $output = '<div class="wpgdprc wpgdprc-consent-bar" style="' . implode('', $consentBarStyling) . '">';
         $output .= '<div class="wpgdprc-consent-bar__container">';
 	    $output .= '<div class="wpgdprc-consent-bar__content" ' .  (!empty($consentBarTextColor) ? 'style="' . implode('', $consentBarTextStyling) . '"' : '') . '>';
@@ -165,21 +164,22 @@ class Action {
         $output .= '</div>';
         $output .= '<div class="wpgdprc-consent-bar__column">';
 	    $output .= sprintf(
-		    '<a class="wpgdprc-consent-bar__settings" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal">%s</a>',
-		    $text
+		    '<a class="wpgdprc-consent-bar__settings" href="javascript:void(0);" data-micromodal-trigger="wpgdprc-consent-modal" aria-expanded="false" aria-haspopup="true">%s</a>',
+		    Consent::getBarMoreInformationText()
 	    );
         $output .= '</div>';
         $output .= '<div class="wpgdprc-consent-bar__column">';
 	    $buttonStyling = array();
 	    if (!empty($consentBarButtonColor)) {
 		    $buttonStyling[] = 'background: ' . $consentBarButtonColor . ';';
+            $buttonStyling[] = 'border-color: ' . $consentBarButtonColor . ';';
 	    }
 	    if (!empty($consentBarButtonTextColor)) {
 		    $buttonStyling[] = 'color: ' . $consentBarButtonTextColor . ';';
 	    }
 	    $output .= sprintf(
 		    '<button class="wpgdprc-button wpgdprc-consent-bar__button" ' .  (!empty($buttonStyling) ? 'style="' . implode('', $buttonStyling) . '"' : '') .'>%s</button>',
-		    __('Accept', WP_GDPR_C_SLUG)
+		    Consent::getBarButtonText()
 	    );
         $output .= '</div>';
         $output .= '</div>';
@@ -192,7 +192,7 @@ class Action {
 	 * Checks if all the consents are required.
 	 * @return bool
 	 */
-	public function checkAllConsentsRequired() {
+	public static function checkAllConsentsRequired() {
 		$totalRequiredConsents = Consent::getInstance()->getList(array(
 			'active' => array('value' => 1),
 			'required' => array('value' => 1)
@@ -204,14 +204,14 @@ class Action {
     }
 
     public function addConsentModal() {
-    	$consentRequiredStatus = $this->checkAllConsentsRequired();
-	    $consentModalButtonColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary');
-	    $consentModalButtonTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary');
+    	$consentRequiredStatus = Action::checkAllConsentsRequired();
+	    $consentModalButtonColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_primary');
+	    $consentModalButtonTextColor = get_option(WP_GDPR_C_PREFIX . '_settings_consents_bar_button_color_secondary');
         $consentIds = (array)Helper::getConsentIdsByCookie();
         $consents = Consent::getInstance()->getList(array(
             'active' => array('value' => 1)
         ));
-	    $text = ($consentRequiredStatus) ?  __('Accept', WP_GDPR_C_SLUG) : __('Save my settings', WP_GDPR_C_SLUG);
+	    $text = ($consentRequiredStatus) ? Consent::getBarButtonText() : __('Save my settings', WP_GDPR_C_SLUG);
         $output = '<div class="wpgdprc wpgdprc-consent-modal" id="wpgdprc-consent-modal" aria-hidden="true">';
         $output .= '<div class="wpgdprc-consent-modal__overlay" tabindex="-1" data-micromodal-close>';
         $output .= '<div class="wpgdprc-consent-modal__container" role="dialog" aria-modal="true">';
@@ -234,7 +234,7 @@ class Action {
             $output .= '<div class="wpgdprc-consent-modal__information">';
             $output .= '<div class="wpgdprc-consent-modal__description" data-target="description">';
             $output .= sprintf(
-                '<h3 class="wpgdprc-consent-modal__title">%s</h3>',
+                '<p class="wpgdprc-consent-modal__title">%s</p>',
                 Consent::getModalTitle()
             );
             $output .= apply_filters('wpgdprc_the_content', Consent::getModalExplanationText());
@@ -250,13 +250,13 @@ class Action {
                     '<div class="wpgdprc-consent-modal__description" style="display: none;" data-target="%d">',
                     $consent->getId()
                 );
-                $output .= sprintf('<h3 class="wpgdprc-consent-modal__title">%s</h3>', $consent->getTitle());
+                $output .= sprintf('<p class="wpgdprc-consent-modal__title">%s</p>', $consent->getTitle());
                 $output .= apply_filters('wpgdprc_the_content', $consent->getDescription());
                 if (!$consent->getRequired()) {
                     $output .= '<div class="wpgdprc-checkbox">';
                     $output .= '<label>';
                     $output .= sprintf(
-                        '<input type="checkbox" value="%d" tabindex="1" %s />',
+                        '<input type="checkbox" value="%d" %s />',
                         $consent->getId(),
                         checked(true, in_array($consent->getId(), $consentIds), false)
                     );
@@ -276,6 +276,7 @@ class Action {
 	        $buttonStyling = array();
 	        if (!empty($consentModalButtonColor)) {
 		        $buttonStyling[] = 'background: ' . $consentModalButtonColor . ';';
+                $buttonStyling[] = 'border-color: ' . $consentModalButtonColor . ';';
 	        }
 	        if (!empty($consentModalButtonTextColor)) {
 		        $buttonStyling[] = 'color: ' . $consentModalButtonTextColor . ';';

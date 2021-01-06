@@ -4,7 +4,7 @@
  Plugin Name: WP GDPR Compliance
  Plugin URI:  https://www.wpgdprc.com/
  Description: This plugin assists website and webshop owners to comply with European privacy regulations known as GDPR. By May 24th, 2018 your website or shop has to comply to avoid large fines.
- Version:     1.5.2
+ Version:     1.5.5
  Author:      Van Ons
  Author URI:  https://www.van-ons.nl/
  License:     GPL2
@@ -96,9 +96,11 @@ class WPGDPRC {
         Helper::doAction($action);
         load_plugin_textdomain(WP_GDPR_C_SLUG, false, basename(dirname(__FILE__)) . '/languages/');
         add_filter('plugin_action_links_' . plugin_basename(__FILE__), array($this, 'addActionLinksToPluginPage'));
-        add_action('admin_init', array(Page::getInstance(), 'registerSettings'));
-        add_action('admin_menu', array(Page::getInstance(), 'addAdminMenu'));
-        add_action('admin_notices', array(Action::getInstance(), 'showAdminNotices'));
+        if (is_admin()) {
+            add_action('admin_init', array(Page::getInstance(), 'registerSettings'));
+            add_action('admin_menu', array(Page::getInstance(), 'addAdminMenu'));
+            add_action('admin_notices', array(Action::getInstance(), 'showAdminNotices'));
+        }
         add_action('wp_enqueue_scripts', array($this, 'loadAssets'), 999);
         add_action('admin_enqueue_scripts', array($this, 'loadAdminAssets'), 999);
         add_action('core_version_check_query_args', array(Action::getInstance(), 'onlySendEssentialDataDuringUpdateCheck'));
@@ -132,7 +134,7 @@ class WPGDPRC {
         if (Consent::databaseTableExists()) {
             add_shortcode('wpgdprc_consents_settings_link', array(Shortcode::getInstance(), 'consentsSettingsLink'));
             if (Consent::isActive()) {
-                add_action('wp_footer', array(Action::getInstance(), 'addConsentBar'), 998);
+                add_action('wp_footer', array(Action::getInstance(), 'addConsentBar'), 1);
                 add_action('wp_footer', array(Action::getInstance(), 'addConsentModal'), 999);
                 add_action('wp_ajax_wpgdprc_load_consents', array(Ajax::getInstance(), 'loadConsents'));
                 add_action('wp_ajax_nopriv_wpgdprc_load_consents', array(Ajax::getInstance(), 'loadConsents'));
@@ -142,7 +144,7 @@ class WPGDPRC {
         add_filter('wpgdprc_the_content', 'convert_smilies', 20);
         add_filter('wpgdprc_the_content', 'wpautop');
         add_filter('wpgdprc_the_content', 'shortcode_unautop');
-        add_filter('wpgdprc_the_content', 'wp_make_content_images_responsive');
+        add_filter('wpgdprc_the_content', 'wp_filter_content_tags');
     }
 
     public static function checkSession() {
@@ -373,7 +375,7 @@ class WPGDPRC {
     public function loadAssets() {
         wp_register_script('wpgdprc.micromodal.js', WP_GDPR_C_URI_VENDOR . '/micromodal/micromodal.min.js', array(), filemtime(WP_GDPR_C_DIR_VENDOR . '/micromodal/micromodal.min.js'));
         wp_register_script('wpgdprc.postscribe.js', WP_GDPR_C_URI_VENDOR . '/postscribe/postscribe.min.js', array(), filemtime(WP_GDPR_C_DIR_VENDOR . '/postscribe/postscribe.min.js'));
-        wp_enqueue_style('wpgdprc.css', WP_GDPR_C_URI_CSS . '/front.css', array(), filemtime(WP_GDPR_C_DIR_CSS . '/front.css'));
+        wp_enqueue_style('wpgdprc.css', WP_GDPR_C_URI_CSS . '/front.min.css', array(), filemtime(WP_GDPR_C_DIR_CSS . '/front.min.css'));
         wp_add_inline_style('wpgdprc.css', "
             div.wpgdprc .wpgdprc-switch .wpgdprc-switch-inner:before { content: '" . __('Yes', WP_GDPR_C_SLUG) . "'; }
             div.wpgdprc .wpgdprc-switch .wpgdprc-switch-inner:after { content: '" . __('No', WP_GDPR_C_SLUG) . "'; }
@@ -403,20 +405,20 @@ class WPGDPRC {
         if (!empty($_REQUEST['wpgdprc'])) {
             $data['token'] = esc_html(urldecode($_REQUEST['wpgdprc']));
         }
-        wp_enqueue_script('wpgdprc.js', WP_GDPR_C_URI_JS . '/front.js', $dependencies, filemtime(WP_GDPR_C_DIR_JS . '/front.js'), true);
+        wp_enqueue_script('wpgdprc.js', WP_GDPR_C_URI_JS . '/front.min.js', $dependencies, filemtime(WP_GDPR_C_DIR_JS . '/front.min.js'), true);
         wp_localize_script('wpgdprc.js', 'wpgdprcData', $data);
     }
 
     public function loadAdminAssets() {
         wp_register_style('wpgdprc.admin.codemirror.css', WP_GDPR_C_URI_VENDOR . '/codemirror/codemirror.css', array(), filemtime(WP_GDPR_C_DIR_VENDOR . '/codemirror/codemirror.css'));
-        wp_enqueue_style('wpgdprc.admin.css', WP_GDPR_C_URI_CSS . '/admin.css', array(), filemtime(WP_GDPR_C_DIR_CSS . '/admin.css'));
+        wp_enqueue_style('wpgdprc.admin.css', WP_GDPR_C_URI_CSS . '/admin.min.css', array(), filemtime(WP_GDPR_C_DIR_CSS . '/admin.min.css'));
         wp_add_inline_style('wpgdprc.admin.css', "
             div.wpgdprc .wpgdprc-switch .wpgdprc-switch-inner:before { content: '" . __('Yes', WP_GDPR_C_SLUG) . "'; }
             div.wpgdprc .wpgdprc-switch .wpgdprc-switch-inner:after { content: '" . __('No', WP_GDPR_C_SLUG) . "'; }
         ");
         wp_register_script('wpgdprc.admin.codemirror.js', WP_GDPR_C_URI_VENDOR . '/codemirror/codemirror.js', array(), filemtime(WP_GDPR_C_DIR_VENDOR . '/codemirror/codemirror.js'));
         wp_register_script('wpgdprc.admin.codemirror.additional.js', WP_GDPR_C_URI_VENDOR . '/codemirror/codemirror.additional.js', array('wpgdprc.admin.codemirror.js'), filemtime(WP_GDPR_C_DIR_VENDOR . '/codemirror/codemirror.additional.js'), true);
-        wp_enqueue_script('wpgdprc.admin.js', WP_GDPR_C_URI_JS . '/admin.js', array(), filemtime(WP_GDPR_C_DIR_JS . '/admin.js'), true);
+        wp_enqueue_script('wpgdprc.admin.js', WP_GDPR_C_URI_JS . '/admin.min.js', array(), filemtime(WP_GDPR_C_DIR_JS . '/admin.min.js'), true);
         wp_localize_script('wpgdprc.admin.js', 'wpgdprcData', array(
             'ajaxURL' => admin_url('admin-ajax.php'),
             'ajaxSecurity' => wp_create_nonce('wpgdprc'),
