@@ -1,9 +1,0 @@
-{
-    "name": "wp-premium/gravityforms",
-    "type": "wordpress-plugin",
-    "autoload": {
-        "classmap": [
-            "."
-        ]
-    }
-}

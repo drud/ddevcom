@@ -97,7 +97,7 @@ function Currency(currency){
 	 */
     this.numberFormat = function(number, decimals, dec_point, thousands_sep, padded){
 
-    	var padded = typeof padded == 'undefined';
+    	padded = typeof padded == 'undefined' ? true : padded;
         number = (number+'').replace(',', '').replace(' ', '');
         var n = !isFinite(+number) ? 0 : +number,
         prec = !isFinite(+decimals) ? 0 : Math.abs(decimals),
@@ -698,52 +698,68 @@ function gformInitPriceFields(){
 //---------- PASSWORD -----------------------
 //-------------------------------------------
 function gformShowPasswordStrength(fieldId){
-    var password = jQuery("#" + fieldId).val();
-    var confirm = jQuery("#" + fieldId + "_2").val();
+    var password = document.getElementById( fieldId ).value,
+        confirm = document.getElementById( fieldId + '_2' ) ? document.getElementById( fieldId + '_2' ).value : '';
 
-    var result = gformPasswordStrength(password, confirm);
-
-    var text = window['gf_text']["password_" + result];
+    var result = gformPasswordStrength( password, confirm ),
+        text = window[ 'gf_text' ][ "password_" + result ],
+        resultClass = result === 'unknown' ? 'blank' : result;
 
     jQuery("#" + fieldId + "_strength").val(result);
-    jQuery("#" + fieldId + "_strength_indicator").removeClass("blank mismatch short good bad strong").addClass(result).html(text);
+    jQuery("#" + fieldId + "_strength_indicator").removeClass("blank mismatch short good bad strong").addClass(resultClass).html(text);
 }
 
 // Password strength meter
-function gformPasswordStrength(password1, password2) {
-    var shortPass = 1, badPass = 2, goodPass = 3, strongPass = 4, mismatch = 5, symbolSize = 0, natLog, score;
+function gformPasswordStrength( password1, password2 ) {
 
-    if(password1.length <=0)
-        return "blank";
+    if ( password1.length <= 0 ) {
+        return 'blank';
+    }
 
-    // password 1 != password 2
-    if ( (password1 != password2) && password2.length > 0)
-        return "mismatch";
+    var strength = wp.passwordStrength.meter( password1, wp.passwordStrength.userInputBlacklist(), password2 );
 
-    //password < 4
-    if ( password1.length < 4 )
-        return "short";
+    switch ( strength ) {
 
-    if ( password1.match(/[0-9]/) )
-        symbolSize +=10;
-    if ( password1.match(/[a-z]/) )
-        symbolSize +=26;
-    if ( password1.match(/[A-Z]/) )
-        symbolSize +=26;
-    if ( password1.match(/[^a-zA-Z0-9]/) )
-        symbolSize +=31;
+        case -1:
+            return 'unknown';
 
-    natLog = Math.log( Math.pow(symbolSize, password1.length) );
-    score = natLog / Math.LN2;
+        case 2:
+            return 'bad';
 
-    if (score < 40 )
-        return "bad";
+        case 3:
+            return 'good';
 
-    if (score < 56 )
-        return "good";
+        case 4:
+            return 'strong';
 
-    return "strong";
+        case 5:
+            return 'mismatch';
 
+        default:
+            return 'short';
+
+    }
+
+}
+
+function gformToggleShowPassword( fieldId ) {
+    var $password = jQuery( '#' + fieldId ),
+        $button = $password.parent().find( 'button' ),
+        $icon = $button.find( 'span' ),
+        currentType = $password.attr( 'type' );
+
+    switch ( currentType ) {
+        case 'password':
+            $password.attr( 'type', 'text' );
+            $button.attr( 'label', $button.attr( 'data-label-hide' ) );
+            $icon.removeClass( 'dashicons-hidden' ).addClass( 'dashicons-visibility' );
+            break;
+        case 'text':
+            $password.attr( 'type', 'password' );
+            $button.attr( 'label', $button.attr( 'data-label-show' ) );
+            $icon.removeClass( 'dashicons-visibility' ).addClass( 'dashicons-hidden' );
+            break;
+    }
 }
 
 //----------------------------
@@ -753,8 +769,10 @@ function gformPasswordStrength(password1, password2) {
 function gformToggleCheckboxes( toggleCheckbox ) {
 
 	var $toggle      = jQuery( toggleCheckbox ).parent(),
-	    $toggleLabel = $toggle.find( 'label' );
-	    $checkboxes  = $toggle.parent().find( 'li:not( .gchoice_select_all )' );
+	    $toggleLabel = $toggle.find( 'label' ),
+	    $checkboxes  = $toggle.parent().find( 'li:not( .gchoice_select_all )' ),
+	    formId       = gf_get_form_id_by_html_id( $toggle.parents( '.gfield' ).attr( 'id' ) ),
+	    calcObj      = rgars( window, 'gf_global/gfcalc/' + formId );
 
 	// Set checkboxes state.
 	$checkboxes.each( function() {
@@ -774,6 +792,10 @@ function gformToggleCheckboxes( toggleCheckbox ) {
 		$toggleLabel.html( $toggleLabel.data( 'label-deselect' ) );
 	} else {
 		$toggleLabel.html( $toggleLabel.data( 'label-select' ) );
+	}
+
+	if ( calcObj ) {
+		calcObj.runCalcs( formId, calcObj.formulaFields );
 	}
 
 }
@@ -1211,6 +1233,11 @@ var GFMergeTag = function() {
 			return '';
 		}
 
+		// Filtering out the email field confirmation input to prevent the values from both inputs being returned.
+		if ( field.find( '.ginput_container_email' ).hasClass( 'ginput_complex' ) ) {
+			input = input.first();
+		}
+
 		//If value has been filtered, use it. Otherwise use default logic
 		var value = gform.applyFilters( 'gform_value_merge_tag_' + formId + '_' + fieldId, false, input, modifier );
 		if ( value !== false ){
@@ -1478,7 +1505,7 @@ var GFCalc = function(formId, formulaFields){
             formulaInput.val(result).trigger('change');
         }
 
-    }
+    };
 
     this.runCalcs = function( formId, formulaFields ) {
 	    for(var i=0; i<formulaFields.length; i++) {
@@ -1631,11 +1658,6 @@ function gformFormatNumber(number, rounding, decimalSeparator, thousandSeparator
 
     var currency = new Currency();
     return currency.numberFormat(number, rounding, decimalSeparator, thousandSeparator, false)
-}
-
-function gformToNumber(text) {
-    var currency = new Currency(gf_global.gf_currency_config);
-    return currency.toNumber(text);
 }
 
 /**
@@ -1924,13 +1946,8 @@ function gformValidateFileSize( field, max_file_size ) {
         uploader.bind('Init', function(up, params) {
             if(!up.features.dragdrop)
                 $(".gform_drop_instructions").hide();
-            var fieldID = up.settings.multipart_params.field_id;
-            var maxFiles = parseInt(up.settings.gf_vars.max_files,10);
-            var initFileCount = countFiles(fieldID);
-            if(maxFiles > 0 && initFileCount >= maxFiles){
-                gfMultiFileUploader.toggleDisabled(up.settings, true);
-            }
 
+            toggleLimitReached(up.settings);
         });
 
         gfMultiFileUploader.toggleDisabled = function (settings, disabled){
@@ -1942,6 +1959,23 @@ function gformValidateFileSize( field, max_file_size ) {
         function addMessage(messagesID, message){
             $("#" + messagesID).prepend("<li>" + htmlEncode(message) + "</li>");
         }
+
+	    function removeMessage(messagesID, message) {
+		    $("#" + messagesID + " li:contains('" + message + "')").remove();
+	    }
+
+	    function toggleLimitReached(settings) {
+		    var limit = parseInt(settings.gf_vars.max_files, 10);
+		    if (limit > 0) {
+			    var totalCount = countFiles(settings.multipart_params.field_id),
+				    limitReached = totalCount >= limit;
+
+			    gfMultiFileUploader.toggleDisabled(settings, limitReached);
+			    if (!limitReached) {
+				    removeMessage(settings.gf_vars.message_id, strings.max_reached);
+			    }
+		    }
+	    }
 
         uploader.init();
 
@@ -2070,6 +2104,7 @@ function gformValidateFileSize( field, max_file_size ) {
             if(response.status == "error"){
                 addMessage(up.settings.gf_vars.message_id, file.name + " - " + response.error.message);
                 $('#' + file.id ).html('');
+                toggleLimitReached(up.settings);
                 return;
             }
 
@@ -2101,6 +2136,10 @@ function gformValidateFileSize( field, max_file_size ) {
 
 
         });
+
+	    uploader.bind('FilesRemoved', function (up, files) {
+		    toggleLimitReached(up.settings);
+	    });
 
 		function getAllFiles(){
 			var selector = '#gform_uploaded_files_' + formID,
@@ -2253,34 +2292,62 @@ function gf_raw_input_change( event, elem ) {
 
     if( event.type == 'keyup' ) {
         __gf_keyup_timeout = setTimeout( function() {
-            gf_input_change( this, formId, fieldId );
+            gf_input_change( elem, formId, fieldId );
         }, 300 );
     } else {
-        gf_input_change( this, formId, fieldId );
+        gf_input_change( elem, formId, fieldId );
     }
 
 }
 
+/**
+ * Get the input id from a form element's HTML id.
+ *
+ * @param {string} htmlId The HTML id of a form element.
+ *
+ * @returns {string} inputId The input id.
+ */
 function gf_get_input_id_by_html_id( htmlId ) {
 
     var ids = gf_get_ids_by_html_id( htmlId ),
-        id  = ids[2];
+        id  = ids[ ids.length - 1 ];
 
-    if( ids[3] ) {
-        id += '.' + ids[3];
+    if ( ids.length == 3 ) {
+        ids.shift();
+        id = ids.join( '.' );
     }
 
     return id;
 }
 
+/**
+ * Get the form id from a form element's HTML id.
+ *
+ * @param {string} htmlId The HTML id of a form element.
+ *
+ * @returns {string} formId The form id.
+ */
 function gf_get_form_id_by_html_id( htmlId ) {
-    var ids = gf_get_ids_by_html_id( htmlId ),
-        id  = ids[1];
-    return id;
+    var ids = gf_get_ids_by_html_id( htmlId );
+    return ids[0];
 }
 
+/**
+ * Get the form, field, and input id by a form elements HTML id.
+ *
+ * Note: Only multi-input fields will be return an input ID.
+ *
+ * @param {string} htmlId The HTML id of a form element.
+ *
+ * @returns {array} ids An array contain the form, field and input id.
+ */
 function gf_get_ids_by_html_id( htmlId ) {
-    var ids = htmlId ? htmlId.split( '_' ) : false;
+    var ids = htmlId ? htmlId.split( '_' ) : [];
+    for( var i = ids.length - 1; i >= 0; i-- ) {
+        if ( ! gformIsNumber( ids[ i ] ) ) {
+            ids.splice( i, 1 );
+        }
+    }
     return ids;
 }
 
@@ -2342,6 +2409,9 @@ jQuery( document ).on( 'submit.gravityforms', '.gform_wrapper form', function( e
             if ( ! token ) {
                 // Execute the invisible captcha.
                 grecaptcha.execute($reCaptcha.data('widget-id'));
+                // Once the reCaptcha is triggered, set gf_submitting to true, so the form could be submitted if the
+                // reCaptcha modal is closed (by clicking on the area out of the modal or the reCaptcha response expires)
+                window['gf_submitting_' + formID] = false;
                 event.preventDefault();
             }
         }
