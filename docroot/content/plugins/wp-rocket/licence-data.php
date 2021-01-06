@@ -1,5 +1,5 @@
 <?php
-defined('ABSPATH') || die('Cheatin&#8217; uh?');
+defined( 'ABSPATH' ) || die( 'Cheatin&#8217; uh?' );
 
 /**
  * You can edit this file, but it will be overwritten in the next update,
@@ -8,11 +8,11 @@ defined('ABSPATH') || die('Cheatin&#8217; uh?');
  */
 
 // Your license KEY.
-if (! defined('WP_ROCKET_KEY')) {
-    define('WP_ROCKET_KEY', '2c2d9819');
+if ( ! defined( 'WP_ROCKET_KEY' ) ) {
+	define( 'WP_ROCKET_KEY', '' );
 }
 
 // Your email, the one you used for the purchase.
-if (! defined('WP_ROCKET_EMAIL')) {
-    define('WP_ROCKET_EMAIL', 'accounts@newmediadenver.com');
+if ( ! defined( 'WP_ROCKET_EMAIL' ) ) {
+	define( 'WP_ROCKET_EMAIL', '' );
 }
