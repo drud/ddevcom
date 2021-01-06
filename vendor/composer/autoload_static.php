@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
+class ComposerStaticInitdaaf31b9d77e04a64d93fbcf10394706
 {
     public static $files = array (
         '320cde22f66dd4f5d3fd621d3e88b98f' => __DIR__ . '/..' . '/symfony/polyfill-ctype/bootstrap.php',
@@ -96,6 +96,7 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
     );
 
     public static $classMap = array (
+        'Composer\\InstalledVersions' => __DIR__ . '/..' . '/composer/InstalledVersions.php',
         'Imagify_Partner' => __DIR__ . '/../..' . '/docroot/content/plugins/wp-rocket/inc/vendors/classes/class-imagify-partner.php',
         'Minify_CSS_UriRewriter' => __DIR__ . '/../..' . '/docroot/content/plugins/wp-rocket/inc/vendors/classes/class-minify-css-urirewriter.php',
         'Minify_HTML' => __DIR__ . '/../..' . '/docroot/content/plugins/wp-rocket/inc/vendors/classes/class-minify-html.php',
@@ -176,10 +177,10 @@ class ComposerStaticInit176c0bf2043339a8b6639024bed95a6d
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixDirsPsr4;
-            $loader->prefixesPsr0 = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit176c0bf2043339a8b6639024bed95a6d::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitdaaf31b9d77e04a64d93fbcf10394706::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitdaaf31b9d77e04a64d93fbcf10394706::$prefixDirsPsr4;
+            $loader->prefixesPsr0 = ComposerStaticInitdaaf31b9d77e04a64d93fbcf10394706::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInitdaaf31b9d77e04a64d93fbcf10394706::$classMap;
 
         }, null, ClassLoader::class);
     }
