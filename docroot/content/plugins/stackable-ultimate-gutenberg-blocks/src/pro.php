@@ -35,35 +35,25 @@ if ( ! function_exists( 'stackable_show_pro_notices_option' ) ) {
 	}
 }
 
-if ( ! function_exists( 'stackable_ajax_update_show_pro_notice_notice' ) ) {
+if ( ! function_exists( 'stackable_register_show_pro_notice_option' ) ) {
 
 	/**
 	 * Ajax handler for saving the setting for the Go Premium show/hide notices.
 	 */
-	function stackable_ajax_update_show_pro_notice_notice() {
-		$nonce = isset( $_POST['nonce'] ) ? sanitize_key( $_POST['nonce'] ) : '';
-
-		if ( ! wp_verify_nonce( $nonce, 'stackable_show_pro_notices' ) ) {
-			wp_send_json_error( __( 'Security error, please refresh the page and try again.', STACKABLE_I18N ) );
-		}
-
-		$checked_show_notices = isset( $_POST['checked'] ) ? $_POST['checked'] === 'true' : false;
-		update_option( 'stackable_show_pro_notices', $checked_show_notices ? '1' : '0' );
-		wp_send_json_success();
+	function stackable_register_show_pro_notice_option() {
+		register_setting(
+			'stackable_show_pro_notices',
+			'stackable_show_pro_notices',
+			array(
+				'type' => 'string',
+				'description' => __( 'Hide "Go Premium" notices', 'block-options' ),
+				'sanitize_callback' => 'sanitize_text_field',
+				'show_in_rest' => true,
+				'default' => '',
+			)
+		);
 	}
-	add_action( 'wp_ajax_stackable_update_show_pro_notice_option', 'stackable_ajax_update_show_pro_notice_notice' );
-}
-
-if ( ! function_exists( 'stackable_show_pro_notices_option_nonce' ) ) {
-
-	/**
-	 * Create a nonce for show/hide Go Premium notice.
-	 *
-	 * @return String
-	 */
-	function stackable_show_pro_notices_option_nonce() {
-		return wp_create_nonce( 'stackable_show_pro_notices' );
-	}
+	add_action( 'init', 'stackable_register_show_pro_notice_option' );
 }
 
 if ( ! function_exists( 'stackable_should_show_pro_notices' ) ) {
@@ -140,7 +130,7 @@ if ( ! class_exists( 'Stackable_Go_Premium_Notification' ) ) {
 		 */
 		public function show_notification() {
 			stackable_add_welcome_notification( 'premium', sprintf( __( 'We hope you\'re enjoying Stackable. If you want more, you may want to check out %sStackable Premium%s. Ready to upgrade and do more? %sGo premium now%s', STACKABLE_I18N ),
-				'<a href="https://rebrand.ly/plugin-learn-premium" target="_blank">', '</a>',
+				'<a href="https://wpstackable.com/premium/?utm_source=wp-settings-notification&utm_campaign=gopremium&utm_medium=wp-dashboard" target="_blank">', '</a>',
 				'<a href="' . esc_url( sugb_fs()->get_upgrade_url() ) . '">', '</a>'
 			) );
 		}

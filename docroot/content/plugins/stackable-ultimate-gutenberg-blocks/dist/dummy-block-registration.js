@@ -25,6 +25,7 @@ registerBlockType( 'ugb/accordion', {
 
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	// Stackable modules.
@@ -57,6 +58,7 @@ registerBlockType( 'ugb/blockquote', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	attributes: schema,
 
@@ -70,6 +72,7 @@ registerBlockType( 'ugb/blockquote', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			columnGap: false,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -94,6 +97,7 @@ registerBlockType( 'ugb/blog-posts', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	attributes: schema,
 
@@ -108,6 +112,7 @@ registerBlockType( 'ugb/blog-posts', {
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
 			verticalContentAlign: false,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -132,6 +137,7 @@ registerBlockType( 'ugb/button', {
 	attributes: schema,
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -198,6 +204,7 @@ registerBlockType( 'ugb/cta', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -210,6 +217,7 @@ registerBlockType( 'ugb/cta', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			columnGap: false,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -234,6 +242,7 @@ registerBlockType( 'ugb/card', {
 	attributes: schema,
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -245,6 +254,7 @@ registerBlockType( 'ugb/card', {
 		'advanced-general': true,
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
+			paddings: false,
 			verticalColumnAlign: true,
 		},
 		'advanced-responsive': true,
@@ -260,7 +270,6 @@ registerBlockType( 'ugb/card', {
 }
 
 // For column spacings, use advanced paddings & vertical align on the content area only.
-addFilter( 'stackable.card.advanced-column-spacing.paddings.selector', 'stackable/card', () => '.ugb-card__content' )
 addFilter( 'stackable.card.advanced-column-spacing.vertical-align.selector', 'stackable/card', () => '.ugb-card__content' ) )
 registerBlockType( 'ugb/columns', {
 	title: __( 'Advanced Columns & Grid', i18n ),
@@ -277,6 +286,7 @@ registerBlockType( 'ugb/columns', {
 	supports: {
 		html: false,
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	edit,
@@ -355,6 +365,7 @@ registerBlockType( 'ugb/container', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			columnGap: false,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -364,50 +375,6 @@ registerBlockType( 'ugb/container', {
 		'custom-css': {
 			default: applyFilters( 'stackable.container.custom-css.default', '' ),
 		},
-	},
-
-	/**
-	 * For grouping & ungrouping blocks into Container blocks.
-	 * Based on the Group block.
-	 *
-	 * @see https://github.com/WordPress/gutenberg/blob/a78fddd06e016ef43eb420b2c82b2cdebbdb0c3c/packages/block-library/src/group/index.js
-	 */
-	transforms: {
-		from: [
-			{
-				type: 'block',
-				isMultiBlock: true,
-				blocks: [ '*' ],
-				__experimentalConvert( blocks ) {
-					// Avoid transforming a single `ugb/container` Block
-					if ( blocks.length === 1 && blocks[ 0 ].name === 'ugb/container' ) {
-						return
-					}
-
-					const alignments = [ 'wide', 'full' ]
-
-					// Determine the widest setting of all the blocks to be grouped
-					const widestAlignment = blocks.reduce( ( result, block ) => {
-						const { align } = block.attributes
-						return alignments.indexOf( align ) > alignments.indexOf( result ) ? align : result
-					}, undefined )
-
-					// Clone the Blocks to be Grouped
-					// Failing to create new block references causes the original blocks
-					// to be replaced in the switchToBlockType call thereby meaning they
-					// are removed both from their original location and within the
-					// new group block.
-					const groupInnerBlocks = blocks.map( block => {
-						return createBlock( block.name, block.attributes, block.innerBlocks )
-					} )
-
-					return createBlock( 'ugb/container', {
-						align: widestAlignment,
-					}, groupInnerBlocks )
-				},
-			},
-
-		],
 	},
 }
 
@@ -428,6 +395,7 @@ registerBlockType( 'ugb/count-up', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -440,6 +408,7 @@ registerBlockType( 'ugb/count-up', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -473,20 +442,44 @@ registerBlockType( 'ugb/design-library', {
 	save,
 }
 
-domReady( () => {
+const mountDesignLibrary = () => {
+	// Content only editing mode shouldn't have a button.
+	if ( isContentOnlyMode ) {
+		return
+	}
+
 	if ( disabledBlocks.includes( name ) ) {
 		return
 	}
 
-	const toolbar = document.querySelector( '.edit-post-header-toolbar' )
-	if ( ! toolbar ) {
-		return
-	}
-	const buttonDiv = document.createElement( 'div' )
-	toolbar.appendChild( buttonDiv )
+	let timeout = null
+	const unsubscribe = subscribe( () => {
+		const toolbar = document.querySelector( '.edit-post-header-toolbar' )
+		if ( ! toolbar ) {
+			return
+		}
 
-	render( <InsertLibraryButton />, buttonDiv )
-} ) )
+		const buttonDiv = document.createElement( 'div' )
+		buttonDiv.classList.add( 'ugb-insert-library-button__wrapper' )
+
+		if ( ! toolbar.querySelector( '.ugb-insert-library-button__wrapper' ) ) {
+			render( <InsertLibraryButton />, buttonDiv )
+			toolbar.appendChild( buttonDiv )
+		}
+
+		if ( timeout ) {
+			clearTimeout( timeout )
+		}
+
+		timeout = setTimeout( () => {
+			if ( document.querySelector( '.ugb-insert-library-button__wrapper' ) ) {
+				unsubscribe()
+			}
+		}, 0 )
+	} )
+}
+
+domReady( mountDesignLibrary ) )
 registerBlockType( 'ugb/divider', {
 	title: __( 'Divider', i18n ),
 	description: __( 'Add a pause between your content.', i18n ),
@@ -500,6 +493,7 @@ registerBlockType( 'ugb/divider', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	edit,
@@ -549,6 +543,7 @@ registerBlockType( 'ugb/expand', {
 	attributes: schema,
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -588,6 +583,7 @@ registerBlockType( 'ugb/feature-grid', {
 	supports: {
 		align: [ 'wide' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -600,6 +596,7 @@ registerBlockType( 'ugb/feature-grid', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -691,6 +688,7 @@ registerBlockType( 'ugb/feature', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -728,6 +726,7 @@ registerBlockType( 'ugb/header', {
 	],
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	attributes: schema,
 
@@ -739,7 +738,10 @@ registerBlockType( 'ugb/header', {
 	modules: {
 		'advanced-general': true,
 		'advanced-block-spacing': true,
-		'advanced-column-spacing': { columnGap: false },
+		'advanced-column-spacing': {
+			columnGap: false,
+			paddings: false,
+		},
 		'advanced-responsive': true,
 		'block-background': true,
 		'block-separators': true,
@@ -748,6 +750,38 @@ registerBlockType( 'ugb/header', {
 		'block-designs': true,
 		'custom-css': {
 			default: applyFilters( 'stackable.header.custom-css.default', '' ),
+		},
+	},
+} )
+registerBlockType( 'ugb/heading', {
+	title: __( 'Advanced Heading', i18n ),
+	description: __( 'Introduce new sections of your content in style.', i18n ),
+	icon: HeadingIcon,
+	category: 'common',
+	keywords: [
+		__( 'Heading', i18n ),
+		__( 'Title', i18n ),
+		__( 'Stackable', i18n ),
+	],
+	attributes: schema,
+	supports: {
+		align: [ 'center', 'wide', 'full' ],
+		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
+	},
+
+	edit,
+	save,
+	deprecated,
+
+	// Stackable modules.
+	modules: {
+		'advanced-general': true,
+		'advanced-block-spacing': true,
+		'advanced-responsive': true,
+		'content-align': true,
+		'custom-css': {
+			default: applyFilters( 'stackable.heading.custom-css.default', '' ),
 		},
 	},
 } )
@@ -763,6 +797,7 @@ registerBlockType( 'ugb/icon-list', {
 	attributes: schema,
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -784,6 +819,60 @@ registerBlockType( 'ugb/icon-list', {
 			default: applyFilters( 'stackable.icon-list.custom-css.default', '' ),
 		},
 	},
+}
+
+// If the user changes the icon in the inspector, change all icons
+addFilter( 'stackable.icon-list.setAttributes', 'stackable/icon-list/icon', ( attributes, blockProps ) => {
+	if ( typeof attributes.icon === 'undefined' ) {
+		return attributes
+	}
+
+	range( 1, 21 ).forEach( index => {
+		if ( blockProps.attributes[ `icon${ index }` ] ) {
+			attributes[ `icon${ index }` ] = undefined
+		}
+	} )
+
+	return attributes
+} ) )
+registerBlockType( 'ugb/icon', {
+	title: __( 'Icon', i18n ),
+	description: __( 'Pick an icon or upload your own SVG icon to decorate your content.', i18n ),
+	icon: IconIcon,
+	category: 'common',
+	keywords: [
+		__( 'Icon', i18n ),
+		__( 'SVG', i18n ),
+		__( 'Stackable', i18n ),
+	],
+	attributes: schema,
+	supports: {
+		align: [ 'center', 'wide', 'full' ],
+		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
+	},
+
+	edit,
+	save,
+	deprecated,
+
+	// Stackable modules.
+	modules: {
+		'advanced-general': true,
+		'advanced-block-spacing': true,
+		'advanced-column-spacing': {
+			paddings: false,
+		},
+		'advanced-responsive': true,
+		'block-background': true,
+		'block-separators': true,
+		'block-title': true,
+		'content-align': true,
+		'block-designs': true,
+		'custom-css': {
+			default: applyFilters( 'stackable.icon.custom-css.default', '' ),
+		},
+	},
 } )
 registerBlockType( 'ugb/image-box', {
 	title: __( 'Image Box', i18n ),
@@ -797,6 +886,7 @@ registerBlockType( 'ugb/image-box', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	attributes: schema,
 
@@ -808,7 +898,9 @@ registerBlockType( 'ugb/image-box', {
 	modules: {
 		'advanced-general': true,
 		'advanced-block-spacing': true,
-		'advanced-column-spacing': true,
+		'advanced-column-spacing': {
+			paddings: false,
+		},
 		'advanced-responsive': true,
 		'block-background': true,
 		'block-separators': true,
@@ -848,6 +940,7 @@ registerBlockType( 'ugb/notification', {
 	attributes: schema,
 	supports: {
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -858,7 +951,10 @@ registerBlockType( 'ugb/notification', {
 	modules: {
 		'advanced-general': true,
 		'advanced-block-spacing': true,
-		'advanced-column-spacing': { columnGap: false },
+		'advanced-column-spacing': {
+			columnGap: false,
+			paddings: false,
+		},
 		'advanced-responsive': true,
 		'block-background': true,
 		// 'block-separators': true,
@@ -930,6 +1026,7 @@ registerBlockType( 'ugb/number-box', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	deprecated,
 	save,
@@ -941,6 +1038,7 @@ registerBlockType( 'ugb/number-box', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -966,6 +1064,7 @@ registerBlockType( 'ugb/pricing-box', {
 	supports: {
 		align: [ 'wide' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -978,6 +1077,7 @@ registerBlockType( 'ugb/pricing-box', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -1063,6 +1163,7 @@ registerBlockType( 'ugb/separator', {
 	supports: {
 		align: [ 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 	deprecated,
 	save,
@@ -1101,6 +1202,7 @@ registerBlockType( 'ugb/spacer', {
 	supports: {
 		align: [ 'center', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -1164,6 +1266,7 @@ registerBlockType( 'ugb/team-member', {
 	supports: {
 		align: [ 'wide' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -1174,7 +1277,9 @@ registerBlockType( 'ugb/team-member', {
 	modules: {
 		'advanced-general': true,
 		'advanced-block-spacing': true,
-		'advanced-column-spacing': true,
+		'advanced-column-spacing': {
+			paddings: false,
+		},
 		'advanced-responsive': true,
 		'block-background': true,
 		'block-separators': true,
@@ -1258,6 +1363,7 @@ registerBlockType( 'ugb/testimonial', {
 	supports: {
 		align: [ 'wide' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,
@@ -1270,6 +1376,7 @@ registerBlockType( 'ugb/testimonial', {
 		'advanced-block-spacing': true,
 		'advanced-column-spacing': {
 			verticalColumnAlign: true,
+			paddings: false,
 		},
 		'advanced-responsive': true,
 		'block-background': true,
@@ -1341,6 +1448,61 @@ addFilter( 'stackable.testimonial.setAttributes', 'stackable/testimonial/imageSh
 
 	return attributes
 } ) )
+registerBlockType( 'ugb/text', {
+	title: __( 'Advanced Text', i18n ),
+	description: __( 'Start with the building block of all page layouts.', i18n ),
+	icon: TextIcon,
+	category: 'common',
+	keywords: [
+		__( 'Text', i18n ),
+		__( 'Pargraph', i18n ),
+		__( 'Stackable', i18n ),
+	],
+	attributes: schema,
+	supports: {
+		align: [ 'center', 'wide', 'full' ],
+		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
+	},
+
+	edit,
+	save,
+	deprecated,
+
+	// Stackable modules.
+	modules: {
+		'advanced-general': true,
+		'advanced-block-spacing': true,
+		'advanced-column-spacing': {
+			paddings: false,
+		},
+		'advanced-responsive': true,
+		'block-background': true,
+		'block-separators': true,
+		'content-align': true,
+		'block-designs': true,
+		'custom-css': {
+			default: applyFilters( 'stackable.text.custom-css.default', '' ),
+		},
+	},
+}
+
+// If the design was changed, force turn on the title.
+addFilter( 'stackable.text.setAttributes', 'stackable/text/design', ( attributes, blockProps ) => {
+	if ( typeof attributes.design === 'undefined' ) {
+		return attributes
+	}
+
+	const blockAttributes = blockProps.attributes
+
+	if ( attributes.design === 'side-title-1' || attributes.design === 'side-title-2' ) {
+		if ( blockAttributes.design !== 'side-title-1' && blockAttributes.design !== 'side-title-2' ) {
+			attributes.showTitle = true
+		}
+	}
+
+	return attributes
+} ) )
 registerBlockType( 'ugb/video-popup', {
 	title: __( 'Video Popup', i18n ),
 	description: __( 'Display a large thumbnail that your users can click to play a video full-screen. Great for introductory or tutorial videos.', i18n ),
@@ -1355,6 +1517,7 @@ registerBlockType( 'ugb/video-popup', {
 	supports: {
 		align: [ 'center', 'wide', 'full' ],
 		inserter: ! disabledBlocks.includes( name ), // Hide if disabled.
+		anchor: true,
 	},
 
 	deprecated,

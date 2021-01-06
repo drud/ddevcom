@@ -7,7 +7,7 @@
  * Author: Gambit Technologies, Inc
  * Author URI: http://gambit.ph
  * Text Domain: stackable-ultimate-gutenberg-blocks
- * Version: 2.4.0
+ * Version: 2.13.2
  *
  * @package Stackable
  */
@@ -23,7 +23,7 @@ if ( function_exists( 'sugb_fs' ) ) {
 }
 
 defined( 'STACKABLE_SHOW_PRO_NOTICES' ) || define( 'STACKABLE_SHOW_PRO_NOTICES', true );
-defined( 'STACKABLE_VERSION' ) || define( 'STACKABLE_VERSION', '2.4.0' );
+defined( 'STACKABLE_VERSION' ) || define( 'STACKABLE_VERSION', '2.13.2' );
 defined( 'STACKABLE_FILE' ) || define( 'STACKABLE_FILE', __FILE__ );
 defined( 'STACKABLE_I18N' ) || define( 'STACKABLE_I18N', 'stackable-ultimate-gutenberg-blocks' );
 // Plugin slug.
@@ -105,6 +105,52 @@ if ( !function_exists( 'stackable_version_upgrade_check' ) ) {
     add_action( 'admin_menu', 'stackable_version_upgrade_check', 1 );
 }
 
+/**
+ * If Gutenberg plugin is activated, add a notice to disable it since it may cause issues.
+ *
+ * @since 2.11.4
+ */
+
+if ( !function_exists( 'stackable_notice_gutenberg_plugin_activated' ) ) {
+    function stackable_notice_gutenberg_plugin_activated()
+    {
+        global  $wp_version ;
+        
+        if ( version_compare( $wp_version, '5.0', '>=' ) && is_plugin_active( 'gutenberg/gutenberg.php' ) ) {
+            $ignore = get_option( 'stackable_notice_gutenberg_plugin_ignore' );
+            if ( !$ignore ) {
+                printf( '<div class="notice notice-error is-dismissible stackable_notice_gutenberg_plugin"><p>%s</p>%s</div>', sprintf(
+                    __( '%sStackable Notice%s: Please deactivate the %sGutenberg plugin%s! As of WordPress 5.0, this plugin is no longer required for the Block Editor to work.', STACKABLE_I18N ),
+                    '<strong>',
+                    '</strong>',
+                    '<strong>',
+                    '</strong>'
+                ), '<script>( function() {
+						document.body.addEventListener( "click", function( event ) {
+							if( event.target.matches( ".notice.stackable_notice_gutenberg_plugin button.notice-dismiss" ) ) {
+								wp.ajax.post( "stackable_notice_gutenberg_plugin_ignore" );
+							}
+						} );
+					} )();
+					</script>' );
+            }
+        }
+    
+    }
+    
+    add_action( 'admin_notices', 'stackable_notice_gutenberg_plugin_activated' );
+}
+
+
+if ( !function_exists( 'stackable_notice_gutenberg_plugin_ignore' ) ) {
+    function stackable_notice_gutenberg_plugin_ignore()
+    {
+        update_option( 'stackable_notice_gutenberg_plugin_ignore', true );
+    }
+    
+    add_action( 'wp_ajax_stackable_notice_gutenberg_plugin_ignore', 'stackable_notice_gutenberg_plugin_ignore' );
+}
+
 /********************************************************************************************
  * END Activation & PHP version checks.
  ********************************************************************************************/
@@ -120,16 +166,22 @@ require_once plugin_dir_path( __FILE__ ) . 'src/block/disabled-blocks.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/init-deprecated.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/init.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/fonts.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/icons.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/block/blog-posts/index.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/pro.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/help/help-tooltip.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/help/welcome-tutorial-video.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/jetpack.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/multisite.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/design-library/init.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/global-settings.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/plugins/premium-notice/index.php';
 /**
  * Welcome screen.
  */
 require_once plugin_dir_path( __FILE__ ) . 'src/welcome/index.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/welcome/news.php';
+require_once plugin_dir_path( __FILE__ ) . 'src/welcome/freemius.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/welcome/updates.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/welcome/notification.php';
 require_once plugin_dir_path( __FILE__ ) . 'src/welcome/notification-rate.php';
