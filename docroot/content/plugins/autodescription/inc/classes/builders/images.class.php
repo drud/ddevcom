@@ -23,7 +23,7 @@ namespace The_SEO_Framework\Builders;
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
+\defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * Generates images.
@@ -31,7 +31,6 @@ defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
  * @since 4.0.0
  */
 final class Images {
-	use \The_SEO_Framework\Traits\Enclose_Core_Final;
 
 	/**
 	 * The constructor. Or rather, the lack thereof.
@@ -139,8 +138,8 @@ final class Images {
 
 		$matches = [];
 
-		// strlen( '<img src=a>' ) === 11; yes, that's a valid self-closing tag with a relative source.
-		if ( strlen( $content ) > 10 && false !== stripos( $content, '<img' ) ) {
+		// \strlen( '<img src=a>' ) === 11; yes, that's a valid self-closing tag with a relative source.
+		if ( \strlen( $content ) > 10 && false !== stripos( $content, '<img' ) ) {
 			$content = $tsf->strip_tags_cs(
 				$content,
 				[
@@ -150,6 +149,7 @@ final class Images {
 					'strip' => false,
 				]
 			);
+			// TODO can we somehow limit this search to 5?
 			preg_match_all(
 				'/<img[^>]+src=(\"|\')?([^\"\'>\s]+)\1?.*?>/mi',
 				$content,

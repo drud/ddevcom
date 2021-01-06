@@ -6,7 +6,7 @@
 
 namespace The_SEO_Framework;
 
-defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
+\defined( 'THE_SEO_FRAMEWORK_PRESENT' ) or die;
 
 /**
  * The SEO Framework plugin
@@ -104,7 +104,9 @@ class Render extends Admin_Init {
 	 * @since 2.2.2
 	 * @since 2.7.0 $get_id parameter has been added.
 	 * @since 4.0.0 Now uses the new image generator.
-	 * @staticvar string $cache
+	 * @since 4.1.2 Now forwards the `multi_og_image` option to the generator. Although
+	 *              it'll always use just one image, we read this option so we'll only
+	 *              use a single cache instance internally with the generator.
 	 *
 	 * @return string The image URL.
 	 */
@@ -112,7 +114,7 @@ class Render extends Admin_Init {
 
 		$url = '';
 
-		foreach ( $this->get_image_details_from_cache() as $image ) {
+		foreach ( $this->get_image_details_from_cache( ! $this->get_option( 'multi_og_image' ) ) as $image ) {
 			$url = $image['url'];
 			if ( $url ) break;
 		}
@@ -122,10 +124,10 @@ class Render extends Admin_Init {
 
 	/**
 	 * Returns the current Twitter card type.
+	 * Memoizes the return value.
 	 *
 	 * @since 2.8.2
 	 * @since 3.1.0 Filter has been moved to generate_twitter_card_type()
-	 * @staticvar string $cache
 	 *
 	 * @return string The cached Twitter card.
 	 */
@@ -292,8 +294,10 @@ class Render extends Admin_Init {
 	 * Renders Open Graph image meta tag.
 	 *
 	 * @since 1.3.0
-	 * @since 2.6.0 : Added WooCommerce gallery images.
-	 * @since 2.7.0 : Added image dimensions if found.
+	 * @since 2.6.0 Added WooCommerce gallery images.
+	 * @since 2.7.0 Added image dimensions if found.
+	 * @since 4.1.2 Now forwards the `multi_og_image` option to the generator to
+	 *              reduce processing power.
 	 *
 	 * @return string The Open Graph image meta tag.
 	 */
@@ -305,7 +309,7 @@ class Render extends Admin_Init {
 
 		$multi = (bool) $this->get_option( 'multi_og_image' );
 
-		foreach ( $this->get_image_details_from_cache() as $image ) {
+		foreach ( $this->get_image_details_from_cache( ! $multi ) as $image ) {
 			$output .= '<meta property="og:image" content="' . \esc_attr( $image['url'] ) . '" />' . "\r\n";
 
 			if ( $image['height'] && $image['width'] ) {
@@ -367,24 +371,24 @@ class Render extends Admin_Init {
 	 */
 	public function og_url() {
 
-		if ( $this->use_og_tags() ) {
+		if ( ! $this->use_og_tags() ) return '';
 
-			/**
-			 * @since 2.9.3
-			 * @param string $url The canonical/Open Graph URL. Must be escaped.
-			 * @param int    $id  The current page or term ID.
-			 */
-			$url = (string) \apply_filters_ref_array(
-				'the_seo_framework_ogurl_output',
-				[
-					$this->get_current_canonical_url(),
-					$this->get_the_real_ID(),
-				]
-			);
+		/**
+		 * @since 2.9.3
+		 * @param string $url The canonical/Open Graph URL. Must be escaped.
+		 * @param int    $id  The current page or term ID.
+		 */
+		$url = (string) \apply_filters_ref_array(
+			'the_seo_framework_ogurl_output',
+			[
+				$this->get_current_canonical_url(),
+				$this->get_the_real_ID(),
+			]
+		);
 
-			if ( $url )
-				return '<meta property="og:url" content="' . $url . '" />' . "\r\n";
-		}
+		// TODO add esc_attr()? The URL is already safe for attribute usage... I'm not sure if that'll potentially break the URL.
+		if ( $url )
+			return '<meta property="og:url" content="' . $url . '" />' . "\r\n";
 
 		return '';
 	}
@@ -398,8 +402,7 @@ class Render extends Admin_Init {
 	 */
 	public function twitter_card() {
 
-		if ( ! $this->use_twitter_tags() )
-			return '';
+		if ( ! $this->use_twitter_tags() ) return '';
 
 		$card = $this->get_current_twitter_card_type();
 
@@ -418,8 +421,7 @@ class Render extends Admin_Init {
 	 */
 	public function twitter_site() {
 
-		if ( ! $this->use_twitter_tags() )
-			return '';
+		if ( ! $this->use_twitter_tags() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -453,8 +455,7 @@ class Render extends Admin_Init {
 	 */
 	public function twitter_creator() {
 
-		if ( ! $this->use_twitter_tags() )
-			return '';
+		if ( ! $this->use_twitter_tags() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -487,8 +488,7 @@ class Render extends Admin_Init {
 	 */
 	public function twitter_title() {
 
-		if ( ! $this->use_twitter_tags() )
-			return '';
+		if ( ! $this->use_twitter_tags() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -521,8 +521,7 @@ class Render extends Admin_Init {
 	 */
 	public function twitter_description() {
 
-		if ( ! $this->use_twitter_tags() )
-			return '';
+		if ( ! $this->use_twitter_tags() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -548,6 +547,9 @@ class Render extends Admin_Init {
 	 * Renders Twitter Image meta tag.
 	 *
 	 * @since 2.2.2
+	 * @since 4.1.2 Now forwards the `multi_og_image` option to the generator. Although
+	 *              it'll always use just one image, we read this option so we'll only
+	 *              use a single cache instance internally with the generator.
 	 *
 	 * @return string The Twitter Image meta tag.
 	 */
@@ -557,7 +559,7 @@ class Render extends Admin_Init {
 
 		$output = '';
 
-		foreach ( $this->get_image_details_from_cache() as $image ) {
+		foreach ( $this->get_image_details_from_cache( ! $this->get_option( 'multi_og_image' ) ) as $image ) {
 			$output .= '<meta name="twitter:image" content="' . \esc_attr( $image['url'] ) . '" />' . "\r\n";
 
 			if ( $image['height'] && $image['width'] ) {
@@ -585,9 +587,9 @@ class Render extends Admin_Init {
 	 */
 	public function theme_color() {
 
-		$theme_color = $this->get_option( 'theme_color' );
-
 		$output = '';
+
+		$theme_color = $this->get_option( 'theme_color' );
 
 		if ( $theme_color )
 			$output = '<meta name="theme-color" content="' . \esc_attr( $theme_color ) . '" />' . "\r\n";
@@ -606,11 +608,8 @@ class Render extends Admin_Init {
 	 */
 	public function facebook_author() {
 
-		if ( ! $this->use_facebook_tags() )
-			return '';
-
-		if ( 'article' !== $this->get_og_type() )
-			return '';
+		if ( ! $this->use_facebook_tags() ) return '';
+		if ( 'article' !== $this->get_og_type() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -642,11 +641,8 @@ class Render extends Admin_Init {
 	 */
 	public function facebook_publisher() {
 
-		if ( ! $this->use_facebook_tags() )
-			return '';
-
-		if ( 'article' !== $this->get_og_type() )
-			return '';
+		if ( ! $this->use_facebook_tags() ) return '';
+		if ( 'article' !== $this->get_og_type() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -677,8 +673,7 @@ class Render extends Admin_Init {
 	 */
 	public function facebook_app_id() {
 
-		if ( ! $this->use_facebook_tags() )
-			return '';
+		if ( ! $this->use_facebook_tags() ) return '';
 
 		/**
 		 * @since 2.3.0
@@ -713,8 +708,7 @@ class Render extends Admin_Init {
 	 */
 	public function article_published_time() {
 
-		if ( ! $this->output_published_time() )
-			return '';
+		if ( ! $this->output_published_time() ) return '';
 
 		$id   = $this->get_the_real_ID();
 		$post = \get_post( $id );
@@ -758,8 +752,7 @@ class Render extends Admin_Init {
 	 */
 	public function article_modified_time() {
 
-		if ( ! $this->output_modified_time() )
-			return '';
+		if ( ! $this->output_modified_time() ) return '';
 
 		$id = $this->get_the_real_ID();
 
@@ -823,7 +816,7 @@ class Render extends Admin_Init {
 		);
 
 		// If the page should not be indexed, consider removing the canonical URL.
-		if ( in_array( 'noindex', $this->get_robots_meta(), true ) ) {
+		if ( \in_array( 'noindex', $this->get_robots_meta(), true ) ) {
 			// If the URL is filtered, don't empty it.
 			// If a custom canonical URL is set, don't empty it.
 			if ( $url === $_url && ! $this->has_custom_canonical_url() ) {
@@ -831,6 +824,7 @@ class Render extends Admin_Init {
 			}
 		}
 
+		// TODO add esc_attr()? The URL is already safe for attribute usage... I'm not sure if that'll potentially break the URL.
 		if ( $url )
 			return '<link rel="canonical" href="' . $url . '" />' . PHP_EOL;
 
@@ -847,6 +841,7 @@ class Render extends Admin_Init {
 	 * @return string The LD+json Schema.org scripts.
 	 */
 	public function ld_json() {
+
 		/**
 		 * @since 2.6.0
 		 * @param string $json The JSON output. Must be escaped.
@@ -1014,9 +1009,8 @@ class Render extends Admin_Init {
 	 */
 	public function robots() {
 
-		//* Don't do anything if the blog isn't set to public.
-		if ( false === $this->is_blog_public() )
-			return '';
+		// Don't do anything if the blog isn't set to public.
+		if ( false === $this->is_blog_public() ) return '';
 
 		$meta = $this->get_robots_meta();
 
@@ -1028,9 +1022,9 @@ class Render extends Admin_Init {
 
 	/**
 	 * Returns the robots meta array.
+	 * Memoizes the return value.
 	 *
 	 * @since 3.2.4
-	 * @staticvar array|null $cache
 	 *
 	 * @return array
 	 */
@@ -1086,13 +1080,15 @@ class Render extends Admin_Init {
 	 * Renders Prev/Next Paged URL meta tags.
 	 *
 	 * @since 2.2.2
-	 * @uses $this->get_paged_url()
+	 * @uses $this->get_paged_urls()
 	 *
 	 * @return string The Prev/Next Paged URL meta tags.
 	 */
 	public function paged_urls() {
 
 		$id = $this->get_the_real_ID();
+
+		$paged_urls = $this->get_paged_urls();
 
 		/**
 		 * @since 2.6.0
@@ -1102,7 +1098,7 @@ class Render extends Admin_Init {
 		$next = (string) \apply_filters_ref_array(
 			'the_seo_framework_paged_url_output_next',
 			[
-				$this->get_paged_url( 'next' ),
+				$paged_urls['next'],
 				$id,
 			]
 		);
@@ -1115,7 +1111,7 @@ class Render extends Admin_Init {
 		$prev = (string) \apply_filters_ref_array(
 			'the_seo_framework_paged_url_output_prev',
 			[
-				$this->get_paged_url( 'prev' ),
+				$paged_urls['prev'],
 				$id,
 			]
 		);
@@ -1133,10 +1129,10 @@ class Render extends Admin_Init {
 
 	/**
 	 * Returns the plugin hidden HTML indicators.
+	 * Memoizes the filter outputs.
 	 *
 	 * @since 2.9.2
 	 * @since 4.0.0 Added boot timers.
-	 * @staticvar array $cache
 	 *
 	 * @param string $where  Determines the position of the indicator.
 	 *                       Accepts 'before' for before, anything else for after.
@@ -1227,13 +1223,13 @@ class Render extends Admin_Init {
 
 	/**
 	 * Determines whether we can use Open Graph tags on the front-end.
+	 * Memoizes the return value.
 	 *
 	 * @since 2.6.0
 	 * @since 3.1.0 Removed cache.
 	 * @since 3.1.4 : 1. Added filter.
 	 *                2. Reintroduced cache because of filter.
 	 * @TODO add facebook validation.
-	 * @staticvar bool $cache
 	 *
 	 * @return bool
 	 */
@@ -1251,12 +1247,12 @@ class Render extends Admin_Init {
 
 	/**
 	 * Determines whether we can use Facebook tags on the front-end.
+	 * Memoizes the return value.
 	 *
 	 * @since 2.6.0
 	 * @since 3.1.0 Removed cache.
 	 * @since 3.1.4 : 1. Added filter.
 	 *                2. Reintroduced cache because of filter.
-	 * @staticvar bool $cache
 	 *
 	 * @return bool
 	 */
@@ -1274,11 +1270,11 @@ class Render extends Admin_Init {
 
 	/**
 	 * Determines whether we can use Twitter tags on the front-end.
+	 * Memoizes the return value.
 	 *
 	 * @since 2.6.0
 	 * @since 2.8.2 Now also considers Twitter card type output.
 	 * @since 3.1.4 Added filter.
-	 * @staticvar bool $cache
 	 *
 	 * @return bool
 	 */
