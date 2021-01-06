@@ -68,6 +68,7 @@ jQuery(
 						width: '165px',
 						ajax: {
 							url: ajaxurl,
+							delay: 500,
 							dataType: 'json',
 							quietMillis: 100,
 							data: function( term ) {
@@ -140,7 +141,8 @@ jQuery(
 			}
 		);
 
-		$( window ).load(
+		$( window ).on(
+			'load',
 			function() {
 				$( '.toplevel_page_wp_stream input[type="search"]' ).off( 'mousedown' );
 			}
