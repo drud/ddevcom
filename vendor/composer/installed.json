@@ -1262,27 +1262,6 @@
             "installation-source": "dist",
             "homepage": "https://wordpress.org/plugins/wpmandrill/",
             "install-path": "../../docroot/content/plugins/wpmandrill"
-        },
-        {
-            "name": "wpackagist-plugin/wpremote",
-            "version": "2.8.4.3",
-            "version_normalized": "2.8.4.3",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wpremote/",
-                "reference": "tags/2.8.4.3"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wpremote.2.8.4.3.zip"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "installation-source": "dist",
-            "homepage": "https://wordpress.org/plugins/wpremote/",
-            "install-path": "../../docroot/content/plugins/wpremote"
         }
     ],
     "dev": true,

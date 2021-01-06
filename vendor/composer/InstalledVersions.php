@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'a891313b24cd99cab2a0073b7c165773c2566bc2',
+    'reference' => '12155b48c245f5e4bb57eccfe3470d84098d5e2a',
     'name' => 'newmediadenver/wp',
   ),
   'versions' => 
@@ -84,7 +84,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'a891313b24cd99cab2a0073b7c165773c2566bc2',
+      'reference' => '12155b48c245f5e4bb57eccfe3470d84098d5e2a',
     ),
     'oscarotero/env' => 
     array (
@@ -322,15 +322,6 @@ private static $installed = array (
       array (
       ),
       'reference' => 'tags/1.33',
-    ),
-    'wpackagist-plugin/wpremote' => 
-    array (
-      'pretty_version' => '2.8.4.3',
-      'version' => '2.8.4.3',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'tags/2.8.4.3',
     ),
   ),
 );
