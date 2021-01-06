@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AutomatedTeller') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AutomatedTeller';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'FinancialService';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_AutomatedTeller') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AutomatedTeller';
+		}
+
 		/**
 		* Get schema type label
 		*

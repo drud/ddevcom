@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_Podiatric') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'Podiatric';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'MedicalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Podiatric') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Podiatric';
+		}
+
 		/**
 		* Get schema type label
 		*

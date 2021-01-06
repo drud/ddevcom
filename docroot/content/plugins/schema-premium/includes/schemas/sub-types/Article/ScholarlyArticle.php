@@ -34,6 +34,17 @@ if ( ! class_exists('Schema_WP_ScholarlyArticle') ) :
 		}
 		
 		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'ScholarlyArticle';
+		}
+
+		/**
 		* Get schema type label
 		*
 		* @since 1.0.0
@@ -63,18 +74,13 @@ if ( ! class_exists('Schema_WP_ScholarlyArticle') ) :
 		*/
 		public function properties() {
 
-			// Get parent properties 
+			// Wrap properties in tabs 
 			//
-			$Article_properties = parent::properties();
-			// 
-			// Fix tabs
-			//
-			$Article_properties['Article_properties_tab']['label'] 			= '<span style="color:#c90000;">' . $this->parent_type . '</span>';
-			$Article_properties['Article_properties_info']['label'] 		= $this->parent_type;
-			$Article_properties['Article_properties_info']['instructions'] 	= __('Properties of' , 'schema-premium') . ' ' . $this->parent_type;
-			$Article_properties['Article_properties_info']['message']  		= parent::comment();
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 40 );
 			
-			$properties = $Article_properties;
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_AdvertiserContentArticle', $properties );	
 		}

@@ -67,22 +67,10 @@ $post_columns->add_column('target_location_excluded_on',
 		'std' => __('-'), // default value in case post meta not found
 	)
 );
-/*$post_columns->add_column('target_location',
-  array(
-		'label'    => __('Target Location', 'schema-premium'),
-		'type'     => 'target_location',
-		'sortable' => false,
-		'prefix' => "",
-		'suffix' => "",
-		'std' => __('N/A'), // default value in case post meta not found
-	)
-);
-*/
-$post_columns->add_column('schema_cpt_post_count',
+$post_columns->add_column('schema_comment',
   array(
 		'label'    => __('Details', 'schema-premium'),
-		'type'     => 'post_meta',
-		'meta_key' => '_schema_comment', //meta_key
+		'type'     => 'schema_comment',
 		'sortable' => false,
 		'prefix' => "",
 		'suffix' => "",
@@ -91,11 +79,13 @@ $post_columns->add_column('schema_cpt_post_count',
 );
 
 //remove columns
+//
 $post_columns->remove_column('post_type');
 $post_columns->remove_column('categories');
 $post_columns->remove_column('date');
 
 // remove columns appended by 
+//
 $post_columns->remove_column('gadwp_stats');
 $post_columns->remove_column('mashsb_shares');
 $post_columns->remove_column('ratings');

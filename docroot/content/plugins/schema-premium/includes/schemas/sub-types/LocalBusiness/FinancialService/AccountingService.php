@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AccountingService') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AccountingService';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'FinancialService';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_AccountingService') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AccountingService';
+		}
+
 		/**
 		* Get schema type label
 		*

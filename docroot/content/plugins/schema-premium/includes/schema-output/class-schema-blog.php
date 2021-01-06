@@ -102,7 +102,7 @@ if ( ! class_exists('Schema_WP_Blog') ) :
 					'url' => get_the_permalink($schema_post->ID),
 					//'sameAs' => schema_wp_get_sameAs($schema_post->ID),
 					'datePublished' => get_the_date('c', $schema_post->ID),
-					'dateModified' => get_the_modified_date('c', $schema_post->ID),
+					'dateModified' => get_post_modified_time( 'c', false, $schema_post->ID, false ),
 					'mainEntityOfPage' => get_the_permalink($schema_post->ID),
 					'author' => schema_wp_get_author_array(),
 					'publisher' => schema_wp_get_publisher_array(),
@@ -117,7 +117,7 @@ if ( ! class_exists('Schema_WP_Blog') ) :
 			// put all together
 			$schema = array
         	(
-				'@context' => 'http://schema.org/',
+				'@context' => 'https://schema.org/',
 				'@type' => 'Blog',
 				'headline' => get_option( 'page_for_posts' ) ? wp_filter_nohtml_kses( get_the_title( get_option( 'page_for_posts' ) ) ) : get_bloginfo( 'name' ),
 				'description' => get_bloginfo( 'description' ),
@@ -200,12 +200,12 @@ if ( ! class_exists('Schema_WP_Blog') ) :
 				// put all together
 				$schema = array
 				(
-					'@context' 			=> 'http://schema.org/',
+					'@context' 			=> 'https://schema.org/',
 					'@type' 			=> array('ItemList', 'CreativeWork'),
 					'name' 				=> get_bloginfo( 'name' ),
 					'description' 		=> get_bloginfo( 'description' ),
 					'url' 				=> get_option( 'page_for_posts' ) ? get_permalink( get_option( 'page_for_posts' ) ) : get_home_url(),
-					'itemListOrder' 	=> 'http://schema.org/ItemListOrderAscending',
+					'itemListOrder' 	=> 'https://schema.org/ItemListOrderAscending',
 					'numberOfItems' 	=> count($listPosts),
 					'itemListElement' 	=> $listPosts,
 				);

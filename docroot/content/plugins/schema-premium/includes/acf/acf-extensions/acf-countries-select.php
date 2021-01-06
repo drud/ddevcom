@@ -175,6 +175,11 @@ class schema_acf_field_countries_select extends acf_field
         // placeholder
         if (empty($field['placeholder'])) {
             $field['placeholder'] = __("Select",'acf');
+		}
+		
+		// multiple
+        if (empty($field['multiple'])) {
+            $field['multiple'] = 0;
         }
 
         // vars
@@ -550,7 +555,6 @@ class schema_acf_field_countries_select extends acf_field
 		  "AX" => "Åland Islands"
 		);
 						
-					
 		return $countries;
     }
 }

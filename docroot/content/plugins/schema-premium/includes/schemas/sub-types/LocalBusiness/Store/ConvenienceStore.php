@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_ConvenienceStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'ConvenienceStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_ConvenienceStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'ConvenienceStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_ConvenienceStore') ) :
 			return __('A convenience store.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_ConvenienceStore();
 	
 endif;

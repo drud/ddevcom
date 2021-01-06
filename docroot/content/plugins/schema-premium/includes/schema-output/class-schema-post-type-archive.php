@@ -56,6 +56,14 @@ if ( ! class_exists('Schema_WP_Post_Type_Archive') ) :
 					return;
 				}
 				
+				// Filter to disable markup
+				// @since 1.2
+				//
+				$enabled = apply_filters( 'schema_post_type_archive_enable', true );
+
+				if ( ! $enabled )
+					return;
+
 				$markup = new Schema_WP_Output();
 				$markup->json_output( $this->get_markup() );
 			}
@@ -87,6 +95,8 @@ if ( ! class_exists('Schema_WP_Post_Type_Archive') ) :
 				   
 				$i = 1;
 				
+				$post_id_list = array();
+
 				foreach ($wp_query->posts as $schema_post) {
 					
 					$schema_location_target = schema_premium_get_location_target_match( $schema_post->ID );
@@ -96,8 +106,18 @@ if ( ! class_exists('Schema_WP_Post_Type_Archive') ) :
 						foreach ( $schema_location_target as $schema_post_ID => $details ) :
 						
 							if ( $details['match'] == true ) {
-							
+								
+								if ( in_array( $schema_post->ID, $post_id_list ) ) {
+									// Jump to next post
+									// This to avoid dublication
+									// Include the post only once, when more than one type is enabled
+									// @since 1.2.1
+									//
+									continue;
+								}
+
 								// Get final schema type
+								//
 								$schema_type = ( isset($details['schema_subtype']) 
 										&& $details['schema_subtype'] != ''
 										&& $details['schema_subtype'] != 'General' ) ? $details['schema_subtype'] : $details['schema_type'];
@@ -110,20 +130,26 @@ if ( ! class_exists('Schema_WP_Post_Type_Archive') ) :
 									
 									// Override urls, fix for: All values provided for url must point to the same page.
 									$list_item['url'] = $url.'#'.$schema_post->post_name;
+					
 									// @since 1.0.3
 									$list_item['@id'] = $url.'#'.$schema_post->post_name;
 					
 									$blogPost[] = array(
 										'@type'		=> 'ListItem',
 										'position'	=> $i,
-										'item' 		=> apply_filters( 'schema_output_post_type_archive_single_ListItem', $list_item, $schema_post->ID )
+										'item' 		=> apply_filters( 'schema_output_post_type_archive_single_ListItem', $list_item, $schema_post->ID ),
 									);
+
+									$post_id_list[] = $schema_post->ID;
 								} // end if
+
+								$i++;
+
 							} // end if match
 					
 						endforeach;
 						
-						$i++;
+						//$i++;
 					} // end if ! empty($schema_location_target)
 				} // end foreach
 			}
@@ -134,12 +160,12 @@ if ( ! class_exists('Schema_WP_Post_Type_Archive') ) :
 				// put all together
 				$schema = array
 				(
-					'@context' 			=> 'http://schema.org/',
+					'@context' 			=> 'https://schema.org/',
 					'@type' 			=> array('ItemList', 'CreativeWork'),
 					'name' 				=> isset($obj->label) ? $obj->label : '',
 					'description' 		=> isset($obj->description) ? $obj->description : '',
 					'url' 				=> $url,
-					'itemListOrder' 	=> 'http://schema.org/ItemListOrderAscending',
+					'itemListOrder' 	=> 'https://schema.org/ItemListOrderAscending',
 					'numberOfItems' 	=> count($blogPost),
 					'itemListElement' 	=> $blogPost,
 				);

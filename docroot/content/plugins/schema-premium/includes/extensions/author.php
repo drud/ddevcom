@@ -9,7 +9,6 @@
  
 if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
 
-
 //add_filter( 'schema_output', 'schema_wp_do_author' );
 /**
  * Filter schema markup output, via schema_output filter  
@@ -45,30 +44,46 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 	global $post;
 	
 	// Set post ID
-	if ( ! isset($post_id) ) $post_id = $post->ID;
-	
-	$jason = array();
-	
+	//
+	if ( ! isset($post_id) ) {
+		$post_id = isset($post->ID) ? $post->ID: null;
+	}
+
+	// Make sure we do have a post ID set
+	// @since 1.2
+	//
+	if ( ! isset($post_id) ) {
+		return;
+	}
+
 	// Get author from post content
+	//
 	$content_post	= get_post( $post_id );
 	$post_author	= ( isset($author_id) ) ? get_userdata( $author_id ) : get_userdata( $content_post->post_author );
-	$email 			= $post_author->user_email; 
+	
+	if (!is_object($post_author)) {
+		return;
+	}
+	
+	$email = ( isset($post_author->user_email) ) ? $post_author->user_email : ''; 
 	
 	// Debug
+	//
 	//print_r($post_author);exit;
 	
-	// Author url
+	// Author URL
+	//
 	$url_enable = schema_wp_get_option( 'author_url_enable' );
 	$url 		= ( $url_enable == true ) ? esc_url( get_author_posts_url( $post_author->ID ) ) : '';
 	
 	$author = array (
 		'@type'	=> 'Person',
-		'name'	=> apply_filters ( 'schema_wp_filter_author_name', $post_author->display_name ),
-		//'url'	=> $url
+		'name'	=> apply_filters ( 'schema_wp_filter_author_name', $post_author->display_name )
 	);
 	
-	// url
-	//@since 1.1.2.8
+	// URL
+	// @since 1.1.2.8
+	//
 	if ( '' != $url ) {
 		$author['url'] = $url;
 	} else {
@@ -82,6 +97,7 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 	}
 	
 	// Get gravatar
+	//
 	$gravatar_enable = schema_wp_get_option( 'gravatar_image_enable' );
 	
 	if ( $gravatar_enable == true  && schema_wp_validate_gravatar( $email ) ) {
@@ -89,6 +105,7 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 		$image_size	= apply_filters( 'schema_wp_get_author_array_img_size', 96 ); 
 		
 		// Get an array of args
+		//
 		$args = array(
 						'size' => $image_size,
 					);
@@ -106,6 +123,7 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 	}
 	
 	// sameAs
+	//
 	$website 	= esc_attr( stripslashes( get_the_author_meta( 'user_url', $post_author->ID ) ) );
 	$facebook 	= esc_attr( stripslashes( get_the_author_meta( 'facebook', $post_author->ID) ) );
 	$twitter 	= esc_attr( stripslashes( get_the_author_meta( 'twitter', $post_author->ID ) ) );
@@ -119,6 +137,7 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 	$github 	= esc_attr( stripslashes( get_the_author_meta( 'github', $post_author->ID ) ) );
 	
 	// Add full URL	to Twitter
+	//
 	if ( isset($twitter) && $twitter != '' ) $twitter = 'https://twitter.com/' . $twitter;
 	
 	$sameAs_links = array( $website, $facebook, $twitter, $instagram, $youtube, $linkedin, $myspace, $pinterest, $soundcloud, $tumblr, $github);
@@ -126,6 +145,7 @@ function schema_wp_get_author_array( $post_id = null, $author_id = null ) {
 	$social = array();
 	
 	// Remove empty fields
+	//
 	foreach( $sameAs_links as $sameAs_link ) {
 		if ( $sameAs_link != '' ) $social[] = $sameAs_link;
 	}

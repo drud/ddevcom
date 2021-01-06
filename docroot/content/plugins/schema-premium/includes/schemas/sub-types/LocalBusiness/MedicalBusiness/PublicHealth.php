@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_PublicHealth') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'PublicHealth';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'MedicalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_PublicHealth') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'PublicHealth';
+		}
+
 		/**
 		* Get schema type label
 		*

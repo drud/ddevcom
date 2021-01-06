@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AutoRepair') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AutoRepair';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_AutoRepair') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AutoRepair';
+		}
+
 		/**
 		* Get schema type label
 		*

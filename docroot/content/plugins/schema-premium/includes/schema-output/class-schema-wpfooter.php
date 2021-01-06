@@ -142,7 +142,7 @@ if ( ! class_exists('Schema_WP_WPFooter') ) :
 			*	WPHeader
 			*/
 			$footer = array(
-				'@context' 		=> 'http://schema.org/',
+				'@context' 		=> 'https://schema.org/',
 				'@type'			=> 'WPFooter',
 				'url'			=> $url,
 				'headline'		=> wp_strip_all_tags($headline),

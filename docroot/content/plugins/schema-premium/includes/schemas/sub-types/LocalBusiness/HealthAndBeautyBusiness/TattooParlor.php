@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_TattooParlor') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'TattooParlor';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HealthAndBeautyBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_TattooParlor') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'TattooParlor';
+		}
+
 		/**
 		* Get schema type label
 		*

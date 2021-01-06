@@ -42,7 +42,7 @@ function schema_premium_bbp_extend_schema_output( $schema ) {
 	if ( $reply_count > 0 ) {
 		$schema['interactionStatistic'] = array (
 				'@type'					=> 'InteractionCounter',
-				'interactionType'		=> 'https://schema.org/ReplyAction', // http://schema.org/CommentAction
+				'interactionType'		=> 'https://schema.org/ReplyAction', // https://schema.org/CommentAction
 				'userInteractionCount'	=> $reply_count
 		);
 		

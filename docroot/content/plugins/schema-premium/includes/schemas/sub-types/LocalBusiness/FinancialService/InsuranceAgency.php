@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_InsuranceAgency') ) :
 		/** @var string Currenct Type */
     	protected $type = 'InsuranceAgency';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'FinancialService';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_InsuranceAgency') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'InsuranceAgency';
+		}
+
 		/**
 		* Get schema type label
 		*

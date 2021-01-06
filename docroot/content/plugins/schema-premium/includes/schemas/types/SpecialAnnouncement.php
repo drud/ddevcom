@@ -15,13 +15,13 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_SpecialAnnouncement {
+	class Schema_WP_SpecialAnnouncement extends Schema_WP_CreativeWork {
 		
 		/** @var string Current Type */
     	protected $type = 'SpecialAnnouncement';
 		
 		/** @var string Current Parent Type */
-    	protected $parent_type = 'SpecialAnnouncement';
+    	protected $parent_type = 'CreativeWork';
 		
 		/**
 	 	* Constructor
@@ -44,6 +44,17 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'SpecialAnnouncement';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -121,24 +132,8 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 		*/
 		public function properties() {
 			
-			$Thing_properties 			= schema_premium_get_schema_properties('Thing');
-			$CreativeWork_properties 	= schema_premium_get_schema_properties('CreativeWork');
-			$Article_properties 		= array(
-				'SpecialAnnouncement_properties_tab' => array(
-					'label' 		=> '<span style="color:#c90000;">' . $this->type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 30,
-					'markup_value' 	=> 'none'
-				),
-				'SpecialAnnouncement_properties_info' => array(
-					'label' => $this->type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' 	=> 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $this->type,
-					'message'		=> $this->comment(),
-				),
+			$properties = array(
+				
 				'name' => array(
 					'label' 		=> __('Name', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
@@ -170,7 +165,7 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 					'label' 		=> __('Category', 'schema-premium'),
 					'rangeIncludes' => array('URL'),
 					'field_type' 	=> 'url',
-					'markup_value' 	=> 'disable',
+					'markup_value' 	=> 'new_custom_field',
 					'instructions' 	=> __('The URL that describes the category for the special announcement. Set the category to the Wikipedia page for COVID-19: <small>https://www.wikidata.org/wiki/Q81068910</small>', 'schema-premium'),
 					'default_value' => '',
 					'placeholder' => 'https://',
@@ -218,15 +213,16 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 							'placeholder' => __('The geographic region that is the focus of the special announcement', 'schema-premium'),
 						),
 					), // end sub fields
-				),
-				'SpecialAnnouncement_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
+				)
 			);
 
-			$properties = array_merge( $Thing_properties, $CreativeWork_properties, $Article_properties );
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_SpecialAnnouncement', $properties );	
 		}
@@ -249,13 +245,15 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 			
 			// Putting all together
 			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
+			$schema['@context'] =  'https://schema.org';
+			$schema['@type'] 	=  $this->type;
 		
+			// Get main entity of page
+			//
 			$schema['mainEntityOfPage'] = array
 			(
 				'@type' => 'WebPage',
-				'@id' => get_permalink( $post->ID )
+				'@id' => get_permalink( $post->ID ) . '#webpage'
 			);
 			
 			// Get properties
@@ -297,44 +295,9 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 			// Get Spatial Coverage
 			//
 			$schema['SpatialCoverage'] = $this->get_spatial_coverage();
-
-			// Author
-			//
-			if( isset($properties['author'] ) ) { 
-				$schema['author'] = array (
-					'@type'	=> 'Person',
-					'name'	=> $properties['author']
-				);
-			} else {
-				$schema['author'] = schema_wp_get_author_array( $post->ID );
-			}
-			
-			$schema['publisher']		= schema_wp_get_publisher_array();
-			
-			$schema['articleSection']	= schema_wp_get_post_category( $post->ID );
-			$schema['keywords']			= schema_wp_get_post_tags( $post->ID );
-			
-			// Subscription and paywalled content
-			//
-			if ( isset($properties['isAccessibleForFree']) ) {
-				
-				if ( $properties['isAccessibleForFree'] == 1 ) {
-					// True
-					$schema['isAccessibleForFree'] = 'True';
-						
-				} elseif ( $properties['isAccessibleForFree'] == 0 ) {
-					// False
-					$schema['isAccessibleForFree'] = 'False';
-					if( !isset($properties['cssSelector']) ) {
-						$schema['hasPart'] = schema_premium_get_property_cssSelector( $this->parent_type );
-					}
-				}
-			}
 			
 			// Unset auto generated properties
-			unset($properties['author']);
-			unset($properties['isAccessibleForFree']);
-			unset($properties['cssSelector']);
+			//
 			
 			// Merge schema and properties arrays
 			// Make sure $properties is an array before merging
@@ -343,6 +306,10 @@ if ( ! class_exists('Schema_WP_SpecialAnnouncement') ) :
 				$schema = array_merge($schema, $properties);
 			}
 			
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+
 			return $this->schema_output_filter($schema);
 		}
 		

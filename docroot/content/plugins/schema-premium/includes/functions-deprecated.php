@@ -431,3 +431,112 @@ function schema_wp_remove_divi_shortcodes( $content ) {
 	
     return $content;
 }
+
+
+/**
+ * Render ACF special fields
+ *
+ * This is the main function that prepares and returns schema output for all supported custom fields
+ *
+ * @since 1.0.0
+ *
+ * return array
+ */
+function schema_wp_types_acf_field_render( $post_id = null, $meta_key = null, $type = '', $filter_name = '' ) {
+	
+	$output = array();
+	
+	switch ( $type ) {
+		
+		case 'address':
+			$streetAddress_1 	= get_post_meta( $post_id, $meta_key . '_streetAddress', true );
+			$streetAddress_2 	= get_post_meta( $post_id, $meta_key . '_streetAddress_2', true );
+			$streetAddress_3 	= get_post_meta( $post_id, $meta_key . '_streetAddress_3', true );
+			$streetAddress 		= $streetAddress_1 . ' ' . $streetAddress_2 . ' ' . $streetAddress_3; // join the 3 address lines
+			
+			$addressLocality 	= get_post_meta( $post_id, $meta_key . '_addressLocality', true );
+			$postalCode 		= get_post_meta( $post_id, $meta_key . '_postalCode', true );
+			$addressRegion 		= get_post_meta( $post_id, $meta_key . '_addressRegion', true );
+			$addressCountry 	= get_post_meta( $post_id, $meta_key . '_addressCountry', true );
+											
+			$output = array(
+      			"@type"				=> "PostalAddress",
+				"addressCountry" 	=> $addressCountry, // example: US
+				"addressLocality"	=> $addressLocality,
+				"addressRegion"		=> $addressRegion,
+				"postalCode"		=> $postalCode,
+				"streetAddress"		=> $streetAddress
+			);	
+			break;
+			
+		default:
+			// get post meta like normally
+			$output = get_post_meta( $post_id, $meta_key, true );
+	}
+	
+	return $output;						
+}
+
+/**
+ * Retrieves the home URL
+ *
+ * @since 1.0.0
+ * @return string
+ */
+function schema_wp_get_home_url( $path = '', $scheme = null ) {
+
+	$home_url = home_url( $path, $scheme );
+
+	if ( ! empty( $path ) ) {
+		return $home_url;
+	}
+
+	if ( ! function_exists('wp_parse_url') ) {
+		return $home_url;
+	} 
+
+	$home_path = wp_parse_url( $home_url, PHP_URL_PATH );
+
+	if ( '/' === $home_path ) { // Home at site root, already slashed.
+		return $home_url;
+	}
+
+	if ( is_null( $home_path ) ) { // Home at site root, always slash.
+		return trailingslashit( $home_url );
+	}
+
+	if ( is_string( $home_path ) ) { // Home in subdirectory, slash if permalink structure has slash.
+		return user_trailingslashit( $home_url );
+	}
+
+	return apply_filters( 'schema_wp_home_url', $home_url );
+}
+
+
+//add_action('schema_output_before', 'schema_premium_output_sitelinks_search_box_disable');
+/**
+ * Disable SiteLinks Search Box
+ *
+ * This function was disabled @since 1.5.9.2, I don't see it important!
+ * @since 1.0.0
+ * @return meta
+ */
+ /*
+function schema_premium_output_sitelinks_search_box_disable() {
+	
+	// Run only on front page 
+	if ( is_front_page() ) {
+		
+		$sitelinks_search_box_disable	= schema_wp_get_option( 'sitelinks_search_box_disable' );
+		
+		if ( isset($sitelinks_search_box_disable) && $sitelinks_search_box_disable == 1 ) {
+			echo "\n";
+			echo '<!-- Tell Google not to show a Sitelinks search box -->';
+			echo "\n";
+			echo '<meta name="google" content="nositelinkssearchbox" />';
+			echo "\n\n";
+		}
+	}
+}
+*/
+

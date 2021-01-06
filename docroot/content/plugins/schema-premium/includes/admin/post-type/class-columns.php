@@ -177,7 +177,9 @@ if ( ! class_exists('Schema_WP_CPT_columns') ) {
 
 			if ( in_array($column['type'], $columns_types ) )
 				echo $column['prefix'];
+			
 			switch ($column['type']) {
+				
 				case 'post_id':
 					echo $post_id;
 					break;
@@ -186,7 +188,7 @@ if ( ! class_exists('Schema_WP_CPT_columns') ) {
 					break;
 				case 'thumb':
 					if (has_post_thumbnail( $post_id )){
-			    		the_post_thumbnail(  $column['size'] );
+			    		the_post_thumbnail( $column['size'] );
 			    	}else{
 			    		echo 'N/A';
 			    	}
@@ -248,7 +250,25 @@ if ( ! class_exists('Schema_WP_CPT_columns') ) {
 							foreach ( $enabled_locations as $location => $location_data ) {
 								if ( is_array($location_data) ) {
 									echo $title[$location] . ': ';
-									echo join( ', ', $location_data ) . '<br>';
+									// Get display
+									// @since 1.2
+									//
+									if ( $location == 'post_id' || $location == 'post' || $location == 'page' ) {
+										$counter = count($location_data);
+										foreach ( $location_data as $entry_id ) {
+											if ( is_null(get_post($entry_id)) ) {
+												echo '<span style="color:#c90000;cursor:not-allowed;" title="'.__('Not found!', 'schema-premium').'">'.$entry_id.'</span>';	
+											} else {
+												echo '<a href="'.get_permalink($entry_id).'" title="'.get_the_title($entry_id).'" target="_blank">'.$entry_id.'</a>';	
+											}
+											if ( $counter > 1 ) echo ', ';
+											$counter = $counter - 1;
+										}
+										echo '<br>';
+									} else {
+										echo join( ', ', $location_data ) . '<br>';
+									}
+									
 								} else {
 									echo $title[$location];
 								}
@@ -271,7 +291,24 @@ if ( ! class_exists('Schema_WP_CPT_columns') ) {
 							foreach ( $excluded_locations as $location => $location_data ) {
 								if ( is_array($location_data) ) {
 									echo $title[$location] . ': ';
-									echo join( ', ', $location_data ) . '<br>';
+									// Get display
+									// @since 1.2
+									//
+									if ( $location == 'post_id' || $location == 'post' || $location == 'page' ) {
+										$counter = count($location_data);
+										foreach ( $location_data as $entry_id ) {
+											if ( is_null(get_post($entry_id)) ) {
+												echo '<span style="color:#c90000;cursor:not-allowed;" title="'.__('Not found!', 'schema-premium').'">'.$entry_id.'</span>';	
+											} else {
+												echo '<a href="'.get_permalink($entry_id).'" title="'.get_the_title($entry_id).'" target="_blank">'.$entry_id.'</a>';	
+											}
+											if ( $counter > 1 ) echo ', ';
+											$counter = $counter - 1;
+										}
+										echo '<br>';
+									} else {
+										echo join( ', ', $location_data ) . '<br>';
+									}
 								} else {
 									echo $title[$location];
 								}
@@ -387,6 +424,15 @@ if ( ! class_exists('Schema_WP_CPT_columns') ) {
 						$image_attr = wp_get_attachment_image_src($attachment_id, 'thumbnail');
 						echo '<img src="'.$image_attr[0].'" width="69" height="69" />';
 					}
+					break;
+				// Schema Details: comment
+				// @since 1.2
+				//
+				case 'schema_comment':
+					$schema_type 	= get_post_meta( $post_id, '_schema_type', true );
+					$schema_default = schema_wp_get_default_schemas( $schema_type );
+					$schema_comment = isset($schema_default['comment']) ? $schema_default['comment'] : '-';
+					echo $schema_comment;
 					break;
 			}//end switch
 			if (in_array($column['type'],array('post_id','text','thumb','post_meta','custom_tax','post_meta_array','indicator','cpt_post_count','markup_source', 'rating_stars', 'attachment_id') ) )

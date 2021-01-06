@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_HardwareStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'HardwareStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_HardwareStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'HardwareStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_HardwareStore') ) :
 			return __('A hardware store.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_HardwareStore();
 	
 endif;

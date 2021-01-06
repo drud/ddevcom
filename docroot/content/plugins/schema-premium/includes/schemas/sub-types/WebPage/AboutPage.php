@@ -18,8 +18,11 @@ if ( ! class_exists('Schema_WP_AboutPage') ) :
 	class Schema_WP_AboutPage extends Schema_WP_WebPage {
 		
 		/** @var string Currenct Type */
-    	protected $type = 'AboutPage';
-		
+    	protected $type = 'AboutPage';		
+
+		/** @var string Current Parent Type */
+		protected $parent_type = 'WebPage';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_AboutPage') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AboutPage';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_AboutPage') ) :
 		public function comment() {
 			
 			return __('Web page type: About page.', 'schema-premium');
+		}
+
+		/**
+		* Properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_AboutPage', $properties );		
 		}
 	}
 	

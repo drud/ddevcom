@@ -314,7 +314,7 @@ function schema_wp_get_registered_settings() {
 						'name' => __( 'Website URL', 'schema-premium' ),
 						'desc' => __( '', 'schema-premium' ),
 						'type' => 'text',
-						'placeholder' => 'https://',
+						'placeholder' => site_url(),
 						'std' => ''
 					),
 					'logo' => array(
@@ -1552,7 +1552,7 @@ function schema_wp_image_upload_callback( $args ) {
 	//$html = '<input type="hidden" id="schema_wp_settings[' . schema_premium_sanitize_key( $args['id'] ) . ']" name="schema_wp_settings[' . esc_attr( $args['id'] ) . ']" value="' . esc_attr( stripslashes( $value ) ) . '"/>';
 	$html .= '<span>&nbsp;<input type="button" class="schema_wp_settings_upload_button button-secondary" value="' . __( 'Upload File', 'schema-premium' ) . '"/></span>';
 	
-	$html .= '<p>'  . wp_kses_post( $args['desc'] ) . '</p>';
+	$html .= '<p><br>'  . wp_kses_post( $args['desc'] ) . '</p>';
 		
 	if ( ! empty( $value ) ) {
 		$html .= '<div id="preview_image">';

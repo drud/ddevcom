@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Resort') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Resort';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LodgingBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Resort') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Resort';
+		}
+
 		/**
 		* Get schema type label
 		*

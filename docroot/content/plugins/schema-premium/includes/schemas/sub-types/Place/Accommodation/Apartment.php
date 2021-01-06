@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Apartment') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Apartment';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Accommodation';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Apartment') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Apartment';
+		}
+
 		/**
 		* Get schema type label
 		*

@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Restaurant') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Restaurant';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'FoodEstablishment';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_Restaurant') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Restaurant';
+		}
+
 		/**
 		* Get schema type label
 		*

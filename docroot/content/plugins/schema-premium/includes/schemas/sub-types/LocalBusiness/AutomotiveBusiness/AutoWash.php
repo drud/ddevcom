@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_AutoWash') ) :
 		/** @var string Currenct Type */
     	protected $type = 'AutoWash';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -28,6 +31,17 @@ if ( ! class_exists('Schema_WP_AutoWash') ) :
 		public function __construct () {
 		
 			// emty __construct
+		}
+
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'AutoWash';
 		}
 		
 		/**

@@ -11,7 +11,6 @@
 
 // Exit if accessed directly
 if ( ! defined( 'ABSPATH' ) ) exit;
-
  
 add_action( 'init', 'schema_wp_cpt_init' );
 /**

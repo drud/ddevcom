@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_Locksmith') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'Locksmith';
-		
+				
+		/** @var string Current Parent Type */
+		protected $parent_type = 'HomeAndConstructionBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_Locksmith') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Locksmith';
+		}
+
 		/**
 		* Get schema type label
 		*

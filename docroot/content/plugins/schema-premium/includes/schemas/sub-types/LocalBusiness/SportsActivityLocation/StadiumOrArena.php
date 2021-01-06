@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_StadiumOrArena') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'StadiumOrArena';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'SportsActivityLocation';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_StadiumOrArena') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'StadiumOrArena';
+		}
+
 		/**
 		* Get schema type label
 		*

@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_MovieRentalStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'MovieRentalStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MovieRentalStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MovieRentalStore';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -52,7 +66,5 @@ if ( ! class_exists('Schema_WP_MovieRentalStore') ) :
 			return __('A movie rental store.', 'schema-premium');
 		}
 	}
-	
-	//new Schema_WP_MovieRentalStore();
 	
 endif;

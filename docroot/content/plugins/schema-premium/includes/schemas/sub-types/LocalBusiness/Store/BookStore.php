@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_BookStore') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'BookStore';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'Store';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_BookStore') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'BookStore';
+		}
+
 		/**
 		* Get schema type label
 		*

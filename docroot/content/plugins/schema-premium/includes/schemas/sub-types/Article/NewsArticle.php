@@ -34,6 +34,17 @@ if ( ! class_exists('Schema_WP_NewsArticle') ) :
 		}
 		
 		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'NewsArticle';
+		}
+
+		/**
 		* Get schema type label
 		*
 		* @since 1.0.0
@@ -64,26 +75,12 @@ if ( ! class_exists('Schema_WP_NewsArticle') ) :
 		public function properties() {
 
 			$properties = array(
-				'NewsArticle_properties_tab' => array(
-					'label' 		=> '<span style="color:#c90000;">' . $this->type . '</span>',
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'tab',
-					'menu_order' 	=> 30,
-					'markup_value' 	=> 'none'
-				),
-				'NewsArticle_properties_info' => array(
-					'label' => $this->type,
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'message',
-					'markup_value' => 'none',
-					'instructions' 	=> __('Properties of' , 'schema-premium') . ' ' . $this->type,
-					'message'		=> $this->comment(),
-				),
+
 				'printColumn' => array(
 					'label' 		=> __('Print Column', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
 					'field_type' 	=> 'text',
-					'markup_value' => 'disabled',
+					'markup_value' 	=> 'disabled',
 					'instructions' 	=> __('The number of the column in which the NewsArticle appears in the print edition.', 'schema-premium'),
 				),
 				'printEdition' => array(
@@ -106,26 +103,16 @@ if ( ! class_exists('Schema_WP_NewsArticle') ) :
 					'field_type' 	=> 'text',
 					'markup_value' => 'disabled',
 					'instructions' 	=> __('If this NewsArticle appears in print, this field indicates the print section in which the article appeared.', 'schema-premium'),
-				),
-				'NewsArticle_properties_tab_endpoint' => array(
-					'label' 		=> '', // empty label
-					'field_type' 	=> 'tab',
-					'markup_value' 	=> 'none'
-				),
+				)
 			);
 			
-			// Get parent properties 
+			// Wrap properties in tabs 
 			//
-			$Article_properties = parent::properties();
-			// 
-			// Fix tabs
-			//
-			$Article_properties['Article_properties_tab']['label'] 			= '<span style="color:#c90000;">' . $this->parent_type . '</span>';
-			$Article_properties['Article_properties_info']['label'] 		= $this->parent_type;
-			$Article_properties['Article_properties_info']['instructions'] 	= __('Properties of' , 'schema-premium') . ' ' . $this->parent_type;
-			$Article_properties['Article_properties_info']['message']  		= parent::comment();
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 40 );
 			
-			$properties = array_merge( $Article_properties, $properties );
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
 
 			return apply_filters( 'schema_properties_NewsArticle', $properties );	
 		}

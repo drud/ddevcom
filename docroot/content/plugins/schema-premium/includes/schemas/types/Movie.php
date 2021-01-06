@@ -15,10 +15,13 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_Movie {
+	class Schema_WP_Movie extends Schema_WP_CreativeWork {
 		
 		/** @var string Currenct Type */
-    	protected $type = 'Movie';
+		protected $type = 'Movie';
+		
+		/** @var string Current Parent Type */
+    	protected $parent_type = 'CreativeWork';
 		
 		/**
 	 	* Constructor
@@ -41,6 +44,17 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Movie';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -106,10 +120,8 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 		* @return array
 		*/
 		public function subtypes() {
-			
-			$subtypes = array();
 				
-			return apply_filters( 'schema_wp_subtypes_Movie', $subtypes );
+			return apply_filters( 'schema_wp_subtypes_Movie', array() );
 		}
 		
 		/**
@@ -122,117 +134,42 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 			
 			$properties = array (
 					
-					'url' => array(
-						'label' 		=> __('URL', 'schema-premium'),
-						'rangeIncludes' => array('URL'),
-						'field_type' 	=> 'url',
-						'markup_value' => 'post_permalink',
-						'instructions' 	=> __('URL of the movie.', 'schema-premium'),
-						'placeholder' 	=> 'https://'
-					),
-					'headline' => array(
-						'label' 		=> __('Headline', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'post_title',
-						'instructions' 	=> __('Headline of the movie.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'alternativeHeadline' => array(
-						'label' 		=> __('Alternative Headline', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'disabled',
-						'instructions' 	=> __('Secondary title for this movie.', 'schema-premium')
-					),
-					'name' => array(
-						'label' 		=> __('Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'post_title',
-						'instructions' 	=> __('The name of the movie.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'image' => array(
-						'label' 		=> __('Image', 'schema-premium'),
-						'rangeIncludes' => array('ImageObject', 'URL'),
-						'field_type' 	=> 'image',
-						'markup_value' => 'featured_image',
-						'instructions' 	=> __('An image of the movie.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'dateCreated' => array(
-						'label'			=> __('Created Date', 'schema-premium'),
-						'rangeIncludes' => array('Date', 'DateTime'),
-						'field_type' 	=> 'date_time_picker',
-						'markup_value' => 'post_date',
-						'instructions' 	=> __('The date on which the movie was created.', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-						'required' 		=> true
-					),
-					'datePublished' => array(
-						'label'			=> __('Published Date', 'schema-premium'),
-						'rangeIncludes' => array('Date', 'DateTime'),
-						'field_type' 	=> 'date_time_picker',
-						'markup_value' => 'post_date',
-						'instructions' 	=> __('Date of first publication of this web page.', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-						'required' 		=> true
-					),
-					'dateModified' => array(
-						'label' 		=> __('Modified Date', 'schema-premium'),
-						'rangeIncludes' => array('Date', 'DateTime'),
-						'field_type' 	=> 'date_time_picker',
-						'markup_value' => 'post_modified',
-						'instructions' 	=> __('The date on which the movie or this web page was most recently modified', 'schema-premium'),
-						'display_format' => get_option( 'date_format' ), // WP
-						'return_format' => 'Y-m-d',
-					),
-					'director' => array(
-						'label' 		=> __('Director', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'new_custom_field',
-						'instructions' 	=> __('A director of e.g. tv, radio, movie, video gaming etc. content, or of an event.', 'schema-premium'),
-					),
-					'author' => array(
-						'label' 		=> __('Author Name', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'text',
-						'markup_value' => 'author_name',
-						'instructions' 	=> __('The author name of this web page.', 'schema-premium'),
-						'required' 		=> true
-					),
-					'description' => array(
-						'label' 		=> __('Description', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'textarea',
-						'markup_value' => 'post_excerpt',
-						'instructions' 	=> __('A description of the movie.', 'schema-premium'),
-					),
-					'actor' => array(
-						'label' 		=> __('Actors', 'schema-premium'),
-						'rangeIncludes' => array('Text'),
-						'field_type' 	=> 'repeater',
-						'layout'		=> 'block',
-						'markup_value' => 'new_custom_field',
-						'button_label' 	=> __('Add an actor', 'schema-premium'),
-						'instructions' 	=> __('An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.', 'schema-premium'),
-						'sub_fields' 	=>  array(
-							'actor_name' => array(
-								'label' 		=> __('Name', 'schema-premium'),
-								'rangeIncludes' => array('Text'),
-								'field_type' 	=> 'text',
-								'markup_value' => 'new_custom_field',
-								'instructions' 	=> '',
-								'placeholder' => __('Actor name', 'schema-premium'),
-							),
-						), // end sub fields
-					)
-				);
+				'actor' => array(
+					'label' 		=> __('Actors', 'schema-premium'),
+					'rangeIncludes' => array('Person'),
+					'field_type' 	=> 'repeater',
+					'layout'		=> 'block',
+					'markup_value'  => 'new_custom_field',
+					'button_label' 	=> __('Add an actor', 'schema-premium'),
+					'instructions' 	=> __('An actor, e.g. in tv, radio, movie, video games etc., or in an event. Actors can be associated with individual items or with a series, episode, clip.', 'schema-premium'),
+					'sub_fields' 	=>  array(
+						'actor_name' => array(
+							'label' 		=> __('Name', 'schema-premium'),
+							'rangeIncludes' => array('Text'),
+							'field_type' 	=> 'text',
+							'markup_value' => 'new_custom_field',
+							'instructions' 	=> '',
+							'placeholder' => __('Actor name', 'schema-premium'),
+						),
+					), // end sub fields
+				),
+				'director' => array(
+					'label' 		=> __('Director', 'schema-premium'),
+					'rangeIncludes' => array('Person'),
+					'field_type' 	=> 'text',
+					'markup_value'  => 'new_custom_field',
+					'instructions' 	=> __('A director of e.g. tv, radio, movie, video gaming etc. content, or of an event.', 'schema-premium'),
+				)
+			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_Movie', $properties );	
 		}
 		
@@ -252,34 +189,12 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 			
 			$schema = array();
 			
-			// Putting all together
-			//
-			$schema['@context'] 		=  'http://schema.org';
-			$schema['@type'] 			=  $this->type;
-		
-			$schema['mainEntityOfPage'] = array
-			(
-				'@type' => 'WebPage',
-				'@id' => get_permalink( $post->ID )
-			);
-			
 			// Get properties
+			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
 			
-			$schema['url'] 				= isset($properties['url'] ) ? $properties['url'] : get_permalink( $post->ID );
-			$schema['headline'] 		= isset($properties['headline'] ) ? $properties['headline'] : '';
-			$schema['description'] 		= isset($properties['description'] ) ? $properties['description'] : schema_wp_get_description( $post->ID );
-			$schema['name'] 			= isset($properties['name'] ) ? $properties['name'] : '';
-			$schema['image'] 			= isset($properties['image']) ? $properties['image'] : schema_wp_get_media( $post->ID );
-			
-			$schema['dateCreated']		= isset($properties['dateCreated'] ) ? $properties['dateCreated'] : get_the_date( 'c', $post->ID );
-			$schema['datePublished']	= isset($properties['datePublished'] ) ? $properties['datePublished'] : get_the_date( 'c', $post->ID );
-			$schema['dateModified']		= isset($properties['dateModified'] ) ? $properties['dateModified'] : get_post_modified_time( 'c', false, $post->ID, false );
-			
-			// Get actors
-			$schema['actor'] = $this->get_actors();
-			
 			// Get director
+			//
 			if( isset($properties['director'] ) ) { 
 				$schema['director'] = array (
 					'@type'	=> 'Person',
@@ -287,30 +202,17 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 				);
 			}
 			
-			if( isset($properties['author'] ) ) { 
-				$schema['author'] = array (
-					'@type'	=> 'Person',
-					'name'	=> $properties['author']
-				);
-			} else {
-				$schema['author'] = schema_wp_get_author_array( $post->ID );
-			}
-			
-			$schema['publisher']		= schema_wp_get_publisher_array();
-			
-			$schema['keywords']			= schema_wp_get_post_tags( $post->ID );
-			
 			// Unset auto generated properties
-			unset($properties['author']);
-			unset($properties['name']);
+			//
 			unset($properties['director']);	
 			
-			// Merge schema and properties arrays
-			// Make sure $properties is an array before merging
-			// 
-			if ( is_array($properties) ) {
-				$schema = array_merge($schema, $properties);
-			}
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+
+			// Get actors
+			//
+			$schema['actor'] = $this->get_actors($post->ID, $this->type);
 			
 			// debug
 			//echo'<pre>';print_r($schema);echo'</pre>';
@@ -335,13 +237,11 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 		* @since 1.0.0
 		* @return array
 		*/
-		public function get_actors() {
-			
-			global $post;
+		public function get_actors( $post_id, $type ) {
 			
 			$output = array();
 	
-			$count = get_post_meta( get_the_ID(), 'schema_properties_Movie_actor', true );
+			$count = get_post_meta( $post_id, 'schema_properties_'.$type.'_actor', true );
 	
 			if ( isset( $count ) && $count >= 0 ) {
 		 
@@ -349,7 +249,7 @@ if ( ! class_exists('Schema_WP_Movie') ) :
 					
 					$step_no = $i + 1;
 					
-					$name 		= get_post_meta( get_the_ID(), 'schema_properties_Movie_actor_' . $i . '_actor_name', true );
+					$name 		= get_post_meta( $post_id, 'schema_properties_'.$type.'_actor_' . $i . '_actor_name', true );
 					
 					$output[] = array
 					(

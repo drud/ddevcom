@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_Hospital') ) :
 		/** @var string Currenct Type */
     	protected $type = 'Hospital';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'EmergencyService';
+
 		/**
 	 	* Constructor
 	 	*
@@ -28,6 +31,17 @@ if ( ! class_exists('Schema_WP_Hospital') ) :
 		public function __construct () {
 		
 			// emty __construct
+		}
+
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Hospital';
 		}
 		
 		/**

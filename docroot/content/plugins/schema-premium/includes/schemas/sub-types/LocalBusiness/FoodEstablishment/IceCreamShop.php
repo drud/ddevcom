@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_IceCreamShop') ) :
 		/** @var string Currenct Type */
     	protected $type = 'IceCreamShop';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'FoodEstablishment';
+
 		/**
 	 	* Constructor
 	 	*
@@ -29,7 +32,18 @@ if ( ! class_exists('Schema_WP_IceCreamShop') ) :
 		
 			// emty __construct
 		}
-		
+				
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'IceCreamShop';
+		}
+
 		/**
 		* Get schema type label
 		*

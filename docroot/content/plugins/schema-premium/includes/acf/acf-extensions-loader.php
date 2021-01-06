@@ -46,7 +46,7 @@ class schema_acf_load_extension_fields {
 		
 		
 		// include field
-		add_action('acf/include_field_types', 	array($this, 'include_field')); // v5
+		add_action('acf/include_field_types', array($this, 'include_field')); // v5
 	}
 	
 	
@@ -71,7 +71,9 @@ class schema_acf_load_extension_fields {
 		include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-post-categories-select.php');
 		include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-currencies-select.php');
 		include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-countries-select.php');
-		include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-address.php');
+		//include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-address.php');
+		include_once( SCHEMAPREMIUM_PLUGIN_DIR . 'includes/acf/acf-extensions/acf-star-rating.php');
+		
 	}
 	
 }

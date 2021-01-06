@@ -35,8 +35,11 @@ function schema_wp_types_OpeningHoursSpecification_markup_output( $schema ) {
 	if ( empty($schema) ) return;
 	
 	$is_opennings_enable = schema_premium_meta_is_opennings();
+	
 	if ( ! in_array( $schema['@type'], $is_opennings_enable ) ) {
+		
 		// If is not in array of enabled types
+		//
 		return $schema;
 	}
 	
@@ -189,17 +192,17 @@ function schema_wp_types_acf_field_OpeningHoursSpecification() {
 	
 	if( function_exists('acf_add_local_field_group') ):
 				
-		$title = __('Opening Hours Specification', 'schema-wp-types');
+		$title = __('Opening Hours Specification', 'schema-premium');
 		
 		$message = '<span class="dashicons dashicons-clock"></span> ';
-		$message .= __('Open all day: 12:00 am - 11:59 pm ', 'schema-wp-types') . '<br />'; // line break
+		$message .= __('Open all day: 12:00 am - 11:59 pm ', 'schema-premium') . '<br />'; // line break
 		$message .= '<p class="description">';
-		$message .= __('You can add two sets of <code>open</code> and <code>close</code> hours for same day with different times to indicate that the business hours include a break. ', 'schema-wp-types') ;
-		$message .= ' <a href="#">useful details @todo</a>';
+		$message .= __('You can add two sets of <code>open</code> and <code>close</code> hours for same day with different times to indicate that the business hours include a break. ', 'schema-premium') ;
+		//$message .= ' <a href="#">useful details @todo</a>';
 		$message .= '</p>';
 		
 		$SpecialDays_message = '<p class="description">';
-		$SpecialDays_message .=  __('Use both the <code>validFrom</code> and <code>validThrough</code> properties to define seasonal hours. (example: shows a business closed for winter holidays)', 'schema-wp-types');
+		$SpecialDays_message .=  __('Use both the <code>validFrom</code> and <code>validThrough</code> properties to define seasonal hours. (example: shows a business closed for winter holidays)', 'schema-premium');
 		$SpecialDays_message .= '</p>';
 	
 		// ACF Group: openingHours
@@ -261,12 +264,12 @@ function schema_wp_types_acf_field_OpeningHoursSpecification() {
 					'min' => 0,
 					'max' => 0,
 					'layout' => 'table',
-					'button_label' => __('Add Day', 'schema-wp-types'),
+					'button_label' => __('Add Day', 'schema-premium'),
 					'sub_fields' => schema_wp_types_acf_OpeningHoursSpecification_sub_fields()
 				),
 				array (
 					'key' => 'field_schema_SpecialDays_message',
-					'label' =>  __('Special Days', 'schema-wp-types'), 
+					'label' =>  __('Special Days', 'schema-premium'), 
 					'type' => 'message',
 					'message' => $SpecialDays_message,
 				),
@@ -288,7 +291,7 @@ function schema_wp_types_acf_field_OpeningHoursSpecification() {
 					'min' => 0,
 					'max' => 0,
 					'layout' => 'table',
-					'button_label' => __('Add Date', 'schema-wp-types'),
+					'button_label' => __('Add Date', 'schema-premium'),
 					'sub_fields' => schema_wp_types_acf_SpecialDays_sub_fields()
 				),
 			),
@@ -299,11 +302,11 @@ function schema_wp_types_acf_field_OpeningHoursSpecification() {
 
 
 function schema_wp_types_acf_OpeningHoursSpecification_sub_fields() {
-				
+
 	$fields = array (
 				array (
 					'key' => 'field_OpeningHoursSpecification_days',
-					'label' => __('Days', 'schema-wp-types'),
+					'label' => __('Days', 'schema-premium'),
 					'name' => 'days',
 					'type' => 'select',
 					'instructions' => '',
@@ -315,13 +318,13 @@ function schema_wp_types_acf_OpeningHoursSpecification_sub_fields() {
 						'id' => '',
 					),
 					'choices' => array (
-						'Monday' 	=> __('Mo', 'schema-wp-types'),
-						'Tuesday' 	=> __('Tu', 'schema-wp-types'),
-						'Wednesday' => __('We', 'schema-wp-types'),
-						'Thursday' 	=> __('Th', 'schema-wp-types'),
-						'Friday' 	=> __('Fr', 'schema-wp-types'),
-						'Saturday' 	=> __('Sa', 'schema-wp-types'),
-						'Sunday' 	=> __('Su', 'schema-wp-types'),
+						'Monday' 	=> __('Mo', 'schema-premium'),
+						'Tuesday' 	=> __('Tu', 'schema-premium'),
+						'Wednesday' => __('We', 'schema-premium'),
+						'Thursday' 	=> __('Th', 'schema-premium'),
+						'Friday' 	=> __('Fr', 'schema-premium'),
+						'Saturday' 	=> __('Sa', 'schema-premium'),
+						'Sunday' 	=> __('Su', 'schema-premium'),
 					),
 					'default_value' => array (
 					),
@@ -444,8 +447,8 @@ function schema_wp_types_acf_OpeningHoursSpecification_sub_fields() {
 					'message' => '',
 					'default_value' => 0,
 					'ui' => 1,
-					'ui_on_text' => '',
-					'ui_off_text' => '',
+					'ui_on_text' => ' ',
+					'ui_off_text' => ' ',
 				),
 			);
 	
@@ -459,7 +462,7 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 	$fields = array (
 				array (
 					'key' => 'field_SpecialDays_date_from',
-					'label' => __('Date: from', 'schema-wp-types'),
+					'label' => __('Date: from', 'schema-premium'),
 					'name' => 'date_from',
 					'type' => 'date_picker',
 					'instructions' => '',
@@ -476,7 +479,7 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 				),
 				array (
 					'key' => 'field_SpecialDays_date_to',
-					'label' => __('Date: to', 'schema-wp-types'),
+					'label' => __('Date: to', 'schema-premium'),
 					'name' => 'date_to',
 					'type' => 'date_picker',
 					'instructions' => '',
@@ -493,7 +496,7 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 				),
 				array (
 					'key' => 'field_SpecialDays_time_from',
-					'label' => __('Time: from', 'schema-wp-types'),
+					'label' => __('Time: from', 'schema-premium'),
 					'name' => 'time_from',
 					'type' => 'time_picker',
 					'instructions' => '',
@@ -517,7 +520,7 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 				),
 				array (
 					'key' => 'field_SpecialDays_time_to',
-					'label' => __('Time: to', 'schema-wp-types'),
+					'label' => __('Time: to', 'schema-premium'),
 					'name' => 'time_to',
 					'type' => 'time_picker',
 					'instructions' => '',
@@ -541,7 +544,7 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 				),
 				array (
 					'key' => 'field_SpecialDays_closed',
-					'label' => __('Closed', 'schema-wp-types'),
+					'label' => __('Closed', 'schema-premium'),
 					'name' => 'closed',
 					'type' => 'true_false',
 					'instructions' => '',
@@ -555,8 +558,8 @@ function schema_wp_types_acf_SpecialDays_sub_fields() {
 					'message' => '',
 					'default_value' => 0,
 					'ui' => 1,
-					'ui_on_text' => 'Yes',
-					'ui_off_text' => 'No',
+					'ui_on_text' => ' ',
+					'ui_off_text' => ' ',
 				),
 			);
 	

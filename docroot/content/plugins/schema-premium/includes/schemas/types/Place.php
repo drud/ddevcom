@@ -15,10 +15,13 @@ if ( ! class_exists('Schema_WP_Place') ) :
 	 *
 	 * @since 1.0.0
 	 */
-	class Schema_WP_Place {
+	class Schema_WP_Place extends Schema_WP_Thing {
 		
 		/** @var string Currenct Type */
-    	protected $type = 'Place';
+		protected $type = 'Place';
+		
+		/** @var string Current Parent Type */
+    	protected $parent_type = 'Thing';
 		
 		/**
 	 	* Constructor
@@ -40,6 +43,17 @@ if ( ! class_exists('Schema_WP_Place') ) :
 			add_filter( 'schema_wp_get_default_schemas', array( $this, 'schema_type' ) );
 			add_filter( 'schema_wp_types', array( $this, 'schema_type_extend' ) );
 			add_filter( 'schema_premium_meta_is_opennings', array( $this, 'support_opennings' ) );
+		}
+		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Place';
 		}
 		
 		/**
@@ -171,30 +185,6 @@ if ( ! class_exists('Schema_WP_Place') ) :
 			
 			$properties = array (
 					
-				'name' => array(
-					'label' 		=> __('Name', 'schema-premium'),
-					'rangeIncludes' => array('Text'),
-					'field_type' 	=> 'text',
-					'markup_value' => 'post_title',
-					'instructions' 	=> __('The name of the place.', 'schema-premium'),
-					'required' 		=> true
-				),
-				'url' => array(
-					'label' 		=> __('URL', 'schema-premium'),
-					'rangeIncludes' => array('URL'),
-					'field_type' 	=> 'url',
-					'markup_value' => 'post_permalink',
-					'instructions' 	=> __('URL of the item.', 'schema-premium'),
-					'placeholder'	=> 'https://'
-				),
-				'image' => array(
-					'label' 		=> __('Image', 'schema-premium'),
-					'rangeIncludes' => array('ImageObject', 'URL'),
-					'field_type' 	=> 'image',
-					'markup_value' => 'featured_image',
-					'instructions' 	=> __('An image of the place.', 'schema-premium'),
-					'required' 		=> true
-				),
 				'telephone' => array(
 					'label' 		=> __('Telephone', 'schema-premium'),
 					'rangeIncludes' => array('Text'),
@@ -361,6 +351,14 @@ if ( ! class_exists('Schema_WP_Place') ) :
 				)
 			);
 			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( $properties, self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
 			return apply_filters( 'schema_properties_Place', $properties );	
 		}
 		
@@ -380,21 +378,10 @@ if ( ! class_exists('Schema_WP_Place') ) :
 			
 			$schema	= array();
 			
-			// Putting all together
-			//
-			$schema['@context'] =  'http://schema.org';
-			$schema['@type'] 	=  $this->type;
-			
-			$name						= schema_wp_get_the_title( $post->ID );
-			$schema['name']				= apply_filters( 'schema_wp_filter_name', $name );
-			
 			// Get properties
 			//
 			$properties = schema_wp_get_properties_markup_output( $post->ID, $this->properties(), $this->type );
-
-			$schema['url'] 				= isset($properties['url'] ) ? $properties['url'] : get_permalink( $post->ID );
-			$schema['description'] 		= isset($properties['description'] ) ? $properties['description'] : schema_wp_get_description( $post->ID );
-			$schema['image'] 			= isset($properties['image']) ? $properties['image'] : schema_wp_get_media( $post->ID );
+			
 			$schema['telephone'] 		= isset($properties['telephone'] ) ? $properties['telephone'] : get_post_meta( $post->ID , 'schema_properties_Place_telephone', true);
 			$schema['maximumAttendeeCapacity'] 		= isset($properties['maximumAttendeeCapacity'] ) ? $properties['maximumAttendeeCapacity'] : get_post_meta( $post->ID , 'schema_properties_Place_maximumAttendeeCapacity', true);
 			
@@ -454,7 +441,7 @@ if ( ! class_exists('Schema_WP_Place') ) :
 				$schema['geo']['@type'] = 'GeoCoordinates'; 
 			}
 			
-			// public Access
+			// Public Access
 			//
 			if ( isset($properties['publicAccess']) ) {
 				
@@ -468,7 +455,7 @@ if ( ! class_exists('Schema_WP_Place') ) :
 				}
 			}
 
-			// smoking Allowed
+			// Smoking Allowed
 			//
 			if ( isset($properties['smokingAllowed']) ) {
 				
@@ -482,16 +469,14 @@ if ( ! class_exists('Schema_WP_Place') ) :
 				}
 			}
 
-			// Make sure $properties is an array 
-			// 
-			if ( is_array($properties) ) {
-				$schema = array_replace_recursive( $schema, $properties );
-			}
-			
 			// Unset unwanted values
 			unset($schema['address']['streetAddress_2']);
 			unset($schema['address']['streetAddress_3']);
 
+			// Merge parent schema 
+			//
+			$schema = array_merge( parent::schema_output($post->ID), $schema );
+			
 			// Debug
 			//echo'<pre>';print_r($schema);echo'</pre>';
 			

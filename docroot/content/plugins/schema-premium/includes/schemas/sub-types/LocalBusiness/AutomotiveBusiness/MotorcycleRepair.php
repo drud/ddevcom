@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_MotorcycleRepair') ) :
 		/** @var string Currenct Type */
     	protected $type = 'MotorcycleRepair';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'LocalBusiness';
+		
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MotorcycleRepair') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MotorcycleRepair';
+		}
+
 		/**
 		* Get schema type label
 		*

@@ -20,6 +20,9 @@ if ( ! class_exists('Schema_WP_MedicalWebPage') ) :
 		/** @var string Currenct Type */
     	protected $type = 'MedicalWebPage';
 		
+		/** @var string Current Parent Type */
+		protected $parent_type = 'WebPage';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_MedicalWebPage') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'MedicalWebPage';
+		}
+
 		/**
 		* Get schema type label
 		*
@@ -50,6 +64,25 @@ if ( ! class_exists('Schema_WP_MedicalWebPage') ) :
 		public function comment() {
 			
 			return __('A web page that provides medical information.', 'schema-premium');
+		}
+
+		/**
+		* Properties
+		*
+		* @since 1.0.0
+		* @return array
+		*/
+		public function properties() {
+			
+			// Wrap properties in tabs 
+			//
+			$properties = schema_properties_wrap_in_tabs( array(), self::type(), self::label(), self::comment(), 30 );
+
+			// Merge parent properties 
+			//
+			$properties = array_merge( parent::properties(), $properties );
+
+			return apply_filters( 'schema_properties_MedicalWebPage', $properties );		
 		}
 	}
 	

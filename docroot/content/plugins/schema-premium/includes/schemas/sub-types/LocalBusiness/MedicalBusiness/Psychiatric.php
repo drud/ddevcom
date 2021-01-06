@@ -19,7 +19,10 @@ if ( ! class_exists('Schema_WP_Psychiatric') ) :
 		
 		/** @var string Currenct Type */
     	protected $type = 'Psychiatric';
-		
+			
+		/** @var string Current Parent Type */
+		protected $parent_type = 'MedicalBusiness';
+
 		/**
 	 	* Constructor
 	 	*
@@ -30,6 +33,17 @@ if ( ! class_exists('Schema_WP_Psychiatric') ) :
 			// emty __construct
 		}
 		
+		/**
+		* Get schema type 
+		*
+		* @since 1.2
+		* @return string
+		*/
+		public function type() {
+			
+			return 'Psychiatric';
+		}
+
 		/**
 		* Get schema type label
 		*
