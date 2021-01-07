@@ -4,6 +4,7 @@
  */
 
  require_once dirname(__FILE__) . '/app/post-types/job.php';
+ require_once dirname(__FILE__) . '/app/post-types/event.php';
  require_once dirname(__FILE__) . '/app/options/theme.php';
  require_once dirname(__FILE__) . '/app/options/header.php';
  require_once dirname(__FILE__) . '/app/options/footer.php';

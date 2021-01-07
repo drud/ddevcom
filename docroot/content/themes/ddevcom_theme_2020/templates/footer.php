@@ -62,16 +62,18 @@
 
   <?php if (is_active_sidebar('footer-bottom')) : ?>
 
-  <div class="container-fluid py-2 bg-dark">
-    <div class="row">
-      <div class="col-lg-12 text-center text-white">
-        <?php dynamic_sidebar('footer-bottom'); ?>
+  <div class="bg-dark">
+    <div class="container py-2">
+      <div class="row">
+        <div class="col-lg-12 text-center text-white">
+          <?php dynamic_sidebar('footer-bottom'); ?>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 text-center text-white">
-        <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
-        <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +1 (877) 228-8125</p>
+      <div class="row">
+        <div class="col-lg-12 text-center text-white">
+          <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
+          <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +1 (877) 228-8125</p>
+        </div>
       </div>
     </div>
   </div>

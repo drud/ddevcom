@@ -138,14 +138,14 @@ function display_sidebar() {
     is_page(),
     is_singular('builder'),
     is_singular('tribe_events'),
-    tribe_is_month(),
-    tribe_is_day(),
     is_singular('post'),
     is_singular('job'),
+    is_singular('event'),
     is_category(),
     is_home(),
     is_post_type_archive('post'),
     is_post_type_archive('job'),
+    is_post_type_archive('event'),
   ]);
 
   return apply_filters('sage/display_sidebar', $display);
