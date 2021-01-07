@@ -22,7 +22,7 @@ $event_id = get_the_ID();
 
 ?>
 
-<div id="tribe-events-content" class="tribe-events-single container-fluid my-2 my-lg-5">
+<div id="tribe-events-content" class="tribe-events-single container my-2 my-lg-5">
   <div class="row">
     <div class="col-12">
       <p class="tribe-events-back">
