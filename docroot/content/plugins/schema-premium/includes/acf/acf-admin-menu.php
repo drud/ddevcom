@@ -20,13 +20,13 @@ add_action( 'init', 'schema_wp_acf_admin_menu', 100 );
  *
  * return void
  */
-function schema_wp_acf_admin_menu() {
+// function schema_wp_acf_admin_menu() {
 	
-	$acf_admin_menu_show = schema_wp_get_option( 'acf_admin_menu_show' );
+// 	$acf_admin_menu_show = schema_wp_get_option( 'acf_admin_menu_show' );
 	
-	if ( function_exists( 'acf' ) && $acf_admin_menu_show != 'yes' ) {
-	// ACF is active, and setting return true!
+// 	if ( function_exists( 'acf' ) && $acf_admin_menu_show != 'yes' ) {
+// 	// ACF is active, and setting return true!
 		
-		add_filter('acf/settings/show_admin', '__return_false');
-	}
-}
+// 		add_filter('acf/settings/show_admin', '__return_false');
+// 	}
+// }

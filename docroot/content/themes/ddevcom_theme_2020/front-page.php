@@ -57,7 +57,8 @@
                           "url": "https://www.ddev.com/content/uploads/2020/08/DDEV.png",
                           "width": 160,
                           "height": 38
-                        }
+                        },
+                        "url": "https://www.ddev.com"
                       },
                       "contentUrl": "https://youtu.be/rj4WTnZcjjY",
                       "embedUrl": "https://www.youtube.com/embed/rj4WTnZcjjY"
@@ -109,7 +110,7 @@
           <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
 
             <div class="col-lg-4 d-flex">
-              <?php get_template_part('templates/content', 'card'); ?>
+              <?php get_template_part('templates/content', 'card-post'); ?>
             </div>
 
           <?php endwhile; ?>

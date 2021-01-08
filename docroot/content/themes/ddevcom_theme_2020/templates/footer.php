@@ -52,26 +52,30 @@
             </a>
           </div>
         </div>
-        <h4 class="h5 mb-3 mt-3 text-white">
+          <h4 class="h5 mb-3 mt-3 text-white">
             Sponsor DDEV on GitHub
           </h4>
-        <iframe src="https://github.com/sponsors/drud/button" title="Sponsor drud" height="35" width="116" style="border: 0;"></iframe>
+          <div class="github-sponsor">
+            <iframe src="https://github.com/sponsors/drud/button" title="Sponsor drud" height="35" width="116" style="border: 0;"></iframe>
+          </div>
       </div>
     </div>
   </div>
 
   <?php if (is_active_sidebar('footer-bottom')) : ?>
 
-  <div class="container-fluid py-2 bg-dark">
-    <div class="row">
-      <div class="col-lg-12 text-center text-white">
-        <?php dynamic_sidebar('footer-bottom'); ?>
+  <div class="bg-dark">
+    <div class="container py-2">
+      <div class="row">
+        <div class="col-lg-12 text-center text-white">
+          <?php dynamic_sidebar('footer-bottom'); ?>
+        </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="col-lg-12 text-center text-white">
-        <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
-        <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +1 (877) 228-8125</p>
+      <div class="row">
+        <div class="col-lg-12 text-center text-white">
+          <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
+          <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +01 720 226 9330</p>
+        </div>
       </div>
     </div>
   </div>
