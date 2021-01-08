@@ -57,7 +57,8 @@
                           "url": "https://www.ddev.com/content/uploads/2020/08/DDEV.png",
                           "width": 160,
                           "height": 38
-                        }
+                        },
+                        "url": "https://www.ddev.com"
                       },
                       "contentUrl": "https://youtu.be/rj4WTnZcjjY",
                       "embedUrl": "https://www.youtube.com/embed/rj4WTnZcjjY"
