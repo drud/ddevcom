@@ -22,7 +22,7 @@ add_action('init', function () {
             'menu_name'          => 'Jobs'
         ],
         'public'              => true,
-        'exclude_from_search' => true,
+        'exclude_from_search' => false,
         'publicly_queryable'  => true,
         'show_ui'             => true,
         'show_in_menu'        => true,
