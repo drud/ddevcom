@@ -11,7 +11,7 @@
               <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
                 <!-- post -->
                 <div class="col-lg-6 d-flex">
-                  <?php get_template_part('templates/content', 'card'); ?>
+                  <?php get_template_part('templates/content', 'card-post'); ?>
                 </div>
               <?php endwhile; ?>
               <div class="col-12 py-5">

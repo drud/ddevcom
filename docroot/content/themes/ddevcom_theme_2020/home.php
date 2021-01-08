@@ -16,7 +16,7 @@
                     </span>
                     <input type="text" class="form-control" name="s"/>
                     <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="button">Search</button>
+                      <button class="btn btn-secondary" type="submit">Search</button>
                     </span>
                   </div>
                 </form>
