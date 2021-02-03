@@ -1,5 +1,5 @@
 <?php 
-  $searched = $_GET['s'];
+  $searched = get_query_var('s') ?? "";
 ?>
 <section class="blog-posts">
   <div class="container">
@@ -10,21 +10,6 @@
         </div>
         <div class="row">
           <div class="col-lg-8">
-            <div class="row">
-              <div class="col">
-                <form action="/" class="mb-4">
-                  <div class="input-group input-group-lg mb-2">
-                    <span class="input-group-addon" id="sizing-addon1">
-                      <i class="fa fa-search"></i>
-                    </span>
-                    <input type="text" class="form-control" name="s" value="<?php echo $searched; ?>"/>
-                    <span class="input-group-btn">
-                      <button class="btn btn-secondary" type="submit">Search</button>
-                    </span>
-                  </div>
-                </form>
-              </div>
-            </div>
             <div class="row">
               <?php if ( have_posts() ) : while ( have_posts() ) : the_post(); ?>
                 <!-- post -->

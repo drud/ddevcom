@@ -1,4 +1,7 @@
-<?php $navClasses = is_page('ddev-live') || is_page('ddev-local') ? 'is-product' : ''; ?>
+<?php
+  $navClasses = is_page('ddev-live') || is_page('ddev-local') ? 'is-product' : '';
+  $searched = get_query_var('s') ?? "";
+?>
 <div class="<?php echo $navClasses; ?> main-navigation-wrapper d-flex bg-primary-dark py-2">
   <div class="container d-flex">
     <nav class="main-navigation">
@@ -19,6 +22,10 @@
       </div>
     </nav>
     <?php $burgerClass = is_page('ddev-live') || is_page('ddev-local') ? '' : 'd-lg-none' ?>
+    <?php $searchToggleClass = is_page('ddev-live') || is_page('ddev-local') ? 'mr-5 mr-lg-4 px-2 py-1 py-lg-2' : 'p-4 mr-5 mr-lg-0' ?>
+    <div class="main-navigation__search-toggle <?php echo $searchToggleClass; ?>">
+      <i class="fa fa-search text-white"></i>
+    </div>
     <div class="main-navigation-toggle-wrapper <?php echo $burgerClass; ?>">
         <button class="main-navigation-toggle hamburger hamburger--collapse" type="button" tabindex="0">
           <span class="hamburger-box">
@@ -28,4 +35,16 @@
     </div>
   </div>
 </div>
+<section class="header__search bg-primary-dark" aria-expanded="false">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-right">
+        <form action="/" class="mb-4">
+            <input type="text" class="form-control form-control-lg mb-3" name="s" value="<?php echo $searched ?? ""; ?>"/>
+            <button class="btn btn-primary" type="submit">Search</button> 
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
 

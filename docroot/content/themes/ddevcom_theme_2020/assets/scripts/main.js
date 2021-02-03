@@ -77,6 +77,10 @@
           $('.main-navigation-wrapper').addClass('is-open');
         });
 
+        $('.main-navigation__search-toggle').on('click', function () {
+          $('.header__search').slideToggle(200);
+        });
+
         $('.product-navigation__menu > li.menu-item-has-children').focusin(function () {
           $(this).find('.sub-menu').addClass('show');
         });
