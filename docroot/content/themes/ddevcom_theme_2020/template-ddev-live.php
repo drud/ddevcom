@@ -27,13 +27,6 @@
   </div>
 </div>
 
-<section class="bg-success p-3 text-white">
-  <div class="container">
-    ✨<strong>New feature:</strong> Get approval faster and accelerate your team’s workflow with <a class="text-white" href="#ddev-preview">DDEV Preview</a>
-    <a href="#ddev-preview" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto float-right">Learn More</a>
-  </div>
-</section>
-
 <div class="product">
   <section class="product__main-header">
     <div class="container">

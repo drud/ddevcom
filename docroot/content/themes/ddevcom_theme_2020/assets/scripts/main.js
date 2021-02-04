@@ -89,7 +89,7 @@
           $(this).find('.sub-menu').removeClass('show');
         });
 
-        $('.product-navigation-mobile-overlay').click(function () {
+        $('.product-navigation-mobile-overlay').on('click', function () {
           $('.product-navigation__menu').removeClass('show');
           $('.product-navigation-wrapper').removeClass('is-open');
         });
@@ -102,8 +102,15 @@
           autoplay: true,
           autoplaySpeed: 5000,
           arrows: false,
-
         });
+
+        $('.plan-type-radio').on('click', function() {
+          $('.plan-type-radio').prop('checked', false);
+          $(this).prop('checked', true);
+          const type = $(this).val();
+          $('.plans .card').addClass('d-none');
+          $('.plans .card' + '.' + type).removeClass('d-none');
+        })
       },
       finalize: function() {
         // JavaScript to be fired on all pages, after page specific JS is fired

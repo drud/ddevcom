@@ -1,6 +1,7 @@
 <?php
-  $navClasses = is_page('ddev-live') || is_page('ddev-local') ? 'is-product' : '';
+  $navClasses = is_page('ddev-live') || is_page('ddev-local') || is_page('ddev-preview') ? 'is-product' : '';
   $searched = get_query_var('s') ?? "";
+  $stripe_publishable = getenv('STRIPE_PUBLISHABLE_KEY');
 ?>
 <div class="<?php echo $navClasses; ?> main-navigation-wrapper d-flex bg-primary-dark py-2">
   <div class="container d-flex">
@@ -21,8 +22,8 @@
 
       </div>
     </nav>
-    <?php $burgerClass = is_page('ddev-live') || is_page('ddev-local') ? '' : 'd-lg-none' ?>
-    <?php $searchToggleClass = is_page('ddev-live') || is_page('ddev-local') ? 'mr-5 mr-lg-4 px-2 py-1 py-lg-2' : 'p-4 mr-5 mr-lg-0' ?>
+    <?php $burgerClass = is_page('ddev-live') || is_page('ddev-local') || is_page('ddev-preview') ? '' : 'd-lg-none' ?>
+    <?php $searchToggleClass = is_page('ddev-live') || is_page('ddev-local') || is_page('ddev-preview') ? 'mr-5 mr-lg-4 px-2 py-1 py-lg-2' : 'p-4 mr-5 mr-lg-0' ?>
     <div class="main-navigation__search-toggle <?php echo $searchToggleClass; ?>">
       <i class="fa fa-search text-white"></i>
     </div>
@@ -47,4 +48,12 @@
     </div>
   </div>
 </section>
+
+<section class="bg-primary-light p-3 text-white">
+  <div class="container">
+    ✨<strong>Save time and money:</strong> Get approval faster and accelerate your team’s workflow with <a class="text-white" href="#ddev-preview">DDEV Preview, now included with DDEV Live.</a>
+    <a href="<?php echo home_url('/ddev-live#ddev-preview'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto float-right">Learn More</a>
+  </div>
+</section>
+
 
