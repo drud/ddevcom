@@ -610,6 +610,21 @@ body.ddev-local .product-navigation__menu > li:first-of-type {
   }
 }
 
+body.ddev-preview .product-navigation__menu > li:first-of-type {
+  
+  a {
+    color: theme-color('primary-light');
+  }
+
+  @include media-breakpoint-up(lg) {
+    &:hover {
+      a {
+        color: darken(theme-color('primary-light'), 5);
+      }
+    }
+  }
+}
+
 .product-navigation__menu li ul.sub-menu li a {
   transition: color $animate-duration-sm, padding-left $animate-duration-sm;
 }

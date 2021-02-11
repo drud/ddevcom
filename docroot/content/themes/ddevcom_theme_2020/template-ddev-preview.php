@@ -12,9 +12,9 @@
     </div>
     <nav class="product-navigation">
       <?php
-        if (has_nav_menu('ddev_live_navigation')) :
+        if (has_nav_menu('ddev_preview_navigation')) :
           wp_nav_menu([
-            'theme_location' => "ddev_live_navigation",
+            'theme_location' => "ddev_preview_navigation",
             'menu_class' => 'product-navigation__menu mr-auto'
           ]);
         endif;
@@ -36,7 +36,7 @@
             Sites instantly built from your pull or merge requests.
           </h1>
           <p class="product__main-header-lead p lead mb-5">
-            Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
+            Discover how leveraging GitOps through the DDEV platform can reduce friction in your development lifecycle, empowering your developers to focus on what they do best: writing code.
           </p>
           <div class="mb-5">
             <a href="<?php echo home_url('contact'); ?>" class="btn btn-primary-light btn-lg mr-2">Request a Demo</a>
@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-live.gif" alt="DDEV Live Screenshot">
+          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-preview.png" alt="DDEV Preview Screenshot">
         </div>
       </div>
     </div>

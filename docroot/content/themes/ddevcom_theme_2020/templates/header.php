@@ -52,7 +52,7 @@
 <section class="bg-primary-light p-3 text-white">
   <div class="container">
     ✨<strong>Save time and money:</strong> Get approval faster and accelerate your team’s workflow with <a class="text-white" href="#ddev-preview">DDEV Preview, now included with DDEV Live.</a>
-    <a href="<?php echo home_url('/ddev-live#ddev-preview'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto float-right">Learn More</a>
+    <a href="<?php echo home_url('/ddev-preview'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto float-right">Learn More</a>
   </div>
 </section>
 
