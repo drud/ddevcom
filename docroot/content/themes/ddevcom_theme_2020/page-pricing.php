@@ -114,7 +114,7 @@
                                 </ul>
                                 <div class="card-footer">
                                     <a
-                                        href="https://dash.ddev.com/account/login?p=<?php echo $plan->yearly->id; ?>"
+                                        href="https://dash.ddev.com/account/login?pid=<?php echo $plan->yearly->id; ?>"
                                         class="btn btn-block <?php echo $plan->is_trial ? "btn-success" : "btn-primary"; ?>"
                                     >
                                         <?php echo isset($plan->is_trial) ? "Start Free Trial" : "Get Started"; ?>
@@ -135,7 +135,7 @@
                 <p class="lead mb-4 text-muted">
                   Reach out to us with any questions, customized pricing requests, or demos.
                 </p>
-                <a href="<?php echo home_url('/contact/agencies') ?>" class="btn btn-primary">
+                <a href="<?php echo home_url('/contact/agencies-enterprises') ?>" class="btn btn-primary">
                     Contact Us Today
                 </a>
           </div>
