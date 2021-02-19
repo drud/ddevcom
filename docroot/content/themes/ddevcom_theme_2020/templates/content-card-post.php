@@ -1,4 +1,4 @@
-<div class="post-card card mb-4">
+<div class="post-card card mb-4 d-flex">
   <a href="<?php the_permalink(); ?>">
     <?php
       echo wp_get_attachment_image(get_post_thumbnail_id(), 'post-card-header', false, [

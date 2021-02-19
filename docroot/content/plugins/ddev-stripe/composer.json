@@ -1,0 +1,17 @@
+{
+    "name": "ddev/stripe",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Jed Darrohn",
+            "email": "jdarrohn@ddev.com"
+        }
+    ],
+    "require": {
+        "stripe/stripe-php": "^7.69",
+        "oscarotero/env": "^2.1"
+    },
+    "autoload": {
+        "psr-4": {"DDEV\\": "lib/"}
+    }
+}

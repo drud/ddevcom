@@ -30,6 +30,7 @@ function setup() {
     'primary_navigation' => __('Primary Navigation', 'sage'),
     'ddev_local_navigation' => __('DDEV Local Navigation', 'sage'),
     'ddev_live_navigation' => __('DDEV Live Navigation', 'sage'),
+    'ddev_preview_navigation' => __('DDEV Preview Navigation', 'sage'),
   ]);
 
   // Enable post thumbnails
