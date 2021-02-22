@@ -1609,8 +1609,7 @@
   .block-editor-link-control__search-item .block-editor-link-control__search-item-title {
     display: block;
     margin-bottom: 0.2em;
-    font-weight: 500;
-    position: relative; }
+    font-weight: 500; }
     .block-editor-link-control__search-item .block-editor-link-control__search-item-title mark {
       font-weight: 700;
       color: #000;
@@ -2335,7 +2334,7 @@ figcaption.block-editor-rich-text__editable [data-rich-text-placeholder]::before
 .block-editor-block-toolbar__slot {
   display: inline-block;
   line-height: 0; }
-  @supports (position: sticky) {
+  @supports ((position: -webkit-sticky) or (position: sticky)) {
     .block-editor-block-toolbar__slot {
       display: inline-flex; } }
 
@@ -2437,6 +2436,7 @@ figcaption.block-editor-rich-text__editable [data-rich-text-placeholder]::before
 
 .block-editor-inserter__search {
   padding: 16px;
+  position: -webkit-sticky;
   position: sticky;
   top: 0;
   background: #fff;
@@ -2517,6 +2517,7 @@ figcaption.block-editor-rich-text__editable [data-rich-text-placeholder]::before
   flex-direction: column;
   margin-top: -8px; }
   .block-editor-inserter__tabs .components-tab-panel__tabs {
+    position: -webkit-sticky;
     position: sticky;
     top: 72px;
     background: #fff;
@@ -2630,8 +2631,7 @@ figcaption.block-editor-rich-text__editable [data-rich-text-placeholder]::before
 .block-editor-inserter__tips {
   border-top: 1px solid #ddd;
   padding: 16px;
-  flex-shrink: 0;
-  position: relative; }
+  flex-shrink: 0; }
 
 .block-editor-inserter__manage-reusable-blocks-container {
   padding: 16px; }

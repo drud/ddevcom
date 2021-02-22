@@ -93,8 +93,7 @@
     "wpackagist-plugin/social-pug": "^1.6",
     "wp-media/wp-rocket": "^3.8.1",
     "wpackagist-plugin/cloudflare": "^3.8",
-    "wpackagist-plugin/redirection": "^4.9",
-    "wpackagist-plugin/wordfence": "^7.4"
+    "wpackagist-plugin/redirection": "^4.9"
   },
   "extra": {
     "installer-paths": {
