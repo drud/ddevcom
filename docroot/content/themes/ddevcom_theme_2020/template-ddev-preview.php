@@ -44,7 +44,7 @@
           </div>
         </div>
         <div class="col-lg-5">
-          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-preview.png" alt="DDEV Preview Screenshot">
+          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-preview-2021.png" alt="DDEV Preview Screenshot">
         </div>
       </div>
     </div>
