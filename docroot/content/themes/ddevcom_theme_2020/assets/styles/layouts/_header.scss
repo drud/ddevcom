@@ -133,3 +133,16 @@ nav.navbar .btn {
     width: auto;
   }
 }
+
+.header__search {
+  display: none;
+  
+  .form-control.form-control-lg {
+    background-color: rgba(0,0,0, 0.1) !important;
+    color: theme-color('light');
+
+    &:active, &:focus {
+      background-color: rgba(0,0,0, 0.1) !important;
+    }
+  }
+}

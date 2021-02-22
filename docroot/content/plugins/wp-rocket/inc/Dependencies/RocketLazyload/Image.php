@@ -2,7 +2,7 @@
 /**
  * Handles lazyloading of images
  *
- * @package RocketLazyload
+ * @package WP_Rocket\Dependencies\RocketLazyload
  */
 
 namespace WP_Rocket\Dependencies\RocketLazyload;
@@ -394,6 +394,7 @@ class Image {
 				'avia-bg-style-fixed',
 				'data-skip-lazy',
 				'skip-lazy',
+				'image-compare__',
 			]
 		);
 	}

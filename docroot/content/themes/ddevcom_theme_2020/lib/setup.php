@@ -30,6 +30,7 @@ function setup() {
     'primary_navigation' => __('Primary Navigation', 'sage'),
     'ddev_local_navigation' => __('DDEV Local Navigation', 'sage'),
     'ddev_live_navigation' => __('DDEV Live Navigation', 'sage'),
+    'ddev_preview_navigation' => __('DDEV Preview Navigation', 'sage'),
   ]);
 
   // Enable post thumbnails
@@ -164,3 +165,7 @@ function assets() {
   wp_enqueue_script('sage/js', Assets\asset_path('scripts/main.js'), ['jquery'], null, true);
 }
 add_action('wp_enqueue_scripts', __NAMESPACE__ . '\\assets', 100);
+
+// Disable XML-RPC to prevent DDoS/Brute Force attacks
+add_filter( 'xmlrpc_enabled', '__return_false' );
+
