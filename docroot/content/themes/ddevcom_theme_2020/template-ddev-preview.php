@@ -59,8 +59,8 @@
             <p class="lead text-muted mb-5">
               Plans starting at just $15 a month.
             </p>
-            <a href="<?php echo home_url('/pricing') ?>" class="btn btn-lg btn-primary-light">
-              Choose a Plan
+            <a href="<?php echo home_url('/contact') ?>" class="btn btn-lg btn-primary-light">
+              Request a Demo
             </a>
           </div>
         </div>
