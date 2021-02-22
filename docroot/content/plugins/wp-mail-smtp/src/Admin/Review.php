@@ -101,12 +101,11 @@ class Review {
 			return;
 		}
 
-		$mailer_object = wp_mail_smtp()
-			->get_providers()
-			->get_mailer( $mailer, wp_mail_smtp()->get_processor()->get_phpmailer() );
-
 		// Check if mailer setup is complete.
-		$mailer_setup_complete = ! empty( $mailer_object ) ? $mailer_object->is_mailer_complete() : false;
+		$mailer_setup_complete = wp_mail_smtp()
+			->get_providers()
+			->get_mailer( $mailer, wp_mail_smtp()->get_processor()->get_phpmailer() )
+			->is_mailer_complete();
 
 		// Skip if the mailer is not set or the plugin is active for less then a defined number of days.
 		if ( ! $mailer_setup_complete || ( $activated + ( DAY_IN_SECONDS * self::WAIT_PERIOD ) ) > time() ) {

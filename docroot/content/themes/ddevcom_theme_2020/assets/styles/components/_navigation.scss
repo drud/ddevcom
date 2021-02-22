@@ -32,14 +32,6 @@
       display: none;
     }
   }
-
-  &__search-toggle {
-    .fa-search {
-      &:hover {
-        cursor: pointer;
-      }
-    }
-  }
 }
 
 .main-navigation__menu {
@@ -605,21 +597,6 @@ body.ddev-local .product-navigation__menu > li:first-of-type {
     &:hover {
       a {
         color: darken(theme-color('primary'), 5);
-      }
-    }
-  }
-}
-
-body.ddev-preview .product-navigation__menu > li:first-of-type {
-  
-  a {
-    color: theme-color('primary-light');
-  }
-
-  @include media-breakpoint-up(lg) {
-    &:hover {
-      a {
-        color: darken(theme-color('primary-light'), 5);
       }
     }
   }

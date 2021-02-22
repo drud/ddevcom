@@ -5,7 +5,6 @@
     'after' => '</p></nav>'
   ]); ?>
 <?php endwhile; ?>
-
 <section class="front-page-jumbotron">
   <div class="jumbotron bg-primary-dark rounded-0 mb-0">
     <div class="container">

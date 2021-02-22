@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "59b863695852c7a1c48f1e1b8281f968",
+    "content-hash": "f44f6379efabd47ba38e8cf88ddaf9b2",
     "packages": [
         {
             "name": "advanced-custom-fields/advanced-custom-fields-pro",
@@ -17,16 +17,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.10.0",
+            "version": "v1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d"
+                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
-                "reference": "1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d",
+                "url": "https://api.github.com/repos/composer/installers/zipball/b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
+                "reference": "b93bcf0fa1fccb0b7d176b0967d969691cd74cca",
                 "shasum": ""
             },
             "require": {
@@ -37,18 +37,17 @@
                 "shama/baton": "*"
             },
             "require-dev": {
-                "composer/composer": "1.6.* || ^2.0",
-                "composer/semver": "^1 || ^3",
-                "phpstan/phpstan": "^0.12.55",
-                "phpstan/phpstan-phpunit": "^0.12.16",
-                "symfony/phpunit-bridge": "^4.2 || ^5",
+                "composer/composer": "1.6.* || 2.0.*@dev",
+                "composer/semver": "1.0.* || 2.0.*@dev",
+                "phpunit/phpunit": "^4.8.36",
+                "sebastian/comparator": "^1.2.4",
                 "symfony/process": "^2.3"
             },
             "type": "composer-plugin",
             "extra": {
                 "class": "Composer\\Installers\\Plugin",
                 "branch-alias": {
-                    "dev-main": "1.x-dev"
+                    "dev-master": "1.0-dev"
                 }
             },
             "autoload": {
@@ -86,7 +85,6 @@
                 "Porto",
                 "RadPHP",
                 "SMF",
-                "Starbug",
                 "Thelia",
                 "Whmcs",
                 "WolfCMS",
@@ -127,7 +125,6 @@
                 "phpbb",
                 "piwik",
                 "ppi",
-                "processwire",
                 "puppet",
                 "pxcms",
                 "reindex",
@@ -145,7 +142,7 @@
             ],
             "support": {
                 "issues": "https://github.com/composer/installers/issues",
-                "source": "https://github.com/composer/installers/tree/v1.10.0"
+                "source": "https://github.com/composer/installers/tree/v1.9.0"
             },
             "funding": [
                 {
@@ -153,15 +150,11 @@
                     "type": "custom"
                 },
                 {
-                    "url": "https://github.com/composer",
-                    "type": "github"
-                },
-                {
                     "url": "https://tidelift.com/funding/github/packagist/composer/composer",
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-14T11:07:16+00:00"
+            "time": "2020-04-07T06:57:05+00:00"
         },
         {
             "name": "gravityforms/gravityforms",
@@ -480,15 +473,15 @@
         },
         {
             "name": "roots/wordpress",
-            "version": "5.6.1",
+            "version": "5.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/WordPress/WordPress.git",
-                "reference": "5.6.1"
+                "reference": "5.6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/WordPress/WordPress/zipball/5.6.1"
+                "url": "https://api.github.com/repos/WordPress/WordPress/zipball/5.6"
             },
             "require": {
                 "php": ">=5.3.2",
@@ -531,7 +524,7 @@
                     "type": "patreon"
                 }
             ],
-            "time": "2021-02-03T21:15:13+00:00"
+            "time": "2020-12-08T22:15:57+00:00"
         },
         {
             "name": "roots/wordpress-core-installer",
@@ -668,16 +661,16 @@
         },
         {
             "name": "symfony/polyfill-ctype",
-            "version": "v1.22.0",
+            "version": "v1.20.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/polyfill-ctype.git",
-                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e"
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/c6c942b1ac76c82448322025e084cadc56048b4e",
-                "reference": "c6c942b1ac76c82448322025e084cadc56048b4e",
+                "url": "https://api.github.com/repos/symfony/polyfill-ctype/zipball/f4ba089a5b6366e453971d3aad5fe8e897b37f41",
+                "reference": "f4ba089a5b6366e453971d3aad5fe8e897b37f41",
                 "shasum": ""
             },
             "require": {
@@ -689,7 +682,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-main": "1.22-dev"
+                    "dev-main": "1.20-dev"
                 },
                 "thanks": {
                     "name": "symfony/polyfill",
@@ -727,7 +720,7 @@
                 "portable"
             ],
             "support": {
-                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.22.0"
+                "source": "https://github.com/symfony/polyfill-ctype/tree/v1.20.0"
             },
             "funding": [
                 {
@@ -743,20 +736,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-07T16:49:33+00:00"
+            "time": "2020-10-23T14:02:19+00:00"
         },
         {
             "name": "vlucas/phpdotenv",
-            "version": "v3.6.8",
+            "version": "v3.6.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/vlucas/phpdotenv.git",
-                "reference": "5e679f7616db829358341e2d5cccbd18773bdab8"
+                "reference": "2065beda6cbe75e2603686907b2e45f6f3a5ad82"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/5e679f7616db829358341e2d5cccbd18773bdab8",
-                "reference": "5e679f7616db829358341e2d5cccbd18773bdab8",
+                "url": "https://api.github.com/repos/vlucas/phpdotenv/zipball/2065beda6cbe75e2603686907b2e45f6f3a5ad82",
+                "reference": "2065beda6cbe75e2603686907b2e45f6f3a5ad82",
                 "shasum": ""
             },
             "require": {
@@ -767,7 +760,7 @@
             "require-dev": {
                 "ext-filter": "*",
                 "ext-pcre": "*",
-                "phpunit/phpunit": "^4.8.36 || ^5.7.27 || ^6.5.14 || ^7.5.20"
+                "phpunit/phpunit": "^4.8.35 || ^5.7.27 || ^6.5.6 || ^7.0"
             },
             "suggest": {
                 "ext-filter": "Required to use the boolean validator.",
@@ -808,7 +801,7 @@
             ],
             "support": {
                 "issues": "https://github.com/vlucas/phpdotenv/issues",
-                "source": "https://github.com/vlucas/phpdotenv/tree/v3.6.8"
+                "source": "https://github.com/vlucas/phpdotenv/tree/v3.6.7"
             },
             "funding": [
                 {
@@ -820,20 +813,20 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2021-01-20T14:39:46+00:00"
+            "time": "2020-07-14T19:04:52+00:00"
         },
         {
             "name": "wp-media/wp-rocket",
-            "version": "v3.8.4",
+            "version": "v3.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wp-media/wp-rocket.git",
-                "reference": "53565c7d66266fb84aa26cf701fcfa55f8604dc3"
+                "reference": "3f4de3116cbd9c97f1ac5bff0002f31587353d1d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/53565c7d66266fb84aa26cf701fcfa55f8604dc3",
-                "reference": "53565c7d66266fb84aa26cf701fcfa55f8604dc3",
+                "url": "https://api.github.com/repos/wp-media/wp-rocket/zipball/3f4de3116cbd9c97f1ac5bff0002f31587353d1d",
+                "reference": "3f4de3116cbd9c97f1ac5bff0002f31587353d1d",
                 "shasum": ""
             },
             "require": {
@@ -844,7 +837,7 @@
             },
             "require-dev": {
                 "brain/monkey": "^2.0",
-                "coenjacobs/mozart": "^0.7",
+                "coenjacobs/mozart": "0.6.0-beta-3",
                 "dealerdirect/phpcodesniffer-composer-installer": "^0.7.0",
                 "mikey179/vfsstream": "^1.6",
                 "mnsami/composer-custom-directory-installer": "^2.0",
@@ -938,7 +931,7 @@
                 "issues": "https://github.com/wp-media/wp-rocket/issues",
                 "source": "https://github.com/wp-media/wp-rocket"
             },
-            "time": "2021-02-04T16:12:13+00:00"
+            "time": "2020-12-22T10:20:11+00:00"
         },
         {
             "name": "wpackagist-plugin/autodescription",
@@ -978,15 +971,15 @@
         },
         {
             "name": "wpackagist-plugin/cloudflare",
-            "version": "3.8.9",
+            "version": "3.8.7",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/cloudflare/",
-                "reference": "tags/3.8.9"
+                "reference": "tags/3.8.7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/cloudflare.3.8.9.zip"
+                "url": "https://downloads.wordpress.org/plugin/cloudflare.3.8.7.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1068,15 +1061,15 @@
         },
         {
             "name": "wpackagist-plugin/stackable-ultimate-gutenberg-blocks",
-            "version": "2.13.4",
+            "version": "2.13.2",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/stackable-ultimate-gutenberg-blocks/",
-                "reference": "tags/2.13.4"
+                "reference": "tags/2.13.2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/stackable-ultimate-gutenberg-blocks.2.13.4.zip"
+                "url": "https://downloads.wordpress.org/plugin/stackable-ultimate-gutenberg-blocks.2.13.2.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
@@ -1104,39 +1097,21 @@
         },
         {
             "name": "wpackagist-plugin/the-events-calendar",
-            "version": "5.3.2.1",
+            "version": "5.3.1.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/the-events-calendar/",
-                "reference": "tags/5.3.2.1"
+                "reference": "tags/5.3.1.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.3.2.1.zip"
+                "url": "https://downloads.wordpress.org/plugin/the-events-calendar.5.3.1.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"
             },
             "type": "wordpress-plugin",
             "homepage": "https://wordpress.org/plugins/the-events-calendar/"
-        },
-        {
-            "name": "wpackagist-plugin/wordfence",
-            "version": "7.4.14",
-            "source": {
-                "type": "svn",
-                "url": "https://plugins.svn.wordpress.org/wordfence/",
-                "reference": "tags/7.4.14"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wordfence.7.4.14.zip"
-            },
-            "require": {
-                "composer/installers": "~1.0"
-            },
-            "type": "wordpress-plugin",
-            "homepage": "https://wordpress.org/plugins/wordfence/"
         },
         {
             "name": "wpackagist-plugin/wordpress-importer",
@@ -1176,15 +1151,15 @@
         },
         {
             "name": "wpackagist-plugin/wp-mail-smtp",
-            "version": "2.6.0",
+            "version": "2.5.1",
             "source": {
                 "type": "svn",
                 "url": "https://plugins.svn.wordpress.org/wp-mail-smtp/",
-                "reference": "tags/2.6.0"
+                "reference": "tags/2.5.1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.2.6.0.zip"
+                "url": "https://downloads.wordpress.org/plugin/wp-mail-smtp.2.5.1.zip"
             },
             "require": {
                 "composer/installers": "~1.0"

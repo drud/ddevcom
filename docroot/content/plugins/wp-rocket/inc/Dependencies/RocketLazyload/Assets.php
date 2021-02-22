@@ -2,7 +2,7 @@
 /**
  * Handle the lazyload required assets: inline CSS and JS
  *
- * @package WP_Rocket\Dependencies\RocketLazyload
+ * @package RocketLazyload
  */
 
 namespace WP_Rocket\Dependencies\RocketLazyload;

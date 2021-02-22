@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'fa887fc527729e1767ba8549a70d153635780a15',
+    'reference' => '12155b48c245f5e4bb57eccfe3470d84098d5e2a',
     'name' => 'newmediadenver/wp',
   ),
   'versions' => 
@@ -45,12 +45,12 @@ private static $installed = array (
     ),
     'composer/installers' => 
     array (
-      'pretty_version' => 'v1.10.0',
-      'version' => '1.10.0.0',
+      'pretty_version' => 'v1.9.0',
+      'version' => '1.9.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '1a0357fccad9d1cc1ea0c9a05b8847fbccccb78d',
+      'reference' => 'b93bcf0fa1fccb0b7d176b0967d969691cd74cca',
     ),
     'gravityforms/gravityforms' => 
     array (
@@ -84,7 +84,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'fa887fc527729e1767ba8549a70d153635780a15',
+      'reference' => '12155b48c245f5e4bb57eccfe3470d84098d5e2a',
     ),
     'oscarotero/env' => 
     array (
@@ -131,12 +131,12 @@ private static $installed = array (
     ),
     'roots/wordpress' => 
     array (
-      'pretty_version' => '5.6.1',
-      'version' => '5.6.1.0',
+      'pretty_version' => '5.6',
+      'version' => '5.6.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5.6.1',
+      'reference' => '5.6',
     ),
     'roots/wordpress-core-installer' => 
     array (
@@ -172,30 +172,30 @@ private static $installed = array (
     ),
     'symfony/polyfill-ctype' => 
     array (
-      'pretty_version' => 'v1.22.0',
-      'version' => '1.22.0.0',
+      'pretty_version' => 'v1.20.0',
+      'version' => '1.20.0.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'c6c942b1ac76c82448322025e084cadc56048b4e',
+      'reference' => 'f4ba089a5b6366e453971d3aad5fe8e897b37f41',
     ),
     'vlucas/phpdotenv' => 
     array (
-      'pretty_version' => 'v3.6.8',
-      'version' => '3.6.8.0',
+      'pretty_version' => 'v3.6.7',
+      'version' => '3.6.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => '5e679f7616db829358341e2d5cccbd18773bdab8',
+      'reference' => '2065beda6cbe75e2603686907b2e45f6f3a5ad82',
     ),
     'wp-media/wp-rocket' => 
     array (
-      'pretty_version' => 'v3.8.4',
-      'version' => '3.8.4.0',
+      'pretty_version' => 'v3.8.1',
+      'version' => '3.8.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => '53565c7d66266fb84aa26cf701fcfa55f8604dc3',
+      'reference' => '3f4de3116cbd9c97f1ac5bff0002f31587353d1d',
     ),
     'wpackagist-plugin/autodescription' => 
     array (
@@ -217,12 +217,12 @@ private static $installed = array (
     ),
     'wpackagist-plugin/cloudflare' => 
     array (
-      'pretty_version' => '3.8.9',
-      'version' => '3.8.9.0',
+      'pretty_version' => '3.8.7',
+      'version' => '3.8.7.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'tags/3.8.9',
+      'reference' => 'tags/3.8.7',
     ),
     'wpackagist-plugin/google-sitemap-generator' => 
     array (
@@ -262,12 +262,12 @@ private static $installed = array (
     ),
     'wpackagist-plugin/stackable-ultimate-gutenberg-blocks' => 
     array (
-      'pretty_version' => '2.13.4',
-      'version' => '2.13.4.0',
+      'pretty_version' => '2.13.2',
+      'version' => '2.13.2.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'tags/2.13.4',
+      'reference' => 'tags/2.13.2',
     ),
     'wpackagist-plugin/stream' => 
     array (
@@ -280,12 +280,12 @@ private static $installed = array (
     ),
     'wpackagist-plugin/the-events-calendar' => 
     array (
-      'pretty_version' => '5.3.2.1',
-      'version' => '5.3.2.1',
+      'pretty_version' => '5.3.1.1',
+      'version' => '5.3.1.1',
       'aliases' => 
       array (
       ),
-      'reference' => 'tags/5.3.2.1',
+      'reference' => 'tags/5.3.1.1',
     ),
     'wpackagist-plugin/wordpress-importer' => 
     array (
@@ -307,12 +307,12 @@ private static $installed = array (
     ),
     'wpackagist-plugin/wp-mail-smtp' => 
     array (
-      'pretty_version' => '2.6.0',
-      'version' => '2.6.0.0',
+      'pretty_version' => '2.5.1',
+      'version' => '2.5.1.0',
       'aliases' => 
       array (
       ),
-      'reference' => 'tags/2.6.0',
+      'reference' => 'tags/2.5.1',
     ),
     'wpackagist-plugin/wpmandrill' => 
     array (
