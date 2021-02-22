@@ -71,7 +71,7 @@
                                 </ul>
                                 <div class="card-footer">
                                     <a
-                                        href="https://dash.ddev.com/account/login?p=<?php echo $plan->monthly->id; ?>"
+                                        href="https://dash.ddev.com/account/login?pid=<?php echo $plan->monthly->id; ?>"
                                         class="btn btn-block <?php echo $plan->is_trial ? "btn-success" : "btn-primary"; ?>"
                                     >
                                         <?php echo isset($plan->is_trial) ? "Start Free Trial" : "Get Started"; ?>

@@ -299,6 +299,23 @@
         </div>
       </div>
   </section>
+  <section class="product__features bg-primary-dark" id="ddev-preview">
+      <div class="container">
+        <div class="row">
+          <div class="col-8 text-center mx-auto">
+            <h2 class="text-white mb-4">
+              ✨ <br class="d-lg-none" />Introducing:<br class="d-lg-none" /> DDEV Preview
+            </h2>
+            <p class="text-light lead mb-5">
+              Preview is a feature set available in every plan on the DDEV platform. These features will facilitate collaboration, testing, and review without the need to configure an additional environment.
+            </p>
+            <a href="<?php echo home_url('ddev-preview') ?>" class="btn btn-primary btn-lg">
+              Learn more
+            </a>
+          </div>
+        </div>
+      </div>
+  </section>
   <section class="product__posts bg-light">
     <div class="container">
       <h2 class="text-dark text-center mb-4">Recent Posts</h2>
