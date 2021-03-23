@@ -1,11 +1,3 @@
-<?php while (have_posts()) : the_post(); ?>
-  <?php the_content(); ?>
-  <?php wp_link_pages([
-    'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'),
-    'after' => '</p></nav>'
-  ]); ?>
-<?php endwhile; ?>
-
 <section class="front-page-jumbotron">
   <div class="jumbotron bg-primary-dark rounded-0 mb-0">
     <div class="container">
@@ -90,6 +82,14 @@
     </div>
   </div>
 </section>
+
+<?php while (have_posts()) : the_post(); ?>
+  <?php the_content(); ?>
+  <?php wp_link_pages([
+    'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'),
+    'after' => '</p></nav>'
+  ]); ?>
+<?php endwhile; ?>
 
 <section class="front-page-recent-posts">
   <div class="container py-5">
