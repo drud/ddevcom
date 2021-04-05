@@ -52,12 +52,6 @@
             </a>
           </div>
         </div>
-          <h4 class="h5 mb-3 mt-3 text-white">
-            Sponsor DDEV on GitHub
-          </h4>
-          <div class="github-sponsor">
-            <iframe src="https://github.com/sponsors/drud/button" title="Sponsor drud" height="35" width="116" style="border: 0;"></iframe>
-          </div>
       </div>
     </div>
   </div>
