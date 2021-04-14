@@ -39,8 +39,7 @@
             Host Drupal, WordPress and TYPO3 sites on scalable, flexible infrastructure that just works. DDEV-Live reduces the complexity of hosting modern websites so you can focus on delivering great projects using your favorite workflows.
           </p>
           <div class="mb-5">
-            <a href="https://dash.ddev.com/pricing" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">Start a Free Trial</a>
-            <a href="https://docs.ddev.com" class="btn btn-outline-success btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
+            <a href="https://dash.ddev.com/notice" class="btn btn-success btn-lg mr-2" target="_blank" rel="noreferrer noopener">NOTICE: DDEV-Live is closing</a>
           </div>
         </div>
         <div class="col-lg-5">
@@ -213,7 +212,7 @@
             </div>
             <div class="py-5 mb-lg-5 bg-primary-dark">
                 <div class="col text-center">
-                  <a href="<?php echo home_url('contact') ?>" class="btn btn-success btn-lg mr-2">Request a Demo</a>
+                  <a href="https://www.ddev.com/notice/" class="btn btn-success btn-lg mr-2">NOTICE: DDEV-Live is closing</a>
                 </div>
               </div>
             <div class="card-body py-5">
@@ -289,8 +288,8 @@
               </div>
               <div class="row mt-5">
                 <div class="col text-lg-center">
-                  <a href="<?php echo home_url('contact'); ?>" class="btn btn-lg btn-success mr-2">
-                    Request a Demo
+                  <a href="https://www.ddev.com/notice/" class="btn btn-lg btn-success mr-2">
+                    NOTICE: DDEV-Live is closing
                   </a>
                 </div>
               </div>
