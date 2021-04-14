@@ -48,3 +48,10 @@
     </div>
   </div>
 </section>
+
+<section class="bg-primary-light p-3 text-white">
+  <div class="container">
+    <strong>Notice:</strong> DDEV-Live is ceasing operations. 
+    <a href="<?php echo home_url('/notice'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto float-right">Read More</a>
+  </div>
+</section>
