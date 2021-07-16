@@ -1,0 +1,51 @@
+stages:
+  - build
+  - deploy
+
+build_image:
+  stage: build
+  only:
+    - staging
+    - release
+  except:
+    - tags
+  tags:
+    - docker-runner
+  cache:
+    paths:
+      - .composer/cache
+      - .yarn-cache
+  script:
+    - docker login -u gitlab-ci-token -p $CI_JOB_TOKEN $CI_REGISTRY
+    - composer install --no-dev --no-progress -o
+    - composer run-script security-checks
+    - docker build --pull --build-arg gitref=`git describe --tags --always`
+      -t "$CI_REGISTRY_IMAGE":"$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY_IMAGE":"$CI_COMMIT_REF_SLUG"
+
+deploy-staging:
+  stage: deploy
+  tags:
+    - docker-runner
+  environment:
+    name: staging
+    url: https://ddev.cloud.fruitionqa.com
+  variables:
+    GIT_STRATEGY: none
+  only:
+    - staging
+  script:
+    - fru cloud:deployment:touch --ci staging ddev web
+
+deploy_production:
+  stage: deploy
+  variables:
+    GIT_STRATEGY: none
+  environment:
+    name: Production
+    url: https://ddev.prod.fruition.net
+  only:
+    - release
+  dependencies: []
+  script:
+    - fru cloud:deployment:touch --ci prod ddev web

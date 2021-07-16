@@ -1,0 +1,44 @@
+version: "2.3"
+
+services:
+  local-web:
+    environment:
+      - ENVIRONMENT=DEV
+      - HTPASSWD_USER
+      - HTPASSWD_PASSWORD
+      - CRON_OK=FALSE
+      - SERVER_ADMIN=webmaster@fruition.net
+      # Wordpress environment variables
+      - DB_PREFIX=wp_
+      - WP_ENV=DEV
+      - WP_MULTISITE=false
+      - WP_HOME=http://localhost
+      - WP_SITEURL=http://localhost/wp
+      - WP_DEBUG=true
+      - WP_DEBUG_DISPLAY=true
+      - SAVEQUERIES=true
+      - SCRIPT_DEBUG=true
+      - DISALLOW_FILE_EDIT=false
+      - DISALLOW_FILE_MODS=false
+      # Wordpress salt keys
+      - AUTH_KEY=generateme
+      - SECURE_AUTH_KEY=generateme
+      - LOGGED_IN_KEY=generateme
+      - NONCE_KEY=generateme
+      - AUTH_SALT=generateme
+      - SECURE_AUTH_SALT=generateme
+      - LOGGED_IN_SALT=generateme
+      - NONCE_SALT=generateme
+      # WP-Stateless config
+      - WP_STATELESS_MEDIA_MODE=stateless
+      - WP_STATELESS_MEDIA_BODY_REWRITE=editor
+      - WP_STATELESS_MEDIA_BODY_REWRITE_TYPES='jpg jpeg png gif pdf svg'
+      - WP_STATELESS_MEDIA_BUCKET=''
+      - WP_STATELESS_MEDIA_ROOT_DIR=uploads
+      - WP_STATELESS_MEDIA_CACHE_CONTROL='public, max-age=36000, must-revalidate'
+      - WP_STATELESS_MEDIA_DELETE_REMOTE=false
+      - WP_STATELESS_MEDIA_CACHE_BUSTING=true
+      - WP_STATELESS_MEDIA_HIDE_SETTINGS_PANEL=false
+      - WP_STATELESS_MEDIA_HIDE_SETUP_ASSISTANT=true
+      - WP_STATELESS_DYNAMIC_IMAGE_SUPPORT=true
+      - WP_STATELESS_MEDIA_JSON_KEY=''

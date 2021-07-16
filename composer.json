@@ -1,9 +1,8 @@
 {
-  "name": "newmediadenver/wp",
+  "name": "fruition/wordpress-bedrock",
   "type": "project",
   "license": "MIT",
-  "description": "RiotLabs / NewMedia's WordPress stack",
-  "homepage": "https://github.com/newmediadenver/wp",
+  "description": "WordPress Bedrock",
   "authors": [
     {
       "name": "Nathan Smith",
@@ -11,51 +10,14 @@
       "homepage": "https://github.com/alkymst"
     }
   ],
-  "keywords": [
-    "wordpress",
-    "stack",
-    "composer",
-    "vagrant",
-    "wp"
-  ],
-  "support": {
-    "issues": "https://github.com/newmediadenver/wp/issues"
-  },
-  "config": {
-    "preferred-install": "dist"
-  },
   "repositories": [
     {
       "type": "composer",
       "url": "https://wpackagist.org"
     },
     {
-      "type": "vcs",
-      "url": "https://github.com/tabrisrp/wp-background-processing"
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "gravityforms/gravityforms",
-        "type": "wordpress-plugin",
-        "version": "2.4.20",
-        "dist": {
-          "url": "https://github.com/wp-premium/gravityforms/archive/2.4.20.zip",
-          "type": "zip"
-        }
-      }
-    },
-    {
-      "type": "package",
-      "package": {
-        "name": "advanced-custom-fields/advanced-custom-fields-pro",
-        "type": "wordpress-plugin",
-        "version": "5.9.1",
-        "dist": {
-          "url": "https://github.com/wp-premium/advanced-custom-fields-pro/archive/master.zip",
-          "type": "zip"
-        }
-      }
+      "type": "composer",
+      "url": "https://composer.fruition.net/"
     },
     {
       "type": "package",
@@ -71,14 +33,24 @@
     }
   ],
   "require": {
-    "php": "^7.1",
-    "composer/installers": "^1.7",
-    "vlucas/phpdotenv": "^3.0.0",
-    "oscarotero/env": "^1.1.0",
-    "roots/wordpress": "^5.6.0",
-    "advanced-custom-fields/advanced-custom-fields-pro": "^5.9.1",
-    "gravityforms/gravityforms": "^2.4.20",
-    "roots/wp-password-bcrypt": "1.0.0",
+    "php": ">=7.2",
+    "composer/installers": "*",
+    "fruition/advanced-custom-fields-pro": "*",
+    "fruition/attach-dynamic-sidebars": "*",
+    "fruition/fruition-monitoring": "dev-master",
+    "fruition/fruition-wrkd": "*",
+    "fruition/gravityforms": "*",
+    "oscarotero/env": "*",
+    "psy/psysh": "*",
+    "roave/security-advisories": "dev-master",
+    "roots/wordpress": "*",
+    "roots/wp-config": "*",
+    "roots/wp-password-bcrypt": "*",
+    "sensiolabs/security-checker": "*",
+    "squizlabs/php_codesniffer": "*",
+    "vlucas/phpdotenv": "*",
+    "wp-cli/wp-cli-bundle": "*",
+    "wpackagist-plugin/easy-wp-smtp": "*",
     "wpackagist-plugin/stream": "^3.4",
     "wpackagist-plugin/wordpress-importer": "~0.6",
     "wpackagist-plugin/autodescription": "^4.0",
@@ -93,18 +65,63 @@
     "wpackagist-plugin/redirection": "^4.9",
     "wpackagist-plugin/wordfence": "^7.4"
   },
+  "require-dev": {
+  },
   "extra": {
     "installer-paths": {
-      "docroot/content/mu-plugins/{$name}/": [
-        "type:wordpress-muplugin"
-      ],
-      "docroot/content/plugins/{$name}/": [
-        "type:wordpress-plugin"
-      ],
-      "docroot/content/themes/{$name}/": [
-        "type:wordpress-theme"
-      ]
+      "docroot/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
+      "docroot/app/plugins/{$name}/": ["type:wordpress-plugin"],
+      "docroot/app/themes/{$name}/": ["type:wordpress-theme"]
     },
     "wordpress-install-dir": "docroot/wp"
+  },
+  "scripts": {
+    "post-update-cmd": "find ./docroot/ -name '.git' -type d -exec rm -rf '{}' +",
+    "post-install-cmd": "find ./docroot/ -name '.git' -type d -exec rm -rf '{}' +",
+    "security-checks": [
+      "local-php-security-checker"
+    ]
+  },
+  "config": {
+    "sort-packages": true,
+    "preferred-install": "dist",
+    "platform": {
+      "ext-apcu": "1",
+      "ext-bcmath": "1",
+      "ext-ctype": "1",
+      "ext-curl": "1",
+      "ext-date": "1",
+      "ext-dom": "1",
+      "ext-exif": "1",
+      "ext-fileinfo": "1",
+      "ext-filter": "1",
+      "ext-ftp": "1",
+      "ext-gd": "1",
+      "ext-hash": "1",
+      "ext-iconv": "1",
+      "ext-json": "1",
+      "ext-libxml": "1",
+      "ext-mbstring": "1",
+      "ext-mysqli": "1",
+      "ext-mysqlnd": "1",
+      "ext-openssl": "1",
+      "ext-pcntl": "1",
+      "ext-pcre": "1",
+      "ext-pdo_mysql": "1",
+      "ext-pdo_sqlite": "1",
+      "ext-posix": "1",
+      "ext-readline": "1",
+      "ext-session": "1",
+      "ext-sodium": "1",
+      "ext-sqlite3": "1",
+      "ext-standard": "1",
+      "ext-tokenizer": "1",
+      "ext-xml": "1",
+      "ext-xmlreader": "1",
+      "ext-xmlwriter": "1",
+      "ext-zip": "1",
+      "ext-zlib": "1",
+      "php": "7.2.13"
+    }
   }
 }

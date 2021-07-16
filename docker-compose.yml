@@ -1,0 +1,27 @@
+version: "2.3"
+
+services:
+  web:
+    extends:
+      file: local-env.yml
+      service: local-web
+    build:
+      context: .
+      target: base
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "127.0.0.1:80:80"
+  db:
+    image: mysql:5.7
+    ports:
+      - "127.0.0.1:3307:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=user
+      - MYSQL_DATABASE=default
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=user
+    volumes:
+      - data:/var/lib/mysql
+volumes:
+  data: {}

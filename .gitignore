@@ -1,14 +1,17 @@
 # Application
-docroot/content/upgrade
-docroot/content/uploads
+docroot/app/uploads/*
+docroot/app/upgrade/*
+docroot/app/themes/twenty*
+# docroot/app/themes/**/dist
+
+#plugins
+docroot/app/plugins/*
+!docroot/app/plugins/gravityformspolls
+!docroot/app/plugins/schema-premium
+!docroot/app/plugins/wpremote
 
 # WordPress
-docroot/.htaccess
-wp-config.php
-
-# WP-CLI
-db-sync
-sql-dump-*.sql
+docroot/wp
 
 # Dotenv
 .env
@@ -18,12 +21,15 @@ sql-dump-*.sql
 # Vendor (e.g. Composer)
 /vendor
 
-# Node Package Manager
+# Node
 node_modules
 
-# DDEV
-.ddev
-.ddev/docker-compose.yaml
-wp-config-ddev.php
+# JetBrains
+.idea
 
+# Mac
 .DS_Store
+*.sql
+/.docksal/docksal-local.env
+
+
