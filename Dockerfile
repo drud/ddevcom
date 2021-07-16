@@ -1,6 +1,6 @@
 FROM registry.fruition.net/fruition-internal/base-images:7.4-apache as base
 
-ENV WRITEABLE_DIRS docroot/app/uploads|docroot/app/wp-rocket-config|docroot/app/advanced-cache.php
+ENV WRITEABLE_DIRS docroot/app/uploads|docroot/app/wp-rocket-config|docroot/app/w3tc-config|docroot/app/wflogs
 
 #COPY docker_config/crontab.sh /etc/cron.d/wordpress
 #RUN chmod +x /etc/cron.d/wordpress

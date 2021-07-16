@@ -412,7 +412,7 @@
 * Create the navigation menus and automatically set their locations during theme activation
 * Set permalink structure to `/%year%/%postname%/`
 * Set uploads folder to `/assets/`
-* Rewrite static folders in `/wp-content/themes/roots/` (`css/`, `js/`, `img/`) to the root (`/css/`, `/js/`, `/img/`)
+* Rewrite static folders in `/wp-app/themes/roots/` (`css/`, `js/`, `img/`) to the root (`/css/`, `/js/`, `/img/`)
 * Rewrite `/wp-content/plugins/` to `/plugins/`
 * Add more root relative URLs on WordPress functions
 * Search results (`/?s=query`) rewrite to `/search/query/`

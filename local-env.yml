@@ -21,14 +21,14 @@ services:
       - DISALLOW_FILE_EDIT=false
       - DISALLOW_FILE_MODS=false
       # Wordpress salt keys
-      - AUTH_KEY='N#]1;,/|@ymZ=s3.`/?!a5sLO399YsemyO4w:|WkW$?J;)yB4#kc;tn>B_7{J?*)'
-      - SECURE_AUTH_KEY='7m^:FXui^Qwc%h.6HZM/BNtXo:?W9vw7+?o@QNPmi)>Dx7?#}6/.PA2E==c0NGKI'
-      - LOGGED_IN_KEY='pAf$M2l-L5]zTm,Dlb#6*!)hNRzH[HVsG6.Ek4fN}bRhf*=`^z,0P}3|!jfDFQMH'
-      - NONCE_KEY='$aV(hA!a|;iB3]4;]f7`Kr[D1m,$/gXOo9mF!VWedsiDMGCCsyMF62eGE}jf*oC6'
-      - AUTH_SALT='gk2*1{PFd1X/|OX8$P*=%QewT857(1$bAf)O51#QBA^WC{Pbdy0xpKF@:D7A%9]t'
-      - SECURE_AUTH_SALT='$e;MuGHj/uO=i&U)/!o>R1XN9}ENy[EO[|x@RkY6@Nz6A2uV.bt|XU8`#lZQ{Hc6'
-      - LOGGED_IN_SALT='id!]MfLE.}]GZ;YF9yd5H9Qqkm}m(ONOSP^!BGOZPw!ijK*re3v@.DG|ZV56=b>s'
-      - NONCE_SALT='qT%m`%?C(xrJ.%Tdb16QlDIf*MP51U&66jGZO5e#d,8+3AGFk(#L4Zjchdbd65v4'
+      - AUTH_KEY=generateme
+      - SECURE_AUTH_KEY=generateme
+      - LOGGED_IN_KEY=generateme
+      - NONCE_KEY=generateme
+      - AUTH_SALT=generateme
+      - SECURE_AUTH_SALT=generateme
+      - LOGGED_IN_SALT=generateme
+      - NONCE_SALT=generateme
       # WP-Stateless config
       - WP_STATELESS_MEDIA_MODE=stateless
       - WP_STATELESS_MEDIA_BODY_REWRITE=editor

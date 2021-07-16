@@ -41,7 +41,7 @@
                       "description": "Learn about the DDEV platform in 90 seconds",
                       "thumbnailUrl": "https://ddev.com/content/uploads/2020/10/YouTube-Screenshot.png",
                       "uploadDate": "2018-04-05",
-                      "duration": "PT1M28S",  
+                      "duration": "PT1M28S",
                       "publisher": {
                         "@type": "Organization",
                         "name": "Drud Technology",
@@ -57,23 +57,23 @@
                       "embedUrl": "https://www.youtube.com/embed/rj4WTnZcjjY"
                     }
                   </script>
-                
+
                   <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
               <?php endif; ?>
               <p class="text-light text-center">Proudly supporting:</p>
               <div class="row mb-3">
                 <div class="col-3 text-center">
-                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
+                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
                 </div>
                 <div class="col-3 text-center">
-                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
+                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
                 </div>
                 <div class="col-3 text-center">
-                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="TYPO3" class="img-fluid">
+                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="TYPO3" class="img-fluid">
                 </div>
                 <div class="col-3 text-center">
-                  <img src="/content/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
+                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
                 </div>
               </div>
             </div>

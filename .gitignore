@@ -3,6 +3,8 @@ docroot/app/uploads/*
 docroot/app/upgrade/*
 docroot/app/themes/twenty*
 # docroot/app/themes/**/dist
+docroot/app/w3tc-config
+docroot/app/wflogs
 
 #plugins
 docroot/app/mu-plugins/**
@@ -10,6 +12,7 @@ docroot/app/plugins/**
 !docroot/app/plugins/gravityformspolls
 !docroot/app/plugins/schema-premium
 !docroot/app/plugins/wpremote
+!docroot/app/plugins/ddev-stripe
 
 # WordPress
 docroot/wp

@@ -149,7 +149,7 @@
   <div class="container-fluid bg-primary py-4">
     <div class="row">
       <div class="col-lg-9 mx-auto text-center">
-        <img src="/content/themes/ddevcom_theme_2020/dist/images/drupalcon-2018-logo.svg" alt="DrupalCon Nashville 2018"
+        <img src="/app/themes/ddevcom_theme_2020/dist/images/drupalcon-2018-logo.svg" alt="DrupalCon Nashville 2018"
           class="persona-type-drupalcon-logo mr-3" width="80">
         <p class="h3 text-white mb-4 mb-md-0 d-md-inline drupalcon-cta">
           <?php the_field('persona_type_drupalcon_cta'); ?>

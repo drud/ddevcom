@@ -7,7 +7,7 @@
   <div class="container d-flex">
     <nav class="main-navigation">
       <a class="main-navigation__logo" href="<?= home_url('/'); ?>">
-        <img src="/content/themes/ddevcom_theme_2020/dist/images/ddev-logo.svg" width="200" alt="DDEV">
+        <img src="/app/themes/ddevcom_theme_2020/dist/images/ddev-logo.svg" width="200" alt="DDEV">
       </a>
       <div class="main-navigation__menu-wrapper">
 
@@ -42,7 +42,7 @@
       <div class="col-12 text-right">
         <form action="/" class="mb-4">
             <input type="text" class="form-control form-control-lg mb-3" name="s" value="<?php echo $searched ?? ""; ?>"/>
-            <button class="btn btn-primary" type="submit">Search</button> 
+            <button class="btn btn-primary" type="submit">Search</button>
         </form>
       </div>
     </div>
@@ -51,7 +51,7 @@
 
 <section class="bg-primary-light p-3 text-white">
   <div class="container">
-    <strong>Notice:</strong> DDEV-Live is ceasing operations. 
+    <strong>Notice:</strong> DDEV-Live is ceasing operations.
     <a href="<?php echo home_url('/notice'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto">Read More</a>
   </div>
 </section>
