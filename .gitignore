@@ -5,7 +5,8 @@ docroot/app/themes/twenty*
 # docroot/app/themes/**/dist
 
 #plugins
-docroot/app/plugins/*
+docroot/app/mu-plugins/**
+docroot/app/plugins/**
 !docroot/app/plugins/gravityformspolls
 !docroot/app/plugins/schema-premium
 !docroot/app/plugins/wpremote
