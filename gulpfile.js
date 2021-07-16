@@ -1,1 +1,1 @@
-docroot/content/themes/ddevcom_theme_2020/gulpfile.js
+docroot/app/themes/ddevcom_theme_2020/gulpfile.js
