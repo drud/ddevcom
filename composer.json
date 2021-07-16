@@ -47,7 +47,6 @@
     "roots/wp-config": "*",
     "roots/wp-password-bcrypt": "*",
     "sensiolabs/security-checker": "*",
-    "squizlabs/php_codesniffer": "*",
     "vlucas/phpdotenv": "*",
     "wp-cli/wp-cli-bundle": "*",
     "wpackagist-plugin/easy-wp-smtp": "*",
@@ -65,13 +64,18 @@
     "wpackagist-plugin/redirection": "^4.9",
     "wpackagist-plugin/wordfence": "^7.4"
   },
-  "require-dev": {
-  },
+  "require-dev": {},
   "extra": {
     "installer-paths": {
-      "docroot/app/mu-plugins/{$name}/": ["type:wordpress-muplugin"],
-      "docroot/app/plugins/{$name}/": ["type:wordpress-plugin"],
-      "docroot/app/themes/{$name}/": ["type:wordpress-theme"]
+      "docroot/app/mu-plugins/{$name}/": [
+        "type:wordpress-muplugin"
+      ],
+      "docroot/app/plugins/{$name}/": [
+        "type:wordpress-plugin"
+      ],
+      "docroot/app/themes/{$name}/": [
+        "type:wordpress-theme"
+      ]
     },
     "wordpress-install-dir": "docroot/wp"
   },
