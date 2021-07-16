@@ -1,3 +1,6 @@
 .git
 .docksal
 *.sql
+docroot/app/wflogs/**
+docroot/app/w3tc-config/**
+docroot/app/wp-rocket-config/**
