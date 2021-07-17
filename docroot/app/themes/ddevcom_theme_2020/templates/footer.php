@@ -67,8 +67,8 @@
       </div>
       <div class="row">
         <div class="col-lg-12 text-center text-white">
-          <p class="mb-0 small">© <?= date('Y'); ?> Drud Technology, LLC</p>
-          <p class="mb-0 small">1290 Broadway Suite 1150 Denver CO 80203 USA | +01 720 226 9330</p>
+          <p class="mb-0 small">© <?= date('Y'); ?> Fruition Growth, LLC</p>
+          <p class="mb-0 small">616 E. Speer Blvd Denver CO 80203 USA | +01 303 395 1880</p>
         </div>
       </div>
     </div>
