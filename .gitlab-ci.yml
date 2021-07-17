@@ -43,7 +43,7 @@ deploy_production:
     GIT_STRATEGY: none
   environment:
     name: Production
-    url: https://ddev.prod.fruition.net
+    url: https://ddev.com
   only:
     - release
   dependencies: []
