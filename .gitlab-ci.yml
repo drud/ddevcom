@@ -35,7 +35,7 @@ deploy-staging:
   only:
     - staging
   script:
-    - fru cloud:deployment:touch --ci staging ddev web
+    - fru cloud:deployment:touch --ci staging ddevcom web
 
 deploy_production:
   stage: deploy
@@ -48,4 +48,4 @@ deploy_production:
     - release
   dependencies: []
   script:
-    - fru cloud:deployment:touch --ci prod ddev web
+    - fru cloud:deployment:touch --ci prod ddevcom web
