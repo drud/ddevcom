@@ -12,9 +12,9 @@
       <div class="main-navigation__menu-wrapper">
 
         <?php
-          if (has_nav_menu('primary_navigation')) :
+          if (has_nav_menu('ddev_local_navigation')) :
             wp_nav_menu([
-              'theme_location' => 'primary_navigation',
+              'theme_location' => "ddev_local_navigation",
               'menu_class' => 'main-navigation__menu mr-auto'
             ]);
           endif;
@@ -46,12 +46,5 @@
         </form>
       </div>
     </div>
-  </div>
-</section>
-
-<section class="bg-primary-light p-3 text-white">
-  <div class="container">
-    <strong>Notice:</strong> DDEV-Live is ceasing operations.
-    <a href="<?php echo home_url('/notice'); ?>" id="btn-cta-preview" class="btn btn-outline-light btn-sm mg-left-auto">Read More</a>
   </div>
 </section>

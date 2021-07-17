@@ -1,179 +1,348 @@
-<section class="front-page-jumbotron">
-  <div class="jumbotron bg-primary-dark rounded-0 mb-0">
+<?php
+/**
+ * Template Name: DDEV Local Template
+ */
+?>
+
+<div class="product">
+  <section class="product__main-header">
     <div class="container">
       <div class="row">
-          <div class="col-lg-7">
-            <header>
-              <h1 class="text-white mb-4 display-4">
-                <?php the_field('front_page_jumbotron_header'); ?>
-              </h1>
-            </header>
-            <div class="text-light lead mb-5">
-              <?php the_field('front_page_jumbotron_content'); ?>
-            </div>
-
-            <div class="buttons mb-5">
-              <?php $button_1_link = get_field('front_page_jumbotron_button_1_link'); ?>
-              <?php $button_2_link = get_field('front_page_jumbotron_button_2_link'); ?>
-
-              <?php if ($button_1_link) : ?>
-                <a href="<?= $button_1_link['url']; ?>" class="btn btn-success btn-lg <?php echo $button_2_link ? 'mr-2' : ''; ?>">
-                  <?= $button_1_link['title']; ?>
-                </a>
-              <?php endif; ?>
-
-              <?php if ($button_2_link) : ?>
-                <a href="<?= $button_2_link['url']; ?>" class="btn btn-primary btn-lg">
-                  <?= $button_2_link['title']; ?>
-                </a>
-              <?php endif; ?>
+        <div class="col-lg-7">
+          <p class="product__main-header-heading">
+            Meet your new local development environment.
+          </p>
+          <p class="product__main-header-lead lead mb-5">
+            DDEV simplifies integrating the power and consistency of containerization into your workflows. Set up environments in minutes; switch contexts and projects quickly and easily; speed your time to deployment. We handle the complexity. You get on with the valuable part of your job.
+          </p>
+          <div class="mb-5">
+            <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
+            <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
+          </div>
+        </div>
+        <div class="col-lg-5">
+          <img class="product__screenshot" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/ddev-local.gif" alt="DDEV Local Screenshot">
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="product__features">
+      <div class="container">
+        <div class="row product__supporting">
+          <div class="col-lg-7 product__supporting-col pr-lg-5">
+            <p class="h4 text-center mb-4">Proudly supporting:</p>
+            <div class="row pb-lg-5 mb-5 mb-lg-0">
+              <div class="col-3 col-lg">
+                <img data-toggle="popover" data-content="Drupal 7 & 8" data-placement="top" class="product__supporting-logo" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-drupal.svg" alt="Drupal">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="WordPress" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-wordpress.svg" alt="WordPress">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" data-toggle="popover"  data-content="TYPO3" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-typo3.svg" alt="TYPO3">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Magento" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-magento-supported.svg" alt="Magento">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Backdrop" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-backdrop-cms.svg" alt="Magento">
+              </div>
+              <div class="col-3 col-lg">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="PHP" data-placement="top"  src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-php.svg" alt="PHP">
+              </div>
             </div>
           </div>
-          <div class="col-lg-5 d-lg-flex flex-direction-lg-column">
-            <div class="my-auto w-100">
-              <?php if (get_field('front_page_video_embed_url')) : ?>
-                <div class="video-wrapper mb-4">
-                  <script type="application/ld+json">
-                    {
-                      "@context": "https://schema.org",
-                      "@type": "VideoObject",
-                      "name": "DDEV",
-                      "description": "Learn about the DDEV platform in 90 seconds",
-                      "thumbnailUrl": "https://ddev.com/content/uploads/2020/10/YouTube-Screenshot.png",
-                      "uploadDate": "2018-04-05",
-                      "duration": "PT1M28S",
-                      "publisher": {
-                        "@type": "Organization",
-                        "name": "Drud Technology",
-                        "logo": {
-                          "@type": "ImageObject",
-                          "url": "https://www.ddev.com/content/uploads/2020/08/DDEV.png",
-                          "width": 160,
-                          "height": 38
-                        },
-                        "url": "https://www.ddev.com"
-                      },
-                      "contentUrl": "https://youtu.be/rj4WTnZcjjY",
-                      "embedUrl": "https://www.youtube.com/embed/rj4WTnZcjjY"
-                    }
-                  </script>
-
-                  <iframe width="560" height="315" src="<?php the_field('front_page_video_embed_url'); ?>?modestbranding=1&showinfo=0&rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          <div class="col-lg-5 pl-lg-5">
+            <p class="h4 text-center mb-4">On the horizon:</p>
+            <div class="row mb-5">
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Node" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-node.svg" alt="Node">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: React" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-react.svg" alt="React">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Vue.js" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-vue.svg" alt="Vue.js">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Python" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-python.svg" alt="Python">
+              </div>
+              <div class="col-3 col-lg mx-auto">
+                <img class="product__supporting-logo" data-toggle="popover" data-content="Coming Soon: Ember" data-placement="top" src="<?php echo get_stylesheet_directory_uri(); ?>/dist/images/2020-ember.svg" alt="Ember">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row mt-3 mt-lg-5">
+          <div class="product__feature-card card w-100">
+            <div class="card-header">
+              <h2>Key Features</h2>
+            </div>
+            <div class="card-body py-5">
+              <div class="row mb-lg-5">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-clock-o text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Simplify your workflow
+                  </h3>
+                  <p class="product__feature-description">
+                    Make your changes, check in your code, dispose of the environment, move on to the next one!
+                  </p>
                 </div>
-              <?php endif; ?>
-              <p class="text-light text-center">Proudly supporting:</p>
-              <div class="row mb-3">
-                <div class="col-3 text-center">
-                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-drupal-light.svg" alt="Drupal" class="img-fluid">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-long-arrow-right text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Deployment in seconds
+                  </h3>
+                  <p class="product__feature-description">
+                  Rapid, simple deployment leads to faster feedback loops and 100-200x increases in code deployment frequency.
+                  </p>
                 </div>
-                <div class="col-3 text-center">
-                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-wordpress-light.svg" alt="WordPress" class="img-fluid">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-bolt text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Onboarding made easy
+                  </h3>
+                  <p class="product__feature-description">
+                    Shorten the time to first production commit from days or weeks to mere hours under real-world agency conditions.
+                  </p>
                 </div>
-                <div class="col-3 text-center">
-                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-typo3-light.svg" alt="TYPO3" class="img-fluid">
+              </div>
+              <div class="row mb-lg-5">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-code text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Multiple deployment
+                  </h3>
+                  <p class="product__feature-description">
+                  The DDEV platform can be integrated with other local development environments and hosting providers to create the deployment scenario of your dreams.
+                  </p>
                 </div>
-                <div class="col-3 text-center">
-                  <img src="/app/themes/ddevcom_theme_2020/dist/images/2020-php-light.svg" alt="PHP" class="img-fluid">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-cloud-upload text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Open source for open source
+                  </h3>
+                  <p class="product__feature-description">
+                    You chose to work with open source CMSs for good reasons. DDEV-Local is licensed with the open source Apache 2.0 license and is free to use, modify, and pass on to others.
+                  </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-certificate text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Multiple CMS Platform Support
+                  </h3>
+                  <p class="product__feature-description">
+                    DDEV currently comes with preconfigured environments for Drupal 6/7/8, TYPO3 CMS, Backdrop CMS, WordPress, Magento and other PHP applications.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="py-5 mb-lg-5 bg-primary-dark">
+                <div class="col text-center">
+                  <a href="<?php echo home_url('get-started'); ?>" class="btn btn-light btn-lg mr-2">Get Started</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-light btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
+                </div>
+              </div>
+            <div class="card-body py-5">
+              <div class="row mb-lg-5">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-code text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Reduce complexity
+                  </h3>
+                  <p class="product__feature-description">
+                    Docker configuration, container access, and dependency management are fully supported. We’ve got your back.
+                  </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-check-circle text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Tool consistency
+                  </h3>
+                  <p class="product__feature-description">
+                    DDEV supports recent versions of macOS, Windows 10, and Linux distributions that will run Docker.
+                  </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-cubes text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Identical environments
+                  </h3>
+                  <p class="product__feature-description">
+                    From your local machine, to testing/QA, to live production, control your configuration and ensure parity across your environments.
+                  </p>
+                </div>
+              </div>
+              <div class="row mb-lg-5">
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-heartbeat text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Dedicated support and maintenance
+                  </h3>
+                  <p class="product__feature-description">
+                    The roots of DDEV are in our collective experience in digital agencies, enterprise businesses and open source communities. DDEV is structured around the needs of our core users, informed by our passion for people, process and principles.
+                  </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-diamond text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Tried and true
+                  </h3>
+                  <p class="product__feature-description">
+                    Built on sturdy, industry-standard technologies, including open source projects like Docker and Go.
+                  </p>
+                </div>
+                <div class="col-12 col-lg-4">
+                  <div class="product__feature-icon mb-2">
+                    <i class="fa fa-2x fa-certificate text-dark"></i>
+                  </div>
+                  <h3 class="product__feature-heading mb-4">
+                    Focused on simplicity
+                  </h3>
+                  <p class="product__feature-description">
+                    Opinionated architecture, with a focus on ease of use for daily tasks, but flexible enough to cede configuration control and adapt when you need to customize.
+                  </p>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col text-lg-center">
+                  <a href="<?php echo home_url('get-started'); ?>" class="btn btn-primary btn-lg mr-2">Get Started</a>
+                  <a href="https://ddev.readthedocs.io/" class="btn btn-outline-primary btn-lg" target="_blank" rel="noreferrer noopener">Documentation</a>
                 </div>
               </div>
             </div>
           </div>
+        </div>
       </div>
-    </div>
-  </div>
-</section>
+  </section>
+  <section class="product__posts bg-light">
+    <div class="container">
+      <h2 class="text-dark text-center mb-4">Recent Posts</h2>
 
-<?php while (have_posts()) : the_post(); ?>
-  <?php the_content(); ?>
-  <?php wp_link_pages([
-    'before' => '<nav class="page-nav"><p>' . __('Pages:', 'sage'),
-    'after' => '</p></nav>'
-  ]); ?>
-<?php endwhile; ?>
+      <?php
+        $args = [
+          'posts_per_page' => 3,
+          'post_type' => 'post',
+          'tax_query' => [
+            [
+              'taxonomy' => 'category',
+              'field' => 'slug',
+              'terms' => 'ddev-local',
+            ]
+          ],
+        ];
 
-<section class="front-page-recent-posts">
-  <div class="container py-5">
-    <div class="row">
-      <?php $slug = get_post_field('post_name', get_post()); ?>
-      <div class="col-lg-12 mx-auto">
-        <header>
-          <h2 class="text-primary text-center mb-4">Recent Posts</h2>
-        </header>
-        <div class="row">
-          <?php
-          $args = [
-            'post_type' => 'post',
-            'posts_per_page' => 6
-          ];
-          $query = new WP_Query($args);
-          ?>
+        $query = new WP_Query($args);
+        ?>
 
-          <?php if ($query->have_posts()) : while ($query->have_posts()) : $query->the_post(); ?>
-
-            <div class="col-lg-4 d-flex">
-              <?php get_template_part('templates/content', 'card-post'); ?>
-            </div>
-
-          <?php endwhile; ?>
-          <!-- post navigation -->
-        <?php else : ?>
-          <!-- no posts found -->
+        <?php if ($query->have_posts()) : ?>
+          <div class="row">
+            <?php while ($query->have_posts()) : $query->the_post(); ?>
+              <div class="col-lg-4 d-flex">
+                <div class="post-card card mb-4">
+                  <a href="<?php the_permalink(); ?>">
+                    <?php
+                      echo wp_get_attachment_image(get_post_thumbnail_id(), 'post-card-header', false, [
+                        'class' => 'post-card__header-image card-img-top img-fluid'
+                      ]);
+                    ?>
+                  </a>
+                  <div class="card-body">
+                    <p class="post-card__date"><?php the_date(); ?></p>
+                    <h3 class="post-card__title h4 card-title">
+                      <a class="tetn-success" href="<?php the_permalink(); ?>">
+                        <?php the_title(); ?>
+                      </a>
+                      </h3>
+                  </div>
+                  <div class="post-card__footer card-footer text-muted">
+                    <img class="rounded-circle" width="30" src="<?php echo get_avatar_url(get_the_author_meta('ID')); ?>" alt="<?= get_the_author_meta('display_name'); ?>">
+                    <?= __('By', 'sage'); ?> <a href="<?= get_author_posts_url(get_the_author_meta('ID')); ?>" rel="author" class="text-muted d-inline-block mt-2"><?= get_the_author_meta('display_name'); ?></a>
+                  </div>
+                </div>
+              </div>
+            <?php endwhile; ?>
+          </div>
         <?php endif; ?>
-
-        <?php wp_reset_query(); ?>
-
+      <div class="row mt-5">
+        <div class="col text-center">
+          <a href="http://eepurl.com/dlqkUD" class="btn btn-lg btn-primary">
+            Join Our Newsletter
+          </a>
         </div>
       </div>
     </div>
-    <div class="row mt-5">
-      <div class="col text-center">
-        <a class="btn btn-lg btn-primary-dark" href="http://eepurl.com/dlqkUD" target="_blank" rel="noreferrer noopener">
-          Join Our Newsletter
-        </a>
+  </section>
+  <section class="product__connect bg-primary-dark">
+    <div class="container">
+      <div class="row">
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-github-alt product__connect-icon green"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            GitHub
+          </h3>
+          <p class="product__connect-body mb-5">
+            Want to see what we're doing? Check us out on GitHub!
+          </p>
+          <a href="https://github.com/drud/ddev" class="btn btn-lg btn-primary">
+            View GitHub
+          </a>
+        </div>
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-comments-o product__connect-icon blue"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            Contributions
+          </h3>
+          <p class="product__connect-body mb-5">
+            A number of vetted user-contributed recipes for extending and using ddev. Your contributions are welcome.
+          </p>
+          <a href="https://github.com/drud/ddev-contrib" class="btn btn-lg btn-primary">
+            View contributions
+          </a>
+        </div>
+        <div class="col col-lg-4">
+          <p>
+            <i class="fa fa-2x fa-fire product__connect-icon pink"></i>
+          </p>
+          <h3 class="product__connect-heading text-white mb-3">
+            Awesome DDEV
+          </h3>
+          <p class="product__connect-body mb-5">
+            Check out loads of external resources, blog posts, recipes, screencasts, and the like.
+          </p>
+          <a href="https://github.com/drud/awesome-ddev" class="btn btn-lg btn-primary">
+            View Awesome DDEV
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+</div>
 
-<section class="front-page-events events bg-primary-dark">
-  <div class="container py-5">
-
-    <?php if (is_active_sidebar('front-page-events')) : ?>
-      <?php dynamic_sidebar('front-page-events'); ?>
-    <?php endif; ?>
-
-  </div>
-</section>
-
-<?php if (get_field('front_page_tweets')) : ?>
-
-<section class="front-page-tweets bg-light py-5">
-  <div class="container">
-    <div class="row">
-
-
-        <?php if (get_field('front_page_tweets_header')) : ?>
-          <h3 class="text-primary text-center mb-4 mx-auto"><?php the_field('front_page_tweets_header'); ?></h3>
-        <?php endif; ?>
-
-        <div class="card-deck">
-
-          <?php if (have_rows('front_page_tweets')) : ?>
-            <?php while (have_rows('front_page_tweets')) : ?>
-              <?php the_row(); ?>
-
-                <div class="card rounded-0 border-0 bg-light">
-                  <?php the_sub_field('tweet_embed_code'); ?>
-                </div>
-
-            <?php endwhile; ?>
-          <?php endif; ?>
-
-
-
-      </div>
-    </div>
-  </div>
-</section>
-
-<?php endif; ?>
