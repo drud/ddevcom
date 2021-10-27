@@ -42,7 +42,7 @@ deploy_production:
   variables:
     GIT_STRATEGY: none
   environment:
-    name: Production
+    name: production
     url: https://ddev.com
   only:
     - release
